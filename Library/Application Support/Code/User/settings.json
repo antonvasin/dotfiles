@@ -1,0 +1,199 @@
+{
+  "editor.snippetSuggestions": "top",
+  "editor.fontFamily": "'Fira Code', Monaco, monospace",
+  "editor.fontLigatures": true,
+  "editor.fontSize": 13,
+  "editor.tabSize": 2,
+  "search.useIgnoreFiles": true,
+  "vim.leader": ",",
+  "vim.hlsearch": true,
+  "vim.useSystemClipboard": true,
+  "vim.useCtrlKeys": true,
+  "vim.normalModeKeyBindings": [
+    {
+      "before": ["<leader>", "s"],
+      "commands": ["editor.action.rename"]
+    },
+    {
+      "before": ["<leader>", "l"],
+      "commands": ["editor.action.toggleRenderWhitespace"]
+    },
+    {
+      "before": ["<leader>", "r"],
+      "commands": ["editor.action.referenceSearch.trigger"]
+    },
+    {
+      "before": ["<leader>", "<space>"],
+      "commands": [":nohl"]
+    },
+    {
+      "before": ["[", "e"],
+      "after": ["d", "d", "k", "P"]
+    },
+    {
+      "before": ["]", "e"],
+      "after": ["d", "d", "p"]
+    },
+    {
+      "before": [";"],
+      "commands": ["workbench.action.showCommands"]
+    },
+    {
+      "before": ["<leader>", "o"],
+      "commands": [":only"]
+    },
+    {
+      "before": ["<leader>", "g", "s"],
+      "commands": ["gitlens.showQuickRepoStatus"]
+    },
+    {
+      "before": ["<leader>", "a"],
+      "commands": ["alternate.createAlternateFile"]
+    },
+    {
+      "before": ["<leader>", "A"],
+      "commands": ["alternate.createAlternateFileInSplit"]
+    },
+    {
+      "before": ["<leader>", "d"],
+      "commands": ["editor.action.peekDefinition"]
+    },
+    {
+      "before": ["<leader>", "v"],
+      "commands": ["workbench.action.togglePanelPosition"]
+    },
+    {
+      "before": ["<leader>", "w"],
+      "commands": ["cSpell.addWordToUserDictionary"]
+    },
+    {
+      "before": ["u"],
+      "commands": ["undo"]
+    },
+    {
+      "before": ["<C-r>"],
+      "commands": ["redo"]
+    },
+    {
+      "before": ["<C-n>"],
+      "commands": ["search.action.focusNextSearchResult"]
+    },
+    {
+      "before": ["<C-p>"],
+      "commands": ["search.action.focusPrevSearchResult"]
+    }
+  ],
+  "workbench.colorTheme": "Nova",
+  "vim.enableNeovim": true,
+  "vim.neovimPath": "/usr/local/bin/nvim",
+  "editor.minimap.enabled": false,
+  "files.insertFinalNewline": true,
+  "files.trimTrailingWhitespace": true,
+  "files.trimFinalNewlines": true,
+  "explorer.confirmDragAndDrop": false,
+  "git.enableSmartCommit": true,
+  "git.autofetch": true,
+  "workbench.startupEditor": "newUntitledFile",
+  "editor.wordWrap": "on",
+  "workbench.editor.labelFormat": "short",
+  "editor.lineNumbers": "relative",
+  "explorer.confirmDelete": false,
+  "window.zoomLevel": 0,
+  "emojisense.languages": {
+    "markdown": true,
+    "javascript": true,
+    "typescriptreact": true,
+    "typescript": true,
+    "plaintext": {
+      "markupCompletionsEnabled": false,
+      "emojiDecoratorsEnabled": false
+    },
+    "git-commit": true
+  },
+  "files.exclude": {
+    "**/.git": true,
+    "**/.svn": true,
+    "**/.hg": true,
+    "**/CVS": true,
+    "**/.DS_Store": true,
+    "**/node_modules": true
+  },
+  "gitlens.advanced.messages": {
+    "suppressCommitHasNoPreviousCommitWarning": false,
+    "suppressCommitNotFoundWarning": false,
+    "suppressFileNotUnderSourceControlWarning": false,
+    "suppressGitVersionWarning": false,
+    "suppressLineUncommittedWarning": false,
+    "suppressNoRepositoryWarning": false,
+    "suppressResultsExplorerNotice": false,
+    "suppressShowKeyBindingsNotice": true
+  },
+  "gitlens.hovers.currentLine.over": "line",
+  "workbench.statusBar.feedback.visible": false,
+  "npm.enableScriptExplorer": true,
+  "workbench.sideBar.location": "right",
+  "typescript.updateImportsOnFileMove.enabled": "always",
+  "files.associations": {
+    "differential*": "markdown",
+    "Dockerfile.*": "dockerfile",
+    "zsh*": "shellscript",
+    "Brewfile": "ruby",
+    "Cakefile": "coffeescript"
+  },
+  "gitlens.statusBar.enabled": false,
+  "[typescript]": {},
+  "editor.renderWhitespace": "none",
+  "breadcrumbs.enabled": true,
+  "search.exclude": {
+    "*.log": true,
+    "**/build": true,
+    "**/dist": true
+  },
+  "editor.formatOnSave": true,
+  "search.quickOpen.includeHistory": false,
+  "vim.disableExtension": false,
+  "vim.autoSwitchInputMethod.enable": true,
+  "vim.autoSwitchInputMethod.obtainIMCmd": "/usr/local/bin/im-select",
+  "vim.autoSwitchInputMethod.switchIMCmd": "/usr/local/bin/im-select {im}",
+  "vim.autoSwitchInputMethod.defaultIM": "com.apple.keylayout.ABC",
+  "jest.autoEnable": false,
+  "search.showLineNumbers": true,
+  "workbench.editor.highlightModifiedTabs": true,
+  "files.eol": "\n",
+  "jest.enableCodeLens": false,
+  "gitlens.codeLens.enabled": false,
+  "gitlens.currentLine.enabled": false,
+  "gitlens.views.fileHistory.location": "scm",
+  "gitlens.views.lineHistory.location": "scm",
+  "reason_language_server.opens_codelens": false,
+  "reason_language_server.dependencies_codelens": false,
+  "prettier.singleQuote": true,
+  "prettier.printWidth": 100,
+  "cSpell.ignoreRegExpList": ["^(import|declare).+"],
+  "cSpell.userWords": [
+    "Arial",
+    "Roboto",
+    "Segoe",
+    "Stas",
+    "droppable",
+    "selectable",
+    "transparentize",
+    "unpublish",
+    "выверенно",
+    "рендерит",
+    "токене"
+  ],
+  "cSpell.allowCompoundWords": true,
+  "cSpell.logLevel": "None",
+  "cSpell.showStatus": false,
+  "cSpell.maxNumberOfProblems": 500,
+  "eslint.validate": ["javascript", "javascriptreact", "typescript", "typescriptreact"],
+  "diffEditor.ignoreTrimWhitespace": true,
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "workbench.editor.showTabs": false
+}

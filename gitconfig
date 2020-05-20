@@ -1,0 +1,98 @@
+[user]
+	useConfigOnly = true
+[github]
+  user = antonvasin
+[core]
+  excludesfile = ~/dotfiles/gitignore
+[color]
+  pager = true
+  ui = auto
+  status = auto
+  diff = auto
+  branch = auto
+  showBranch = auto
+  interactive = auto
+  grep = auto
+[color "status"]
+  header = black bold
+  branch = cyan
+  nobranch = red
+  unmerged = red
+  untracked = cyan
+  added = green
+  changed = red bold
+[color "diff"]
+  meta = red bold
+  frag = black bold
+  func = blue
+  old = red strike
+  new = green
+  commit = blue
+  whitespace = red
+  context = normal
+[color "branch"]
+  current = cyan
+  local = blue
+  remote = magenta
+  upstream = magenta
+  plain = normal
+[color "decorate"]
+  branch = blue
+  remoteBranch = magenta
+  tag = magenta
+  stash = cyan
+  HEAD = blue
+[color "interactive"]
+  prompt = red
+  header = red bold
+  error = red
+  help = black bold
+[color "grep"]
+  context = normal
+  match = cyan
+  filename = blue
+  function = blue
+  selected = normal
+  separator = red bold
+  linenumber = normal
+[alias]
+  hist = log --pretty=format:\"%h - %s [%an] (%cr)\" --graph --date=short
+  lnm = log --no-merges --first-parent
+  status = status -sb
+  # remove all local branches included in the current branch
+  cleanup = !sh -c 'git branch --merged | grep -E "^[^*]" --exclude "^\\s*master" | xargs -n1 git branch -d'
+  # Show the diff between the latest commit and the current state
+  d = !"git diff-index --quiet HEAD -- || clear; git diff --patch-with-stat"
+  # `git di $number` shows the diff between the state `$number` revisions ago and the current state
+  di = !"d() { git diff --patch-with-stat HEAD~$1; }; git diff-index --quiet HEAD -- || clear; d"
+  latest = describe master
+  save = stash save --include-untracked
+  freeze = update-index --assume-unchanged
+  unfreeze = update-index --no-assume-unchanged
+  remaster = rebase origin/master
+	identity = "! git config user.name \"$(git config user.$1.name)\"; git config user.email \"$(git config user.$1.email)\"; git config user.signingkey \"$(git config user.$1.signingkey)\"; :"
+[credential]
+	helper = osxkeychain
+[branch]
+  autosetuprebase = always
+[hub]
+  protocol = https
+[diff]
+  tool = vimdiff
+[grep]
+  lineNumber = true
+[push]
+  default = simple
+  followTags = true
+[rerere]
+  enabled = true
+[remote "origin"]
+	prune = true
+[user "gitlab"]
+	name = Anton Vasin
+	email = antonvasin@readymag.com
+	signkey = 32969F49AEB189A6
+[user "github"]
+	name = Anton Vasin
+	email = antonvasin@me.com
+	signkey = 8FED95E82E9F4692

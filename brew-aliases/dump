@@ -1,0 +1,12 @@
+#! /bin/bash
+# alias: brew dump
+#
+# This is a Homebrew alias script. It'll be called when the
+# user type `brew dump`. Any remaining argument is
+# passed to this script. You can retrieve those with $*, or
+# the first one only with $1. Please keep your script on
+# one line.
+
+# TODO Replace the line below with your script
+(cd ~ && brew bundle dump --force)
+echo 'Saved all current dependencies to ~/Brewfile'

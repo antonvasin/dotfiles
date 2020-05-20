@@ -1,0 +1,7 @@
+vim/tmp/
+vim/bundle/
+vim/spell/
+vim/colors/
+phoenix.js
+phoenix/dist
+config/karabiner/automatic_backups

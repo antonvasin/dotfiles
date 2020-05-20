@@ -1,0 +1,23 @@
+{
+  "name": "phoenix",
+  "private": true,
+  "version": "1.0.0",
+  "license": "MIT",
+  "dependencies": {
+    "phoenix-typings": "mafredri/phoenix-typings",
+    "typescript": "^3.3.3333"
+  },
+  "scripts": {
+    "lint": "eslint",
+    "build": "tsc",
+    "dev": "tsc -w"
+  },
+  "devDependencies": {
+    "@types/lodash": "^4.14.121",
+    "@typescript-eslint/eslint-plugin": "^1.4.2",
+    "@typescript-eslint/parser": "^1.4.2",
+    "eslint": "^5.15.1",
+    "eslint-config-prettier": "^4.1.0",
+    "prettier": "^1.16.4"
+  }
+}

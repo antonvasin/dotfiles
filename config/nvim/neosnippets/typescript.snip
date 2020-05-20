@@ -1,0 +1,30 @@
+snippet     tslint
+abbr        tslint:disable
+options     head
+  /* tslint:disable${0:TARGET} */
+
+snippet     tsline
+abbr        don’t lint next line
+options     head
+  /* tslint:disable-next-line${0:TARGET} */
+
+snippet     test
+alias       it
+abbr        test() block
+options     word
+  test('${1}', () => {
+    ${0:TARGET}
+  });
+
+snippet     desc
+abbr        describe() block
+options     word
+  describe('${1}', () => {
+    ${0:TARGET}
+  });
+
+snippet     action
+abbr        action creator
+options     word
+  export const ${1} = (${2}) => ({${0}});
+

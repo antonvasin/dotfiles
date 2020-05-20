@@ -1,0 +1,110 @@
+snippet     props
+options     word
+  this.props.${0:TARGET}
+
+snippet     sfc
+abbr        SFC
+options     head
+  const ${1:Component}: React.SFC = props => (
+    ${0:TARGET}
+  );
+
+snippet     ssfc
+abbr        SFC
+options     head
+  import * as React from 'react';
+
+  const ${1:Component}: React.SFC<${2:Props}> = (props) => (
+    ${0:TARGET}
+  )
+
+  export default $1;
+
+snippet     state
+options     word
+  this.state
+
+snippet     component
+abbr        React.Component
+options     head
+  class ${1:Component} extends React.Component<${2:Props}> {
+    render() {
+      ${0:TARGET}
+    }
+  }
+
+snippet     cwm
+abbr        componentWillMount
+options     head
+  componentWillMount() {
+    ${0:TARGET}
+  }
+
+snippet     cdm
+abbr        componentDidMount
+options     head
+  componentDidMount() {
+    ${0:TARGET}
+  }
+
+snippet     cwr
+abbr        componentWillReceiveProps
+options     head
+  componentWillReceiveProps(${1:nextProps}) {
+    ${0:TARGET}
+  }
+
+snippet     scu
+abbr        shouldComponentUpdate
+options     head
+  shouldComponentUpdate(${1:nextProps}${2:, nextState}) {
+    ${0:TARGET}
+  }
+
+snippet     cwu
+abbr        componentWillUpdate
+options     head
+  componentWillUpdate(${1:nextProps}${2:, nextState}) {
+    ${0:TARGET}
+  }
+
+snippet     cdu
+abbr        componentDidUpdate
+options     head
+  componentDidUpdate(${1:prevProps}${2:, prevState}) {
+    ${0:TARGET}
+  }
+
+snippet     cwun
+abbr        componentWillUnmount
+options     head
+  componentWillUnmount() {
+    ${0:TARGET}
+  }
+
+snippet     cdc
+abbr        componentDidCatch
+options     head
+  componentDidCatch(${1:error}${2:, info}) {
+    ${0:TARGET}
+  }
+
+snippet     TODO
+abbr        TODO:
+options     word
+  // TODO: ${0:TARGET}
+
+snippet     react
+abbr        import React
+options     head
+  import * as React from 'react';
+
+snippet     F
+abbr        import FormattedMessage
+options     head
+  import { FormattedMessage as F } from 'react-intl';
+
+snippet     f
+abbr        <F ... />
+options     word
+  <F id="${1:id}" defaultMessage="${2}"/>
