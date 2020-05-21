@@ -407,6 +407,7 @@ autocmd BufRead,BufNewFile *.jenkinsfile set ft=groovy
 autocmd BufRead,BufNewFile *.tpl set ft=html
 autocmd BufRead,BufNewFile *.coffee set noexpandtab
 autocmd BufRead,BufNewFile tsconfig*.json set filetype=jsonc
+autocmd BufRead,BufNewFile *.plist set filetype=xml
 
 let g:scratch_autohide = 0
 
