@@ -41,5 +41,5 @@
   "git.gitlab.hosts": [
     "gitlab.com"
   ],
-  "tsserver.log": "normal"
+  "tsserver.log": "normal",
 }
