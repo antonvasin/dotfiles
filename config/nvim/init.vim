@@ -31,7 +31,7 @@ Plug 'tpope/vim-speeddating'
 Plug 'tpope/vim-eunuch'
 Plug 'bronson/vim-visual-star-search'
 Plug 'Shougo/vimproc.vim', { 'do': 'make' }
-Plug 'lyokha/vim-xkbswitch'
+" Plug 'lyokha/vim-xkbswitch'
 
 Plug '/usr/local/opt/fzf'
 Plug 'junegunn/fzf.vim'
@@ -339,9 +339,9 @@ nnoremap <leader>a :Rg<space>
 nnoremap <leader>wa :wa<cr>
 nnoremap <leader>qq :qa!<cr>
 
-nmap <leader>s <Plug>(coc-rename)
-nmap <leader>d <Plug>(coc-definition)
-nmap <leader>t <Plug>(coc-type-definition)
+nnoremap <leader>s <Plug>(coc-rename)
+nnoremap <leader>d <Plug>(coc-definition)
+nnoremap <leader>t <Plug>(coc-type-definition)
 vmap <C-j> <Plug>(coc-snippets-select)
 nnoremap <leader>k <Plug>(coc-diagnostic-info)
 nnoremap <leader>. :CocAction<cr>
@@ -496,5 +496,6 @@ command! -nargs=0 Prettier :CocCommand prettier.formatFile
 let g:coc_global_extensions = ['coc-prettier', 'coc-git', 'coc-eslint', 'coc-emoji', 'coc-tsserver', 'coc-json', 'coc-html', 'coc-css', 'coc-yaml', 'coc-emmet', 'coc-snippets', 'coc-svg', 'coc-reason', 'coc-markdownlint']
 
 " xkbswitch
+" let g:XkbSwitchLib = '/usr/local/lib/libInputSourceSwitcher.dylib'
 let g:XkbSwitchEnabled = 1
 let g:XkbSwitchIMappings = ['ru']
