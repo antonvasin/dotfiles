@@ -42,4 +42,7 @@
     "gitlab.com"
   ],
   "tsserver.log": "normal",
+  "snippets.extends": {
+    "typescript": ["javascript"]
+  }
 }

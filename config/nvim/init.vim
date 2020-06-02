@@ -339,9 +339,9 @@ nnoremap <leader>a :Rg<space>
 nnoremap <leader>wa :wa<cr>
 nnoremap <leader>qq :qa!<cr>
 
-nnoremap <leader>s <Plug>(coc-rename)
-nnoremap <leader>d <Plug>(coc-definition)
-nnoremap <leader>t <Plug>(coc-type-definition)
+nmap <leader>s <Plug>(coc-rename)
+nmap <leader>d <Plug>(coc-definition)
+nmap <leader>t <Plug>(coc-type-definition)
 vmap <C-j> <Plug>(coc-snippets-select)
 nnoremap <leader>k <Plug>(coc-diagnostic-info)
 nnoremap <leader>. :CocAction<cr>
