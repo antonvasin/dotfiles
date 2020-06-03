@@ -22,6 +22,7 @@ brew "neovim", args: ["HEAD"]
 brew "prettyping"
 brew "python"
 brew "ripgrep"
+brew "switchaudio-osx"
 brew "tldr"
 brew "watchman"
 brew "wget"
