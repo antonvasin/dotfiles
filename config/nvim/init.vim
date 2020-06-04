@@ -43,8 +43,8 @@ Plug 'kristijanhusak/vim-carbon-now-sh'
 
 " syntax, linters and language plugins
 Plug 'rizzatti/dash.vim'
-" Plug 'guns/vim-sexp'
-" Plug 'tpope/vim-sexp-mappings-for-regular-people'
+Plug 'guns/vim-sexp'
+Plug 'tpope/vim-sexp-mappings-for-regular-people'
 Plug 'kana/vim-textobj-user'
 Plug 'sheerun/vim-polyglot'
 Plug 'mattn/emmet-vim'
@@ -343,6 +343,7 @@ nmap <leader>s <Plug>(coc-rename)
 nmap <leader>d <Plug>(coc-definition)
 nmap <leader>t <Plug>(coc-type-definition)
 vmap <C-j> <Plug>(coc-snippets-select)
+imap <C-j> <Plug>(coc-snippets-expand-jump)
 nnoremap <leader>k <Plug>(coc-diagnostic-info)
 nnoremap <leader>. :CocAction<cr>
 nnoremap <leader>o :only<cr>
