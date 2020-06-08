@@ -32,6 +32,7 @@ Plug 'tpope/vim-eunuch'
 Plug 'bronson/vim-visual-star-search'
 Plug 'Shougo/vimproc.vim', { 'do': 'make' }
 " Plug 'lyokha/vim-xkbswitch'
+Plug 'ruanyl/vim-gh-line'
 
 Plug '/usr/local/opt/fzf'
 Plug 'junegunn/fzf.vim'
