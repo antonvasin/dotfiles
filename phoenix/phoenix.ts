@@ -162,7 +162,7 @@ const keys = {
   z: ['Slack'],
   n: ['Notion'],
   e: ['Visual Studio Code', 'Oni'],
-  r: ['Reminders'],
+  r: ['Roam'],
   m: ['Mail'],
   i: ['Music'],
   v: ['Sketch'],
