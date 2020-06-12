@@ -94,3 +94,5 @@
 [user "github"]
 	name = Anton Vasin
 	email = antonvasin@me.com
+[init]
+	templateDir = /Users/antonvasin/.config/git/template
