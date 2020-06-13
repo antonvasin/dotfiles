@@ -32,6 +32,9 @@ export PATH="/usr/local/bin:/usr/local/sbin:$HOME/.config/yarn/global/node_modul
 # code
 export PATH="/Applications/Visual Studio Code.app/Contents/Resources/app/bin:$PATH"
 
+# doom-emacs
+export PATH="$HOME/.emacs.d/bin:$PATH"
+
 # gnu utils
 # export PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
 # export PATH="/usr/local/opt/gnu-sed/libexec/gnubin:$PATH"
