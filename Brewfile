@@ -32,7 +32,7 @@ brew "tldr"
 brew "watchman"
 brew "wget"
 brew "zsh"
-brew "d12frosted/emacs-plus/emacs-plus"
+brew "d12frosted/emacs-plus/emacs-plus@26", link: false
 brew "jakehilborn/jakehilborn/displayplacer"
 brew "thoughtbot/formulae/rcm"
 cask "dash"
