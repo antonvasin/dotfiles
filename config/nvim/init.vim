@@ -300,8 +300,8 @@ nnoremap <C-l> <C-w>l
 
 nnoremap <Right> <C-W>>
 nnoremap <Left> <C-W><
-nnoremap <Up> <C-W>+
-nnoremap <Down> <C-W>-
+nnoremap <Up> <C-W>-
+nnoremap <Down> <C-W>+
 
 " Treat warped lines as regular lines
 nnoremap j gj
