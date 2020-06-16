@@ -501,3 +501,14 @@ let g:coc_global_extensions = ['coc-prettier', 'coc-git', 'coc-eslint', 'coc-emo
 " let g:XkbSwitchLib = '/usr/local/lib/libInputSourceSwitcher.dylib'
 let g:XkbSwitchEnabled = 1
 let g:XkbSwitchIMappings = ['ru']
+
+" vim-test
+nmap <silent> t<C-n> :TestNearest<CR>
+nmap <silent> t<C-f> :TestFile<CR>
+nmap <silent> t<C-s> :TestSuite<CR>
+nmap <silent> t<C-l> :TestLast<CR>
+nmap <silent> t<C-g> :TestVisit<CR>
+au TermOpen * setlocal nonumber norelativenumber
+let test#strategy = "neovim"
+let test#neovim#term_position = 'vert'
+let test#javascript#jest#options = '--watch'
