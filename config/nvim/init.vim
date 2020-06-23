@@ -326,7 +326,8 @@ nnoremap <c-t> :FZF<CR>
 nnoremap s :w<cr>
 
 " Leader maps
-let mapleader = ","
+nnoremap <SPACE> <Nop>
+let mapleader = " "
 nnoremap <leader>l :set list!<cr> \| :IndentLinesToggle<cr>
 nnoremap <leader><space> :nohl<cr>
 noremap <leader>u :MundoToggle<cr>
