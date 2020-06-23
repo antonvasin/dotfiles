@@ -1,6 +1,6 @@
 {
   "editor.snippetSuggestions": "top",
-  "editor.fontFamily": "'Fira Code', Monaco, monospace",
+  "editor.fontFamily": "'JetBrains Mono', Monaco, monospace",
   "editor.fontLigatures": true,
   "editor.fontSize": 13,
   "editor.tabSize": 2,
@@ -9,81 +9,92 @@
   "vim.hlsearch": true,
   "vim.useSystemClipboard": true,
   "vim.useCtrlKeys": true,
-  "vim.normalModeKeyBindings": [
+  "vim.normalModeKeyBindingsNonRecursive": [
     {
-      "before": ["<leader>", "s"],
-      "commands": ["editor.action.rename"]
-    },
-    {
-      "before": ["<leader>", "l"],
-      "commands": ["editor.action.toggleRenderWhitespace"]
-    },
-    {
-      "before": ["<leader>", "r"],
-      "commands": ["editor.action.referenceSearch.trigger"]
-    },
-    {
-      "before": ["<leader>", "<space>"],
-      "commands": [":nohl"]
-    },
-    {
-      "before": ["[", "e"],
-      "after": ["d", "d", "k", "P"]
-    },
-    {
-      "before": ["]", "e"],
-      "after": ["d", "d", "p"]
-    },
-    {
-      "before": [";"],
-      "commands": ["workbench.action.showCommands"]
-    },
-    {
-      "before": ["<leader>", "o"],
-      "commands": [":only"]
-    },
-    {
-      "before": ["<leader>", "g", "s"],
-      "commands": ["gitlens.showQuickRepoStatus"]
-    },
-    {
-      "before": ["<leader>", "a"],
-      "commands": ["alternate.createAlternateFile"]
-    },
-    {
-      "before": ["<leader>", "A"],
-      "commands": ["alternate.createAlternateFileInSplit"]
-    },
-    {
-      "before": ["<leader>", "d"],
-      "commands": ["editor.action.peekDefinition"]
-    },
-    {
-      "before": ["<leader>", "v"],
-      "commands": ["workbench.action.togglePanelPosition"]
-    },
-    {
-      "before": ["<leader>", "w"],
-      "commands": ["cSpell.addWordToUserDictionary"]
-    },
-    {
-      "before": ["u"],
-      "commands": ["undo"]
-    },
-    {
-      "before": ["<C-r>"],
-      "commands": ["redo"]
-    },
-    {
-      "before": ["<C-n>"],
-      "commands": ["search.action.focusNextSearchResult"]
-    },
-    {
-      "before": ["<C-p>"],
-      "commands": ["search.action.focusPrevSearchResult"]
+      "before": ["<space>"],
+      "commands": ["vspacecode.space"]
     }
   ],
-  "workbench.colorTheme": "Nova",
+  "vim.visualModeKeyBindingsNonRecursive": [
+    {
+      "before": ["<space>"],
+      "commands": ["vspacecode.space"]
+    }
+  ],
+  //   {
+  //     "before": ["<leader>", "s"],
+  //     "commands": ["editor.action.rename"]
+  //   },
+  //   {
+  //     "before": ["<leader>", "l"],
+  //     "commands": ["editor.action.toggleRenderWhitespace"]
+  //   },
+  //   {
+  //     "before": ["<leader>", "r"],
+  //     "commands": ["editor.action.referenceSearch.trigger"]
+  //   },
+  //   {
+  //     "before": ["<leader>", "<space>"],
+  //     "commands": [":nohl"]
+  //   },
+  //   {
+  //     "before": ["[", "e"],
+  //     "after": ["d", "d", "k", "P"]
+  //   },
+  //   {
+  //     "before": ["]", "e"],
+  //     "after": ["d", "d", "p"]
+  //   },
+  //   {
+  //     "before": [";"],
+  //     "commands": ["workbench.action.showCommands"]
+  //   },
+  //   {
+  //     "before": ["<leader>", "o"],
+  //     "commands": [":only"]
+  //   },
+  //   {
+  //     "before": ["<leader>", "g", "s"],
+  //     "commands": ["gitlens.showQuickRepoStatus"]
+  //   },
+  //   {
+  //     "before": ["<leader>", "a"],
+  //     "commands": ["alternate.createAlternateFile"]
+  //   },
+  //   {
+  //     "before": ["<leader>", "A"],
+  //     "commands": ["alternate.createAlternateFileInSplit"]
+  //   },
+  //   {
+  //     "before": ["<leader>", "d"],
+  //     "commands": ["editor.action.peekDefinition"]
+  //   },
+  //   {
+  //     "before": ["<leader>", "v"],
+  //     "commands": ["workbench.action.togglePanelPosition"]
+  //   },
+  //   {
+  //     "before": ["<leader>", "w"],
+  //     "commands": ["cSpell.addWordToUserDictionary"]
+  //   },
+  //   {
+  //     "before": ["u"],
+  //     "commands": ["undo"]
+  //   },
+  //   {
+  //     "before": ["<C-r>"],
+  //     "commands": ["redo"]
+  //   },
+  //   {
+  //     "before": ["<C-n>"],
+  //     "commands": ["search.action.focusNextSearchResult"]
+  //   },
+  //   {
+  //     "before": ["<C-p>"],
+  //     "commands": ["search.action.focusPrevSearchResult"]
+  //   }
+  // ],
+  // "workbench.colorTheme": "Gruvbox Dark Medium",
   "vim.enableNeovim": true,
   "vim.neovimPath": "/usr/local/bin/nvim",
   "editor.minimap.enabled": false,
@@ -129,7 +140,6 @@
     "suppressShowKeyBindingsNotice": true
   },
   "gitlens.hovers.currentLine.over": "line",
-  "workbench.statusBar.feedback.visible": false,
   "npm.enableScriptExplorer": true,
   "workbench.sideBar.location": "right",
   "typescript.updateImportsOnFileMove.enabled": "always",
@@ -152,10 +162,10 @@
   "editor.formatOnSave": true,
   "search.quickOpen.includeHistory": false,
   "vim.disableExtension": false,
-  // "vim.autoSwitchInputMethod.enable": true,
-  // "vim.autoSwitchInputMethod.obtainIMCmd": "/usr/local/bin/im-select",
-  // "vim.autoSwitchInputMethod.switchIMCmd": "/usr/local/bin/im-select {im}",
-  // "vim.autoSwitchInputMethod.defaultIM": "com.apple.keylayout.ABC",
+  "vim.autoSwitchInputMethod.enable": true,
+  "vim.autoSwitchInputMethod.obtainIMCmd": "/usr/local/bin/im-select",
+  "vim.autoSwitchInputMethod.switchIMCmd": "/usr/local/bin/im-select {im}",
+  "vim.autoSwitchInputMethod.defaultIM": "com.apple.keylayout.ABC",
   "jest.autoEnable": false,
   "search.showLineNumbers": true,
   "workbench.editor.highlightModifiedTabs": true,
@@ -195,5 +205,8 @@
   "[javascript]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
-  "workbench.editor.showTabs": false
+  "workbench.editor.showTabs": false,
+  "autoDarkMode.darkTheme": "Material Theme Ocean",
+  "autoDarkMode.lightTheme": "Material Theme Lighter",
+  "workbench.colorTheme": "Material Theme Lighter"
 }

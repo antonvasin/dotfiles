@@ -161,7 +161,7 @@ const keys = {
   j: ['iTerm', 'iTerm2', 'Hyper'],
   z: ['Slack'],
   n: ['Notion'],
-  e: ['Visual Studio Code', 'Oni'],
+  e: ['Code', 'Visual Studio Code', 'VimR', 'Emacs', 'Oni'],
   r: ['Roam'],
   m: ['Mail'],
   i: ['Music'],
