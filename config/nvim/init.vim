@@ -86,6 +86,7 @@ set smartcase
 set ignorecase
 " Incremental search
 set incsearch
+set hlsearch
 set wildmode=list:longest,full
 set backspace=indent,eol,start
 " Hide buffers when they are abandoned
@@ -104,7 +105,6 @@ set textwidth=79
 set linespace=0
 " Show matching brackets.
 set showmatch
-set hlsearch
 set wrap
 set foldenable
 set foldmethod=syntax
