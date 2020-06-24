@@ -13,6 +13,14 @@
     {
       "before": ["<space>"],
       "commands": ["vspacecode.space"]
+    },
+    {
+      "before": ["g", "d"],
+      "commands": ["editor.action.goToImplementation"]
+    },
+    {
+      "before": ["g", "D"],
+      "commands": ["editor.action.goToTypeDefinition"]
     }
   ],
   "vim.visualModeKeyBindingsNonRecursive": [
@@ -94,7 +102,6 @@
   //     "commands": ["search.action.focusPrevSearchResult"]
   //   }
   // ],
-  // "workbench.colorTheme": "Gruvbox Dark Medium",
   "vim.enableNeovim": true,
   "vim.neovimPath": "/usr/local/bin/nvim",
   "editor.minimap.enabled": false,
@@ -208,6 +215,6 @@
   "workbench.editor.showTabs": false,
   "autoDarkMode.darkTheme": "Material Theme Ocean",
   "autoDarkMode.lightTheme": "Material Theme Lighter",
-  "workbench.colorTheme": "Material Theme Ocean",
+  "workbench.colorTheme": "Material Theme Lighter",
   "gitlens.views.repositories.files.layout": "tree"
 }
