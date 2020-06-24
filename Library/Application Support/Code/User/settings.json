@@ -213,8 +213,8 @@
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "workbench.editor.showTabs": false,
-  "autoDarkMode.darkTheme": "Material Theme Ocean",
-  "autoDarkMode.lightTheme": "Material Theme Lighter",
-  "workbench.colorTheme": "Material Theme Lighter",
+  "autoDarkMode.darkTheme": "Gruvbox Dark Soft",
+  "autoDarkMode.lightTheme": "Gruvbox Light Hard",
+  "workbench.colorTheme": "Gruvbox Light Hard",
   "gitlens.views.repositories.files.layout": "tree"
 }
