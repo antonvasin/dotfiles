@@ -215,6 +215,6 @@
   "workbench.editor.showTabs": false,
   "autoDarkMode.darkTheme": "Gruvbox Dark Soft",
   "autoDarkMode.lightTheme": "Gruvbox Light Hard",
-  "workbench.colorTheme": "Gruvbox Dark Soft",
+  "workbench.colorTheme": "Gruvbox Light Hard",
   "gitlens.views.repositories.files.layout": "tree"
 }
