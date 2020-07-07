@@ -29,6 +29,14 @@
       "commands": ["vspacecode.space"]
     }
   ],
+  "vspacecode.bindingOverrides": [
+    {
+      "keys": "s.l",
+      "name": "Toggle whitespace characters",
+      "type": "command",
+      "command": "editor.action.toggleRenderWhitespace"
+    }
+  ],
   //   {
   //     "before": ["<leader>", "s"],
   //     "commands": ["editor.action.rename"]
