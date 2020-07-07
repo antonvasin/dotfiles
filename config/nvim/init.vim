@@ -327,7 +327,7 @@ nnoremap s :w<cr>
 
 " Leader maps
 nnoremap <SPACE> <Nop>
-let mapleader = " "
+let mapleader = ","
 nnoremap <leader>l :set list!<cr> \| :IndentLinesToggle<cr>
 nnoremap <leader><space> :nohl<cr>
 noremap <leader>u :MundoToggle<cr>
