@@ -35,6 +35,18 @@
       "name": "Toggle whitespace characters",
       "type": "command",
       "command": "editor.action.toggleRenderWhitespace"
+    },
+    {
+      "keys": "j.a",
+      "name": "Alternative File",
+      "type": "command",
+      "command": "alternate.alternateFile"
+    },
+    {
+      "keys": "j.A",
+      "name": "Alternative File in Split",
+      "type": "command",
+      "command": "alternate.alternateFileInSplit"
     }
   ],
   //   {

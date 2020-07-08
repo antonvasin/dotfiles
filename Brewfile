@@ -24,7 +24,6 @@ brew "jq"
 brew "minimal-racket"
 brew "neovim", args: ["HEAD"]
 brew "prettyping"
-brew "python"
 brew "ripgrep"
 brew "switchaudio-osx"
 brew "terminal-notifier"
