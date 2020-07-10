@@ -178,7 +178,9 @@
     "Cakefile": "coffeescript"
   },
   "gitlens.statusBar.enabled": false,
-  "[typescript]": {},
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
   "editor.renderWhitespace": "none",
   "breadcrumbs.enabled": true,
   "search.exclude": {
