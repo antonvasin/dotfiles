@@ -32,7 +32,7 @@ brew "volta"
 brew "watchman"
 brew "wget"
 brew "zsh"
-brew "d12frosted/emacs-plus/emacs-plus@26", link: false
+brew "d12frosted/emacs-plus/emacs-plus@26"
 brew "jakehilborn/jakehilborn/displayplacer"
 brew "thoughtbot/formulae/rcm"
 cask "dash"
