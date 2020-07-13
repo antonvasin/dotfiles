@@ -4,6 +4,7 @@
   "editor.fontLigatures": true,
   "editor.fontSize": 13,
   "editor.tabSize": 2,
+  "editor.acceptSuggestionOnEnter": "smart",
   "search.useIgnoreFiles": true,
   "vim.leader": ",",
   "vim.hlsearch": true,
@@ -239,5 +240,6 @@
   "workbench.colorTheme": "Gruvbox Dark Medium",
   "gitlens.views.repositories.files.layout": "tree",
   "editor.formatOnSave": true,
-  "workbench.preferredDarkColorTheme": "Gruvbox Dark Soft"
+  "workbench.preferredDarkColorTheme": "Gruvbox Dark Soft",
+  "editor.acceptSuggestionOnCommitCharacter": false
 }
