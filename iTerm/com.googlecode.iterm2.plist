@@ -563,7 +563,7 @@
 	<key>NSWindow Frame SUUpdateAlert</key>
 	<string>970 768 620 392 0 0 2560 1417 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>1557 24 978 1374 0 0 2560 1417 </string>
+	<string>1397 24 1138 1374 0 0 2560 1417 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
 	<string>709 61 970 834 0 0 1792 1097 </string>
 	<key>New Bookmarks</key>
@@ -1527,7 +1527,7 @@
 	<key>NoSyncInstallationId</key>
 	<string>B57BC8D3-3EC4-4053-A93E-F98B0AACD217</string>
 	<key>NoSyncLaunchExperienceControllerRunCount</key>
-	<integer>51</integer>
+	<integer>53</integer>
 	<key>NoSyncNeverRemindPrefsChangesLostForFile</key>
 	<true/>
 	<key>NoSyncNeverRemindPrefsChangesLostForFile_selection</key>
@@ -2326,7 +2326,7 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2020-07-15T14:39:46Z</date>
+	<date>2020-07-16T14:39:47Z</date>
 	<key>SUSendProfileInfo</key>
 	<false/>
 	<key>SUUpdateRelaunchingMarker</key>
@@ -2359,7 +2359,7 @@
 				<key>Has Toolbelt</key>
 				<false/>
 				<key>Height</key>
-				<real>1385</real>
+				<real>1374</real>
 				<key>Hide After Opening</key>
 				<false/>
 				<key>Hiding Toolbelt Should Resize Window</key>
@@ -2726,7 +2726,7 @@
 												<real>0.90061241388320923</real>
 											</dict>
 											<key>Guid</key>
-											<string>B8FC842F-064B-4928-A729-CF01F177C2F9</string>
+											<string>21DA7D55-EA53-429B-B64B-D0182DC027BF</string>
 											<key>Horizontal Spacing</key>
 											<real>1</real>
 											<key>Idle Code</key>
@@ -3330,7 +3330,7 @@
 											<string>/Users/antonvasin</string>
 										</dict>
 										<key>Columns</key>
-										<integer>204</integer>
+										<integer>141</integer>
 										<key>Commands</key>
 										<array/>
 										<key>Directories</key>
@@ -3359,9 +3359,9 @@
 											<string>Shell Launcher</string>
 										</dict>
 										<key>Rows</key>
-										<integer>79</integer>
+										<integer>78</integer>
 										<key>Session GUID</key>
-										<string>44AE3550-76E1-4188-B92B-0013D3C7ED8D</string>
+										<string>CBE7DFF8-0D49-4D72-A802-9A505F8B2445</string>
 										<key>Short Lived Single Use</key>
 										<false/>
 										<key>Should Expect Current Dir Updates</key>
@@ -3380,9 +3380,9 @@
 									<key>frame</key>
 									<dict>
 										<key>height</key>
-										<real>1347</real>
+										<real>1336</real>
 										<key>width</key>
-										<real>1642</real>
+										<real>1138</real>
 										<key>x</key>
 										<real>0.0</real>
 										<key>y</key>
@@ -3395,9 +3395,9 @@
 							<key>frame</key>
 							<dict>
 								<key>height</key>
-								<real>1347</real>
+								<real>1336</real>
 								<key>width</key>
-								<real>1642</real>
+								<real>1138</real>
 								<key>x</key>
 								<real>0.0</real>
 								<key>y</key>
@@ -3757,7 +3757,7 @@
 												<real>0.90061241388320923</real>
 											</dict>
 											<key>Guid</key>
-											<string>B58A4032-BD07-446A-AB70-AF001325EC45</string>
+											<string>A6038922-D896-42F6-BE33-955BE2140C3F</string>
 											<key>Horizontal Spacing</key>
 											<real>1</real>
 											<key>Idle Code</key>
@@ -4361,7 +4361,7 @@
 											<string>/Users/antonvasin</string>
 										</dict>
 										<key>Columns</key>
-										<integer>204</integer>
+										<integer>141</integer>
 										<key>Commands</key>
 										<array/>
 										<key>Directories</key>
@@ -4392,7 +4392,7 @@
 										<key>Rows</key>
 										<integer>74</integer>
 										<key>Session GUID</key>
-										<string>B9905448-5022-43AE-B64A-1181F8FFB70C</string>
+										<string>8F3B8F64-AFD5-4E7C-A870-FB0CF01223AD</string>
 										<key>Short Lived Single Use</key>
 										<false/>
 										<key>Should Expect Current Dir Updates</key>
@@ -4411,9 +4411,9 @@
 									<key>frame</key>
 									<dict>
 										<key>height</key>
-										<real>1347</real>
+										<real>1336</real>
 										<key>width</key>
-										<real>1642</real>
+										<real>1138</real>
 										<key>x</key>
 										<real>0.0</real>
 										<key>y</key>
@@ -4426,9 +4426,9 @@
 							<key>frame</key>
 							<dict>
 								<key>height</key>
-								<real>1347</real>
+								<real>1336</real>
 								<key>width</key>
-								<real>1642</real>
+								<real>1138</real>
 								<key>x</key>
 								<real>0.0</real>
 								<key>y</key>
@@ -4469,13 +4469,13 @@
 				<key>Use Transparency</key>
 				<true/>
 				<key>Width</key>
-				<real>1642</real>
+				<real>1138</real>
 				<key>Window Type</key>
 				<integer>13</integer>
 				<key>X Origin</key>
-				<real>893</real>
+				<real>1397</real>
 				<key>Y Origin</key>
-				<real>18</real>
+				<real>24</real>
 			</dict>
 		</array>
 		<key>frontend-backend</key>
