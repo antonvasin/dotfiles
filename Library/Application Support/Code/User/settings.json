@@ -241,5 +241,10 @@
   "gitlens.views.repositories.files.layout": "tree",
   "editor.formatOnSave": true,
   "workbench.preferredDarkColorTheme": "Gruvbox Dark Soft",
-  "editor.acceptSuggestionOnCommitCharacter": false
+  "editor.acceptSuggestionOnCommitCharacter": false,
+  "editor.quickSuggestions": {
+    "other": true,
+    "comments": true,
+    "strings": true
+  }
 }
