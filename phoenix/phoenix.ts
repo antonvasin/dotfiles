@@ -158,13 +158,12 @@ const arrangeDisplays = (args: string[], msg: string) => () => {
 const keys = {
   s: ['Safari'],
   g: ['Google Chrome', 'Chromium'],
-  j: ['iTerm', 'iTerm2', 'Hyper'],
+  i: ['iTerm', 'iTerm2', 'Hyper'],
   z: ['Slack'],
   n: ['Notion'],
   e: ['Code', 'Visual Studio Code', 'VimR', 'Emacs', 'Oni'],
   r: ['Roam'],
   m: ['Mail'],
-  i: ['Music'],
   v: ['Sketch'],
   t: ['Telegram'],
 };
