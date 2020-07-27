@@ -563,7 +563,7 @@
 	<key>NSWindow Frame SUUpdateAlert</key>
 	<string>970 768 620 392 0 0 2560 1417 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>1467 571 970 834 0 0 2560 1417 </string>
+	<string>733 263 970 834 0 0 1792 1097 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
 	<string>709 61 970 834 0 0 1792 1097 </string>
 	<key>New Bookmarks</key>
@@ -1528,7 +1528,7 @@
 	<key>NoSyncInstallationId</key>
 	<string>B57BC8D3-3EC4-4053-A93E-F98B0AACD217</string>
 	<key>NoSyncLaunchExperienceControllerRunCount</key>
-	<integer>54</integer>
+	<integer>55</integer>
 	<key>NoSyncNeverRemindPrefsChangesLostForFile</key>
 	<true/>
 	<key>NoSyncNeverRemindPrefsChangesLostForFile_selection</key>
@@ -2327,7 +2327,7 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2020-07-17T14:39:48Z</date>
+	<date>2020-07-26T10:43:47Z</date>
 	<key>SUSendProfileInfo</key>
 	<false/>
 	<key>SUUpdateRelaunchingMarker</key>
@@ -2727,7 +2727,7 @@
 												<real>0.90061241388320923</real>
 											</dict>
 											<key>Guid</key>
-											<string>AE820328-416D-401F-86B9-A6F39C194A5D</string>
+											<string>551382A0-8BDA-4C11-A473-06555FF5B8FA</string>
 											<key>Horizontal Spacing</key>
 											<real>1</real>
 											<key>Idle Code</key>
@@ -3356,13 +3356,15 @@
 										</dict>
 										<key>Program</key>
 										<dict>
+											<key>Command</key>
+											<string>login -fp "antonvasin"</string>
 											<key>Type</key>
-											<string>Shell Launcher</string>
+											<string>Command</string>
 										</dict>
 										<key>Rows</key>
 										<integer>73</integer>
 										<key>Session GUID</key>
-										<string>E6FD688A-0B7B-442A-977C-F3F4FD3F5FCD</string>
+										<string>D7613697-205E-425C-8AA7-0B8E200994D4</string>
 										<key>Short Lived Single Use</key>
 										<false/>
 										<key>Should Expect Current Dir Updates</key>
@@ -3758,7 +3760,7 @@
 												<real>0.90061241388320923</real>
 											</dict>
 											<key>Guid</key>
-											<string>8EBCDAFF-B921-49E9-9136-0245886EFACE</string>
+											<string>9BA20950-B74A-4E04-BC03-A064803CD5B0</string>
 											<key>Horizontal Spacing</key>
 											<real>1</real>
 											<key>Idle Code</key>
@@ -4370,7 +4372,7 @@
 										<key>Environment</key>
 										<dict>
 											<key>PWD</key>
-											<string>/Users/antonvasin</string>
+											<string>/Users/antonvasin/code/rm-frontend</string>
 										</dict>
 										<key>Hostname to Shell</key>
 										<dict/>
@@ -4393,7 +4395,7 @@
 										<key>Rows</key>
 										<integer>73</integer>
 										<key>Session GUID</key>
-										<string>B22C7417-3315-4D90-ACC2-E611DBDC6690</string>
+										<string>E1ACC4EE-2C84-45D3-97B7-4B67B2C634C6</string>
 										<key>Short Lived Single Use</key>
 										<false/>
 										<key>Should Expect Current Dir Updates</key>
