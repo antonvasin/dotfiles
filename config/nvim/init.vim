@@ -6,12 +6,9 @@ if empty(glob('~/.config/nvim/autoload/plug.vim'))
   autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
-let g:polyglot_disabled = ['helm']
-
 call plug#begin('~/.config/nvim/plugged')
 
 Plug 'morhetz/gruvbox'
-Plug 'mhartington/oceanic-next'
 
 Plug 'Yggdroot/indentLine'
 Plug 'itchyny/lightline.vim'
@@ -63,7 +60,7 @@ call plug#end()
 
 set termguicolors
 let g:gruvbox_italic=1
-colorscheme OceanicNext
+colorscheme gruvbox
 " set background=dark
 
 " Enable mouse usage (all modes)
@@ -208,7 +205,7 @@ function! CocGitStatus()
 endfunction
 
 let g:lightline = {
-  \   'colorscheme': 'oceanicnext',
+  \   'colorscheme': 'gruvbox',
   \   'component_function': {
   \     'readonly': 'MyReadonly',
   \     'modified': 'MyModified',
