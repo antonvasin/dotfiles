@@ -514,7 +514,7 @@
 	dWxs0g0ODxJaTlMub2JqZWN0c1YkY2xhc3OiEBGAAoAKgA3TFA0OFRkdV05TLmtleXOj
 	FhcYgAOABIAFoxobHIAGgAeACIAJWklkZW50aWZpZXJVV2lkdGhWSGlkZGVuUTAjQGjA
 	AAAAAAAI0iUmJyhaJGNsYXNzbmFtZVgkY2xhc3Nlc1xOU0RpY3Rpb25hcnmiJylYTlNP
-	YmplY3TTFA0OKy8doxYXGIADgASABaMwMRyAC4AMgAiACVExI0BzsZ2yLQ5W0iUmNzhe
+	YmplY3TTFA0OKy8doxYXGIADgASABaMwMRyAC4AMgAiACVExI0B0oZ2yLQ5W0iUmNzhe
 	TlNNdXRhYmxlQXJyYXmjNzkpV05TQXJyYXkACAARABoAJAApADIANwBJAEwAUgBUAGMA
 	aQBuAHkAgACDAIUAhwCJAJAAmACcAJ4AoACiAKYAqACqAKwArgC5AL8AxgDIANEA0gDX
 	AOIA6wD4APsBBAELAQ8BEQETARUBGQEbAR0BHwEhASMBLAExAUABRAAAAAAAAAIBAAAA
@@ -563,7 +563,7 @@
 	<key>NSWindow Frame SUUpdateAlert</key>
 	<string>970 768 620 392 0 0 2560 1417 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>733 263 970 834 0 0 1792 1097 </string>
+	<string>1467 49 1026 1356 0 0 2560 1417 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
 	<string>709 61 970 834 0 0 1792 1097 </string>
 	<key>New Bookmarks</key>
@@ -1523,12 +1523,12 @@
 		<key>screenFrame</key>
 		<string>{{0, 0}, {2560, 1440}}</string>
 		<key>topLeft</key>
-		<string>{688, 1009}</string>
+		<string>{269, 595}</string>
 	</dict>
 	<key>NoSyncInstallationId</key>
 	<string>B57BC8D3-3EC4-4053-A93E-F98B0AACD217</string>
 	<key>NoSyncLaunchExperienceControllerRunCount</key>
-	<integer>55</integer>
+	<integer>58</integer>
 	<key>NoSyncNeverRemindPrefsChangesLostForFile</key>
 	<true/>
 	<key>NoSyncNeverRemindPrefsChangesLostForFile_selection</key>
@@ -2327,13 +2327,13 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2020-07-26T10:43:47Z</date>
+	<date>2020-08-06T11:21:04Z</date>
 	<key>SUSendProfileInfo</key>
 	<false/>
 	<key>SUUpdateRelaunchingMarker</key>
 	<false/>
 	<key>ShowFullScreenTabBar</key>
-	<false/>
+	<true/>
 	<key>ShowNewOutputIndicator</key>
 	<true/>
 	<key>SmartPlacement</key>
@@ -2727,7 +2727,7 @@
 												<real>0.90061241388320923</real>
 											</dict>
 											<key>Guid</key>
-											<string>551382A0-8BDA-4C11-A473-06555FF5B8FA</string>
+											<string>2A9F167B-088F-4E9F-A159-6A73A337ECA0</string>
 											<key>Horizontal Spacing</key>
 											<real>1</real>
 											<key>Idle Code</key>
@@ -3356,15 +3356,13 @@
 										</dict>
 										<key>Program</key>
 										<dict>
-											<key>Command</key>
-											<string>login -fp "antonvasin"</string>
 											<key>Type</key>
-											<string>Command</string>
+											<string>Shell Launcher</string>
 										</dict>
 										<key>Rows</key>
 										<integer>73</integer>
 										<key>Session GUID</key>
-										<string>D7613697-205E-425C-8AA7-0B8E200994D4</string>
+										<string>CE5C4B24-CCE2-4D05-A591-BD937FEDA702</string>
 										<key>Short Lived Single Use</key>
 										<false/>
 										<key>Should Expect Current Dir Updates</key>
@@ -3374,7 +3372,7 @@
 										<key>Substitutions</key>
 										<dict/>
 										<key>Working Directory</key>
-										<string>/Users/antonvasin</string>
+										<string>/Users/antonvasin/code/rm-backend</string>
 										<key>Working Directory Poller Disabled</key>
 										<false/>
 									</dict>
@@ -3760,7 +3758,7 @@
 												<real>0.90061241388320923</real>
 											</dict>
 											<key>Guid</key>
-											<string>9BA20950-B74A-4E04-BC03-A064803CD5B0</string>
+											<string>FF7497EC-EBE0-491E-A818-AA61A021D8C6</string>
 											<key>Horizontal Spacing</key>
 											<real>1</real>
 											<key>Idle Code</key>
@@ -4395,7 +4393,7 @@
 										<key>Rows</key>
 										<integer>73</integer>
 										<key>Session GUID</key>
-										<string>E1ACC4EE-2C84-45D3-97B7-4B67B2C634C6</string>
+										<string>D5561832-E729-4713-A738-97448A46500A</string>
 										<key>Short Lived Single Use</key>
 										<false/>
 										<key>Should Expect Current Dir Updates</key>
