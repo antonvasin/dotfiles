@@ -36,6 +36,7 @@
     "typescript.tsx",
     "json"
   ],
+  "prettier.ignorePath": "/Users/antonvasin/.prettierignore",
   "typescript.showUnused": false,
   "javascript.showUnused": false,
   "git.gitlab.hosts": [
