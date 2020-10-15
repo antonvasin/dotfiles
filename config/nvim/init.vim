@@ -320,6 +320,7 @@ nnoremap N Nzzzv
 nnoremap Y y$
 map K <Nop>
 nnoremap <c-t> :FZF<CR>
+nnoremap <c-p> :FZF<CR>
 
 nnoremap s :w<cr>
 
