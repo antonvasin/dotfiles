@@ -34,6 +34,7 @@ brew "tldr"
 brew "volta"
 brew "watchman"
 brew "wget"
+brew "youtube-dl"
 brew "zsh"
 brew "d12frosted/emacs-plus/emacs-plus@27", link: false
 brew "jakehilborn/jakehilborn/displayplacer"
