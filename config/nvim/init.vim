@@ -326,7 +326,7 @@ nnoremap s :w<cr>
 
 " Leader maps
 nnoremap <SPACE> <Nop>
-let mapleader = ","
+let mapleader = " "
 nnoremap <leader>l :set list!<cr> \| :IndentLinesToggle<cr>
 nnoremap <leader><space> :nohl<cr>
 noremap <leader>u :MundoToggle<cr>
@@ -339,9 +339,11 @@ nnoremap <leader>S :%s///<left>
 nnoremap <leader>a :Rg<space>
 nnoremap <leader>wa :wa<cr>
 nnoremap <leader>qq :qa!<cr>
+nnoremap <leader>w <C-w>
 
 nmap <leader>s <Plug>(coc-rename)
 nmap <leader>d <Plug>(coc-definition)
+nmap <F12> <Plug>(coc-definition)
 nmap <leader>t <Plug>(coc-type-definition)
 vmap <C-j> <Plug>(coc-snippets-select)
 imap <C-j> <Plug>(coc-snippets-expand-jump)
