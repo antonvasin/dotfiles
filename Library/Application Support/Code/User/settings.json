@@ -246,5 +246,8 @@
     "other": true,
     "comments": true,
     "strings": true
+  },
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
   }
 }
