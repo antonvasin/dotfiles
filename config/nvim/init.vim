@@ -451,7 +451,7 @@ let g:signify_sign_show_count = 0
 let g:signify_sign_show_text = 0
 
 " markdown-preview
-let g:mkdp_browser = 'Google Chrome'
+let g:mkdp_browser = 'Choosy'
 let g:mkdp_auto_close = 0
 
 " vim-carbon-now-sh
