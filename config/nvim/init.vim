@@ -59,7 +59,9 @@ Plug 'janko/vim-test'
 call plug#end()
 
 set termguicolors
-let g:gruvbox_italic=1
+let g:gruvbox_italic = 1
+let g:gruvbox_contrast_dark = 'soft'
+let g:gruvbox_sign_column = 'bg0'
 colorscheme gruvbox
 " set background=dark
 
@@ -241,7 +243,7 @@ set iminsert=0
 set imsearch=0
 " hi lCursor guifg=NONE guibg=Cyan
 set spell
-set spelllang=ru_yo,en_gb
+set spelllang=ru_ru,en_gb
 set spellfile=~/.config/nvim/spell/ru.utf-8.add,~/.config/nvim/spell/en.utf-8.add
 hi clear SpellBad
 hi SpellBad cterm=underline
@@ -296,6 +298,8 @@ nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
 
+nnoremap * *``
+
 nnoremap <Right> <C-W>>
 nnoremap <Left> <C-W><
 nnoremap <Up> <C-W>-
@@ -341,10 +345,16 @@ nnoremap <leader>wa :wa<cr>
 nnoremap <leader>qq :qa!<cr>
 nnoremap <leader>w <C-w>
 
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
 nmap <leader>s <Plug>(coc-rename)
 nmap <leader>d <Plug>(coc-definition)
 nmap <F12> <Plug>(coc-definition)
 nmap <leader>t <Plug>(coc-type-definition)
+
 vmap <C-j> <Plug>(coc-snippets-select)
 imap <C-j> <Plug>(coc-snippets-expand-jump)
 nnoremap <leader>k <Plug>(coc-diagnostic-info)

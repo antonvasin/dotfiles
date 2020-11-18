@@ -15,7 +15,7 @@
 Phoenix.set({ openAtLogin: true });
 
 /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
-const stringify = (value: any): string => {
+function stringify(value: any): string {
   switch (typeof value) {
     case 'object':
       return JSON.stringify(value, null, 2);
@@ -24,57 +24,58 @@ const stringify = (value: any): string => {
     default:
       return value;
   }
-};
+}
 
 /** Pretty log to Console.app */
 /* eslint-disable-next-line @typescript-eslint/no-unused-vars, @typescript-eslint/no-explicit-any */
-const log = (...args: any[]): void => {
-  args = args.map(arg => stringify(arg));
+function log(...args: any[]) {
+  args = args.map((arg) => stringify(arg));
   Phoenix.log(args.join(' '));
-};
+}
 
 // Hyper
 const Hyper: Phoenix.ModifierKey[] = ['ctrl', 'shift', 'alt', 'cmd'];
 
-const mapHyperKeys = (map: { [index: string]: () => void }) =>
-  Object.keys(map).forEach(key => Key.on(key, Hyper, map[key]));
+function mapHyperKeys(map: { [index: string]: () => void }) {
+  Object.keys(map).forEach((key) => Key.on(key, Hyper, map[key]));
+}
 
 /** Launch of focus on already launched app */
-const switchApp = (app: string) => () => {
-  const launched = App.launch(app);
-  if (launched) launched.focus();
-};
+function switchApp(app: string) {
+  return () => {
+    const launched = App.launch(app);
+    if (launched) launched.focus();
+  };
+}
 
 /** Switch to the list of apps. Rightmost app has the highest priority */
-const switchApps = (...apps: string[]) => () => {
-  if (apps.length === 1) {
-    switchApp(_.head(apps) || '')();
-  } else {
-    const app = _.head(
-      [...apps]
-        .reverse()
-        .map(App.get)
-        .filter(_.negate(_.isNil)),
-    );
+function switchApps(...apps: string[]) {
+  return () => {
+    if (apps.length === 1) {
+      switchApp(_.head(apps) || '')();
+    } else {
+      const app = _.head([...apps].reverse().map(App.get).filter(_.negate(_.isNil)));
 
-    app ? app.focus() : switchApp(_.head(apps) || '')();
-  }
-};
+      app ? app.focus() : switchApp(_.head(apps) || '')();
+    }
+  };
+}
 
-const withFocused = (fn: (w: Window) => void) => {
+function withFocused(fn: (w: Window) => void) {
   const focused = Window.focused();
   if (focused) fn(focused);
-};
+}
 
-const only = () =>
-  withFocused(current => {
-    _.flatMap(current.spaces(), s => s.windows())
-      .filter(window => !window.isEqual(current))
-      .forEach(window => window.minimize());
+function only() {
+  withFocused((current) => {
+    _.flatMap(current.spaces(), (s) => s.windows())
+      .filter((window) => !window.isEqual(current))
+      .forEach((window) => window.minimize());
   });
+}
 
-const center = () =>
-  withFocused(window => {
+function center() {
+  withFocused((window) => {
     const screen = window.screen().flippedVisibleFrame();
     const { width, height } = window.frame();
 
@@ -83,9 +84,10 @@ const center = () =>
       y: screen.y + screen.height / 2 - height / 2,
     });
   });
+}
 
 /** Resize current window */
-const resize = (getRect: (currentScreen: Rectangle) => Partial<Rectangle>) => {
+function resize(getRect: (currentScreen: Rectangle) => Partial<Rectangle>) {
   const window = Window.focused();
 
   if (window) {
@@ -94,35 +96,40 @@ const resize = (getRect: (currentScreen: Rectangle) => Partial<Rectangle>) => {
       ...getRect(window.screen().flippedVisibleFrame()),
     });
   }
-};
+}
 
-const leftHalf = () =>
+function leftHalf() {
   resize(({ width }) => ({
     width: width / 2,
   }));
+}
 
-const rightHalf = () =>
+function rightHalf() {
   resize(({ x, width }) => ({
     x: width - width / 2 + x,
     width: width / 2,
   }));
+}
 
-const leftThreeFourths = () =>
+function leftThreeFourths() {
   resize(({ width }) => ({
     width: width * 0.75,
   }));
+}
 
-const rightThreeFourths = () =>
+function rightThreeFourths() {
   resize(({ width, x }) => ({
     x: width - width * 0.75 + x,
     width: width * 0.75,
   }));
+}
 
-const perfectEditor = () =>
+function perfectEditor() {
   resize(({ width, x }) => ({
     x: width - width * 0.6 + x,
     width: width * 0.6,
   }));
+}
 
 const DisplayPresets = {
   Left: [
@@ -144,16 +151,29 @@ const DisplayPresets = {
 
 const displayplacerPath = '/usr/local/bin/displayplacer';
 
-const arrangeDisplays = (args: string[], msg: string) => () => {
-  Task.run(displayplacerPath, args, () => {
-    Modal.build({
-      duration: 3.4,
-      text: msg,
-      weight: 48,
-      origin: () => ({ x: 100, y: 100 }),
-    }).show();
-  });
-};
+function arrangeDisplays(args: string[], msg: string) {
+  return () => {
+    Task.run(displayplacerPath, args, () => {
+      Modal.build({
+        duration: 3.4,
+        text: msg,
+        weight: 48,
+        origin: () => ({ x: 100, y: 100 }),
+      }).show();
+    });
+  };
+}
+
+function showHelp() {
+  Modal.build({
+    duration: 5,
+    text: _.toPairs(keys)
+      .map(([k, v]) => `${k}: ${v.join(', ')}`)
+      .join('\n'),
+    weight: 30,
+    origin: () => ({ x: 200, y: 200 }),
+  }).show();
+}
 
 const keys = {
   s: ['Safari'],
@@ -169,7 +189,7 @@ const keys = {
 };
 
 mapHyperKeys({
-  ..._.mapValues(keys, val => switchApps(...val)),
+  ..._.mapValues(keys, (val) => switchApps(...val)),
   c: center,
   o: only,
   '[': leftThreeFourths,
@@ -181,14 +201,5 @@ mapHyperKeys({
   2: arrangeDisplays(DisplayPresets.Below, 'MacBook is below'),
   3: arrangeDisplays(DisplayPresets.Right, 'MacBook is on the right'),
   4: arrangeDisplays(DisplayPresets.Mirror, 'Displays are mirrored'),
-  '\\': () => {
-    Modal.build({
-      duration: 5,
-      text: _.toPairs(keys)
-        .map(([k, v]) => `${k}: ${v.join(', ')}`)
-        .join('\n'),
-      weight: 30,
-      origin: () => ({ x: 200, y: 200 }),
-    }).show();
-  },
+  '\\': showHelp,
 });
