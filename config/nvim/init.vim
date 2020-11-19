@@ -248,6 +248,9 @@ set spellfile=~/.config/nvim/spell/ru.utf-8.add,~/.config/nvim/spell/en.utf-8.ad
 hi clear SpellBad
 hi SpellBad cterm=underline
 
+autocmd CursorHold * silent call CocActionAsync('highlight')
+set updatetime=100
+
 " display only current cursorline
 augroup CursorLine
   au!
