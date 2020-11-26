@@ -7,9 +7,9 @@ Configured for/with:
 - [VSCode](https://code.visualstudio.com/)
 - [Phoenix](https://github.com/kasper/phoenix)
 - [Homebrew](https://brew.sh)
-- [Nova colors](https://trevordmiller.com/projects/nova)
-- [Fira Code](https://github.com/tonsky/FiraCode)
-- [Hyper](https://hyper.is/)
+- [gruvbox theme](https://github.com/morhetz/gruvbox)
+- [JetBrains Mono](https://www.jetbrains.com/lp/mono/)
+- [iTerm](https://iterm2.com/)
 - [Karabiner-Elements](https://github.com/tekezo/Karabiner-Elements)
 - [`git`](https://git-scm.com/)
 - [`rcm`](https://github.com/thoughtbot/rcm)
@@ -27,6 +27,8 @@ Configured for/with:
 
 ```bash
 git clone https://github.com/antonvasin/dotfiles.git ~/dotfiles
-
-cd ~/dotfiles && ./setup.sh
+cd ~/dotfiles
+./setup.sh
 ```
+
+Everything automatically synced with this [script](backup/backup.zsh)
