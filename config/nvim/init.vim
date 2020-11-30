@@ -348,15 +348,16 @@ nnoremap <leader>wa :wa<cr>
 nnoremap <leader>qq :qa!<cr>
 nnoremap <leader>w <C-w>
 
+nmap <leader>ja :A<cr>
+nmap <leader>jA :AV<cr>
+
 nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 
 nmap <leader>s <Plug>(coc-rename)
-nmap <leader>d <Plug>(coc-definition)
 nmap <F12> <Plug>(coc-definition)
-nmap <leader>t <Plug>(coc-type-definition)
 
 vmap <C-j> <Plug>(coc-snippets-select)
 imap <C-j> <Plug>(coc-snippets-expand-jump)
@@ -374,14 +375,12 @@ function! s:show_documentation()
   endif
 endfunction
 
-
 " Fugitive.vim
 nnoremap <leader>gw :Gw<cr>
 nnoremap <leader>gc :Gcommit<cr>
 nnoremap <leader>ga :Gcommit --amend --reuse-message=HEAD<cr>
 nnoremap <leader>gs :Gstatus<cr>
 nnoremap <leader>gP :Gpush --force<cr>
-
 
 " neoterm
 vnoremap <leader>tr :TREPLSendSelection<cr>
