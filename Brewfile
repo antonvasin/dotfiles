@@ -30,6 +30,7 @@ brew "minimal-racket"
 brew "neovim", args: ["HEAD"]
 brew "prettyping"
 brew "ripgrep"
+brew "ripgrep-all"
 brew "shntool"
 brew "switchaudio-osx"
 brew "terminal-notifier"
