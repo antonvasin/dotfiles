@@ -179,7 +179,6 @@ const keys = {
   s: ['Safari'],
   g: ['Google Chrome', 'Chromium'],
   i: ['iTerm', 'iTerm2', 'Hyper'],
-  z: ['Slack'],
   n: ['Notion'],
   e: ['Code', 'Visual Studio Code', 'VimR', 'Emacs', 'Oni'],
   r: ['Roam'],

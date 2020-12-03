@@ -9,7 +9,7 @@ tap "homebrew/core"
 tap "homebrew/services"
 tap "jakehilborn/jakehilborn"
 tap "thoughtbot/formulae"
-brew "awscli"
+brew "awscli", link: false
 brew "bat"
 brew "cuetools"
 brew "docker-completion"
