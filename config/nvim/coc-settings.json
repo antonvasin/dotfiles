@@ -45,5 +45,8 @@
   "tsserver.log": "normal",
   "snippets.extends": {
     "typescript": ["javascript"]
+  },
+  "go.goplsOptions": {
+    "gofumpt": true
   }
 }

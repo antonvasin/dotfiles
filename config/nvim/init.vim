@@ -46,6 +46,7 @@ Plug 'guns/vim-sexp'
 Plug 'tpope/vim-sexp-mappings-for-regular-people'
 Plug 'kana/vim-textobj-user'
 Plug 'sheerun/vim-polyglot'
+Plug 'sheerun/vim-go'
 Plug 'mattn/emmet-vim'
 Plug 'tpope/vim-jdaddy'
 Plug 'neoclide/jsonc.vim'
@@ -509,7 +510,7 @@ let g:projectionist_heuristics = {
 command! -nargs=0 Prettier :CocCommand prettier.formatFile
 
 " coc extensions
-let g:coc_global_extensions = ['coc-prettier', 'coc-git', 'coc-eslint', 'coc-emoji', 'coc-tsserver', 'coc-json', 'coc-html', 'coc-css', 'coc-yaml', 'coc-emmet', 'coc-snippets', 'coc-svg', 'coc-reason', 'coc-markdownlint']
+let g:coc_global_extensions = ['coc-prettier', 'coc-git', 'coc-eslint', 'coc-emoji', 'coc-tsserver', 'coc-json', 'coc-html', 'coc-css', 'coc-yaml', 'coc-emmet', 'coc-snippets', 'coc-svg', 'coc-reason', 'coc-markdownlint', 'coc-go']
 
 " xkbswitch
 " let g:XkbSwitchLib = '/usr/local/lib/libInputSourceSwitcher.dylib'
@@ -526,3 +527,4 @@ au TermOpen * setlocal nonumber norelativenumber
 let test#strategy = "neovim"
 let test#neovim#term_position = 'vert'
 let test#javascript#jest#options = '--watch'
+
