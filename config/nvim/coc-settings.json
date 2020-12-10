@@ -43,6 +43,7 @@
     "gitlab.com"
   ],
   "tsserver.log": "normal",
+  "javascript.updateImportsOnFileMove.enable": false,
   "snippets.extends": {
     "typescript": ["javascript"]
   },
