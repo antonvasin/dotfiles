@@ -178,13 +178,11 @@ function showHelp() {
 const keys = {
   s: ['Safari'],
   g: ['Google Chrome', 'Chromium'],
-  i: ['iTerm', 'iTerm2', 'Hyper'],
   n: ['Notion'],
   e: ['Code', 'Visual Studio Code', 'VimR', 'Emacs', 'Oni'],
-  r: ['Roam'],
-  m: ['Mail'],
-  v: ['Sketch'],
-  t: ['Telegram'],
+  m: ['Music'],
+  v: ['VimR'],
+  t: ['iTerm', 'iTerm2', 'Hyper'],
 };
 
 mapHyperKeys({
