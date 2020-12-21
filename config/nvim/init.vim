@@ -22,10 +22,13 @@ Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
+" nice things for netrw
 Plug 'tpope/vim-vinegar'
 Plug 'tpope/vim-projectionist'
 Plug 'tpope/vim-abolish'
+" ctrl-a ctrl-x for date and time
 Plug 'tpope/vim-speeddating'
+" *nix std commands for vim
 Plug 'tpope/vim-eunuch'
 Plug 'bronson/vim-visual-star-search'
 Plug 'Shougo/vimproc.vim', { 'do': 'make' }
