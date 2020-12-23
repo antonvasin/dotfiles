@@ -32,7 +32,7 @@ Plug 'tpope/vim-speeddating'
 Plug 'tpope/vim-eunuch'
 Plug 'bronson/vim-visual-star-search'
 Plug 'Shougo/vimproc.vim', { 'do': 'make' }
-" Plug 'lyokha/vim-xkbswitch'
+Plug 'lyokha/vim-xkbswitch'
 Plug 'ruanyl/vim-gh-line'
 
 Plug '/usr/local/opt/fzf'
@@ -516,7 +516,6 @@ command! -nargs=0 Prettier :CocCommand prettier.formatFile
 let g:coc_global_extensions = ['coc-prettier', 'coc-git', 'coc-eslint', 'coc-emoji', 'coc-tsserver', 'coc-json', 'coc-html', 'coc-css', 'coc-yaml', 'coc-emmet', 'coc-snippets', 'coc-svg', 'coc-reason', 'coc-markdownlint', 'coc-go']
 
 " xkbswitch
-" let g:XkbSwitchLib = '/usr/local/lib/libInputSourceSwitcher.dylib'
 let g:XkbSwitchEnabled = 1
 let g:XkbSwitchIMappings = ['ru']
 
