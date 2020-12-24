@@ -21,6 +21,7 @@ zmodule utility
 zmodule minimal
 
 zmodule fasd
+zmodule homebrew
 
 #
 # Prompt
