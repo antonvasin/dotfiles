@@ -517,7 +517,7 @@ let g:coc_global_extensions = ['coc-prettier', 'coc-git', 'coc-eslint', 'coc-emo
 
 " xkbswitch
 let g:XkbSwitchEnabled = 1
-let g:XkbSwitchIMappings = ['ru']
+" let g:XkbSwitchIMappings = ['ru']
 
 " vim-test
 nmap <silent> t<C-n> :TestNearest<CR>
