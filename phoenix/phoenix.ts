@@ -180,7 +180,6 @@ const keys = {
   g: ['Google Chrome', 'Chromium'],
   n: ['Notion'],
   e: ['Code', 'Visual Studio Code', 'VimR', 'Emacs', 'Oni'],
-  m: ['Music'],
   v: ['VimR'],
   t: ['iTerm', 'iTerm2', 'Hyper'],
 };
