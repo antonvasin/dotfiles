@@ -36,8 +36,11 @@ function log(...args: any[]) {
 // Hyper
 const Hyper: Phoenix.ModifierKey[] = ['ctrl', 'shift', 'alt', 'cmd'];
 
-function mapHyperKeys(map: { [index: string]: () => void }) {
-  Object.keys(map).forEach((key) => Key.on(key, Hyper, map[key]));
+function mapHyperKeys(map: Record<string, () => void>) {
+  // Object.keys(map).forEach((key) => Key.on(key, Hyper, map[key]));
+  for (const [k, v] of Object.entries(map)) {
+    Key.on(k, Hyper, v);
+  }
 }
 
 /** Launch of focus on already launched app */
@@ -52,11 +55,14 @@ function switchApp(app: string) {
 function switchApps(...apps: string[]) {
   return () => {
     if (apps.length === 1) {
-      switchApp(_.head(apps) || '')();
+      switchApp(apps[0] || '')();
     } else {
-      const app = _.head([...apps].reverse().map(App.get).filter(_.negate(_.isNil)));
+      const app = [...apps]
+        .reverse()
+        .map(App.get)
+        .find((app) => app != null);
 
-      app ? app.focus() : switchApp(_.head(apps) || '')();
+      app ? app.focus() : switchApp(apps[0] || '')();
     }
   };
 }
@@ -176,26 +182,27 @@ function showHelp() {
 }
 
 const keys = {
-  s: ['Safari'],
+  e: ['Code', 'Visual Studio Code', 'VimR', 'Emacs', 'Oni'],
   g: ['Google Chrome', 'Chromium'],
   n: ['Notion'],
-  e: ['Code', 'Visual Studio Code', 'VimR', 'Emacs', 'Oni'],
-  v: ['VimR'],
+  r: ['Roam'],
+  s: ['Safari'],
   t: ['iTerm', 'iTerm2', 'Hyper'],
+  v: ['VimR'],
 };
 
 mapHyperKeys({
   ..._.mapValues(keys, (val) => switchApps(...val)),
-  c: center,
-  o: only,
-  '[': leftThreeFourths,
-  ']': rightThreeFourths,
-  9: leftHalf,
   0: rightHalf,
-  '=': perfectEditor,
   1: arrangeDisplays(DisplayPresets.Left, 'MacBook is on the left'),
   2: arrangeDisplays(DisplayPresets.Below, 'MacBook is below'),
   3: arrangeDisplays(DisplayPresets.Right, 'MacBook is on the right'),
   4: arrangeDisplays(DisplayPresets.Mirror, 'Displays are mirrored'),
+  o: only,
+  9: leftHalf,
+  c: center,
+  '=': perfectEditor,
+  '[': leftThreeFourths,
+  ']': rightThreeFourths,
   '\\': showHelp,
 });
