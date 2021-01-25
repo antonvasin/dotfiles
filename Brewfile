@@ -28,6 +28,7 @@ brew "go"
 brew "helm"
 brew "httpie"
 brew "jq"
+brew "lazydocker"
 brew "minikube"
 brew "minimal-racket"
 brew "neovim", args: ["HEAD"]
