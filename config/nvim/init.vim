@@ -515,6 +515,11 @@ command! -nargs=0 Prettier :CocCommand prettier.formatFile
 " coc extensions
 let g:coc_global_extensions = ['coc-prettier', 'coc-git', 'coc-eslint', 'coc-emoji', 'coc-tsserver', 'coc-json', 'coc-html', 'coc-css', 'coc-yaml', 'coc-emmet', 'coc-snippets', 'coc-svg', 'coc-reason', 'coc-go']
 
+try
+    nmap <silent> [c :call CocAction('diagnosticNext')<cr>
+    nmap <silent> ]c :call CocAction('diagnosticPrevious')<cr>
+endtry
+
 " xkbswitch
 let g:XkbSwitchEnabled = 1
 " let g:XkbSwitchIMappings = ['ru']
