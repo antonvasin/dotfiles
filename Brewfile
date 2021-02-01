@@ -30,6 +30,7 @@ brew "jq"
 brew "lazydocker"
 brew "minikube"
 brew "minimal-racket"
+brew "ncdu"
 brew "neovim", args: ["HEAD"]
 brew "prettyping"
 brew "ripgrep"
