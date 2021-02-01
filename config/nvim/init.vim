@@ -39,7 +39,6 @@ Plug '/usr/local/opt/fzf'
 Plug 'junegunn/fzf.vim'
 
 Plug 'kassio/neoterm'
-Plug 'mhinz/vim-signify'
 Plug 'kien/rainbow_parentheses.vim'
 Plug 'kristijanhusak/vim-carbon-now-sh'
 

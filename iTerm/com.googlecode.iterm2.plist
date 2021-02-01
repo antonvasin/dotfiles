@@ -1446,7 +1446,7 @@
 	<key>PromptOnQuit</key>
 	<false/>
 	<key>ShowFullScreenTabBar</key>
-	<false/>
+	<true/>
 	<key>ShowNewOutputIndicator</key>
 	<true/>
 	<key>SmartPlacement</key>
@@ -1473,7 +1473,7 @@
 				<key>Has Toolbelt</key>
 				<false/>
 				<key>Height</key>
-				<real>1356</real>
+				<real>1296</real>
 				<key>Hide After Opening</key>
 				<false/>
 				<key>Hiding Toolbelt Should Resize Window</key>
@@ -1485,7 +1485,7 @@
 				<key>Saved Window Type</key>
 				<integer>13</integer>
 				<key>Screen</key>
-				<integer>0</integer>
+				<integer>1</integer>
 				<key>Selected Tab Index</key>
 				<integer>0</integer>
 				<key>Tabs</key>
@@ -1493,6 +1493,8 @@
 					<dict>
 						<key>Root</key>
 						<dict>
+							<key>Splitter ID</key>
+							<string>FA63FA9A-8853-4B35-B510-17BF723A14F4</string>
 							<key>Subviews</key>
 							<array>
 								<dict>
@@ -1840,7 +1842,7 @@
 												<real>0.90061241388320923</real>
 											</dict>
 											<key>Guid</key>
-											<string>2A9F167B-088F-4E9F-A159-6A73A337ECA0</string>
+											<string>B0790DF6-FF13-4634-87B8-5EDC24787748</string>
 											<key>Horizontal Spacing</key>
 											<real>1</real>
 											<key>Idle Code</key>
@@ -2160,8 +2162,6 @@
 											<string>JetBrainsMono-Regular 14</string>
 											<key>Option Key Sends</key>
 											<integer>0</integer>
-											<key>Original Guid</key>
-											<string>B0790DF6-FF13-4634-87B8-5EDC24787748</string>
 											<key>Prompt Before Closing 2</key>
 											<false/>
 											<key>Right Option Key Sends</key>
@@ -2403,19 +2403,6 @@
 											</dict>
 											<key>Sync Title</key>
 											<false/>
-											<key>Tab Color</key>
-											<dict>
-												<key>Alpha Component</key>
-												<real>1</real>
-												<key>Blue Component</key>
-												<real>0.85098039215686272</real>
-												<key>Color Space</key>
-												<string>sRGB</string>
-												<key>Green Component</key>
-												<real>0.55686274509803924</real>
-												<key>Red Component</key>
-												<real>0.75686274509803919</real>
-											</dict>
 											<key>Tags</key>
 											<array/>
 											<key>Terminal Type</key>
@@ -2432,8 +2419,6 @@
 											<true/>
 											<key>Use Non-ASCII Font</key>
 											<false/>
-											<key>Use Tab Color</key>
-											<true/>
 											<key>Vertical Spacing</key>
 											<real>1</real>
 											<key>Visual Bell</key>
@@ -2444,22 +2429,60 @@
 											<string>/Users/antonvasin</string>
 										</dict>
 										<key>Columns</key>
-										<integer>127</integer>
+										<integer>137</integer>
 										<key>Commands</key>
-										<array/>
+										<array>
+											<string>j front</string>
+											<string>j back</string>
+										</array>
 										<key>Directories</key>
-										<array/>
+										<array>
+											<string>/Users/antonvasin</string>
+											<string>/Users/antonvasin</string>
+											<string>/Users/antonvasin/code/rm/rm-frontend</string>
+											<string>/Users/antonvasin/code/rm/rm-backend</string>
+										</array>
 										<key>Environment</key>
 										<dict>
 											<key>PWD</key>
 											<string>/Users/antonvasin</string>
 										</dict>
 										<key>Hostname to Shell</key>
-										<dict/>
+										<dict>
+											<key>antonvasin@MacBook-Pro-Anton.local</key>
+											<string>zsh</string>
+										</dict>
 										<key>Hosts</key>
-										<array/>
+										<array>
+											<dict>
+												<key>Host name</key>
+												<string>MacBook-Pro-Anton.local</string>
+												<key>User name</key>
+												<string>antonvasin</string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>MacBook-Pro-Anton.local</string>
+												<key>User name</key>
+												<string>antonvasin</string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>MacBook-Pro-Anton.local</string>
+												<key>User name</key>
+												<string>antonvasin</string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>MacBook-Pro-Anton.local</string>
+												<key>User name</key>
+												<string>antonvasin</string>
+											</dict>
+										</array>
 										<key>Is UTF-8</key>
 										<true/>
+										<key>Key Labels</key>
+										<dict/>
 										<key>Name Controller State</key>
 										<dict>
 											<key>icon title stack</key>
@@ -2469,34 +2492,36 @@
 										</dict>
 										<key>Program</key>
 										<dict>
+											<key>Command</key>
+											<string>login -fp "antonvasin"</string>
 											<key>Type</key>
-											<string>Shell Launcher</string>
+											<string>Command</string>
 										</dict>
 										<key>Rows</key>
-										<integer>73</integer>
+										<integer>66</integer>
 										<key>Session GUID</key>
-										<string>CE5C4B24-CCE2-4D05-A591-BD937FEDA702</string>
+										<string>9098E42C-BD81-471D-B95B-816A4CA0BEC4</string>
 										<key>Short Lived Single Use</key>
 										<false/>
 										<key>Should Expect Current Dir Updates</key>
-										<false/>
+										<true/>
 										<key>Should Expect Prompt Marks</key>
-										<false/>
+										<true/>
 										<key>Substitutions</key>
 										<dict/>
 										<key>Working Directory</key>
-										<string>/Users/antonvasin/code/rm-backend</string>
+										<string>/Users/antonvasin/code/rm/rm-backend</string>
 										<key>Working Directory Poller Disabled</key>
-										<false/>
+										<true/>
 									</dict>
 									<key>View Type</key>
 									<string>SessionView</string>
 									<key>frame</key>
 									<dict>
 										<key>height</key>
-										<real>1318</real>
+										<real>1258</real>
 										<key>width</key>
-										<real>1026</real>
+										<real>1106</real>
 										<key>x</key>
 										<real>0.0</real>
 										<key>y</key>
@@ -2509,9 +2534,9 @@
 							<key>frame</key>
 							<dict>
 								<key>height</key>
-								<real>1318</real>
+								<real>1258</real>
 								<key>width</key>
-								<real>1026</real>
+								<real>1106</real>
 								<key>x</key>
 								<real>0.0</real>
 								<key>y</key>
@@ -2520,10 +2545,14 @@
 							<key>isVertical</key>
 							<false/>
 						</dict>
+						<key>Tab GUID</key>
+						<string>0CB186EC-84EF-4EEE-A9FD-347E7ABEB8E8</string>
 					</dict>
 					<dict>
 						<key>Root</key>
 						<dict>
+							<key>Splitter ID</key>
+							<string>8CC8D24F-E737-4BC0-BFCD-5B1D9C529ECA</string>
 							<key>Subviews</key>
 							<array>
 								<dict>
@@ -2871,7 +2900,7 @@
 												<real>0.90061241388320923</real>
 											</dict>
 											<key>Guid</key>
-											<string>FF7497EC-EBE0-491E-A818-AA61A021D8C6</string>
+											<string>B0790DF6-FF13-4634-87B8-5EDC24787748</string>
 											<key>Horizontal Spacing</key>
 											<real>1</real>
 											<key>Idle Code</key>
@@ -3191,8 +3220,6 @@
 											<string>JetBrainsMono-Regular 14</string>
 											<key>Option Key Sends</key>
 											<integer>0</integer>
-											<key>Original Guid</key>
-											<string>B0790DF6-FF13-4634-87B8-5EDC24787748</string>
 											<key>Prompt Before Closing 2</key>
 											<false/>
 											<key>Right Option Key Sends</key>
@@ -3434,19 +3461,6 @@
 											</dict>
 											<key>Sync Title</key>
 											<false/>
-											<key>Tab Color</key>
-											<dict>
-												<key>Alpha Component</key>
-												<real>1</real>
-												<key>Blue Component</key>
-												<real>0.97254901960784312</real>
-												<key>Color Space</key>
-												<string>sRGB</string>
-												<key>Green Component</key>
-												<real>0.63921568627450975</real>
-												<key>Red Component</key>
-												<real>0.37254901960784315</real>
-											</dict>
 											<key>Tags</key>
 											<array/>
 											<key>Terminal Type</key>
@@ -3463,8 +3477,6 @@
 											<true/>
 											<key>Use Non-ASCII Font</key>
 											<false/>
-											<key>Use Tab Color</key>
-											<true/>
 											<key>Vertical Spacing</key>
 											<real>1</real>
 											<key>Visual Bell</key>
@@ -3475,22 +3487,60 @@
 											<string>/Users/antonvasin</string>
 										</dict>
 										<key>Columns</key>
-										<integer>127</integer>
+										<integer>137</integer>
 										<key>Commands</key>
-										<array/>
+										<array>
+											<string>j back</string>
+											<string>j front</string>
+										</array>
 										<key>Directories</key>
-										<array/>
+										<array>
+											<string>/Users/antonvasin</string>
+											<string>/Users/antonvasin</string>
+											<string>/Users/antonvasin/code/rm/rm-backend</string>
+											<string>/Users/antonvasin/code/rm/rm-frontend</string>
+										</array>
 										<key>Environment</key>
 										<dict>
 											<key>PWD</key>
-											<string>/Users/antonvasin/code/rm-frontend</string>
+											<string>/Users/antonvasin</string>
 										</dict>
 										<key>Hostname to Shell</key>
-										<dict/>
+										<dict>
+											<key>antonvasin@MacBook-Pro-Anton.local</key>
+											<string>zsh</string>
+										</dict>
 										<key>Hosts</key>
-										<array/>
+										<array>
+											<dict>
+												<key>Host name</key>
+												<string>MacBook-Pro-Anton.local</string>
+												<key>User name</key>
+												<string>antonvasin</string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>MacBook-Pro-Anton.local</string>
+												<key>User name</key>
+												<string>antonvasin</string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>MacBook-Pro-Anton.local</string>
+												<key>User name</key>
+												<string>antonvasin</string>
+											</dict>
+											<dict>
+												<key>Host name</key>
+												<string>MacBook-Pro-Anton.local</string>
+												<key>User name</key>
+												<string>antonvasin</string>
+											</dict>
+										</array>
 										<key>Is UTF-8</key>
 										<true/>
+										<key>Key Labels</key>
+										<dict/>
 										<key>Name Controller State</key>
 										<dict>
 											<key>icon title stack</key>
@@ -3500,34 +3550,36 @@
 										</dict>
 										<key>Program</key>
 										<dict>
+											<key>Command</key>
+											<string>login -fp "antonvasin"</string>
 											<key>Type</key>
-											<string>Shell Launcher</string>
+											<string>Command</string>
 										</dict>
 										<key>Rows</key>
-										<integer>73</integer>
+										<integer>66</integer>
 										<key>Session GUID</key>
-										<string>D5561832-E729-4713-A738-97448A46500A</string>
+										<string>83EAAD18-849B-45F4-B6CF-6A2F2D788C3F</string>
 										<key>Short Lived Single Use</key>
 										<false/>
 										<key>Should Expect Current Dir Updates</key>
-										<false/>
+										<true/>
 										<key>Should Expect Prompt Marks</key>
-										<false/>
+										<true/>
 										<key>Substitutions</key>
 										<dict/>
 										<key>Working Directory</key>
-										<string>/Users/antonvasin/code/rm-frontend</string>
+										<string>/Users/antonvasin/code/rm/rm-frontend</string>
 										<key>Working Directory Poller Disabled</key>
-										<false/>
+										<true/>
 									</dict>
 									<key>View Type</key>
 									<string>SessionView</string>
 									<key>frame</key>
 									<dict>
 										<key>height</key>
-										<real>1318</real>
+										<real>1258</real>
 										<key>width</key>
-										<real>1026</real>
+										<real>1106</real>
 										<key>x</key>
 										<real>0.0</real>
 										<key>y</key>
@@ -3540,9 +3592,9 @@
 							<key>frame</key>
 							<dict>
 								<key>height</key>
-								<real>1318</real>
+								<real>1258</real>
 								<key>width</key>
-								<real>1026</real>
+								<real>1106</real>
 								<key>x</key>
 								<real>0.0</real>
 								<key>y</key>
@@ -3551,10 +3603,12 @@
 							<key>isVertical</key>
 							<false/>
 						</dict>
+						<key>Tab GUID</key>
+						<string>ED18F4A9-A712-4711-B599-721CFF4CF179</string>
 					</dict>
 				</array>
 				<key>TerminalGuid</key>
-				<string>pty-FDC88EC5-84DF-4B25-A698-F0FEEAD12CC5</string>
+				<string>pty-9E8EC896-62F6-4A24-8CE0-215C33243AF7</string>
 				<key>Toolbelt</key>
 				<dict>
 					<key>Profiles</key>
@@ -3583,13 +3637,13 @@
 				<key>Use Transparency</key>
 				<true/>
 				<key>Width</key>
-				<real>1026</real>
+				<real>1106</real>
 				<key>Window Type</key>
 				<integer>13</integer>
 				<key>X Origin</key>
-				<real>1467</real>
+				<real>992</real>
 				<key>Y Origin</key>
-				<real>49</real>
+				<real>1231</real>
 			</dict>
 		</array>
 	</dict>
