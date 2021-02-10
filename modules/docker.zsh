@@ -1,5 +1,5 @@
 alias dps='docker ps'
-alias dbd='docker build --rm -t "${PWD##*/}:latest" .'
+alias dbd='docker build --rm -t "${PWD##*/}:latest"'
 
 alias dcu='docker-compose up -d'
 alias dcU='docker-compose up'
