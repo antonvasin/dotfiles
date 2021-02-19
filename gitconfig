@@ -89,10 +89,10 @@
   enabled = true
 [remote "origin"]
 	prune = true
-[user "gitlab"]
+[user "readymag"]
 	name = Anton Vasin
 	email = antonvasin@readymag.com
-[user "github"]
+[user "personal"]
 	name = Anton Vasin
 	email = antonvasin@me.com
 [init]
