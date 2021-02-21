@@ -52,7 +52,7 @@ brew "wget"
 brew "youtube-dl"
 brew "zsh"
 brew "jakehilborn/jakehilborn/displayplacer"
-brew "qmk/qmk/qmk"
+brew "qmk/qmk/qmk", link: false
 brew "thoughtbot/formulae/rcm"
 cask "dash"
 cask "discord"
