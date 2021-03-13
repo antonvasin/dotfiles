@@ -534,3 +534,4 @@ let test#strategy = "neovim"
 let test#neovim#term_position = 'vert'
 let test#javascript#jest#options = '--watch'
 
+command! W noa write
