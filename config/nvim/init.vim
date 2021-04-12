@@ -535,3 +535,7 @@ let test#neovim#term_position = 'vert'
 let test#javascript#jest#options = '--watch'
 
 command! W noa write
+
+" tab (window) nav
+map <C-Tab> gt
+map <C-S-Tab> gT
