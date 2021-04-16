@@ -193,9 +193,4 @@ find-alias() {
 zle -N find-alias
 alias za=find-alias
 
-# export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
-export VOLTA_HOME="/Users/antonvasin/.volta"
-grep --silent "$VOLTA_HOME/bin" <<< $PATH || export PATH="$VOLTA_HOME/bin:$PATH"
-
 [[ $commands[kubectl] ]] && source <(kubectl completion zsh)
-# RMT_AC_ZSH_SETUP_PATH=/Users/antonvasin/Library/Caches/@rm/tool/autocomplete/zsh_setup && test -f $RMT_AC_ZSH_SETUP_PATH && source $RMT_AC_ZSH_SETUP_PATH; # rmt autocomplete setup
