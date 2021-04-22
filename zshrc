@@ -194,3 +194,5 @@ zle -N find-alias
 alias za=find-alias
 
 [[ $commands[kubectl] ]] && source <(kubectl completion zsh)
+export VOLTA_HOME="$HOME/.volta"
+export PATH="$VOLTA_HOME/bin:$PATH"

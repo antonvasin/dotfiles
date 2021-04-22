@@ -182,13 +182,11 @@ function showHelp() {
 }
 
 const keys = {
-  e: ['Code', 'Visual Studio Code', 'VimR', 'Emacs', 'Oni'],
-  g: ['Google Chrome', 'Chromium'],
+  e: ['VimR', 'Code', 'Visual Studio Code', 'Emacs', 'Oni'],
+  g: ['Chromium', 'Google Chrome'],
   n: ['Notion'],
-  r: ['Roam'],
   s: ['Safari'],
   t: ['iTerm', 'iTerm2', 'Hyper'],
-  v: ['VimR'],
 };
 
 mapHyperKeys({
