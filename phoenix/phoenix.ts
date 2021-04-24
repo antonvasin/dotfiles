@@ -67,28 +67,26 @@ function switchApps(...apps: string[]) {
   };
 }
 
-function withFocused(fn: (w: Window) => void) {
-  const focused = Window.focused();
-  if (focused) fn(focused);
-}
-
 function only() {
-  withFocused((current) => {
-    _.flatMap(current.spaces(), (s) => s.windows())
-      .filter((window) => !window.isEqual(current))
-      .forEach((window) => window.minimize());
-  });
+  const current = Window.focused();
+
+  if (!current) return;
+
+  _.flatMap(current.spaces(), (s) => s.windows())
+    .filter((window) => !window.isEqual(current))
+    .forEach((window) => window.minimize());
 }
 
 function center() {
-  withFocused((window) => {
-    const screen = window.screen().flippedVisibleFrame();
-    const { width, height } = window.frame();
+  const window = Window.focused();
 
-    window.setTopLeft({
-      x: screen.x + screen.width / 2 - width / 2,
-      y: screen.y + screen.height / 2 - height / 2,
-    });
+  if (!window) return;
+  const screen = window.screen().flippedVisibleFrame();
+  const { width, height } = window.frame();
+
+  window.setTopLeft({
+    x: screen.x + screen.width / 2 - width / 2,
+    y: screen.y + screen.height / 2 - height / 2,
   });
 }
 
@@ -185,6 +183,7 @@ const keys = {
   e: ['VimR', 'Code', 'Visual Studio Code', 'Emacs', 'Oni'],
   g: ['Chromium', 'Google Chrome'],
   n: ['Notion'],
+  r: ['Roam Research'],
   s: ['Safari'],
   t: ['iTerm', 'iTerm2', 'Hyper'],
 };
