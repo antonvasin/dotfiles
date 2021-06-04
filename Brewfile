@@ -42,6 +42,7 @@ brew "neovim", args: ["HEAD"]
 brew "prettyping"
 brew "ripgrep"
 brew "ripgrep-all"
+brew "shellcheck"
 brew "shntool"
 brew "skaffold"
 brew "switchaudio-osx"

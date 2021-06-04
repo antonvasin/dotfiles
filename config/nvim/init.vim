@@ -512,7 +512,7 @@ let g:projectionist_heuristics = {
 command! -nargs=0 Prettier :CocCommand prettier.formatFile
 
 " coc extensions
-let g:coc_global_extensions = ['coc-prettier', 'coc-git', 'coc-eslint', 'coc-emoji', 'coc-tsserver', 'coc-json', 'coc-html', 'coc-css', 'coc-yaml', 'coc-emmet', 'coc-snippets', 'coc-svg', 'coc-reason', 'coc-go']
+let g:coc_global_extensions = ['coc-prettier', 'coc-git', 'coc-emoji', 'coc-tsserver', 'coc-json', 'coc-html', 'coc-css', 'coc-yaml', 'coc-emmet', 'coc-snippets', 'coc-svg', 'coc-reason', 'coc-go', 'coc-diagnostic']
 
 try
     nmap <silent> [c :call CocAction('diagnosticNext')<cr>
