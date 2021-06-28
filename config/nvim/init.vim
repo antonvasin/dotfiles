@@ -380,10 +380,10 @@ endfunction
 
 " Fugitive.vim
 nnoremap <leader>gw :Gw<cr>
-nnoremap <leader>gc :Gcommit<cr>
-nnoremap <leader>ga :Gcommit --amend --reuse-message=HEAD<cr>
-nnoremap <leader>gs :Gstatus<cr>
-nnoremap <leader>gP :Gpush --force<cr>
+nnoremap <leader>gc :Git commit<cr>
+nnoremap <leader>ga :Git commit --amend --reuse-message=HEAD<cr>
+nnoremap <leader>gs :Git status<cr>
+nnoremap <leader>gP :Git push --force<cr>
 
 " neoterm
 vnoremap <leader>tr :TREPLSendSelection<cr>
