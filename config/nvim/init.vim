@@ -294,6 +294,7 @@ function! CloseWindowOrKillBuffer()
 endfunction
 
 nnoremap <silent> Q :call CloseWindowOrKillBuffer()<CR>
+nnoremap <silent> <D-w> :call CloseWindowOrKillBuffer()<CR>
 
 tnoremap <C-h> <C-\><C-n><C-w>h
 tnoremap <C-j> <C-\><C-n><C-w>j
@@ -388,8 +389,12 @@ nnoremap <leader>gP :Git push --force<cr>
 " neoterm
 vnoremap <leader>tr :TREPLSendSelection<cr>
 nnoremap <leader>tr :TREPLSendLine<cr>
+
 nnoremap <leader>j :Ttoggle<cr>
+nnoremap ` :Ttoggle<cr>
 tnoremap <leader>j <C-\><C-n>:Ttoggle<cr>
+tnoremap ` <C-\><C-n>:Ttoggle<cr>
+
 nnoremap <leader>tc :Tclear<cr>
 let g:neoterm_default_mod='botright'
 let g:neoterm_autoinsert=1
