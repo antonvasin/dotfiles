@@ -97,3 +97,5 @@
 	email = antonvasin@me.com
 [init]
 	templateDir = /Users/antonvasin/.config/git/template
+[merge]
+	conflictstyle = diff3
