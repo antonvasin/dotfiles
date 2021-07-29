@@ -58,6 +58,7 @@ brew "jakehilborn/jakehilborn/displayplacer"
 brew "qmk/qmk/qmk", link: false
 brew "thoughtbot/formulae/rcm"
 cask "balenaetcher"
+cask "calibre"
 cask "dash"
 cask "discord"
 cask "docker"
