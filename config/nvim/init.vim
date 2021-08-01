@@ -44,6 +44,7 @@ Plug 'kristijanhusak/vim-carbon-now-sh'
 
 " syntax, linters and language plugins
 Plug 'rizzatti/dash.vim'
+Plug 'tpope/vim-fireplace'
 Plug 'guns/vim-sexp'
 Plug 'tpope/vim-sexp-mappings-for-regular-people'
 Plug 'kana/vim-textobj-user'
@@ -490,7 +491,11 @@ autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
 let g:projectionist_heuristics = {
 \   "package.json": {
 \     "*.tsx": {
-\       "alternate": "{dirname}/__tests__/{basename}.test.tsx",
+\       "alternate": [
+\         "{dirname}/__tests__/{basename}.test.tsx",
+\         "{basename}.test.tsx",
+\         "{basename}.spec.tsx"
+\       ],
 \       "type": "component"
 \     },
 \     "*.test.tsx": {
@@ -498,21 +503,41 @@ let g:projectionist_heuristics = {
 \       "type": "test"
 \     },
 \     "*.ts": {
-\       "alternate": "{dirname}/__tests__/{basename}.test.ts"
+\       "alternate": "{dirname}/__tests__/{basename}.test.ts",
+\       "type": "source"
 \     },
 \     "*.test.ts": {
 \       "alternate": "{dirname}/../{basename}.ts",
 \       "type": "test"
 \     },
 \     "*.js": {
-\       "alternate": "{dirname}/__tests__/{basename}.test.js"
+\       "alternate": [
+\         "{dirname}/__tests__/{basename}.test.js",
+\         "{}.test.js",
+\         "{}.spec.js",
+\       ],
+\       "type": "source"
 \     },
 \     "*.test.js": {
-\       "alternate": "{dirname}/../{basename}.js",
+\       "alternate": ["{}.js", "{dirname}/../{basename}.js"],
 \       "type": "test"
 \     },
-\   },
-\ }
+\     "*.spec.js": {
+\       "alternate": ["{}.js", "{dirname}/../{basename}.js"],
+\       "type": "test"
+\     },
+\    },
+\  "project.clj": {
+\     "*.clj": {
+\       "alternate": "{dirname}/../test/{basename}_test.clj",
+\       "type": "source"
+\     },
+\     "*_test.clj": {
+\       "alternate": "{dirname}/../src/{basename}.clj",
+\       "type": "source"
+\     }
+\  }
+\}
 
 command! -nargs=0 Prettier :CocCommand prettier.formatFile
 
