@@ -186,6 +186,7 @@ const keys = {
   r: ['Roam Research'],
   s: ['Safari'],
   t: ['iTerm', 'iTerm2', 'Hyper'],
+  o: ['Obsidian'],
 };
 
 mapHyperKeys({
