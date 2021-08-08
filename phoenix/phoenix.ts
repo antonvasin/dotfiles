@@ -183,10 +183,9 @@ const keys = {
   e: ['VimR', 'Code', 'Visual Studio Code', 'Emacs', 'Oni'],
   g: ['Chromium', 'Google Chrome'],
   n: ['Notion'],
-  r: ['Roam Research'],
+  r: ['Roam Research', 'Obsidian'],
   s: ['Safari'],
   t: ['iTerm', 'iTerm2', 'Hyper'],
-  o: ['Obsidian'],
 };
 
 mapHyperKeys({
