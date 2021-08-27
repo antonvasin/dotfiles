@@ -546,8 +546,8 @@ let g:coc_node_path = '/Users/antonvasin/.volta/tools/image/node/14.16.1/bin/nod
 let g:coc_global_extensions = ['coc-prettier', 'coc-git', 'coc-emoji', 'coc-tsserver', 'coc-json', 'coc-html', 'coc-css', 'coc-yaml', 'coc-emmet', 'coc-snippets', 'coc-svg', 'coc-reason', 'coc-go', 'coc-diagnostic']
 
 try
-    nmap <silent> [c :call CocAction('diagnosticNext')<cr>
-    nmap <silent> ]c :call CocAction('diagnosticPrevious')<cr>
+    nmap <silent> [c :call CocAction('diagnosticPrevious')<cr>
+    nmap <silent> ]c :call CocAction('diagnosticNext')<cr>
 endtry
 
 " xkbswitch
