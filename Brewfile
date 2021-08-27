@@ -62,6 +62,7 @@ brew "qmk/qmk/qmk", link: false
 brew "thoughtbot/formulae/rcm"
 cask "adoptopenjdk"
 cask "balenaetcher"
+cask "blackhole-2ch"
 cask "calibre"
 cask "dash"
 cask "discord"
