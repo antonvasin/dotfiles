@@ -572,3 +572,6 @@ command! W noa write
 " tab (window) nav
 map <C-Tab> gt
 map <C-S-Tab> gT
+
+" ripgrep
+let g:rg_binary = 'rg --fixed-strings'
