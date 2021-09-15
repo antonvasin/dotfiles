@@ -183,7 +183,7 @@ const keys = {
   e: ['VimR', 'Code', 'Visual Studio Code', 'Emacs', 'Oni'],
   g: ['Chromium', 'Google Chrome'],
   n: ['Notion'],
-  // r: ['Roam Research', 'Obsidian'],
+  r: ['Roam Research'],
   z: ['Obsidian'],
   s: ['Safari'],
   t: ['iTerm', 'iTerm2', 'Hyper'],
