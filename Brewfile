@@ -13,7 +13,7 @@ tap "osx-cross/arm"
 tap "osx-cross/avr"
 tap "qmk/qmk"
 tap "thoughtbot/formulae"
-brew "awscli", link: false
+brew "awscli"
 brew "bat"
 brew "coreutils"
 brew "cuetools"
