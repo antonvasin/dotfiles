@@ -116,4 +116,5 @@ mas "Parcel", id: 639968404
 mas "Reeder", id: 1529448980
 mas "Telegram", id: 747648890
 mas "TextSniper", id: 1528890965
+mas "Userscripts", id: 1463298887
 mas "Vimari", id: 1480933944
