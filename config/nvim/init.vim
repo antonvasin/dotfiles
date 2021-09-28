@@ -32,17 +32,17 @@ Plug 'tpope/vim-abolish'
 Plug 'tpope/vim-speeddating'
 " *nix std commands for vim
 Plug 'tpope/vim-eunuch'
+Plug 'tpope/vim-sensible'
 Plug 'bronson/vim-visual-star-search'
 Plug 'Shougo/vimproc.vim', { 'do': 'make' }
 Plug 'lyokha/vim-xkbswitch'
 Plug 'ruanyl/vim-gh-line'
-
 Plug '/usr/local/opt/fzf'
 Plug 'junegunn/fzf.vim'
-
 Plug 'kassio/neoterm'
 Plug 'kien/rainbow_parentheses.vim'
 Plug 'kristijanhusak/vim-carbon-now-sh'
+Plug 'thaerkh/vim-workspace'
 
 " syntax, linters and language plugins
 Plug 'rizzatti/dash.vim'
@@ -79,9 +79,7 @@ set shiftwidth=2
 set softtabstop=2
 set expandtab
 set scrolloff=5
-set autoindent
 set noshowmode
-set autoread
 
 set listchars=tab:▸\ ,eol:¬,extends:❯,precedes:❮,nbsp:␣
 set fillchars=vert:\│
@@ -91,19 +89,16 @@ set smartcase
 " Do case insensitive matching
 set ignorecase
 " Incremental search
-set incsearch
 set hlsearch
 set wildmode=list:longest,full
 set backspace=indent,eol,start
 " Hide buffers when they are abandoned
 set hidden
-set wildmenu
 set splitbelow
 set splitright
 set visualbell
 set cursorline
 set guicursor+=n-v-c:blinkon0
-set ruler
 set laststatus=2
 set textwidth=79
 " Show (partial) command in status line.
@@ -238,7 +233,6 @@ let g:lightline = {
 "don't wait too long for next keystroke
 set timeoutlen=500
 set updatetime=250
-set smarttab
 
 " lang
 "
@@ -373,6 +367,8 @@ nnoremap <leader>. :CocAction<cr>
 nnoremap <leader>o :only<cr>
 nnoremap <leader>z :Goyo<cr>
 nnoremap <leader>h :call <SID>show_documentation()<CR>
+
+nnoremap <leader>W :ToggleWorkspace<CR>
 
 function! s:show_documentation()
   if (index(['vim','help'], &filetype) >= 0)
@@ -575,3 +571,6 @@ map <C-S-Tab> gT
 
 " ripgrep
 let g:rg_binary = 'rg --fixed-strings'
+
+" vim-workspace
+let g:workspace_session_directory = $HOME . '/.config/nvim/sessions'
