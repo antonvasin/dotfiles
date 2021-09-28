@@ -32,7 +32,6 @@ Plug 'tpope/vim-abolish'
 Plug 'tpope/vim-speeddating'
 " *nix std commands for vim
 Plug 'tpope/vim-eunuch'
-Plug 'tpope/vim-sensible'
 Plug 'bronson/vim-visual-star-search'
 Plug 'Shougo/vimproc.vim', { 'do': 'make' }
 Plug 'lyokha/vim-xkbswitch'
@@ -80,6 +79,11 @@ set softtabstop=2
 set expandtab
 set scrolloff=5
 set noshowmode
+set autoindent
+set autoread
+set wildmenu
+set ruler
+set smarttab
 
 set listchars=tab:▸\ ,eol:¬,extends:❯,precedes:❮,nbsp:␣
 set fillchars=vert:\│
