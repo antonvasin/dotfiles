@@ -571,6 +571,3 @@ map <C-S-Tab> gT
 
 " ripgrep
 let g:rg_binary = 'rg --fixed-strings'
-
-" vim-workspace
-let g:workspace_session_directory = $HOME . '/.config/nvim/sessions'
