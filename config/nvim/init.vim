@@ -574,4 +574,4 @@ map <C-Tab> gt
 map <C-S-Tab> gT
 
 " ripgrep
-let g:rg_binary = 'rg --fixed-strings'
+" let g:rg_binary = 'rg --fixed-strings'
