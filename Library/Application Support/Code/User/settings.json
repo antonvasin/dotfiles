@@ -252,5 +252,6 @@
   },
   "redhat.telemetry.enabled": false,
   "vscode-neovim.neovimExecutablePaths.darwin": "/usr/local/bin/nvim",
-  "vscode-neovim.neovimInitVimPaths.darwin": "/Users/antonvasin/.config/nvim/init.vim"
+  "vscode-neovim.neovimInitVimPaths.darwin": "/Users/antonvasin/.config/nvim/init.vim",
+  "javascript.updateImportsOnFileMove.enabled": "always"
 }
