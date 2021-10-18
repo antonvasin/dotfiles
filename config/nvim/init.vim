@@ -6,6 +6,12 @@ if empty(glob('~/.config/nvim/autoload/plug.vim'))
   autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
+
+function! Cond(cond, ...)
+  let opts = get(a:000, 0, {})
+  return a:cond ? opts : extend(opts, { 'on': [], 'for': [] })
+endfunction
+
 call plug#begin('~/.config/nvim/plugged')
 
 Plug 'morhetz/gruvbox'
@@ -56,7 +62,7 @@ Plug 'tpope/vim-jdaddy'
 Plug 'neoclide/jsonc.vim'
 Plug 'ap/vim-css-color'
 Plug 'honza/vim-snippets'
-Plug 'neoclide/coc.nvim', { 'branch': 'release' }
+Plug 'neoclide/coc.nvim', Cond(!exists('g:vscode'))
 " Plug 'eraserhd/parinfer-rust', { 'do': 'cargo build --release > /dev/null' }
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install' }
 Plug 'janko/vim-test'
@@ -294,8 +300,10 @@ function! CloseWindowOrKillBuffer()
   endif
 endfunction
 
-nnoremap <silent> Q :call CloseWindowOrKillBuffer()<CR>
-nnoremap <silent> <D-w> :call CloseWindowOrKillBuffer()<CR>
+if (!exists('g:vscode'))
+  nnoremap <silent> Q :call CloseWindowOrKillBuffer()<CR>
+  nnoremap <silent> <D-w> :call CloseWindowOrKillBuffer()<CR>
+end
 
 tnoremap <C-h> <C-\><C-n><C-w>h
 tnoremap <C-j> <C-\><C-n><C-w>j
