@@ -254,5 +254,6 @@
   "vscode-neovim.neovimExecutablePaths.darwin": "/usr/local/bin/nvim",
   "vscode-neovim.neovimInitVimPaths.darwin": "/Users/antonvasin/.config/nvim/init.vim",
   "javascript.updateImportsOnFileMove.enabled": "always",
-  "files.autoSave": "afterDelay"
+  "files.autoSave": "afterDelay",
+  "git.confirmSync": false
 }
