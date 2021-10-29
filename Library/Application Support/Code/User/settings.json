@@ -169,7 +169,6 @@
   },
   "gitlens.hovers.currentLine.over": "line",
   "npm.enableScriptExplorer": true,
-  "workbench.sideBar.location": "right",
   "typescript.updateImportsOnFileMove.enabled": "always",
   "files.associations": {
     "differential*": "markdown",
