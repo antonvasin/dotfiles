@@ -22,7 +22,7 @@ Plug 'jiangmiao/auto-pairs'
 Plug 'junegunn/goyo.vim'
 Plug 'mtth/scratch.vim'
 Plug 'simnalamburt/vim-mundo'
-Plug 'jremmen/vim-ripgrep'
+Plug 'mileszs/ack.vim'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-rhubarb'
@@ -356,7 +356,7 @@ nnoremap <leader>ev :e $MYVIMRC<cr>
 " Yank whole text line without spaces
 nnoremap <leader>y ^y$
 nnoremap <leader>S :%s///<left>
-nnoremap <leader>a :Rg<space>
+nnoremap <leader>a :Ack! <space>
 nnoremap <leader>wa :wa<cr>
 nnoremap <leader>qq :qa!<cr>
 nnoremap <leader>w <C-w>
@@ -581,5 +581,8 @@ command! W noa write
 map <C-Tab> gt
 map <C-S-Tab> gT
 
-" ripgrep
-let g:rg_binary = 'rg --fixed-strings'
+" let g:ack_autoclose = 1
+let g:ackprg = 'rg --vimgrep --smart-case'
+let g:ack_use_cword_for_empty_search = 1
+
+
