@@ -163,10 +163,10 @@ else
 fi
 
 # cat -> bat
-# if [[ -f /usr/local/bin/bat ]]; then
-#   alias cat='bat'
-#   export BAT_THEME='gruvbox'
-# fi
+if [[ -f /usr/local/bin/bat ]]; then
+  alias cat='bat'
+  export BAT_THEME='gruvbox'
+fi
 
 # ping -> prettyping
 [[ -f /usr/local/bin/prettyping ]] && alias ping='prettyping --nolegend'
