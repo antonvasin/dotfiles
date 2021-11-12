@@ -356,7 +356,7 @@ nnoremap <leader>ev :e $MYVIMRC<cr>
 " Yank whole text line without spaces
 nnoremap <leader>y ^y$
 nnoremap <leader>S :%s///<left>
-nnoremap <leader>a :Ack! <space>
+nnoremap <leader>a :Ack!<space>
 nnoremap <leader>wa :wa<cr>
 nnoremap <leader>qq :qa!<cr>
 nnoremap <leader>w <C-w>
