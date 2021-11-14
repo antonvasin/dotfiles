@@ -45,17 +45,17 @@ Plug 'ruanyl/vim-gh-line'
 Plug '/usr/local/opt/fzf'
 Plug 'junegunn/fzf.vim'
 Plug 'kassio/neoterm'
-Plug 'kien/rainbow_parentheses.vim'
+Plug 'kien/rainbow_parentheses.vim', Cond(!exists('g:vscode'))
 Plug 'kristijanhusak/vim-carbon-now-sh'
-Plug 'thaerkh/vim-workspace'
+Plug 'thaerkh/vim-workspace', Cond(!exists('g:vscode'))
 
 " syntax, linters and language plugins
 Plug 'rizzatti/dash.vim'
-Plug 'tpope/vim-fireplace'
+Plug 'tpope/vim-fireplace', Cond(!exists('g:vscode'))
 Plug 'guns/vim-sexp'
 Plug 'tpope/vim-sexp-mappings-for-regular-people'
 Plug 'kana/vim-textobj-user'
-Plug 'sheerun/vim-polyglot'
+Plug 'sheerun/vim-polyglot', Cond(!exists('g:vscode'))
 Plug 'sheerun/vim-go'
 Plug 'mattn/emmet-vim'
 Plug 'tpope/vim-jdaddy'
@@ -258,8 +258,10 @@ set spellfile=~/.config/nvim/spell/ru.utf-8.add,~/.config/nvim/spell/en.utf-8.ad
 hi clear SpellBad
 hi SpellBad cterm=underline
 
-autocmd CursorHold * silent call CocActionAsync('highlight')
-set updatetime=100
+if (!exists('g:vscode'))
+  autocmd CursorHold * silent call CocActionAsync('highlight')
+  set updatetime=100
+end
 
 " display only current cursorline
 augroup CursorLine
