@@ -155,7 +155,11 @@
     "**/.hg": true,
     "**/CVS": true,
     "**/.DS_Store": true,
-    "**/node_modules": true
+    "**/node_modules": true,
+    "**/.classpath": true,
+    "**/.project": true,
+    "**/.settings": true,
+    "**/.factorypath": true
   },
   "gitlens.advanced.messages": {
     "suppressCommitHasNoPreviousCommitWarning": false,
@@ -254,5 +258,7 @@
   "javascript.updateImportsOnFileMove.enabled": "always",
   "files.autoSave": "afterDelay",
   "git.confirmSync": false,
-  "workbench.editor.showTabs": false
+  "workbench.editor.showTabs": false,
+  "editor.suggestSelection": "first",
+  "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue"
 }
