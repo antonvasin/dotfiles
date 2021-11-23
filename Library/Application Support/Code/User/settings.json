@@ -137,7 +137,6 @@
   "workbench.editor.labelFormat": "short",
   "editor.lineNumbers": "relative",
   "explorer.confirmDelete": false,
-  "window.zoomLevel": 0,
   "emojisense.languages": {
     "markdown": true,
     "javascript": true,
@@ -204,7 +203,6 @@
   "files.eol": "\n",
   "jest.enableCodeLens": false,
   "gitlens.codeLens.enabled": false,
-  "gitlens.currentLine.enabled": false,
   "gitlens.views.fileHistory.location": "scm",
   "gitlens.views.lineHistory.location": "scm",
   "reason_language_server.opens_codelens": false,
