@@ -18,7 +18,7 @@ ZIM_HOME=${ZDOTDIR:-${HOME}}/.zim
 export FZF_DEFAULT_OPTS="--bind ctrl-j:down,ctrl-k:up --preview 'bat --color \"always\" {}' --bind='ctrl-o:execute(code {})+abort'"
 export FZF_CTRL_R_OPTS="--no-preview"
 export FZF_COMPLETION_TRIGGER='~~'
-export FZF_DEFAULT_COMMAND='rg --files --hidden --follow 2> /dev/null'
+export FZF_DEFAULT_COMMAND='rg --files --follow 2> /dev/null'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 
 export EDITOR='nvim'
