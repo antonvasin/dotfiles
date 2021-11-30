@@ -46,3 +46,5 @@ export NPM_CONFIG_PROGRESS=false
 export NPM_CONFIG_SAVE=true
 
 # RMT_AC_ZSH_SETUP_PATH=/Users/antonvasin/Library/Caches/@rm/tool/autocomplete/zsh_setup && test -f $RMT_AC_ZSH_SETUP_PATH && source $RMT_AC_ZSH_SETUP_PATH; # rmt autocomplete setup
+
+export MNML_MAGICENTER=""

@@ -19,6 +19,8 @@ zmodule utility
 
 # zmodule gitster
 zmodule minimal
+# zmodule Ansimorph/oblong
+# zmodule gitster
 
 zmodule fasd
 zmodule homebrew
