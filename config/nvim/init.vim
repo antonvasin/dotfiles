@@ -302,9 +302,14 @@ function! CloseWindowOrKillBuffer()
   endif
 endfunction
 
+map Q <Nop>
 if (!exists('g:vscode'))
   nnoremap <silent> Q :call CloseWindowOrKillBuffer()<CR>
   nnoremap <silent> <D-w> :call CloseWindowOrKillBuffer()<CR>
+end
+
+if (exists('g:vscode'))
+  map - <Nop>
 end
 
 tnoremap <C-h> <C-\><C-n><C-w>h
