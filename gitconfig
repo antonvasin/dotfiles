@@ -72,8 +72,6 @@
   remaster = rebase origin/master
 	identity = "! git config user.name \"$(git config user.$1.name)\"; git config user.email \"$(git config user.$1.email)\"; git config user.signingkey \"$(git config user.$1.signingkey)\"; :"
   wip = "!git commit . -n -m \"${1:-WIP}\""
-[credential]
-	helper = osxkeychain
 [branch]
   autosetuprebase = always
 [hub]
