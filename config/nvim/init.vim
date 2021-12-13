@@ -303,13 +303,18 @@ function! CloseWindowOrKillBuffer()
 endfunction
 
 map Q <Nop>
+
 if (!exists('g:vscode'))
   nnoremap <silent> Q :call CloseWindowOrKillBuffer()<CR>
   nnoremap <silent> <D-w> :call CloseWindowOrKillBuffer()<CR>
+else
+  map - <Nop>
 end
 
-if (exists('g:vscode'))
-  map - <Nop>
+if has('gui_running')
+  nnoremap <D-p> :FZF<CR>
+  set showtabline=0
+  set guioptions=
 end
 
 tnoremap <C-h> <C-\><C-n><C-w>h
@@ -346,6 +351,7 @@ nnoremap n nzzzv
 nnoremap N Nzzzv
 nnoremap Y y$
 map K <Nop>
+nnoremap <leader>o :FZF<CR>
 nnoremap <c-t> :FZF<CR>
 nnoremap <c-p> :FZF<CR>
 
