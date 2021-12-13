@@ -3,14 +3,6 @@
   "javascript.suggest.enabled": false,
   "tsserver.enableJavascript": true,
   "diagnostic.virtualText": false,
-  "eslint.filetypes": [
-    "javascript",
-    "javascriptreact",
-    "typescript",
-    "typescriptreact",
-    "typescript.tsx",
-    "vue"
-  ],
   "coc.source.emoji.filetypes": null,
   "yaml.schemas": {
     "http://json.schemastore.org/gitlab-ci": ".gitlab-*.yml"
