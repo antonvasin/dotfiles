@@ -14,58 +14,56 @@ endfunction
 
 call plug#begin('~/.config/nvim/plugged')
 
+" Look
 Plug 'morhetz/gruvbox'
-
 Plug 'Yggdroot/indentLine'
 Plug 'itchyny/lightline.vim'
+
+" Editing & Navigation
 Plug 'jiangmiao/auto-pairs'
 Plug 'junegunn/goyo.vim'
 Plug 'mtth/scratch.vim'
 Plug 'simnalamburt/vim-mundo'
-Plug 'mileszs/ack.vim'
 Plug 'tpope/vim-commentary'
-Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-rhubarb'
-Plug 'shumphrey/fugitive-gitlab.vim'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
-" nice things for netrw
-Plug 'tpope/vim-vinegar'
-Plug 'tpope/vim-projectionist'
-Plug 'tpope/vim-abolish'
-" ctrl-a ctrl-x for date and time
-Plug 'tpope/vim-speeddating'
-" *nix std commands for vim
-Plug 'tpope/vim-eunuch'
-Plug 'bronson/vim-visual-star-search'
-Plug 'Shougo/vimproc.vim', { 'do': 'make' }
-Plug 'lyokha/vim-xkbswitch'
-Plug 'ruanyl/vim-gh-line'
-Plug '/usr/local/opt/fzf'
-Plug 'junegunn/fzf.vim'
-Plug 'kassio/neoterm'
-Plug 'kien/rainbow_parentheses.vim', Cond(!exists('g:vscode'))
-Plug 'kristijanhusak/vim-carbon-now-sh'
-Plug 'thaerkh/vim-workspace', Cond(!exists('g:vscode'))
-
-" syntax, linters and language plugins
-Plug 'rizzatti/dash.vim'
-Plug 'tpope/vim-fireplace', Cond(!exists('g:vscode'))
 Plug 'guns/vim-sexp'
 Plug 'tpope/vim-sexp-mappings-for-regular-people'
 Plug 'kana/vim-textobj-user'
+Plug 'mattn/emmet-vim'
+Plug 'tpope/vim-speeddating' " ctrl-a ctrl-x for date and time
+Plug 'lyokha/vim-xkbswitch'
+Plug 'bronson/vim-visual-star-search'
+Plug '/usr/local/opt/fzf'
+Plug 'junegunn/fzf.vim'
+
+" Integrations
+Plug 'mileszs/ack.vim'
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-rhubarb'
+Plug 'shumphrey/fugitive-gitlab.vim'
+Plug 'tpope/vim-vinegar' " nice things for netrw
+Plug 'tpope/vim-projectionist'
+Plug 'Shougo/vimproc.vim', { 'do': 'make' }
+Plug 'ruanyl/vim-gh-line'
+Plug 'kassio/neoterm'
+Plug 'kristijanhusak/vim-carbon-now-sh'
+Plug 'janko/vim-test'
+
+" Languages
+Plug 'rizzatti/dash.vim'
+Plug 'tpope/vim-fireplace', Cond(!exists('g:vscode'))
 Plug 'sheerun/vim-polyglot', Cond(!exists('g:vscode'))
 Plug 'sheerun/vim-go'
-Plug 'mattn/emmet-vim'
 Plug 'tpope/vim-jdaddy'
 Plug 'neoclide/jsonc.vim'
 Plug 'ap/vim-css-color'
 Plug 'honza/vim-snippets'
-Plug 'neoclide/coc.nvim', Cond(!exists('g:vscode'))
-" Plug 'eraserhd/parinfer-rust', { 'do': 'cargo build --release > /dev/null' }
-Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install' }
-Plug 'janko/vim-test'
+" Plug 'neoclide/coc.nvim', Cond(!exists('g:vscode'))
+Plug 'neovim/nvim-lspconfig'
+Plug 'williamboman/nvim-lsp-installer'
+
 
 call plug#end()
 
@@ -154,19 +152,19 @@ augroup PersistFolds
 augroup END
 
 " use <tab> for trigger completion and navigate to the next complete item
-function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~ '\s'
-endfunction
+" function! s:check_back_space() abort
+"   let col = col('.') - 1
+"   return !col || getline('.')[col - 1]  =~ '\s'
+" endfunction
 
-inoremap <silent><expr> <TAB>
-      \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ coc#refresh()
+" inoremap <silent><expr> <TAB>
+"       \ pumvisible() ? "\<C-n>" :
+"       \ <SID>check_back_space() ? "\<TAB>" :
+"       \ coc#refresh()
 
-inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
-inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+" inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+" inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+" inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 
 " Don’t display urls as spelling errors
 syn match UrlNoSpell '\w\+:\/\/[^[:space:]]\+' contains=@NoSpell
@@ -259,7 +257,9 @@ hi clear SpellBad
 hi SpellBad cterm=underline
 
 if (!exists('g:vscode'))
-  autocmd CursorHold * silent call CocActionAsync('highlight')
+  " autocmd CursorHold * silent call CocActionAsync('highlight')
+  " autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+
   set updatetime=100
 end
 
@@ -377,21 +377,21 @@ nnoremap <leader>w <C-w>
 nmap <leader>ja :A<cr>
 nmap <leader>jA :AV<cr>
 
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
+" Coc
+" nmap <silent> gd <Plug>(coc-definition)
+" nmap <silent> gy <Plug>(coc-type-definition)
+" nmap <silent> gi <Plug>(coc-implementation)
+" nmap <silent> gr <Plug>(coc-references)
+" nmap <leader>s <Plug>(coc-rename)
+" nmap <F12> <Plug>(coc-definition)
+" vmap <C-j> <Plug>(coc-snippets-select)
+" imap <C-j> <Plug>(coc-snippets-expand-jump)
+" nnoremap <leader>k <Plug>(coc-diagnostic-info)
+" nnoremap <leader>. :CocAction<cr>
+" nnoremap <leader>h :call <SID>show_documentation()<CR>
 
-nmap <leader>s <Plug>(coc-rename)
-nmap <F12> <Plug>(coc-definition)
-
-vmap <C-j> <Plug>(coc-snippets-select)
-imap <C-j> <Plug>(coc-snippets-expand-jump)
-nnoremap <leader>k <Plug>(coc-diagnostic-info)
-nnoremap <leader>. :CocAction<cr>
 nnoremap <leader>o :only<cr>
 nnoremap <leader>z :Goyo<cr>
-nnoremap <leader>h :call <SID>show_documentation()<CR>
 
 nnoremap <leader>W :ToggleWorkspace<CR>
 
@@ -509,8 +509,6 @@ let g:carbon_now_sh_options = {
 
 " au BufEnter *.tsx set filetype=typescriptreact
 
-autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
-
 let g:projectionist_heuristics = {
 \   "package.json": {
 \     "*.tsx": {
@@ -562,27 +560,27 @@ let g:projectionist_heuristics = {
 \  }
 \}
 
-command! -nargs=0 Prettier :CocCommand prettier.formatFile
+" command! -nargs=0 Prettier :CocCommand prettier.formatFile
 
 " coc extensions
-let g:coc_node_path = '/Users/antonvasin/.volta/tools/image/node/14.16.1/bin/node'
-let g:coc_global_extensions = ['coc-prettier', 'coc-git', 'coc-emoji', 'coc-tsserver', 'coc-json', 'coc-html', 'coc-css', 'coc-yaml', 'coc-emmet', 'coc-snippets', 'coc-svg', 'coc-reason', 'coc-go', 'coc-diagnostic']
+" let g:coc_node_path = '/Users/antonvasin/.volta/tools/image/node/14.16.1/bin/node'
+" let g:coc_global_extensions = ['coc-prettier', 'coc-git', 'coc-emoji', 'coc-tsserver', 'coc-json', 'coc-html', 'coc-css', 'coc-yaml', 'coc-emmet', 'coc-snippets', 'coc-svg', 'coc-reason', 'coc-go', 'coc-diagnostic']
 
-try
-    nmap <silent> [c :call CocAction('diagnosticPrevious')<cr>
-    nmap <silent> ]c :call CocAction('diagnosticNext')<cr>
-endtry
+" try
+"     nmap <silent> [c :call CocAction('diagnosticPrevious')<cr>
+"     nmap <silent> ]c :call CocAction('diagnosticNext')<cr>
+" endtry
 
 " xkbswitch
 let g:XkbSwitchEnabled = 1
 " let g:XkbSwitchIMappings = ['ru']
 
 " vim-test
-nmap <silent> t<C-n> :TestNearest<CR>
-nmap <silent> t<C-f> :TestFile<CR>
-nmap <silent> t<C-s> :TestSuite<CR>
-nmap <silent> t<C-l> :TestLast<CR>
-nmap <silent> t<C-g> :TestVisit<CR>
+" nmap <silent> t<C-n> :TestNearest<CR>
+" nmap <silent> t<C-f> :TestFile<CR>
+" nmap <silent> t<C-s> :TestSuite<CR>
+" nmap <silent> t<C-l> :TestLast<CR>
+" nmap <silent> t<C-g> :TestVisit<CR>
 au TermOpen * setlocal nonumber norelativenumber
 let test#strategy = "neovim"
 let test#neovim#term_position = 'vert'
@@ -597,3 +595,21 @@ map <C-S-Tab> gT
 " let g:ack_autoclose = 1
 let g:ackprg = 'rg --vimgrep --smart-case'
 let g:ack_use_cword_for_empty_search = 1
+
+" LSP
+lua << EOF
+require'lspconfig'.tsserver.setup{}
+require'lspconfig'.denols.setup{}
+require'lspconfig'.eslint.setup{}
+EOF
+nnoremap <silent> gd    <cmd>lua vim.lsp.buf.definition()<CR>
+nnoremap <silent> gi    <cmd>lua vim.lsp.buf.implementation()<CR>
+nnoremap <silent> gr    <cmd>lua vim.lsp.buf.references()<CR>
+nnoremap <silent> gD    <cmd>lua vim.lsp.buf.declaration()<CR>
+nnoremap <silent> ge    <cmd>lua vim.lsp.diagnostic.set_loclist()<CR>
+nnoremap <silent> K     <cmd>lua vim.lsp.buf.hover()<CR>
+" nnoremap <silent> <leader>f    <cmd>lua vim.lsp.buf.formatting()<CR>
+" nnoremap <silent> <leader>rn    <cmd>lua vim.lsp.buf.rename()<CR>
+
+nnoremap <silent> <leader>. <cmd>lua vim.lsp.buf.code_action()<CR>
+xmap <silent> <leader>. <cmd>lua vim.lsp.buf.range_code_action()<CR>
