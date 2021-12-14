@@ -598,16 +598,41 @@ let g:ack_use_cword_for_empty_search = 1
 
 " LSP
 lua << EOF
+local lsp_installer = require("nvim-lsp-installer")
+
+-- Register a handler that will be called for all installed servers.
+-- Alternatively, you may also register handlers on specific server instances instead (see example below).
+lsp_installer.on_server_ready(function(server)
+    local opts = {}
+
+    -- (optional) Customize the options passed to the server
+    -- if server.name == "tsserver" then
+    --     opts.root_dir = function() ... end
+    -- end
+
+    -- This setup() function is exactly the same as lspconfig's setup function.
+    -- Refer to https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md
+    server:setup(opts)
+end)
+
 require'lspconfig'.tsserver.setup{}
 require'lspconfig'.denols.setup{}
 require'lspconfig'.eslint.setup{}
+require'lspconfig'.dockerls.setup{}
+require'lspconfig'.gopls.setup{}
+require'lspconfig'.vimls.setup{}
+require'lspconfig'.yamlls.setup{}
+require'lspconfig'.cssls.setup{}
+require'lspconfig'.jsonls.setup{}
+require'lspconfig'.html.setup{}
 EOF
-nnoremap <silent> gd    <cmd>lua vim.lsp.buf.definition()<CR>
-nnoremap <silent> gi    <cmd>lua vim.lsp.buf.implementation()<CR>
-nnoremap <silent> gr    <cmd>lua vim.lsp.buf.references()<CR>
-nnoremap <silent> gD    <cmd>lua vim.lsp.buf.declaration()<CR>
-nnoremap <silent> ge    <cmd>lua vim.lsp.diagnostic.set_loclist()<CR>
-nnoremap <silent> K     <cmd>lua vim.lsp.buf.hover()<CR>
+
+nnoremap <silent> gd <cmd>lua vim.lsp.buf.definition()<CR>
+nnoremap <silent> gi <cmd>lua vim.lsp.buf.implementation()<CR>
+nnoremap <silent> gr <cmd>lua vim.lsp.buf.references()<CR>
+nnoremap <silent> gD <cmd>lua vim.lsp.buf.declaration()<CR>
+nnoremap <silent> ge <cmd>lua vim.lsp.diagnostic.set_loclist()<CR>
+nnoremap <silent> K  <cmd>lua vim.lsp.buf.hover()<CR>
 " nnoremap <silent> <leader>f    <cmd>lua vim.lsp.buf.formatting()<CR>
 " nnoremap <silent> <leader>rn    <cmd>lua vim.lsp.buf.rename()<CR>
 
