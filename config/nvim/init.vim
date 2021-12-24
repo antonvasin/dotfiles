@@ -615,16 +615,20 @@ lsp_installer.on_server_ready(function(server)
     server:setup(opts)
 end)
 
-require'lspconfig'.tsserver.setup{}
-require'lspconfig'.denols.setup{}
-require'lspconfig'.eslint.setup{}
-require'lspconfig'.dockerls.setup{}
-require'lspconfig'.gopls.setup{}
-require'lspconfig'.vimls.setup{}
-require'lspconfig'.yamlls.setup{}
-require'lspconfig'.cssls.setup{}
-require'lspconfig'.jsonls.setup{}
-require'lspconfig'.html.setup{}
+-- require'lspconfig'.tsserver.setup{}
+-- require'lspconfig'.denols.setup{}
+-- require'lspconfig'.eslint.setup{}
+-- require'lspconfig'.dockerls.setup{}
+-- require'lspconfig'.gopls.setup{}
+-- require'lspconfig'.vimls.setup{}
+-- require'lspconfig'.yamlls.setup{}
+-- require'lspconfig'.cssls.setup{}
+-- require'lspconfig'.jsonls.setup{}
+-- require'lspconfig'.html.setup{}
+
+vim.g.markdown_fenced_languages = {
+  "ts=typescript"
+}
 EOF
 
 nnoremap <silent> gd <cmd>lua vim.lsp.buf.definition()<CR>
@@ -634,7 +638,7 @@ nnoremap <silent> gD <cmd>lua vim.lsp.buf.declaration()<CR>
 nnoremap <silent> ge <cmd>lua vim.lsp.diagnostic.set_loclist()<CR>
 nnoremap <silent> K  <cmd>lua vim.lsp.buf.hover()<CR>
 " nnoremap <silent> <leader>f    <cmd>lua vim.lsp.buf.formatting()<CR>
-" nnoremap <silent> <leader>rn    <cmd>lua vim.lsp.buf.rename()<CR>
+nnoremap <silent> <leader>r    <cmd>lua vim.lsp.buf.rename()<CR>
 
 nnoremap <silent> <leader>. <cmd>lua vim.lsp.buf.code_action()<CR>
 xmap <silent> <leader>. <cmd>lua vim.lsp.buf.range_code_action()<CR>
