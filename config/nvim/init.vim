@@ -63,7 +63,7 @@ Plug 'honza/vim-snippets'
 " Plug 'neoclide/coc.nvim', Cond(!exists('g:vscode'))
 Plug 'neovim/nvim-lspconfig'
 Plug 'williamboman/nvim-lsp-installer'
-
+Plug 'prettier/vim-prettier', { 'do': 'yarn install --frozen-lockfile --production' }
 
 call plug#end()
 
@@ -642,3 +642,7 @@ nnoremap <silent> <leader>r    <cmd>lua vim.lsp.buf.rename()<CR>
 
 nnoremap <silent> <leader>. <cmd>lua vim.lsp.buf.code_action()<CR>
 xmap <silent> <leader>. <cmd>lua vim.lsp.buf.range_code_action()<CR>
+
+" prettier
+let g:prettier#autoformat = 1
+let g:prettier#autoformat_require_pragma = 0
