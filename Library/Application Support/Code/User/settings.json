@@ -6,6 +6,9 @@
   "editor.tabSize": 2,
   "editor.acceptSuggestionOnEnter": "smart",
   "search.useIgnoreFiles": true,
+  "yaml.schemas": {
+    "https://json.schemastore.org/github-workflow.json": ".github/workflows/*"
+  },
   "vim.leader": ",",
   "vim.hlsearch": true,
   "vim.useSystemClipboard": true,
@@ -257,5 +260,8 @@
   "git.confirmSync": false,
   "workbench.editor.showTabs": false,
   "editor.suggestSelection": "first",
-  "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue"
+  "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
+  "[dockerfile]": {
+    "editor.defaultFormatter": "ms-azuretools.vscode-docker"
+  }
 }
