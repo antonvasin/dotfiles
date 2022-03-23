@@ -611,10 +611,10 @@ lsp_installer.on_server_ready(function(server)
         opts.root_dir = util.root_pattern("tsconfig.json");
     end
 
-    if server.name == "denols" then
-      opts.root_dir = util.root_pattern("deno.json");
-      opts.lint = true
-    end
+    -- if server.name == "denols" then
+    --   opts.root_dir = util.root_pattern("deno.json");
+    --   opts.lint = true
+    -- end
 
     -- This setup() function is exactly the same as lspconfig's setup function.
     -- Refer to https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md
