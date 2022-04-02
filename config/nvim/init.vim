@@ -614,8 +614,11 @@ lsp_installer.on_server_ready(function(server)
 
     if server.name == "denols" then
       opts.root_dir = util.root_pattern("deno.json");
-      -- opts.cmd = { "deno", "lsp", "--import-map", "imports.json" }
-      opts.lint = true
+      opts.init_options = {
+        unstable = true,
+        lint = true,
+        importMap = "./import_map.json"
+      }
     end
 
     -- This setup() function is exactly the same as lspconfig's setup function.
