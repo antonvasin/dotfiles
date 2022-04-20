@@ -45,7 +45,7 @@ brew "mas"
 brew "minikube"
 brew "minimal-racket"
 brew "ncdu"
-brew "neovim", args: ["HEAD"], link: false
+brew "neovim", args: ["HEAD"]
 brew "prettyping"
 brew "ripgrep"
 brew "ripgrep-all"
