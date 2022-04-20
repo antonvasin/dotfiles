@@ -266,5 +266,6 @@
   },
   "[markdown]": {
     "editor.defaultFormatter": "denoland.vscode-deno"
-  }
+  },
+  "githubPullRequests.terminalLinksHandler": "github"
 }
