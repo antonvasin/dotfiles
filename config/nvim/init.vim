@@ -340,7 +340,7 @@ nnoremap k gk
 nnoremap / /\v
 vnoremap / /\v
 nnoremap ; :
-cmap cwd lcd %:p:h
+" cmap cwd lcd %:p:h
 vnoremap < <gv
 vnoremap > >gv
 nnoremap <C-e> 3<C-e>
