@@ -267,5 +267,8 @@
   "[markdown]": {
     "editor.defaultFormatter": "denoland.vscode-deno"
   },
-  "githubPullRequests.terminalLinksHandler": "github"
+  "githubPullRequests.terminalLinksHandler": "github",
+  "[javascriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  }
 }
