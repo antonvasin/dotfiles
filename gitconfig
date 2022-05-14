@@ -1,5 +1,6 @@
 [user]
 	useConfigOnly = true
+	signingkey = FFDE8F96261E71C0
 [github]
   user = antonvasin
 [core]
@@ -92,8 +93,10 @@
 	email = antonvasin@readymag.com
 [user "personal"]
 	name = Anton Vasin
-	email = antonvasin@me.com
+	email = 944260+antonvasin@users.noreply.github.com
 [init]
 	templateDir = /Users/antonvasin/.config/git/template
 ; [merge]
 ; 	conflictstyle = diff3
+[gpg]
+	program = /usr/local/bin/gpg
