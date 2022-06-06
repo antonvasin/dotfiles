@@ -1,6 +1,7 @@
 tap "d12frosted/emacs-plus"
 tap "domt4/autoupdate"
 tap "ethereum/ethereum"
+tap "gcenx/wine"
 tap "helix-editor/helix"
 tap "homebrew/aliases"
 tap "homebrew/bundle"
@@ -105,6 +106,7 @@ cask "supercollider"
 cask "tor-browser"
 cask "transmission"
 cask "tunnelblick"
+cask "unofficial-wineskin"
 cask "vimr"
 cask "visual-studio-code"
 cask "zoom"
@@ -124,8 +126,10 @@ mas "Octotree", id: 1457450145
 mas "Outline", id: 1356178125
 mas "Pages", id: 409201541
 mas "Parcel", id: 639968404
+mas "Pine Player", id: 1112075769
 mas "Reeder", id: 1529448980
 mas "Telegram", id: 747648890
 mas "TextSniper", id: 1528890965
 mas "Userscripts", id: 1463298887
 mas "Vimari", id: 1480933944
+mas "VOX", id: 461369673
