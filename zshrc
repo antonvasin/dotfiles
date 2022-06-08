@@ -205,3 +205,6 @@ export PATH=$PATH:$GOROOT/bin
 
 # GPG
 export GPG_TTY=$(tty)
+
+autoload -U +X bashcompinit && bashcompinit
+complete -o nospace -C /usr/local/bin/terraform terraform
