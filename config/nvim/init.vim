@@ -58,7 +58,7 @@ Plug 'sheerun/vim-polyglot', Cond(!exists('g:vscode'))
 Plug 'sheerun/vim-go'
 Plug 'tpope/vim-jdaddy'
 Plug 'neoclide/jsonc.vim'
-Plug 'ap/vim-css-color'
+Plug 'ap/vim-css-color', { 'for': 'html,css,js,jsx,ts,tsx,vue,less,sass,style' }
 Plug 'honza/vim-snippets'
 " Plug 'neoclide/coc.nvim', Cond(!exists('g:vscode'))
 Plug 'neovim/nvim-lspconfig'
