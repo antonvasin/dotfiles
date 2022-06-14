@@ -203,10 +203,19 @@ function! MyReadonly()
 endfunction
 
 function! MyFilename()
-  return ('' != MyReadonly() ? MyReadonly() . ' ' : '') .
-       \ ('' != expand('%:t') ? expand('%:t') : '[No Name]') .
-       \ ('' != MyModified() ? ' ' . MyModified() : '')
+  let root = fnamemodify(get(b:, 'git_dir'), ':h')
+  let path = expand('%:p')
+  if path[:len(root)-1] ==# root
+    return path[len(root)+1:]
+  endif
+  return expand('%')
 endfunction
+
+" function! MyFilename()
+"   return ('' != MyReadonly() ? MyReadonly() . ' ' : '') .
+"        \ ('' != expand('%:t') ? expand('%:t') : '[No Name]') .
+"        \ ('' != MyModified() ? ' ' . MyModified() : '')
+" endfunction
 
 function! CocCurrentFunction()
   return get(b:, 'coc_current_function', '')
