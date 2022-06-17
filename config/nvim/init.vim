@@ -60,14 +60,16 @@ Plug 'neoclide/jsonc.vim'
 Plug 'b0o/schemastore.nvim'
 Plug 'ap/vim-css-color', { 'for': 'html,css,js,jsx,ts,tsx,vue,less,sass,style' }
 Plug 'honza/vim-snippets'
-Plug 'neovim/nvim-lspconfig'
-Plug 'williamboman/nvim-lsp-installer'
 Plug 'prettier/vim-prettier', { 'do': 'yarn install --frozen-lockfile --production' }
 Plug 'github/copilot.vim'
+
+" LSP
+Plug 'neovim/nvim-lspconfig'
+Plug 'williamboman/nvim-lsp-installer'
 Plug 'hrsh7th/nvim-cmp'
 Plug 'hrsh7th/cmp-nvim-lsp'
-Plug 'saadparwaiz1/cmp_luasnip'
-Plug 'L3MON4D3/LuaSnip'
+" Plug 'saadparwaiz1/cmp_luasnip'
+" Plug 'L3MON4D3/LuaSnip'
 
 call plug#end()
 
@@ -548,32 +550,80 @@ let g:ack_use_cword_for_empty_search = 1
 lua << EOF
 
 -- LSP
+local lspconfig = require('lspconfig')
+local util = require 'lspconfig.util'
+
 require("nvim-lsp-installer").setup {
   automatic_installation = true,
 }
-local util = require 'lspconfig.util'
 
+-- nvim-cmp
+local cmp = require 'cmp'
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
 
-require('lspconfig')['tsserver'].setup{
-  root_dir = util.root_pattern("tsconfig.json", "package.json")
+lspconfig.tsserver.setup{
+  root_dir = util.root_pattern("tsconfig.json", "package.json"),
+  capabilities = capabilities,
 }
 
-require('lspconfig')['denols'].setup{
+lspconfig.denols.setup{
   root_dir = util.root_pattern("deno.json");
   init_options = {
     unstable = true,
     lint = true,
     importMap = "./import_map.json",
   },
+  capabilities = capabilities,
 }
 
-require('lspconfig')['jsonls'].setup{
+lspconfig.jsonls.setup{
   init_options = {
     json = {
       schemas = require('schemastore').json.schemas(),
       validate = { enable = true },
     }
-  }
+  },
+  capabilities = capabilities,
+}
+
+cmp.setup {
+--  snippet = {
+--    expand = function(args)
+--      luasnip.lsp_expand(args.body)
+--    end,
+--  },
+  mapping = cmp.mapping.preset.insert({
+    ['<C-d>'] = cmp.mapping.scroll_docs(-4),
+    ['<C-f>'] = cmp.mapping.scroll_docs(4),
+    ['<C-Space>'] = cmp.mapping.complete(),
+    ['<CR>'] = cmp.mapping.confirm {
+      behavior = cmp.ConfirmBehavior.Replace,
+      select = true,
+    },
+    ['<Tab>'] = cmp.mapping(function(fallback)
+      if cmp.visible() then
+        cmp.select_next_item()
+--      elseif luasnip.expand_or_jumpable() then
+--        luasnip.expand_or_jump()
+      else
+        fallback()
+      end
+    end, { 'i', 's' }),
+    ['<S-Tab>'] = cmp.mapping(function(fallback)
+      if cmp.visible() then
+        cmp.select_prev_item()
+--       elseif luasnip.jumpable(-1) then
+--         luasnip.jump(-1)
+      else
+        fallback()
+      end
+    end, { 'i', 's' }),
+  }),
+  sources = {
+    { name = 'nvim_lsp' },
+--    { name = 'luasnip' },
+  },
 }
 
 vim.g.markdown_fenced_languages = {
