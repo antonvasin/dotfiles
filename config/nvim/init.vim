@@ -42,7 +42,6 @@ Plug 'junegunn/fzf.vim'
 Plug 'mileszs/ack.vim'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-rhubarb'
-Plug 'shumphrey/fugitive-gitlab.vim'
 Plug 'tpope/vim-vinegar' " nice things for netrw
 Plug 'tpope/vim-projectionist'
 Plug 'Shougo/vimproc.vim', { 'do': 'make' }
@@ -61,11 +60,14 @@ Plug 'neoclide/jsonc.vim'
 Plug 'b0o/schemastore.nvim'
 Plug 'ap/vim-css-color', { 'for': 'html,css,js,jsx,ts,tsx,vue,less,sass,style' }
 Plug 'honza/vim-snippets'
-" Plug 'neoclide/coc.nvim', Cond(!exists('g:vscode'))
 Plug 'neovim/nvim-lspconfig'
 Plug 'williamboman/nvim-lsp-installer'
 Plug 'prettier/vim-prettier', { 'do': 'yarn install --frozen-lockfile --production' }
 Plug 'github/copilot.vim'
+Plug 'hrsh7th/nvim-cmp'
+Plug 'hrsh7th/cmp-nvim-lsp'
+Plug 'saadparwaiz1/cmp_luasnip'
+Plug 'L3MON4D3/LuaSnip'
 
 call plug#end()
 
@@ -153,21 +155,6 @@ augroup PersistFolds
   autocmd BufWinEnter ?* silent! loadview
 augroup END
 
-" use <tab> for trigger completion and navigate to the next complete item
-" function! s:check_back_space() abort
-"   let col = col('.') - 1
-"   return !col || getline('.')[col - 1]  =~ '\s'
-" endfunction
-
-" inoremap <silent><expr> <TAB>
-"       \ pumvisible() ? "\<C-n>" :
-"       \ <SID>check_back_space() ? "\<TAB>" :
-"       \ coc#refresh()
-
-" inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
-" inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-" inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
-
 " Don’t display urls as spelling errors
 syn match UrlNoSpell '\w\+:\/\/[^[:space:]]\+' contains=@NoSpell
 
@@ -212,29 +199,13 @@ function! MyFilename()
   return expand('%')
 endfunction
 
-" function! MyFilename()
-"   return ('' != MyReadonly() ? MyReadonly() . ' ' : '') .
-"        \ ('' != expand('%:t') ? expand('%:t') : '[No Name]') .
-"        \ ('' != MyModified() ? ' ' . MyModified() : '')
-" endfunction
-
-function! CocCurrentFunction()
-  return get(b:, 'coc_current_function', '')
-endfunction
-
-function! CocGitStatus()
-  return get(g:, 'coc_git_status', '')
-endfunction
-
 let g:lightline = {
   \   'colorscheme': 'gruvbox',
   \   'component_function': {
   \     'readonly': 'MyReadonly',
   \     'modified': 'MyModified',
   \     'filename': 'MyFilename',
-  \     'cocstatus': 'coc#status',
-  \     'git': "CocGitStatus",
-  \     'currentfunction': 'CocCurrentFunction'
+  \     'git': 'FugitiveHead'
   \   },
   \   'active': {
   \     'left': [
@@ -242,7 +213,7 @@ let g:lightline = {
 	\       ['filename']
 	\			],
   \     'right': [
-	\       ['cocstatus', 'git', 'currentfunction'],
+	\       ['git', 'currentfunction'],
 	\       ['lineinfo']
 	\     ]
   \   }
@@ -268,9 +239,6 @@ hi clear SpellBad
 hi SpellBad cterm=underline
 
 if (!exists('g:vscode'))
-  " autocmd CursorHold * silent call CocActionAsync('highlight')
-  " autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
-
   set updatetime=100
 end
 
@@ -388,31 +356,10 @@ nnoremap <leader>w <C-w>
 nmap <leader>ja :A<cr>
 nmap <leader>jA :AV<cr>
 
-" Coc
-" nmap <silent> gd <Plug>(coc-definition)
-" nmap <silent> gy <Plug>(coc-type-definition)
-" nmap <silent> gi <Plug>(coc-implementation)
-" nmap <silent> gr <Plug>(coc-references)
-" nmap <leader>s <Plug>(coc-rename)
-" nmap <F12> <Plug>(coc-definition)
-" vmap <C-j> <Plug>(coc-snippets-select)
-" imap <C-j> <Plug>(coc-snippets-expand-jump)
-" nnoremap <leader>k <Plug>(coc-diagnostic-info)
-" nnoremap <leader>. :CocAction<cr>
-" nnoremap <leader>h :call <SID>show_documentation()<CR>
-
 nnoremap <leader>o :only<cr>
 nnoremap <leader>z :Goyo<cr>
 
 nnoremap <leader>W :ToggleWorkspace<CR>
-
-function! s:show_documentation()
-  if (index(['vim','help'], &filetype) >= 0)
-    execute 'h '.expand('<cword>')
-  else
-    call CocAction('doHover')
-  endif
-endfunction
 
 " Fugitive.vim
 nnoremap <leader>gw :Gw<cr>
@@ -571,17 +518,6 @@ let g:projectionist_heuristics = {
 \  }
 \}
 
-" command! -nargs=0 Prettier :CocCommand prettier.formatFile
-
-" coc extensions
-" let g:coc_node_path = '/Users/antonvasin/.volta/tools/image/node/14.16.1/bin/node'
-" let g:coc_global_extensions = ['coc-prettier', 'coc-git', 'coc-emoji', 'coc-tsserver', 'coc-json', 'coc-html', 'coc-css', 'coc-yaml', 'coc-emmet', 'coc-snippets', 'coc-svg', 'coc-reason', 'coc-go', 'coc-diagnostic']
-
-" try
-"     nmap <silent> [c :call CocAction('diagnosticPrevious')<cr>
-"     nmap <silent> ]c :call CocAction('diagnosticNext')<cr>
-" endtry
-
 " xkbswitch
 let g:XkbSwitchEnabled = 1
 " let g:XkbSwitchIMappings = ['ru']
@@ -607,55 +543,38 @@ map <C-S-Tab> gT
 let g:ackprg = 'rg --vimgrep --smart-case'
 let g:ack_use_cword_for_empty_search = 1
 
-" LSP
+" --------- lua config --------
+
 lua << EOF
--- FIX: lsp_installer.on_server_ready is deprecated
-local lsp_installer = require("nvim-lsp-installer")
+
+-- LSP
+require("nvim-lsp-installer").setup {
+  automatic_installation = true,
+}
 local util = require 'lspconfig.util'
 
--- Register a handler that will be called for all installed servers.
--- Alternatively, you may also register handlers on specific server instances instead (see example below).
-lsp_installer.on_server_ready(function(server)
-    local opts = {}
 
-    -- (optional) Customize the options passed to the server
-    if server.name == "tsserver" then
-        opts.root_dir = util.root_pattern("tsconfig.json");
-    end
+require('lspconfig')['tsserver'].setup{
+  root_dir = util.root_pattern("tsconfig.json", "package.json")
+}
 
-    if server.name == "denols" then
-      opts.root_dir = util.root_pattern("deno.json");
-      opts.init_options = {
-        unstable = true,
-        lint = true,
-        importMap = "./import_map.json"
-      }
-    end
+require('lspconfig')['denols'].setup{
+  root_dir = util.root_pattern("deno.json");
+  init_options = {
+    unstable = true,
+    lint = true,
+    importMap = "./import_map.json",
+  },
+}
 
-    if server.name == "jsonls" then
-      opts.init_options = {
-        json = {
-          schemas = require('schemastore').json.schemas(),
-          validate = { enable = true },
-        }
-      }
-    end
-
-    -- This setup() function is exactly the same as lspconfig's setup function.
-    -- Refer to https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md
-    server:setup(opts)
-end)
-
--- require'lspconfig'.tsserver.setup{}
--- require'lspconfig'.denols.setup{}
--- require'lspconfig'.eslint.setup{}
--- require'lspconfig'.dockerls.setup{}
--- require'lspconfig'.gopls.setup{}
--- require'lspconfig'.vimls.setup{}
--- require'lspconfig'.yamlls.setup{}
--- require'lspconfig'.cssls.setup{}
--- require'lspconfig'.jsonls.setup{}
--- require'lspconfig'.html.setup{}
+require('lspconfig')['jsonls'].setup{
+  init_options = {
+    json = {
+      schemas = require('schemastore').json.schemas(),
+      validate = { enable = true },
+    }
+  }
+}
 
 vim.g.markdown_fenced_languages = {
   "ts=typescript"
@@ -674,6 +593,7 @@ nnoremap <silent> <leader>r    <cmd>lua vim.lsp.buf.rename()<CR>
 nnoremap <silent> <leader>. <cmd>lua vim.lsp.buf.code_action()<CR>
 xmap <silent> <leader>. <cmd>lua vim.lsp.buf.range_code_action()<CR>
 
+autocmd BufWritePre *.py,*.ts,*.js,*.css,*.go,*.tf,*.html,*scss,*.jsx,*.tsx lua vim.lsp.buf.formatting_sync(nil, 1000)
 " prettier
-let g:prettier#autoformat = 1
-let g:prettier#autoformat_require_pragma = 0
+" let g:prettier#autoformat = 1
+" let g:prettier#autoformat_require_pragma = 0
