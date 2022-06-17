@@ -58,6 +58,7 @@ Plug 'sheerun/vim-polyglot', Cond(!exists('g:vscode'))
 Plug 'sheerun/vim-go'
 Plug 'tpope/vim-jdaddy'
 Plug 'neoclide/jsonc.vim'
+Plug 'b0o/schemastore.nvim'
 Plug 'ap/vim-css-color', { 'for': 'html,css,js,jsx,ts,tsx,vue,less,sass,style' }
 Plug 'honza/vim-snippets'
 " Plug 'neoclide/coc.nvim', Cond(!exists('g:vscode'))
@@ -608,6 +609,7 @@ let g:ack_use_cword_for_empty_search = 1
 
 " LSP
 lua << EOF
+-- FIX: lsp_installer.on_server_ready is deprecated
 local lsp_installer = require("nvim-lsp-installer")
 local util = require 'lspconfig.util'
 
@@ -627,6 +629,15 @@ lsp_installer.on_server_ready(function(server)
         unstable = true,
         lint = true,
         importMap = "./import_map.json"
+      }
+    end
+
+    if server.name == "jsonls" then
+      opts.init_options = {
+        json = {
+          schemas = require('schemastore').json.schemas(),
+          validate = { enable = true },
+        }
       }
     end
 
