@@ -16,6 +16,7 @@ call plug#begin('~/.config/nvim/plugged')
 
 " Look
 Plug 'morhetz/gruvbox'
+Plug 'sainnhe/gruvbox-material'
 Plug 'Yggdroot/indentLine'
 Plug 'itchyny/lightline.vim'
 
@@ -68,6 +69,7 @@ Plug 'neovim/nvim-lspconfig'
 Plug 'williamboman/nvim-lsp-installer'
 Plug 'hrsh7th/nvim-cmp'
 Plug 'hrsh7th/cmp-nvim-lsp'
+Plug 'onsails/lspkind.nvim'
 " Plug 'saadparwaiz1/cmp_luasnip'
 " Plug 'L3MON4D3/LuaSnip'
 
@@ -77,7 +79,8 @@ set termguicolors
 let g:gruvbox_italic = 1
 let g:gruvbox_contrast_dark = 'soft'
 let g:gruvbox_sign_column = 'bg0'
-colorscheme gruvbox
+let g:gruvbox_material_foreground = 'mix'
+colorscheme gruvbox-material
 " set background=dark
 
 " Enable mouse usage (all modes)
@@ -202,7 +205,7 @@ function! MyFilename()
 endfunction
 
 let g:lightline = {
-  \   'colorscheme': 'gruvbox',
+  \   'colorscheme': 'gruvbox_material',
   \   'component_function': {
   \     'readonly': 'MyReadonly',
   \     'modified': 'MyModified',
@@ -559,6 +562,7 @@ require("nvim-lsp-installer").setup {
 
 -- nvim-cmp
 local cmp = require 'cmp'
+local lspkind = require('lspkind')
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
 
@@ -620,10 +624,39 @@ cmp.setup {
       end
     end, { 'i', 's' }),
   }),
+
+  completion = {
+    winhighlight = "Normal:Pmenu,FloatBorder:Pmenu,Search:None",
+    col_offset = -2,
+    side_padding = 0,
+  },
+
+  window = {
+    completion = {
+      border = 'rounded',
+    },
+  },
+
   sources = {
     { name = 'nvim_lsp' },
 --    { name = 'luasnip' },
   },
+
+  formatting = {
+    fields = { "kind", "abbr" },
+    format = function(entry, vim_item)
+      local kind = require("lspkind").cmp_format({ mode = "symbol_text", maxwidth = 50 })(entry, vim_item)
+
+      local strings = vim.split(kind.kind, "%s", { trimempty = true })
+      kind.kind = "" .. strings[1] .. " "
+      kind.menu = "    (" .. strings[2] .. ")"
+      return kind
+    end,
+  },
+
+  experimental = {
+    ghost_text = true,
+  }
 }
 
 vim.g.markdown_fenced_languages = {
