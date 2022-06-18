@@ -133,15 +133,6 @@ alias vim='nvim'
 alias vi='nvim'
 alias v='nvim'
 
-# git aliases
-alias glnm="git lnm"
-alias gst='git status -sb'
-alias gdiff='git diff'
-alias git-delete-merged dm='git branch --merged | grep -v "\*" | xargs -n 1 git branch -d'
-alias gpft='git push --follow-tags'
-alias gpd='git push --delete'
-alias gsd='git diff --staged'
-alias gpf='git push --force-with-lease'
 alias vmore='nvim -u ~/.config/nvim/more.vim'
 alias less='less -R'
 alias mkdir='mkdir -p'
