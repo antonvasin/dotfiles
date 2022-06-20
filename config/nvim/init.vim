@@ -591,6 +591,34 @@ lspconfig.jsonls.setup{
   capabilities = capabilities,
 }
 
+local kind_icons = {
+  Text = "abc",
+  Method = ".()",
+  Function = "f",
+  Constructor = "new",
+  Field = ":",
+  Variable = "var",
+  Class = "C",
+  Interface = "I",
+  Module = "M",
+  Property = ".",
+  Unit = "U",
+  Value = "V",
+  Enum = "",
+  Keyword = "",
+  Snippet = "Snip",
+  Color = "",
+  File = "📄",
+  Reference = "Ref",
+  Folder = "📂",
+  EnumMember = "E[]",
+  Constant = "",
+  Struct = "",
+  Event = "Event",
+  Operator = "or",
+  TypeParameter = "<T>"
+}
+
 cmp.setup {
 --  snippet = {
 --    expand = function(args)
@@ -645,12 +673,13 @@ cmp.setup {
   formatting = {
     fields = { "kind", "abbr" },
     format = function(entry, vim_item)
-      local kind = require("lspkind").cmp_format({ mode = "symbol_text", maxwidth = 50 })(entry, vim_item)
+      -- local kind = require("lspkind").cmp_format({ mode = "symbol_text", maxwidth = 50 })(entry, vim_item)
 
-      local strings = vim.split(kind.kind, "%s", { trimempty = true })
-      kind.kind = "" .. strings[1] .. " "
-      kind.menu = "    (" .. strings[2] .. ")"
-      return kind
+      vim_item.kind = string.format('%s %s', kind_icons[vim_item.kind], vim_item.kind) -- This concatonates the icons with the name of the item kind
+      local strings = vim.split(vim_item.kind, "%s", { trimempty = true })
+      vim_item.kind = "" .. strings[1] .. " "
+      vim_item.menu = "    (" .. strings[2] .. ")"
+      return vim_item
     end,
   },
 
