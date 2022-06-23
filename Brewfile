@@ -72,7 +72,6 @@ brew "wget"
 brew "youtube-dl"
 brew "zsh"
 brew "hashicorp/tap/terraform"
-brew "helix-editor/helix/helix"
 brew "jakehilborn/jakehilborn/displayplacer"
 brew "qmk/qmk/qmk", link: false
 brew "thoughtbot/formulae/rcm"

@@ -25,7 +25,8 @@ Plug 'jiangmiao/auto-pairs'
 Plug 'junegunn/goyo.vim'
 Plug 'mtth/scratch.vim'
 Plug 'simnalamburt/vim-mundo'
-Plug 'tpope/vim-commentary'
+" Plug 'tpope/vim-commentary'
+Plug 'numToStr/Comment.nvim'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
@@ -551,6 +552,8 @@ let g:ack_use_cword_for_empty_search = 1
 " --------- lua config --------
 
 lua << EOF
+
+require('Comment').setup()
 
 -- LSP
 local lspconfig = require('lspconfig')
