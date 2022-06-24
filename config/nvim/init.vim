@@ -458,10 +458,6 @@ autocmd FileType fzf,neoterm set laststatus=0 | autocmd WinLeave <buffer> set la
 let g:signify_sign_show_count = 0
 let g:signify_sign_show_text = 0
 
-" markdown-preview
-let g:mkdp_browser = 'Choosy'
-let g:mkdp_auto_close = 0
-
 " vim-carbon-now-sh
 let g:carbon_now_sh_options = {
       \ 'fm': 'Fira Code',
@@ -691,16 +687,24 @@ cmp.setup {
   }
 }
 
-vim.g.markdown_fenced_languages = {
-  "ts=typescript"
-}
+vim.diagnostic.config({
+  float = {
+    source = 'always',
+    focusable = false,
+  },
+  update_in_insert = false, -- default to false
+  severity_sort = true, -- default to false
+})
+
 EOF
+let g:markdown_fenced_languages = ["ts=typescript"]
 
 nnoremap <silent> gd <cmd>lua vim.lsp.buf.definition()<CR>
 nnoremap <silent> gi <cmd>lua vim.lsp.buf.implementation()<CR>
 nnoremap <silent> gr <cmd>lua vim.lsp.buf.references()<CR>
 nnoremap <silent> gD <cmd>lua vim.lsp.buf.declaration()<CR>
-nnoremap <silent> ge <cmd>lua vim.lsp.diagnostic.set_loclist()<CR>
+nnoremap <silent> ge <cmd>lua vim.diagnostic.open_float()<CR>
+nnoremap <silent> gE <cmd>lua vim.diagnostic.setloclist()<CR>
 nnoremap <silent> K  <cmd>lua vim.lsp.buf.hover()<CR>
 " nnoremap <silent> <leader>f    <cmd>lua vim.lsp.buf.formatting()<CR>
 nnoremap <silent> <leader>r    <cmd>lua vim.lsp.buf.rename()<CR>
@@ -708,7 +712,7 @@ nnoremap <silent> <leader>r    <cmd>lua vim.lsp.buf.rename()<CR>
 nnoremap <silent> <leader>. <cmd>lua vim.lsp.buf.code_action()<CR>
 xmap <silent> <leader>. <cmd>lua vim.lsp.buf.range_code_action()<CR>
 
-autocmd BufWritePre *.py,*.ts,*.js,*.css,*.go,*.tf,*.html,*scss,*.jsx,*.tsx lua vim.lsp.buf.formatting_sync(nil, 1000)
+autocmd BufWritePre *.py,*.ts,*.js,*.css,*.go,*.tf,*.html,*scss,*.jsx,*.tsx,*.md lua vim.lsp.buf.formatting_sync(nil, 1000)
 " prettier
 " let g:prettier#autoformat = 1
 " let g:prettier#autoformat_require_pragma = 0
