@@ -597,7 +597,7 @@ lspconfig.jsonls.setup{
 local kind_icons = {
   Text = "abc",
   Method = ".()",
-  Function = "f",
+  Function = "ƒ",
   Constructor = "new",
   Field = ":",
   Variable = "var",
