@@ -353,7 +353,7 @@
 	<key>Default Arrangement Name</key>
 	<string>work</string>
 	<key>Default Bookmark Guid</key>
-	<string>83B03016-853B-4478-BC30-7711E9F7F517</string>
+	<string>B0790DF6-FF13-4634-87B8-5EDC24787748</string>
 	<key>EnableDivisionView</key>
 	<true/>
 	<key>EscapeShellCharsWithBackslash</key>
@@ -1142,7 +1142,7 @@
 			<key>Option Key Sends</key>
 			<integer>0</integer>
 			<key>Prompt Before Closing 2</key>
-			<false/>
+			<integer>2</integer>
 			<key>Right Option Key Sends</key>
 			<integer>0</integer>
 			<key>Rows</key>
