@@ -94,6 +94,7 @@
 [user "personal"]
 	name = Anton Vasin
 	email = 944260+antonvasin@users.noreply.github.com
+	signingkey = FFDE8F96261E71C0
 [init]
 	templateDir = /Users/antonvasin/.config/git/template
 ; [merge]
