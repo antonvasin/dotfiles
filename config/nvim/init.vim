@@ -712,7 +712,7 @@ nnoremap <silent> <leader>r    <cmd>lua vim.lsp.buf.rename()<CR>
 nnoremap <silent> <leader>. <cmd>lua vim.lsp.buf.code_action()<CR>
 xmap <silent> <leader>. <cmd>lua vim.lsp.buf.range_code_action()<CR>
 
-autocmd BufWritePre *.py,*.ts,*.js,*.css,*.go,*.tf,*.html,*scss,*.jsx,*.tsx,*.md lua vim.lsp.buf.formatting_sync(nil, 1000)
+autocmd BufWritePre *.py,*.ts,*.js,*.css,*.go,*.tf,*.html,*scss,*.jsx,*.tsx,*.md lua vim.lsp.buf.format()
 " prettier
 " let g:prettier#autoformat = 1
 " let g:prettier#autoformat_require_pragma = 0
