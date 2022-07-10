@@ -62,15 +62,17 @@ Plug 'neoclide/jsonc.vim'
 Plug 'b0o/schemastore.nvim'
 Plug 'ap/vim-css-color', { 'for': 'html,css,js,jsx,ts,tsx,vue,less,sass,style' }
 Plug 'honza/vim-snippets'
-Plug 'prettier/vim-prettier', { 'do': 'yarn install --frozen-lockfile --production' }
 Plug 'github/copilot.vim'
+Plug 'MunifTanjim/prettier.nvim'
 
 " LSP
+Plug 'nvim-lua/plenary.nvim'
 Plug 'neovim/nvim-lspconfig'
 Plug 'williamboman/nvim-lsp-installer'
 Plug 'hrsh7th/nvim-cmp'
 Plug 'hrsh7th/cmp-nvim-lsp'
 Plug 'onsails/lspkind.nvim'
+Plug 'jose-elias-alvarez/null-ls.nvim'
 " Plug 'saadparwaiz1/cmp_luasnip'
 " Plug 'L3MON4D3/LuaSnip'
 
@@ -696,6 +698,51 @@ vim.diagnostic.config({
   severity_sort = true, -- default to false
 })
 
+-- Prettier
+local null_ls = require("null-ls")
+local prettier = require("prettier")
+
+null_ls.setup({
+  on_attach = function(client, bufnr)
+    if client.server_capabilities.document_formatting then
+      vim.cmd("nnoremap <silent><buffer> <Leader>f :lua vim.lsp.buf.formatting()<CR>")
+      -- format on save
+      vim.cmd("autocmd BufWritePost <buffer> lua vim.lsp.buf.formatting()")
+    end
+
+    if client.server_capabilities.document_range_formatting then
+      vim.cmd("xnoremap <silent><buffer> <Leader>f :lua vim.lsp.buf.range_formatting({})<CR>")
+    end
+  end,
+})
+
+prettier.setup({
+  bin = 'prettierd',
+  ["null-ls"] = {
+    runtime_condition = function(params)
+      isjsdir = vim.fn.findfile("package.json") and not vim.fn.findfile("deno.json")
+      if (isjsdir == nil) then
+        return false
+      end
+      return true
+    end,
+    timeout = 500,
+  },
+  filetypes = {
+    "css",
+    "graphql",
+    "html",
+    "javascript",
+    "javascriptreact",
+    "json",
+    "less",
+    "markdown",
+    "scss",
+    "typescript",
+    "typescriptreact",
+    "yaml",
+  },
+})
 EOF
 let g:markdown_fenced_languages = ["ts=typescript"]
 
@@ -706,13 +753,14 @@ nnoremap <silent> gD <cmd>lua vim.lsp.buf.declaration()<CR>
 nnoremap <silent> ge <cmd>lua vim.diagnostic.open_float()<CR>
 nnoremap <silent> gE <cmd>lua vim.diagnostic.setloclist()<CR>
 nnoremap <silent> K  <cmd>lua vim.lsp.buf.hover()<CR>
-" nnoremap <silent> <leader>f    <cmd>lua vim.lsp.buf.formatting()<CR>
+" nnoremap <silent> <leader>f    <cmd>lua vim.lsp.buf.format()<CR>
 nnoremap <silent> <leader>r    <cmd>lua vim.lsp.buf.rename()<CR>
 
 nnoremap <silent> <leader>. <cmd>lua vim.lsp.buf.code_action()<CR>
 xmap <silent> <leader>. <cmd>lua vim.lsp.buf.range_code_action()<CR>
 
 autocmd BufWritePre *.py,*.ts,*.js,*.css,*.go,*.tf,*.html,*scss,*.jsx,*.tsx,*.md lua vim.lsp.buf.format()
-" prettier
-" let g:prettier#autoformat = 1
-" let g:prettier#autoformat_require_pragma = 0
+
+" Copilot
+let b:copilot_enabled = v:false
+let g:copilot_no_tab_map = v:true
