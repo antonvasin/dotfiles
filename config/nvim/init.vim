@@ -61,7 +61,6 @@ Plug 'tpope/vim-jdaddy'
 Plug 'neoclide/jsonc.vim'
 Plug 'b0o/schemastore.nvim'
 Plug 'ap/vim-css-color', { 'for': 'html,css,js,jsx,ts,tsx,vue,less,sass,style' }
-Plug 'honza/vim-snippets'
 Plug 'github/copilot.vim'
 Plug 'MunifTanjim/prettier.nvim'
 
@@ -73,8 +72,8 @@ Plug 'hrsh7th/nvim-cmp'
 Plug 'hrsh7th/cmp-nvim-lsp'
 Plug 'onsails/lspkind.nvim'
 Plug 'jose-elias-alvarez/null-ls.nvim'
-" Plug 'saadparwaiz1/cmp_luasnip'
-" Plug 'L3MON4D3/LuaSnip'
+Plug 'saadparwaiz1/cmp_luasnip'
+Plug 'L3MON4D3/LuaSnip'
 
 call plug#end()
 
@@ -562,8 +561,15 @@ require("nvim-lsp-installer").setup {
 }
 
 -- nvim-cmp
+local has_words_before = function()
+  local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+  return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
+end
+
+local luasnip = require("luasnip")
 local cmp = require 'cmp'
 local lspkind = require('lspkind')
+
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
 
@@ -621,11 +627,6 @@ local kind_icons = {
 }
 
 cmp.setup {
---  snippet = {
---    expand = function(args)
---      luasnip.lsp_expand(args.body)
---    end,
---  },
   mapping = cmp.mapping.preset.insert({
     ['<C-d>'] = cmp.mapping.scroll_docs(-4),
     ['<C-f>'] = cmp.mapping.scroll_docs(4),
@@ -634,24 +635,28 @@ cmp.setup {
       behavior = cmp.ConfirmBehavior.Replace,
       select = true,
     },
---     ['<Tab>'] = cmp.mapping(function(fallback)
---       if cmp.visible() then
---         cmp.select_next_item()
--- --      elseif luasnip.expand_or_jumpable() then
--- --        luasnip.expand_or_jump()
---       else
---         fallback()
---       end
---     end, { 'i', 's' }),
-    ['<S-Tab>'] = cmp.mapping(function(fallback)
+
+    ["<Tab>"] = cmp.mapping(function(fallback)
       if cmp.visible() then
-        cmp.select_prev_item()
---       elseif luasnip.jumpable(-1) then
---         luasnip.jump(-1)
+        cmp.select_next_item()
+      elseif luasnip.expand_or_jumpable() then
+        luasnip.expand_or_jump()
+      elseif has_words_before() then
+        cmp.complete()
       else
         fallback()
       end
-    end, { 'i', 's' }),
+    end, { "i", "s" }),
+
+    ["<S-Tab>"] = cmp.mapping(function(fallback)
+      if cmp.visible() then
+        cmp.select_prev_item()
+      elseif luasnip.jumpable(-1) then
+        luasnip.jump(-1)
+      else
+        fallback()
+      end
+    end, { "i", "s" }),
   }),
 
   completion = {
