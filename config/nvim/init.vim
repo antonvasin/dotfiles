@@ -578,13 +578,22 @@ lspconfig.tsserver.setup{
   capabilities = capabilities,
 }
 
-lspconfig.denols.setup{
-  root_dir = util.root_pattern("deno.json");
-  init_options = {
+local function deno_init_opts()
+  opts = {
     unstable = true,
     lint = true,
-    importMap = "./import_map.json",
-  },
+  }
+
+  if vim.fn.filereadable('./import_map.json') == 1 then
+    opts.importMap = './import_map.json'
+  end
+
+  return opts
+end
+
+lspconfig.denols.setup{
+  root_dir = util.root_pattern("deno.json");
+  init_options = deno_init_opts(),
   capabilities = capabilities,
 }
 
