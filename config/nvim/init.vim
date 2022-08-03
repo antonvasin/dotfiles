@@ -593,7 +593,7 @@ end
 
 lspconfig.denols.setup{
   root_dir = util.root_pattern("deno.json");
-  init_options = deno_init_opts(),
+ -- init_options = deno_init_opts(),
   capabilities = capabilities,
 }
 
