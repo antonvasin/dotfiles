@@ -366,12 +366,16 @@ nmap <leader>jA :AV<cr>
 nnoremap <leader>o :only<cr>
 nnoremap <leader>z :Goyo<cr>
 
+nnoremap <leader>x :%!xxd<cr>
+nnoremap <leader>X :%!xxd -r<cr>
+
 nnoremap <leader>W :ToggleWorkspace<CR>
 
 " Fugitive.vim
 nnoremap <leader>gw :Gw<cr>
 nnoremap <leader>gc :Git commit<cr>
-nnoremap <leader>ga :Git commit --amend --reuse-message=HEAD<cr>
+nnoremap <leader>ga :Git commit --amend<cr>
+nnoremap <leader>gA :Git commit --amend --reuse-message=HEAD<cr>
 nnoremap <leader>gs :Git status<cr>
 nnoremap <leader>gP :Git push --force<cr>
 
