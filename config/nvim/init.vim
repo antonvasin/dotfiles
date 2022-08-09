@@ -63,6 +63,7 @@ Plug 'b0o/schemastore.nvim'
 Plug 'ap/vim-css-color', { 'for': 'html,css,js,jsx,ts,tsx,vue,less,sass,style' }
 Plug 'github/copilot.vim'
 Plug 'MunifTanjim/prettier.nvim'
+Plug 'wuelnerdotexe/vim-astro'
 
 " LSP
 Plug 'nvim-lua/plenary.nvim'
@@ -425,6 +426,7 @@ autocmd BufRead,BufNewFile *.tpl set ft=html
 autocmd BufRead,BufNewFile *.coffee set noexpandtab
 autocmd BufRead,BufNewFile tsconfig*.json set filetype=jsonc
 autocmd BufRead,BufNewFile *.plist set filetype=xml
+autocmd BufRead,BufNewFile *.astro set filetype=astro
 
 let g:scratch_autohide = 0
 
@@ -577,6 +579,8 @@ local lspkind = require('lspkind')
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
 
+lspconfig.astro.setup{}
+
 lspconfig.tsserver.setup{
   root_dir = util.root_pattern("tsconfig.json", "package.json"),
   capabilities = capabilities,
@@ -597,7 +601,7 @@ end
 
 lspconfig.denols.setup{
   root_dir = util.root_pattern("deno.json");
- -- init_options = deno_init_opts(),
+  init_options = deno_init_opts(),
   capabilities = capabilities,
 }
 
@@ -724,13 +728,7 @@ local prettier = require("prettier")
 null_ls.setup({
   on_attach = function(client, bufnr)
     if client.server_capabilities.document_formatting then
-      vim.cmd("nnoremap <silent><buffer> <Leader>f :lua vim.lsp.buf.formatting()<CR>")
-      -- format on save
       vim.cmd("autocmd BufWritePost <buffer> lua vim.lsp.buf.formatting()")
-    end
-
-    if client.server_capabilities.document_range_formatting then
-      vim.cmd("xnoremap <silent><buffer> <Leader>f :lua vim.lsp.buf.range_formatting({})<CR>")
     end
   end,
 })
@@ -772,14 +770,17 @@ nnoremap <silent> gD <cmd>lua vim.lsp.buf.declaration()<CR>
 nnoremap <silent> ge <cmd>lua vim.diagnostic.open_float()<CR>
 nnoremap <silent> gE <cmd>lua vim.diagnostic.setloclist()<CR>
 nnoremap <silent> K  <cmd>lua vim.lsp.buf.hover()<CR>
-" nnoremap <silent> <leader>f    <cmd>lua vim.lsp.buf.format()<CR>
 nnoremap <silent> <leader>r    <cmd>lua vim.lsp.buf.rename()<CR>
 
 nnoremap <silent> <leader>. <cmd>lua vim.lsp.buf.code_action()<CR>
 xmap <silent> <leader>. <cmd>lua vim.lsp.buf.range_code_action()<CR>
 
-autocmd BufWritePre *.py,*.ts,*.js,*.css,*.go,*.tf,*.html,*scss,*.jsx,*.tsx,*.md lua vim.lsp.buf.format()
+autocmd BufWritePre *.py,*.ts,*.js,*.css,*.go,*.tf,*.html,*scss,*.jsx,*.tsx,*.md,.astro lua vim.lsp.buf.format()
 
 " Copilot
 let b:copilot_enabled = v:false
 let g:copilot_no_tab_map = v:true
+
+" Astro
+let g:astro_typescript = 'enable'
+let g:astro_stylus = 'enable'
