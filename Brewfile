@@ -1,4 +1,5 @@
 tap "d12frosted/emacs-plus"
+tap "derailed/k9s"
 tap "domt4/autoupdate"
 tap "ethereum/ethereum"
 tap "gcenx/wine"
@@ -74,6 +75,7 @@ brew "watch"
 brew "wget"
 brew "youtube-dl"
 brew "zsh"
+brew "derailed/k9s/k9s"
 brew "hashicorp/tap/terraform"
 brew "jakehilborn/jakehilborn/displayplacer"
 brew "qmk/qmk/qmk", link: false
