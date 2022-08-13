@@ -723,16 +723,27 @@ vim.diagnostic.config({
 
 -- Prettier
 local null_ls = require("null-ls")
-local prettier = require("prettier")
 
 null_ls.setup({
+  sources = {
+      null_ls.builtins.formatting.stylua,
+      null_ls.builtins.completion.spell,
+  },
   on_attach = function(client, bufnr)
-    if client.server_capabilities.document_formatting then
-      vim.cmd("autocmd BufWritePost <buffer> lua vim.lsp.buf.formatting()")
+    if client.server_capabilities.documentFormattingProvider then
+      vim.cmd("nnoremap <silent><buffer> <Leader>f :lua vim.lsp.buf.format()<CR>")
+
+      -- format on save
+      vim.cmd("autocmd BufWritePost <buffer> lua vim.lsp.buf.format()")
+    end
+
+    if client.server_capabilities.documentRangeFormattingProvider then
+      vim.cmd("xnoremap <silent><buffer> <Leader>f :lua vim.lsp.buf.range_format({})<CR>")
     end
   end,
 })
 
+local prettier = require("prettier")
 prettier.setup({
   bin = 'prettierd',
   ["null-ls"] = {
@@ -758,6 +769,7 @@ prettier.setup({
     "typescript",
     "typescriptreact",
     "yaml",
+    "astro",
   },
 })
 EOF
