@@ -426,7 +426,6 @@ autocmd BufRead,BufNewFile *.tpl set ft=html
 autocmd BufRead,BufNewFile *.coffee set noexpandtab
 autocmd BufRead,BufNewFile tsconfig*.json set filetype=jsonc
 autocmd BufRead,BufNewFile *.plist set filetype=xml
-autocmd BufRead,BufNewFile *.astro set filetype=astro
 
 let g:scratch_autohide = 0
 
@@ -579,7 +578,7 @@ local lspkind = require('lspkind')
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
 
-lspconfig.astro.setup{}
+-- lspconfig.astro.setup{}
 
 lspconfig.tsserver.setup{
   root_dir = util.root_pattern("tsconfig.json", "package.json"),
@@ -728,6 +727,7 @@ null_ls.setup({
   sources = {
       null_ls.builtins.formatting.stylua,
       null_ls.builtins.completion.spell,
+      null_ls.builtins.formatting.prettierd,
   },
   on_attach = function(client, bufnr)
     if client.server_capabilities.documentFormattingProvider then
@@ -746,16 +746,16 @@ null_ls.setup({
 local prettier = require("prettier")
 prettier.setup({
   bin = 'prettierd',
-  ["null-ls"] = {
-    runtime_condition = function(params)
-      isjsdir = vim.fn.findfile("package.json") and not vim.fn.findfile("deno.json")
-      if (isjsdir == nil) then
-        return false
-      end
-      return true
-    end,
-    timeout = 500,
-  },
+  -- ["null-ls"] = {
+  --   runtime_condition = function(params)
+  --     isjsdir = vim.fn.findfile("package.json") and not vim.fn.findfile("deno.json")
+  --     if (isjsdir == nil) then
+  --       return false
+  --     end
+  --     return true
+  --   end,
+  --   timeout = 500,
+  -- },
   filetypes = {
     "css",
     "graphql",
@@ -787,7 +787,7 @@ nnoremap <silent> <leader>r    <cmd>lua vim.lsp.buf.rename()<CR>
 nnoremap <silent> <leader>. <cmd>lua vim.lsp.buf.code_action()<CR>
 xmap <silent> <leader>. <cmd>lua vim.lsp.buf.range_code_action()<CR>
 
-autocmd BufWritePre *.py,*.ts,*.js,*.css,*.go,*.tf,*.html,*scss,*.jsx,*.tsx,*.md,.astro lua vim.lsp.buf.format()
+" autocmd BufWritePre *.py,*.ts,*.js,*.css,*.go,*.tf,*.html,*scss,*.jsx,*.tsx,*.md,*.astro lua vim.lsp.buf.format()
 
 " Copilot
 let b:copilot_enabled = v:false
@@ -796,3 +796,4 @@ let g:copilot_no_tab_map = v:true
 " Astro
 let g:astro_typescript = 'enable'
 let g:astro_stylus = 'enable'
+let g:astro_indent = 'disable'
