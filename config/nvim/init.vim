@@ -61,7 +61,6 @@ Plug 'tpope/vim-jdaddy'
 Plug 'neoclide/jsonc.vim'
 Plug 'b0o/schemastore.nvim'
 Plug 'ap/vim-css-color', { 'for': 'html,css,js,jsx,ts,tsx,vue,less,sass,style' }
-Plug 'github/copilot.vim'
 Plug 'MunifTanjim/prettier.nvim'
 Plug 'wuelnerdotexe/vim-astro'
 
@@ -598,11 +597,11 @@ local function deno_init_opts()
   return opts
 end
 
-lspconfig.denols.setup{
-  root_dir = util.root_pattern("deno.json");
-  init_options = deno_init_opts(),
-  capabilities = capabilities,
-}
+--lspconfig.denols.setup{
+--  root_dir = util.root_pattern("deno.json");
+--  init_options = deno_init_opts(),
+--  capabilities = capabilities,
+--}
 
 lspconfig.jsonls.setup{
   init_options = {
@@ -643,11 +642,11 @@ local kind_icons = {
 }
 
 cmp.setup {
---  snippet = {
---    expand = function(args)
---      luasnip.lsp_expand(args.body)
---    end,
---  },
+  snippet = {
+    expand = function(args)
+      luasnip.lsp_expand(args.body)
+    end,
+  },
   mapping = cmp.mapping.preset.insert({
     ['<C-d>'] = cmp.mapping.scroll_docs(-4),
     ['<C-f>'] = cmp.mapping.scroll_docs(4),
@@ -726,7 +725,7 @@ local null_ls = require("null-ls")
 null_ls.setup({
   sources = {
       null_ls.builtins.formatting.stylua,
-      null_ls.builtins.completion.spell,
+      -- null_ls.builtins.completion.spell,
       null_ls.builtins.formatting.prettierd,
   },
   on_attach = function(client, bufnr)
@@ -788,10 +787,6 @@ nnoremap <silent> <leader>. <cmd>lua vim.lsp.buf.code_action()<CR>
 xmap <silent> <leader>. <cmd>lua vim.lsp.buf.range_code_action()<CR>
 
 " autocmd BufWritePre *.py,*.ts,*.js,*.css,*.go,*.tf,*.html,*scss,*.jsx,*.tsx,*.md,*.astro lua vim.lsp.buf.format()
-
-" Copilot
-let b:copilot_enabled = v:false
-let g:copilot_no_tab_map = v:true
 
 " Astro
 let g:astro_typescript = 'enable'
