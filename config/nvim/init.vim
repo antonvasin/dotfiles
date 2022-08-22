@@ -489,11 +489,17 @@ let g:projectionist_heuristics = {
 \       "type": "test"
 \     },
 \     "*.ts": {
-\       "alternate": "{dirname}/__tests__/{basename}.test.ts",
+\       "alternate":[
+\         "{basename}.test.ts",
+\         "{dirname}/__tests__/{basename}.test.ts",
+\        ],
 \       "type": "source"
 \     },
 \     "*.test.ts": {
-\       "alternate": "{dirname}/../{basename}.ts",
+\       "alternate": [
+\         "{basename}.ts",
+\         "{dirname}/../{basename}.ts",
+\       ],
 \       "type": "test"
 \     },
 \     "*.js": {
