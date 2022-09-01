@@ -123,3 +123,28 @@ cask "vimr"
 cask "visual-studio-code"
 cask "zoom"
 cask "zotero"
+mas "1Blocker", id: 1365531024
+mas "1Password for Safari", id: 1569813296
+mas "Amphetamine", id: 937984704
+mas "Are.na for Safari", id: 1497800947
+mas "Capo", id: 696977615
+mas "Developer", id: 640199958
+mas "Endel", id: 1484348796
+mas "GarageBand", id: 682658836
+mas "iMovie", id: 408981434
+mas "Kagi Inc.", id: 1622835804
+mas "Keynote", id: 409183694
+mas "NordVPN IKE", id: 1116599239
+mas "Numbers", id: 409203825
+mas "Octotree", id: 1457450145
+mas "Outline", id: 1356178125
+mas "Pages", id: 409201541
+mas "Parcel", id: 639968404
+mas "Pine Player", id: 1112075769
+mas "Reeder", id: 1529448980
+mas "Telegram", id: 747648890
+mas "TextSniper", id: 1528890965
+mas "uBlacklist for Safari", id: 1547912640
+mas "Userscripts", id: 1463298887
+mas "Vimari", id: 1480933944
+mas "VOX", id: 461369673
