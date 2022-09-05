@@ -21,7 +21,7 @@ Plug 'Yggdroot/indentLine'
 Plug 'itchyny/lightline.vim'
 
 " Editing & Navigation
-Plug 'jiangmiao/auto-pairs'
+Plug 'windwp/nvim-autopairs'
 Plug 'junegunn/goyo.vim'
 Plug 'mtth/scratch.vim'
 Plug 'simnalamburt/vim-mundo'
@@ -777,6 +777,9 @@ prettier.setup({
     "astro",
   },
 })
+
+require("nvim-autopairs").setup {}
+
 EOF
 let g:markdown_fenced_languages = ["ts=typescript"]
 
