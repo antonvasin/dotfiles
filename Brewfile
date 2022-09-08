@@ -57,6 +57,7 @@ brew "librsvg"
 brew "mas"
 brew "minikube"
 brew "minimal-racket"
+brew "mitmproxy"
 brew "ncdu"
 brew "neovim", args: ["HEAD"]
 brew "pinentry-mac"
