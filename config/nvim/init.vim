@@ -16,7 +16,7 @@ call plug#begin('~/.config/nvim/plugged')
 
 " Look
 Plug 'morhetz/gruvbox'
-Plug 'sainnhe/gruvbox-material'
+" Plug 'sainnhe/gruvbox-material'
 Plug 'Yggdroot/indentLine'
 Plug 'itchyny/lightline.vim'
 
@@ -82,7 +82,7 @@ let g:gruvbox_italic = 1
 let g:gruvbox_contrast_dark = 'soft'
 let g:gruvbox_sign_column = 'bg0'
 let g:gruvbox_material_foreground = 'mix'
-colorscheme gruvbox-material
+colorscheme gruvbox
 " set background=dark
 
 " Enable mouse usage (all modes)
@@ -207,7 +207,7 @@ function! MyFilename()
 endfunction
 
 let g:lightline = {
-  \   'colorscheme': 'gruvbox_material',
+  \   'colorscheme': 'gruvbox',
   \   'component_function': {
   \     'readonly': 'MyReadonly',
   \     'modified': 'MyModified',
@@ -570,6 +570,37 @@ require("nvim-lsp-installer").setup {
   automatic_installation = true,
 }
 
+local opts = { noremap=true, silent=true }
+vim.keymap.set('n', 'ge', vim.diagnostic.open_float, opts)
+vim.keymap.set('n', 'gE', vim.diagnostic.setloclist, opts)
+vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, opts)
+vim.keymap.set('n', ']d', vim.diagnostic.goto_next, opts)
+
+-- Use an on_attach function to only map the following keys
+-- after the language server attaches to the current buffer
+local on_attach = function(client, bufnr)
+  -- Enable completion triggered by <c-x><c-o>
+  vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
+
+  -- Mappings.
+  -- See `:help vim.lsp.*` for documentation on any of the below functions
+  local bufopts = { noremap=true, silent=true, buffer=bufnr }
+  vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, bufopts)
+  vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
+  vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
+  vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, bufopts)
+  vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, bufopts)
+  vim.keymap.set('n', '<space>wa', vim.lsp.buf.add_workspace_folder, bufopts)
+  vim.keymap.set('n', '<space>wr', vim.lsp.buf.remove_workspace_folder, bufopts)
+  vim.keymap.set('n', '<space>wl', function()
+    print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+  end, bufopts)
+  vim.keymap.set('n', '<space>D', vim.lsp.buf.type_definition, bufopts)
+  vim.keymap.set('n', '<lader>r', vim.lsp.buf.rename, bufopts)
+  vim.keymap.set('n', '<leader>.', vim.lsp.buf.code_action, bufopts)
+  vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
+  vim.keymap.set('n', '<space>f', vim.lsp.buf.format, bufopts)
+end
 -- nvim-cmp
 local has_words_before = function()
   local line, col = unpack(vim.api.nvim_win_get_cursor(0))
@@ -588,6 +619,7 @@ capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
 lspconfig.tsserver.setup{
   root_dir = util.root_pattern("tsconfig.json", "package.json"),
   capabilities = capabilities,
+  on_attach = on_attach,
 }
 
 local function deno_init_opts()
@@ -603,11 +635,12 @@ local function deno_init_opts()
   return opts
 end
 
---lspconfig.denols.setup{
---  root_dir = util.root_pattern("deno.json");
---  init_options = deno_init_opts(),
---  capabilities = capabilities,
---}
+lspconfig.denols.setup{
+  root_dir = util.root_pattern("deno.json");
+  init_options = deno_init_opts(),
+  capabilities = capabilities,
+  on_attach = on_attach,
+}
 
 lspconfig.jsonls.setup{
   init_options = {
@@ -617,6 +650,7 @@ lspconfig.jsonls.setup{
     }
   },
   capabilities = capabilities,
+  on_attach = on_attach,
 }
 
 local kind_icons = {
@@ -725,42 +759,16 @@ vim.diagnostic.config({
   severity_sort = true, -- default to false
 })
 
--- Prettier
 local null_ls = require("null-ls")
 
 null_ls.setup({
   sources = {
       null_ls.builtins.formatting.stylua,
-      -- null_ls.builtins.completion.spell,
-      null_ls.builtins.formatting.prettierd,
   },
-  on_attach = function(client, bufnr)
-    if client.server_capabilities.documentFormattingProvider then
-      vim.cmd("nnoremap <silent><buffer> <Leader>f :lua vim.lsp.buf.format()<CR>")
-
-      -- format on save
-      vim.cmd("autocmd BufWritePost <buffer> lua vim.lsp.buf.format()")
-    end
-
-    if client.server_capabilities.documentRangeFormattingProvider then
-      vim.cmd("xnoremap <silent><buffer> <Leader>f :lua vim.lsp.buf.range_format({})<CR>")
-    end
-  end,
 })
 
-local prettier = require("prettier")
-prettier.setup({
-  bin = 'prettierd',
-  -- ["null-ls"] = {
-  --   runtime_condition = function(params)
-  --     isjsdir = vim.fn.findfile("package.json") and not vim.fn.findfile("deno.json")
-  --     if (isjsdir == nil) then
-  --       return false
-  --     end
-  --     return true
-  --   end,
-  --   timeout = 500,
-  -- },
+require("prettier").setup({
+  bin = 'prettier',
   filetypes = {
     "css",
     "graphql",
@@ -783,19 +791,19 @@ require("nvim-autopairs").setup {}
 EOF
 let g:markdown_fenced_languages = ["ts=typescript"]
 
-nnoremap <silent> gd <cmd>lua vim.lsp.buf.definition()<CR>
-nnoremap <silent> gi <cmd>lua vim.lsp.buf.implementation()<CR>
-nnoremap <silent> gr <cmd>lua vim.lsp.buf.references()<CR>
-nnoremap <silent> gD <cmd>lua vim.lsp.buf.declaration()<CR>
-nnoremap <silent> ge <cmd>lua vim.diagnostic.open_float()<CR>
-nnoremap <silent> gE <cmd>lua vim.diagnostic.setloclist()<CR>
-nnoremap <silent> K  <cmd>lua vim.lsp.buf.hover()<CR>
-nnoremap <silent> <leader>r    <cmd>lua vim.lsp.buf.rename()<CR>
+" nnoremap <silent> gd <cmd>lua vim.lsp.buf.definition()<CR>
+" nnoremap <silent> gi <cmd>lua vim.lsp.buf.implementation()<CR>
+" nnoremap <silent> gr <cmd>lua vim.lsp.buf.references()<CR>
+" nnoremap <silent> gD <cmd>lua vim.lsp.buf.declaration()<CR>
+" nnoremap <silent> ge <cmd>lua vim.diagnostic.open_float()<CR>
+" nnoremap <silent> gE <cmd>lua vim.diagnostic.setloclist()<CR>
+" nnoremap <silent> K  <cmd>lua vim.lsp.buf.hover()<CR>
+" nnoremap <silent> <leader>r    <cmd>lua vim.lsp.buf.rename()<CR>
+"
+" nnoremap <silent> <leader>. <cmd>lua vim.lsp.buf.code_action()<CR>
+" xmap <silent> <leader>. <cmd>lua vim.lsp.buf.range_code_action()<CR>
 
-nnoremap <silent> <leader>. <cmd>lua vim.lsp.buf.code_action()<CR>
-xmap <silent> <leader>. <cmd>lua vim.lsp.buf.range_code_action()<CR>
-
-" autocmd BufWritePre *.py,*.ts,*.js,*.css,*.go,*.tf,*.html,*scss,*.jsx,*.tsx,*.md,*.astro lua vim.lsp.buf.format()
+autocmd BufWritePre *.py,*.ts,*.js,*.css,*.go,*.tf,*.html,*scss,*.jsx,*.tsx,*.md,*.astro lua vim.lsp.buf.format()
 
 " Astro
 let g:astro_typescript = 'enable'
