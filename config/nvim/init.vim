@@ -640,6 +640,7 @@ lspconfig.denols.setup{
   init_options = deno_init_opts(),
   capabilities = capabilities,
   on_attach = on_attach,
+  filetypes = { "javascript", "javascriptreact", "javascript.jsx", "typescript", "typescriptreact", "typescript.tsx", "markdown" }
 }
 
 lspconfig.jsonls.setup{
