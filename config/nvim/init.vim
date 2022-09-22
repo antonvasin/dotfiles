@@ -491,7 +491,7 @@ let g:projectionist_heuristics = {
 \     "*.ts": {
 \       "alternate":[
 \         "{basename}.test.ts",
-\         "{dirname}/__tests__/{basename}.test.ts",
+\         "{dirname}/{basename}.test.ts",
 \        ],
 \       "type": "source"
 \     },
@@ -596,7 +596,7 @@ local on_attach = function(client, bufnr)
     print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
   end, bufopts)
   vim.keymap.set('n', '<space>D', vim.lsp.buf.type_definition, bufopts)
-  vim.keymap.set('n', '<lader>r', vim.lsp.buf.rename, bufopts)
+  vim.keymap.set('n', '<leader>r', vim.lsp.buf.rename, bufopts)
   vim.keymap.set('n', '<leader>.', vim.lsp.buf.code_action, bufopts)
   vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
   vim.keymap.set('n', '<space>f', vim.lsp.buf.format, bufopts)

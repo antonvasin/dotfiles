@@ -134,7 +134,7 @@ mas "Developer", id: 640199958
 mas "Endel", id: 1484348796
 mas "GarageBand", id: 682658836
 mas "iMovie", id: 408981434
-mas "Kagi Inc.", id: 1622835804
+mas "JSONPeep", id: 1458969831
 mas "Keynote", id: 409183694
 mas "NordVPN IKE", id: 1116599239
 mas "Numbers", id: 409203825
@@ -147,6 +147,5 @@ mas "Reeder", id: 1529448980
 mas "Telegram", id: 747648890
 mas "TextSniper", id: 1528890965
 mas "uBlacklist for Safari", id: 1547912640
-mas "Userscripts", id: 1463298887
 mas "Vimari", id: 1480933944
 mas "VOX", id: 461369673
