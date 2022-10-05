@@ -61,8 +61,8 @@ Plug 'tpope/vim-jdaddy'
 Plug 'neoclide/jsonc.vim'
 Plug 'b0o/schemastore.nvim'
 Plug 'ap/vim-css-color', { 'for': 'html,css,js,jsx,ts,tsx,vue,less,sass,style' }
-Plug 'MunifTanjim/prettier.nvim'
 Plug 'wuelnerdotexe/vim-astro'
+Plug 'ellisonleao/glow.nvim'
 
 " LSP
 Plug 'nvim-lua/plenary.nvim'
@@ -359,6 +359,7 @@ nnoremap <leader>a :Ack!<space>
 nnoremap <leader>wa :wa<cr>
 nnoremap <leader>qq :qa!<cr>
 nnoremap <leader>w <C-w>
+nnoremap <leader>md :Glow<cr>
 
 nmap <leader>ja :A<cr>
 nmap <leader>jA :AV<cr>
@@ -765,26 +766,21 @@ local null_ls = require("null-ls")
 null_ls.setup({
   sources = {
       null_ls.builtins.formatting.stylua,
+      null_ls.builtins.formatting.prettier,
+      null_ls.builtins.completion.spell
   },
-})
+  on_attach = function(client, bufnr)
+    if client.server_capabilities.documentFormattingProvider then
+      vim.cmd("nnoremap <silent><buffer> <Leader>f :lua vim.lsp.buf.format()<CR>")
 
-require("prettier").setup({
-  bin = 'prettier',
-  filetypes = {
-    "css",
-    "graphql",
-    "html",
-    "javascript",
-    "javascriptreact",
-    "json",
-    "less",
-    "markdown",
-    "scss",
-    "typescript",
-    "typescriptreact",
-    "yaml",
-    "astro",
-  },
+      -- format on save
+      vim.cmd("autocmd BufWritePost <buffer> lua vim.lsp.buf.format()")
+    end
+
+    if client.server_capabilities.documentRangeFormattingProvider then
+      vim.cmd("xnoremap <silent><buffer> <Leader>f :lua vim.lsp.buf.range_format({})<CR>")
+    end
+  end,
 })
 
 require("nvim-autopairs").setup {}
@@ -804,7 +800,7 @@ let g:markdown_fenced_languages = ["ts=typescript"]
 " nnoremap <silent> <leader>. <cmd>lua vim.lsp.buf.code_action()<CR>
 " xmap <silent> <leader>. <cmd>lua vim.lsp.buf.range_code_action()<CR>
 
-autocmd BufWritePre *.py,*.ts,*.js,*.css,*.go,*.tf,*.html,*scss,*.jsx,*.tsx,*.md,*.astro lua vim.lsp.buf.format()
+" autocmd BufWritePre *.py,*.ts,*.js,*.css,*.go,*.tf,*.html,*scss,*.jsx,*.tsx,*.md,*.astro lua vim.lsp.buf.format()
 
 " Astro
 let g:astro_typescript = 'enable'
