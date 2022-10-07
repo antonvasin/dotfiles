@@ -615,7 +615,7 @@ local lspkind = require('lspkind')
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
 
--- lspconfig.astro.setup{}
+lspconfig.astro.setup{}
 
 lspconfig.tsserver.setup{
   root_dir = util.root_pattern("tsconfig.json", "package.json"),
@@ -637,7 +637,7 @@ local function deno_init_opts()
 end
 
 lspconfig.denols.setup{
-  root_dir = util.root_pattern("deno.json", "mod.ts", "import_map.json", "lock.json");
+  root_dir = util.root_pattern("deno.json", "mod.ts", "main.ts", "import_map.json", "lock.json");
   init_options = deno_init_opts(),
   capabilities = capabilities,
   on_attach = on_attach,
