@@ -1,4 +1,6 @@
 " auto install vim-plug
+lua << EOF
+vim.cmd([[
 if empty(glob('~/.config/nvim/autoload/plug.vim'))
   silent !curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs
     \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
@@ -49,13 +51,12 @@ Plug 'tpope/vim-projectionist'
 Plug 'Shougo/vimproc.vim', { 'do': 'make' }
 Plug 'ruanyl/vim-gh-line'
 Plug 'kassio/neoterm'
-Plug 'kristijanhusak/vim-carbon-now-sh'
-Plug 'janko/vim-test'
 
 " Languages
 Plug 'rizzatti/dash.vim'
 Plug 'tpope/vim-fireplace', Cond(!exists('g:vscode'))
-Plug 'sheerun/vim-polyglot', Cond(!exists('g:vscode'))
+" Plug 'sheerun/vim-polyglot', Cond(!exists('g:vscode'))
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'sheerun/vim-go'
 Plug 'tpope/vim-jdaddy'
 Plug 'neoclide/jsonc.vim'
@@ -76,104 +77,6 @@ Plug 'saadparwaiz1/cmp_luasnip'
 Plug 'L3MON4D3/LuaSnip'
 
 call plug#end()
-
-set termguicolors
-let g:gruvbox_italic = 1
-let g:gruvbox_contrast_dark = 'soft'
-let g:gruvbox_sign_column = 'bg0'
-let g:gruvbox_material_foreground = 'mix'
-colorscheme gruvbox
-" set background=dark
-
-" Enable mouse usage (all modes)
-set mouse=a
-
-set tabstop=2
-set shiftwidth=2
-set softtabstop=2
-set expandtab
-set scrolloff=5
-set noshowmode
-set autoindent
-set autoread
-set wildmenu
-set ruler
-set smarttab
-
-set listchars=tab:▸\ ,eol:¬,extends:❯,precedes:❮,nbsp:␣
-set fillchars=vert:\│
-
-" Do smart case matching
-set smartcase
-" Do case insensitive matching
-set ignorecase
-" Incremental search
-set hlsearch
-set wildmode=list:longest,full
-set backspace=indent,eol,start
-" Hide buffers when they are abandoned
-set hidden
-set splitbelow
-set splitright
-set visualbell
-set cursorline
-set guicursor+=n-v-c:blinkon0
-set laststatus=2
-set textwidth=79
-" Show (partial) command in status line.
-" set showcmd
-set linespace=0
-" Show matching brackets.
-set showmatch
-set wrap
-set foldenable
-set foldmethod=syntax
-set foldlevelstart=20
-set completeopt=menu,menuone,preview,noselect,noinsert
-set shortmess=atIc
-set cmdheight=2
-
-" do not highlight lines longer than 800 char
-set synmaxcol=800
-
-set relativenumber
-set number
-
-set breakindent
-set breakindentopt=sbr
-set showbreak=└ 
-set inccommand=nosplit
-set diffopt+=vertical
-
-" Make sure Vim returns to the same line when you reopen a file.
-augroup line_return
-  au!
-  au BufReadPost *
-        \ if line("'\"") > 0 && line("'\"") <= line("$") |
-        \     execute 'normal! g`"zvzz' |
-        \ endif
-augroup END
-
-" Persist folds
-set viewoptions=folds,cursor
-augroup PersistFolds
-  autocmd!
-  autocmd BufWinLeave,BufLeave,BufWritePost ?* nested silent! mkview!
-  autocmd BufWinEnter ?* silent! loadview
-augroup END
-
-" Don’t display urls as spelling errors
-syn match UrlNoSpell '\w\+:\/\/[^[:space:]]\+' contains=@NoSpell
-
-" Don't count acronyms / abbreviations as spelling errors
-" (all upper-case letters, at least three characters)
-" Also will not count acronym with 's' at the end a spelling error
-" Also will not count numbers that are part of this
-" Recognizes the following as correct:
-syn match AcronymNoSpell '\<\(\u\|\d\)\{3,}s\?\>' contains=@NoSpell
-
-autocmd FileType qf setlocal nospell
-autocmd FileType json,yaml,neoterm,fzf setlocal nospell
 
 function! MyModified()
   if &filetype == "help"
@@ -227,28 +130,6 @@ let g:lightline = {
   \ }
 
 
-"don't wait too long for next keystroke
-set timeoutlen=500
-set updatetime=250
-
-" lang
-"
-" Ctrl-^ for rus-eng keymap
-" set keymap=russian-jcukenmac
-" start on latin keymap
-set iminsert=0
-set imsearch=0
-" hi lCursor guifg=NONE guibg=Cyan
-set spell
-set spelllang=ru_ru,en_gb
-set spellfile=~/.config/nvim/spell/ru.utf-8.add,~/.config/nvim/spell/en.utf-8.add
-hi clear SpellBad
-hi SpellBad cterm=underline
-
-if (!exists('g:vscode'))
-  set updatetime=100
-end
-
 " display only current cursorline
 augroup CursorLine
   au!
@@ -258,19 +139,6 @@ augroup CursorLine
   au WinLeave * setlocal nocursorline
 augroup END
 
-
-set formatoptions=qrn1j
-set wildignorecase
-set history=500
-set complete=.,b,u,],kspell
-set wildignore+=**/node_modules
-set clipboard+=unnamedplus
-
-" Backups
-set undofile
-set undodir=~/.config/nvim/tmp/undo//
-set nobackup
-set noswapfile
 
 function! CloseWindowOrKillBuffer()
   let number_of_windows_to_this_buffer = len(filter(range(1, winnr('$')), "winbufnr(v:val) == bufnr('%')"))
@@ -427,10 +295,6 @@ autocmd BufRead,BufNewFile *.coffee set noexpandtab
 autocmd BufRead,BufNewFile tsconfig*.json set filetype=jsonc
 autocmd BufRead,BufNewFile *.plist set filetype=xml
 
-let g:scratch_autohide = 0
-
-let g:netrw_localrmdir = 'rm -r'
-
 xnoremap @ :<C-u>call ExecuteMacroOverVisualRange()<CR>
 
 function! ExecuteMacroOverVisualRange()
@@ -453,25 +317,8 @@ let g:user_emmet_settings = {
 " vim-surround
 au FileType javascript,typescript let b:surround_99 = "/* \r */"
 
-" IndentLine
-let g:indentLine_enabled = 0
-let g:indentLine_char = '┆'
-
 autocmd! FileType fzf,neoterm
 autocmd FileType fzf,neoterm set laststatus=0 | autocmd WinLeave <buffer> set laststatus=2
-
-" signify
-let g:signify_sign_show_count = 0
-let g:signify_sign_show_text = 0
-
-" vim-carbon-now-sh
-let g:carbon_now_sh_options = {
-      \ 'fm': 'Fira Code',
-      \ 't': 'seti',
-      \ 'pv': '0px',
-      \ 'ph': '0px',
-      \ 'bg': 'rgba(0,0,0,0)',
-      \ }
 
 " au BufEnter *.tsx set filetype=typescriptreact
 
@@ -532,34 +379,181 @@ let g:projectionist_heuristics = {
 \  }
 \}
 
-" xkbswitch
-let g:XkbSwitchEnabled = 1
-" let g:XkbSwitchIMappings = ['ru']
-
-" vim-test
-" nmap <silent> t<C-n> :TestNearest<CR>
-" nmap <silent> t<C-f> :TestFile<CR>
-" nmap <silent> t<C-s> :TestSuite<CR>
-" nmap <silent> t<C-l> :TestLast<CR>
-" nmap <silent> t<C-g> :TestVisit<CR>
 au TermOpen * setlocal nonumber norelativenumber
-let test#strategy = "neovim"
-let test#neovim#term_position = 'vert'
-let test#javascript#jest#options = '--watch'
 
 command! W noa write
 
 " tab (window) nav
 map <C-Tab> gt
 map <C-S-Tab> gT
-
-" let g:ack_autoclose = 1
-let g:ackprg = 'rg --vimgrep --smart-case'
-let g:ack_use_cword_for_empty_search = 1
+]])
+EOF
 
 " --------- lua config --------
 
 lua << EOF
+
+-- settings
+
+-- 24-bit colors
+vim.opt.termguicolors = true
+vim.cmd('colorscheme gruvbox')
+vim.g.gruvbox_italic = 1
+vim.g.gruvbox_contrast_dark = 'soft'
+vim.g.gruvbox_sign_column = 'bg0'
+vim.g.gruvbox_material_foreground = 'mix'
+
+-- Enable mouse usage (all modes)
+vim.opt.mouse = "a"
+
+vim.opt.tabstop=2
+vim.opt.shiftwidth=2
+vim.opt.softtabstop=2
+vim.opt.expandtab = true
+vim.opt.scrolloff=5
+vim.opt.showmode = false
+vim.opt.autoindent = true
+vim.opt.autoread = true
+vim.opt.wildmenu = true
+vim.opt.ruler = true
+vim.opt.smarttab = true
+
+-- vim.opt.listchars = { tab: '\▸', eol: '\¬', extends: '\❯', precedes: '\❮', nbsp: '\␣' }
+-- vim.opt.fillchars = { vert: '│' }
+
+-- Do smart case matching
+vim.opt.smartcase = true
+-- Do case insensitive matching
+vim.opt.ignorecase = true
+-- Incremental search
+vim.opt.hlsearch = true
+vim.opt.wildmode={ 'list', 'longest', 'full' }
+vim.opt.backspace={'indent','eol','start'}
+-- Hide buffers when they are abandoned
+vim.opt.hidden = true
+vim.opt.splitbelow = true
+vim.opt.splitright = true
+vim.opt.visualbell = true
+vim.opt.cursorline = true
+vim.opt.guicursor:append { 'n-v-c:blinkon0' }
+vim.opt.laststatus=2
+vim.opt.textwidth=79
+-- Show (partial) command in status line.
+-- vim.opt.showcmd
+vim.opt.linespace=0
+-- Show matching brackets.
+vim.opt.showmatch = true
+vim.opt.wrap = true
+vim.opt.foldenable = true
+vim.opt.foldmethod='syntax'
+vim.opt.foldlevelstart=20
+vim.opt.completeopt = { 'menu','menuone','preview','noselect','noinsert' }
+vim.opt.shortmess='atIc'
+vim.opt.cmdheight=2
+
+-- do not highlight lines longer than 800 char
+vim.opt.synmaxcol=800
+
+vim.opt.relativenumber = true
+vim.opt.number = true
+
+vim.opt.breakindent = true
+vim.opt.breakindentopt='sbr'
+vim.opt.showbreak='└  '
+vim.opt.inccommand='nosplit'
+vim.opt.diffopt:append { 'vertical' }
+vim.opt.viewoptions = { 'folds', 'cursor' }
+
+--don't wait too long for next keystroke
+vim.opt.timeoutlen=500
+vim.opt.updatetime=250
+
+vim.opt.iminsert=0
+vim.opt.imsearch=0
+
+vim.opt.formatoptions='qrn1j'
+vim.opt.wildignorecase = true
+vim.opt.history=500
+vim.opt.complete={ '.', 'b' , 'u' , ']' , 'kspell' }
+vim.opt.wildignore:append { '**/node_modules'}
+vim.opt.clipboard:append { 'unnamedplus' }
+
+-- Backups
+vim.opt.undofile = true
+vim.opt.undodir='~/.config/nvim/tmp/undo//'
+vim.opt.backup = false
+vim.opt.swapfile = false
+
+vim.cmd([[
+if (!exists('g:vscode'))
+  set updatetime=100
+end
+]])
+
+
+vim.g.scratch_autohide = 0
+
+vim.g.netrw_localrmdir = 'rm -r'
+
+-- IndentLine
+vim.g.indentLine_enabled = 0
+vim.g.indentLine_char = '┆'
+
+-- xkbswitch
+vim.g.XkbSwitchEnabled = 1
+
+-- rg
+-- let g:ack_autoclose = 1
+vim.g.ackprg = 'rg --vimgrep --smart-case'
+vim.g.ack_use_cword_for_empty_search = 1
+
+vim.g.markdown_fenced_languages = {"ts=typescript"}
+
+-- Astro
+vim.g.astro_typescript = 'enable'
+vim.g.astro_stylus = 'enable'
+vim.g.astro_indent = 'disable'
+
+-- Make sure Vim returns to the same line when you reopen a file.
+vim.cmd([[
+augroup line_return
+  au!
+  au BufReadPost *
+        \ if line("'\"") > 0 && line("'\"") <= line("$") |
+        \     execute 'normal! g`"zvzz' |
+        \ endif
+augroup END
+]])
+
+-- Persist folds
+vim.cmd([[
+augroup PersistFolds
+  autocmd!
+  autocmd BufWinLeave,BufLeave,BufWritePost ?* nested silent! mkview!
+  autocmd BufWinEnter ?* silent! loadview
+augroup END
+]])
+
+-- Spelling
+-- Don’t display urls as spelling errors
+--
+-- Don't count acronyms / abbreviations as spelling errors
+-- (all upper-case letters, at least three characters)
+-- Also will not count acronym with 's' at the end a spelling error
+-- Also will not count numbers that are part of this
+-- Recognizes the following as correct:
+-- syn match UrlNoSpell '\w\+:\/\/[^[:space:]]\+' contains=@NoSpell
+-- syn match AcronymNoSpell '\<\(\u\|\d\)\{3,}s\?\>' contains=@NoSpell
+-- hi lCursor guifg=NONE guibg=Cyan
+vim.cmd([[
+set spell
+set spelllang=ru_ru,en_gb
+set spellfile=~/.config/nvim/spell/ru.utf-8.add,~/.config/nvim/spell/en.utf-8.add
+hi clear SpellBad
+hi SpellBad cterm=underline
+autocmd FileType qf setlocal nospell
+autocmd FileType json,yaml,neoterm,fzf setlocal nospell
+]])
 
 require('Comment').setup()
 
@@ -574,8 +568,8 @@ require("nvim-lsp-installer").setup {
 local opts = { noremap=true, silent=true }
 vim.keymap.set('n', 'ge', vim.diagnostic.open_float, opts)
 vim.keymap.set('n', 'gE', vim.diagnostic.setloclist, opts)
-vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, opts)
-vim.keymap.set('n', ']d', vim.diagnostic.goto_next, opts)
+-- vim.keymap.set('n', 'd', vim.diagnostic.goto_prev, opts)
+-- vim.keymap.set('n', 'd', vim.diagnostic.goto_next, opts)
 
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
@@ -785,24 +779,10 @@ null_ls.setup({
 
 require("nvim-autopairs").setup {}
 
+require'nvim-treesitter.configs'.setup {
+  ensure_installed = { "javascript", "typescript", "css", "html", "go", "clojure", "bash", "sql", "vim", "lua" },
+  highlight = { enabled = true},
+  auto_install = true
+}
+
 EOF
-let g:markdown_fenced_languages = ["ts=typescript"]
-
-" nnoremap <silent> gd <cmd>lua vim.lsp.buf.definition()<CR>
-" nnoremap <silent> gi <cmd>lua vim.lsp.buf.implementation()<CR>
-" nnoremap <silent> gr <cmd>lua vim.lsp.buf.references()<CR>
-" nnoremap <silent> gD <cmd>lua vim.lsp.buf.declaration()<CR>
-" nnoremap <silent> ge <cmd>lua vim.diagnostic.open_float()<CR>
-" nnoremap <silent> gE <cmd>lua vim.diagnostic.setloclist()<CR>
-" nnoremap <silent> K  <cmd>lua vim.lsp.buf.hover()<CR>
-" nnoremap <silent> <leader>r    <cmd>lua vim.lsp.buf.rename()<CR>
-"
-" nnoremap <silent> <leader>. <cmd>lua vim.lsp.buf.code_action()<CR>
-" xmap <silent> <leader>. <cmd>lua vim.lsp.buf.range_code_action()<CR>
-
-" autocmd BufWritePre *.py,*.ts,*.js,*.css,*.go,*.tf,*.html,*scss,*.jsx,*.tsx,*.md,*.astro lua vim.lsp.buf.format()
-
-" Astro
-let g:astro_typescript = 'enable'
-let g:astro_stylus = 'enable'
-let g:astro_indent = 'disable'
