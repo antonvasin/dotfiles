@@ -2,6 +2,7 @@ require("plugins")
 require("settings")
 require("keys")
 require("lsp")
+require("statusline")
 
 require("Comment").setup()
 
@@ -14,58 +15,6 @@ require("nvim-treesitter.configs").setup({
 })
 
 vim.cmd([[
-function! MyModified()
-  if &filetype == "help"
-    return ""
-  elseif &modified
-    return "+"
-  elseif &modifiable
-    return ""
-  else
-    return ""
-  endif
-endfunction
-
-function! MyReadonly()
-  if &filetype == "help"
-    return ""
-  elseif &readonly
-    return "╳"
-  else
-    return ""
-  endif
-endfunction
-
-function! MyFilename()
-  let root = fnamemodify(get(b:, 'git_dir'), ':h')
-  let path = expand('%:p')
-  if path[:len(root)-1] ==# root
-    return path[len(root)+1:]
-  endif
-  return expand('%')
-endfunction
-
-let g:lightline = {
-  \   'colorscheme': 'gruvbox',
-  \   'component_function': {
-  \     'readonly': 'MyReadonly',
-  \     'modified': 'MyModified',
-  \     'filename': 'MyFilename',
-  \     'git': 'FugitiveHead'
-  \   },
-  \   'active': {
-  \     'left': [
-	\       ['mode', 'paste'],
-	\       ['filename']
-	\			],
-  \     'right': [
-	\       ['git', 'currentfunction'],
-	\       ['lineinfo']
-	\     ]
-  \   }
-  \ }
-
-
 " display only current cursorline
 augroup CursorLine
   au!
@@ -129,8 +78,6 @@ au FileType javascript,typescript let b:surround_99 = "/* \r */"
 autocmd! FileType fzf,neoterm
 autocmd FileType fzf,neoterm set laststatus=0 | autocmd WinLeave <buffer> set laststatus=2
 
-" au BufEnter *.tsx set filetype=typescriptreact
-
 let g:projectionist_heuristics = {
 \   "package.json": {
 \     "*.tsx": {
@@ -189,10 +136,4 @@ let g:projectionist_heuristics = {
 \}
 
 au TermOpen * setlocal nonumber norelativenumber
-
-command! W noa write
-
-" tab (window) nav
-map <C-Tab> gt
-map <C-S-Tab> gT
 ]])

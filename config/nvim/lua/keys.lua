@@ -125,4 +125,9 @@ if has('gui_running')
   set guioptions=
 end
 
+command! W noa write
+
+" tab (window) nav
+map <C-Tab> gt
+map <C-S-Tab> gT
 ]])
