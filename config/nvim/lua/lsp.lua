@@ -214,3 +214,5 @@ null_ls.setup({
     end
   end,
 })
+
+lspconfig.dockerls.setup {}

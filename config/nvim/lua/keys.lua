@@ -52,7 +52,6 @@ nnoremap <leader>ev :e $MYVIMRC<cr>
 nnoremap <leader>y ^y$
 nnoremap <leader>S :%s///<left>
 nnoremap <leader>a :Ack!<space>
-nnoremap <leader>wa :wa<cr>
 nnoremap <leader>qq :qa!<cr>
 nnoremap <leader>w <C-w>
 nnoremap <leader>md :Glow<cr>
