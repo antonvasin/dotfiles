@@ -2,7 +2,7 @@ require("plugins")
 require("settings")
 require("keys")
 require("lsp")
-require("statusline")
+-- require("statusline")
 
 require("Comment").setup()
 
