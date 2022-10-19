@@ -1,11 +1,25 @@
 -- 24-bit colors
 vim.opt.termguicolors = true
-vim.cmd("colorscheme gruvbox")
-vim.g.gruvbox_italic = 1
-vim.g.gruvbox_contrast_dark = "soft"
-vim.g.gruvbox_sign_column = "bg0"
-vim.g.gruvbox_material_foreground = "mix"
 
+-- Gruvbox
+-- vim.cmd("colorscheme gruvbox")
+-- vim.g.gruvbox_italic = 1
+-- vim.g.gruvbox_contrast_dark = "soft"
+-- vim.g.gruvbox_sign_column = "bg0"
+-- vim.g.gruvbox_material_foreground = "mix"
+
+-- Experiments
+-- vim.cmd("colorscheme gruvbox-baby")
+-- vim.g.gruvbox_baby_function_style = "NONE"
+-- vim.g.gruvbox_baby_keyword_style = "italic"
+
+vim.cmd("colorscheme neon")
+vim.g.neon_style = "doom"
+-- vim.g.neon_bold = true
+vim.g.neon_transparent = true
+vim.g.neon_italic_keyword = true
+vim.g.neon_italic_function = true
+--
 -- Enable mouse usage (all modes)
 vim.opt.mouse = "a"
 
