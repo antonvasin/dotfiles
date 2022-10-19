@@ -8,22 +8,18 @@ require("Comment").setup()
 
 require("nvim-autopairs").setup({})
 
-require("nvim-treesitter.configs").setup({
-	ensure_installed = { "javascript", "typescript", "css", "html", "go", "clojure", "bash", "sql", "vim", "lua" },
-	highlight = { enabled = true },
-	auto_install = true,
-})
+-- vim.cmd([[
+-- " display only current cursorline
+-- augroup CursorLine
+--   au!
+--   au VimEnter * setlocal cursorline
+--   au WinEnter * setlocal cursorline
+--   au BufWinEnter * setlocal cursorline
+--   au WinLeave * setlocal nocursorline
+-- augroup END
+-- ]])
 
 vim.cmd([[
-" display only current cursorline
-augroup CursorLine
-  au!
-  au VimEnter * setlocal cursorline
-  au WinEnter * setlocal cursorline
-  au BufWinEnter * setlocal cursorline
-  au WinLeave * setlocal nocursorline
-augroup END
-
 " Goyo
 function! s:goyo_enter()
   " set relativenumber
@@ -40,6 +36,10 @@ autocmd! User GoyoEnter
 autocmd! User GoyoLeave
 autocmd  User GoyoEnter nested call <SID>goyo_enter()
 autocmd  User GoyoLeave nested call <SID>goyo_leave()
+]])
+
+vim.cmd([[
+au TermOpen * setlocal nonumber norelativenumber
 
 autocmd BufWritePre * :%s/\s\+$//e
 
@@ -135,5 +135,4 @@ let g:projectionist_heuristics = {
 \  }
 \}
 
-au TermOpen * setlocal nonumber norelativenumber
 ]])

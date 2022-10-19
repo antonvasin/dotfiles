@@ -1,49 +1,78 @@
-vim.cmd([[
-  tnoremap <C-h> <C-\><C-n><C-w>h
-  tnoremap <C-j> <C-\><C-n><C-w>j
-  tnoremap <C-k> <C-\><C-n><C-w>k
-  tnoremap <C-l> <C-\><C-n><C-w>l
-  nnoremap <C-h> <C-w>h
-  nnoremap <C-j> <C-w>j
-  nnoremap <C-k> <C-w>k
-  nnoremap <C-l> <C-w>l
+local bufopts = { noremap = true, silent = true }
 
-  nnoremap * *``
+-- Windows
 
-  nnoremap <Right> <C-W>>
-  nnoremap <Left> <C-W><
-  nnoremap <Up> <C-W>-
-  nnoremap <Down> <C-W>+
+-- Pane movement with <C-h|j|k|l>
+vim.keymap.set("n", "<C-h>", "<C-w>h", bufopts)
+vim.keymap.set("n", "<C-j>", "<C-w>j", bufopts)
+vim.keymap.set("n", "<C-k>", "<C-w>k", bufopts)
+vim.keymap.set("n", "<C-l>", "<C-w>l", bufopts)
+vim.keymap.set("t", "<C-h>", "<C-><C-n><C-w>h", bufopts)
+vim.keymap.set("t", "<C-j>", "<C-><C-n><C-w>j", bufopts)
+vim.keymap.set("t", "<C-k>", "<C-><C-n><C-w>k", bufopts)
+vim.keymap.set("t", "<C-l>", "<C-><C-n><C-w>l", bufopts)
 
-  " Treat warped lines as regular lines
-  nnoremap j gj
-  nnoremap k gk
-  nnoremap / /\v
-  vnoremap / /\v
-  nnoremap ; :
-  " cmap cwd lcd %:p:h
-  vnoremap < <gv
-  vnoremap > >gv
-  nnoremap <C-e> 3<C-e>
-  nnoremap <C-y> 3<C-y>
-  " Cursor don't jump when joining lines
-  nnoremap J mzJ`z
-  " Keep search matches in the middle of the window.
-  nnoremap n nzzzv
-  nnoremap N Nzzzv
-  nnoremap Y y$
-  map K <Nop>
-  nnoremap <leader>o :FZF<CR>
-  nnoremap <c-t> :FZF<CR>
-  nnoremap <c-p> :FZF<CR>
+-- Resize
+vim.keymap.set("n", "<Right>", "<C-w>>", bufopts)
+vim.keymap.set("n", "<left>", "<C-w><", bufopts)
+vim.keymap.set("n", "<Up>", "<C-w>-", bufopts)
+vim.keymap.set("n", "<Down>", "<C-w>+", bufopts)
 
-  nnoremap s :w<cr>
-]])
+-- Movement
+
+-- Treat warped lines as regular lines
+vim.keymap.set("n", "j", "gj", bufopts)
+vim.keymap.set("n", "k", "gk", bufopts)
+
+-- Cursor don't jump when joining lines
+vim.keymap.set("n", "J", "mzJ`z", bufopts)
+
+-- Don't jump to first highlight
+vim.keymap.set("n", "*", "*``", bufopts)
+
+-- Keep search matches in the middle of the window.
+vim.keymap.set("n", "n", "nzzzv", bufopts)
+vim.keymap.set("n", "N", "Nzzzv", bufopts)
+
+-- Scroll by 3 lines on <C-e|y>
+vim.keymap.set("n", "<C-e>", "3<C-e>", bufopts)
+vim.keymap.set("n", "<C-y>", "3<C-y>", bufopts)
+
+-- Keep visual mode when indenting
+vim.keymap.set("v", "<", "<gv", bufopts)
+vim.keymap.set("v", ">", ">gv", bufopts)
+
+-- Actions
+
+-- Case-insensitive search
+vim.keymap.set("n", "/", "/\v", bufopts)
+vim.keymap.set("v", "/", "/\v", bufopts)
+
+-- Easy commands with ;
+vim.keymap.set("n", ";", ":", bufopts)
+
+-- Yank till end of the line
+vim.keymap.set("n", "Y", "y$", bufopts)
+
+-- Get full folder path in command mdoe
+-- vim.keymap.set("c", "cwd", "lcd %:p:h-")
+
+-- Save  with single key
+vim.keymap.set("n", "s", ":w<cr>", bufopts)
+
+-- Unmap K
+vim.keymap.set("n", "K", "<Nop>", { silent = true })
+
+-- FZF
+vim.keymap.set("n", "<C-t>", ":FZF<cr>", bufopts)
+vim.keymap.set("n", "<C-p>", ":FZF<cr>", bufopts)
+
+-- Leader
+vim.keymap.set("n", "<SPACE>", "<Nop>", bufopts)
+vim.g.mapleader = " "
 
 vim.cmd([[
   " Leader maps
-  nnoremap <SPACE> <Nop>
-  let mapleader = " "
   nnoremap <leader>l :set list!<cr> \| :IndentLinesToggle<cr>
   nnoremap <leader><space> :nohl<cr>
   noremap <leader>u :MundoToggle<cr>
@@ -64,10 +93,9 @@ vim.cmd([[
   nnoremap <leader>o :only<cr>
   nnoremap <leader>z :Goyo<cr>
 
+  " Hex
   nnoremap <leader>x :%!xxd<cr>
   nnoremap <leader>X :%!xxd -r<cr>
-
-  nnoremap <leader>W :ToggleWorkspace<CR>
 
   " Fugitive.vim
   nnoremap <leader>gw :Gw<cr>

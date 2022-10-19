@@ -101,11 +101,9 @@ vim.opt.undodir = "~/.config/nvim/tmp/undo//"
 vim.opt.backup = false
 vim.opt.swapfile = false
 
-vim.cmd([[
-if (!exists('g:vscode'))
-  set updatetime=100
+if not vim.g.vscode then
+	vim.opt.updatetime = 100
 end
-]])
 
 vim.g.scratch_autohide = 0
 

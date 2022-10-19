@@ -59,8 +59,7 @@ local on_attach = function(client, bufnr)
 			vim.lsp.buf.format({ timeout_ms = 2000 })
 		end, bufopts)
 	end
-
-	end
+end
 
 -- nvim-cmp
 local has_words_before = function()
@@ -253,4 +252,10 @@ lspconfig.dockerls.setup({
 
 require("nlua.lsp.nvim").setup(require("lspconfig"), {
 	on_attach = on_attach,
+})
+
+require("nvim-treesitter.configs").setup({
+	ensure_installed = { "javascript", "typescript", "css", "html", "go", "clojure", "bash", "sql", "vim", "lua" },
+	highlight = { enabled = true },
+	auto_install = true,
 })
