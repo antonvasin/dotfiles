@@ -63,7 +63,7 @@ vim.keymap.set("n", "Y", "y$", bufopts)
 vim.keymap.set("n", "s", ":w<cr>", bufopts)
 
 -- Unmap K
-vim.keymap.set("n", "K", "<Nop>", { silent = true })
+vim.cmd("map K <Nop>")
 
 -- FZF
 vim.keymap.set("n", "<C-t>", ":FZF<cr>", bufopts)
