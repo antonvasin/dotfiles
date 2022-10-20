@@ -6,20 +6,25 @@ vim.opt.termguicolors = true
 -- vim.g.gruvbox_italic = 1
 -- vim.g.gruvbox_contrast_dark = "soft"
 -- vim.g.gruvbox_sign_column = "bg0"
--- vim.g.gruvbox_material_foreground = "mix"
 
 -- Experiments
 -- vim.cmd("colorscheme gruvbox-baby")
 -- vim.g.gruvbox_baby_function_style = "NONE"
 -- vim.g.gruvbox_baby_keyword_style = "italic"
 
-vim.cmd("colorscheme neon")
-vim.g.neon_style = "doom"
+-- vim.cmd("colorscheme neon")
+-- vim.g.neon_style = "doom"
 -- vim.g.neon_bold = true
-vim.g.neon_transparent = true
-vim.g.neon_italic_keyword = true
-vim.g.neon_italic_function = true
---
+-- vim.g.neon_transparent = true
+-- vim.g.neon_italic_keyword = true
+-- vim.g.neon_italic_function = true
+
+vim.g.gruvbox_material_background = "soft"
+vim.g.gruvbox_material_foreground = "mix"
+vim.g.gruvbox_material_better_performance = 1
+vim.g.gruvbox_material_enable_italic = 1
+vim.cmd("colorscheme gruvbox-material")
+
 -- Enable mouse usage (all modes)
 vim.opt.mouse = "a"
 
@@ -83,7 +88,9 @@ vim.opt.viewoptions = { "folds", "cursor" }
 
 --don't wait too long for next keystroke
 vim.opt.timeoutlen = 500
-vim.opt.updatetime = 250
+if not vim.g.vscode then
+	vim.opt.updatetime = 100
+end
 
 vim.opt.iminsert = 0
 vim.opt.imsearch = 0
@@ -100,10 +107,6 @@ vim.opt.undofile = true
 vim.opt.undodir = "~/.config/nvim/tmp/undo//"
 vim.opt.backup = false
 vim.opt.swapfile = false
-
-if not vim.g.vscode then
-	vim.opt.updatetime = 100
-end
 
 vim.g.scratch_autohide = 0
 
@@ -149,25 +152,19 @@ augroup END
 ]])
 
 -- Spelling
-vim.opt.spell = true
-vim.opt.spelllang = { "ru_ru", "en_gb" }
-vim.opt.spellfile = { "~/.config/nvim/spell/ru.utf-8.add", "~/.config/nvim/spell/en.utf-8.add" }
--- syn match UrlNoSpell '\w\+:\/\/[^[:space:]]\+' contains=@NoSpell
--- syn match AcronymNoSpell '\<\(\u\|\d\)\{3,}s\?\>' contains=@NoSpell
--- hi lCursor guifg=NONE guibg=Cyan
-vim.cmd([[
-hi clear SpellBad
-hi SpellBad cterm=underline
-]])
-
 -- Don’t display urls as spelling errors
---
 -- Don't count acronyms / abbreviations as spelling errors
 -- (all upper-case letters, at least three characters)
 -- Also will not count acronym with 's' at the end a spelling error
 -- Also will not count numbers that are part of this
 -- Recognizes the following as correct:
+vim.opt.spell = true
+vim.opt.spelllang = { "ru_ru", "en_gb" }
 vim.cmd([[
-autocmd FileType qf setlocal nospell
-autocmd FileType json,yaml,neoterm,fzf setlocal nospell
+autocmd FileType qf,json,yaml,neoterm,fzf setlocal nospell
+hi SpellBad cterm=underdotted
+" hi clear SpellBad
+" hi lCursor guifg=NONE guibg=Cyan
+syn match AcronymNoSpell '\<\(\u\|\d\)\{3,}s\?\>' contains=@NoSpell
 ]])
+vim.cmd("syn match UrlNoSpell 'w+://[^[:space:]]+' contains=@NoSpell")

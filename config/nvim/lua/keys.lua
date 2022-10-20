@@ -45,11 +45,13 @@ vim.keymap.set("v", ">", ">gv", bufopts)
 -- Actions
 
 -- Case-insensitive search
-vim.keymap.set("n", "/", "/\v", bufopts)
-vim.keymap.set("v", "/", "/\v", bufopts)
+vim.keymap.set("n", "/", "/\\v", bufopts)
+vim.keymap.set("v", "/", "/\\v", bufopts)
 
 -- Easy commands with ;
-vim.keymap.set("n", ";", ":", bufopts)
+-- lua version waits for the next key to enter command mode
+-- vim.keymap.set("n", ";", ":", bufopts)
+vim.cmd([[nnoremap ; :]])
 
 -- Yank till end of the line
 vim.keymap.set("n", "Y", "y$", bufopts)

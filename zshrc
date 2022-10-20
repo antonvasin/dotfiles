@@ -171,8 +171,8 @@ fi
 
 bindkey '^F' fzf-cd-widget
 
-fpath=(/usr/local/share/zsh-completions $fpath)
-autoload -Uz compinit && compinit -i
+# fpath=(/usr/local/share/zsh-completions $fpath)
+# autoload -Uz compinit && compinit -i
 
 export PURE_CMD_MAX_EXEC_TIME=999
 
@@ -197,9 +197,9 @@ export PATH=$PATH:$GOROOT/bin
 # GPG
 export GPG_TTY=$(tty)
 
-autoload -U +X bashcompinit && bashcompinit
-complete -o nospace -C /usr/local/bin/terraform terraform
-
+# autoload -U +X bashcompinit && bashcompinit
+# complete -o nospace -C /usr/local/bin/terraform terraform
+#
 # DNS Toys
 dy() {
   dig +noall +answer +additional "$1" @dns.toys

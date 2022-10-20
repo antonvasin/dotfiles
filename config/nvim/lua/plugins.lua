@@ -35,12 +35,10 @@ packer.init({
 return packer.startup(function(use)
 	use("wbthomason/packer.nvim") -- Have packer manage itself
 	-- Look
+	use("nvim-lualine/lualine.nvim")
 	use("morhetz/gruvbox")
 	use("luisiacc/gruvbox-baby")
 	use("sainnhe/gruvbox-material")
-	use("Yggdroot/indentLine")
-	-- use"itchyny/lightline.vim"
-  use 'nvim-lualine/lualine.nvim'
 	use("rafamadriz/neon")
 
 	-- Editing & Navigation
@@ -84,7 +82,7 @@ return packer.startup(function(use)
 	use({ "ap/vim-css-color", ft = { "html", "css", "javascript", "typescript", "vue", "less", "sass", "stylus" } })
 	use({ "wuelnerdotexe/vim-astro", ft = { "astro" } })
 	use({ "ellisonleao/glow.nvim", ft = { "markdown" } })
-  use 'tjdevries/nlua.nvim'
+	use("tjdevries/nlua.nvim")
 
 	-- LSP
 	use("nvim-lua/plenary.nvim")

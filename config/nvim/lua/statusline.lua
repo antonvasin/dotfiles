@@ -1,5 +1,6 @@
 require("lualine").setup({
-	theme = "neon",
+	-- theme = "neon",
+	theme = "gruvbox-material",
 	options = {
 		section_separators = "",
 		component_separators = "",
