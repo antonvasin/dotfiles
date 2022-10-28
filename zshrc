@@ -171,8 +171,7 @@ fi
 
 bindkey '^F' fzf-cd-widget
 
-# fpath=(/usr/local/share/zsh-completions $fpath)
-# autoload -Uz compinit && compinit -i
+fpath=(/usr/local/share/zsh-completions $fpath)
 
 export PURE_CMD_MAX_EXEC_TIME=999
 

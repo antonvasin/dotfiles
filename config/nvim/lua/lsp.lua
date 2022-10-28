@@ -1,4 +1,3 @@
-local lspconfig = require("lspconfig")
 local util = require("lspconfig.util")
 local luasnip = require("luasnip")
 local cmp = require("cmp")
@@ -69,6 +68,10 @@ end
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require("cmp_nvim_lsp").default_capabilities()
+
+require("neodev").setup({})
+
+local lspconfig = require("lspconfig")
 
 lspconfig.astro.setup({})
 
@@ -250,25 +253,32 @@ lspconfig.dockerls.setup({
   on_attach = on_attach,
 })
 
+-- lspconfig.sumneko_lua.setup({
+--   on_attach = on_attach,
+--   runtime = {
+--     -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
+--     version = "LuaJIT",
+--   },
+--   diagnostics = {
+--     -- Get the language server to recognize the `vim` global
+--     globals = { "vim" },
+--   },
+--   workspace = {
+--     -- Make the server aware of Neovim runtime files
+--     library = vim.api.nvim_get_runtime_file("", true),
+--   },
+-- })
+
+-- example to setup sumneko and enable call snippets
 lspconfig.sumneko_lua.setup({
-  on_attach = on_attach,
-  runtime = {
-    -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
-    version = "LuaJIT",
-  },
-  diagnostics = {
-    -- Get the language server to recognize the `vim` global
-    globals = { "vim" },
-  },
-  workspace = {
-    -- Make the server aware of Neovim runtime files
-    library = vim.api.nvim_get_runtime_file("", true),
+  settings = {
+    Lua = {
+      completion = {
+        callSnippet = "Replace",
+      },
+    },
   },
 })
-
--- require("nlua.lsp.nvim").setup(require("lspconfig"), {
--- 	on_attach = on_attach,
--- })
 
 require("nvim-treesitter.configs").setup({
   ensure_installed = { "javascript", "typescript", "css", "html", "go", "clojure", "bash", "sql", "vim", "lua" },
