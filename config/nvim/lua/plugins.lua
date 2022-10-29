@@ -43,11 +43,21 @@ return packer.startup(function(use)
   use("rafamadriz/neon")
 
   -- Editing & Navigation
-  use("windwp/nvim-autopairs")
+  use({
+    "windwp/nvim-autopairs",
+    config = function()
+      require("nvim-autopairs").setup({})
+    end,
+  })
   use("junegunn/goyo.vim")
   use("mtth/scratch.vim")
   use("simnalamburt/vim-mundo")
-  use("numToStr/Comment.nvim")
+  use({
+    "numToStr/Comment.nvim",
+    config = function()
+      require("Comment").setup()
+    end,
+  })
   use("tpope/vim-repeat")
   use("tpope/vim-surround")
   use("tpope/vim-unimpaired")

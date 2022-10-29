@@ -1,30 +1,3 @@
--- 24-bit colors
-vim.opt.termguicolors = true
-
--- Gruvbox
--- vim.cmd("colorscheme gruvbox")
--- vim.g.gruvbox_italic = 1
--- vim.g.gruvbox_contrast_dark = "soft"
--- vim.g.gruvbox_sign_column = "bg0"
-
--- Experiments
--- vim.cmd("colorscheme gruvbox-baby")
--- vim.g.gruvbox_baby_function_style = "NONE"
--- vim.g.gruvbox_baby_keyword_style = "italic"
-
--- vim.cmd("colorscheme neon")
--- vim.g.neon_style = "doom"
--- vim.g.neon_bold = true
--- vim.g.neon_transparent = true
--- vim.g.neon_italic_keyword = true
--- vim.g.neon_italic_function = true
-
-vim.g.gruvbox_material_background = "soft"
-vim.g.gruvbox_material_foreground = "mix"
-vim.g.gruvbox_material_better_performance = 1
-vim.g.gruvbox_material_enable_italic = 1
-vim.cmd("colorscheme gruvbox-material")
-
 -- Enable mouse usage (all modes)
 vim.opt.mouse = "a"
 
@@ -39,9 +12,6 @@ vim.opt.autoread = true
 vim.opt.wildmenu = true
 vim.opt.ruler = true
 vim.opt.smarttab = true
-
--- vim.opt.listchars = { tab: '\▸', eol: '\¬', extends: '\❯', precedes: '\❮', nbsp: '\␣' }
--- vim.opt.fillchars = { vert: '│' }
 
 -- Do smart case matching
 vim.opt.smartcase = true
@@ -89,7 +59,7 @@ vim.opt.viewoptions = { "folds", "cursor" }
 --don't wait too long for next keystroke
 vim.opt.timeoutlen = 500
 if not vim.g.vscode then
-	vim.opt.updatetime = 100
+  vim.opt.updatetime = 100
 end
 
 vim.opt.iminsert = 0
@@ -111,10 +81,6 @@ vim.opt.swapfile = false
 vim.g.scratch_autohide = 0
 
 vim.g.netrw_localrmdir = "rm -r"
-
--- IndentLine
-vim.g.indentLine_enabled = 0
-vim.g.indentLine_char = "┆"
 
 -- xkbswitch
 vim.g.XkbSwitchEnabled = 1
@@ -168,3 +134,102 @@ hi SpellBad cterm=underdotted
 syn match AcronymNoSpell '\<\(\u\|\d\)\{3,}s\?\>' contains=@NoSpell
 ]])
 vim.cmd("syn match UrlNoSpell 'w+://[^[:space:]]+' contains=@NoSpell")
+
+vim.cmd([[
+" Goyo
+function! s:goyo_enter()
+  " set relativenumber
+  " set number
+  set scrolloff=999
+endfunction
+
+function! s:goyo_leave()
+  set scrolloff=5
+  set background=dark
+endfunction
+
+autocmd! User GoyoEnter
+autocmd! User GoyoLeave
+autocmd  User GoyoEnter nested call <SID>goyo_enter()
+autocmd  User GoyoLeave nested call <SID>goyo_leave()
+]])
+
+vim.cmd([[
+au TermOpen * setlocal nonumber norelativenumber
+
+autocmd BufWritePre * :%s/\s\+$//e
+
+autocmd BufWritePost $MYVIMRC nested source $MYVIMRC
+
+" filetypes
+autocmd BufRead,BufNewFile Jenkinsfile set ft=groovy
+autocmd BufRead,BufNewFile *.jenkinsfile set ft=groovy
+autocmd BufRead,BufNewFile *.tpl set ft=html
+autocmd BufRead,BufNewFile *.coffee set noexpandtab
+autocmd BufRead,BufNewFile tsconfig*.json set filetype=jsonc
+autocmd BufRead,BufNewFile *.plist set filetype=xml
+
+xnoremap @ :<C-u>call ExecuteMacroOverVisualRange()<CR>
+
+function! ExecuteMacroOverVisualRange()
+  echo "@".getcmdline()
+  execute ":'<,'>normal @".nr2char(getchar())
+endfunction
+
+autocmd filetype qf wincmd J
+
+" emmet
+let g:user_emmet_settings = {
+\    'typescript.tsx': {
+\        'extends': 'jsx',
+\        'quote_char': "'"
+\    }
+\}
+]])
+
+vim.g.projectionist_heuristics = {
+  ["package.json"] = {
+    ["*.tsx"] = {
+      ["alternate"] = {
+        "{dirname}/__tests__/{basename}.test.tsx",
+        "{basename}.test.tsx",
+        "{basename}.spec.tsx",
+      },
+      ["type"] = "component",
+    },
+    ["*.test.tsx"] = {
+      ["alternate"] = "{dirname}/../{basename}.tsx",
+      ["type"] = "test",
+    },
+    ["*.ts"] = {
+      ["alternate"] = { "{basename}.test.ts", "{dirname}/{basename}.test.ts" },
+      ["type"] = "source",
+    },
+    ["*.test.ts"] = {
+      ["alternate"] = { "{basename}.ts", "{dirname}/../{basename}.ts" },
+      ["type"] = "test",
+    },
+    ["*.js"] = {
+      ["alternate"] = { "{dirname}/__tests__/{basename}.test.js", "{}.test.js", "{}.spec.js" },
+      ["type"] = "source",
+    },
+    ["*.test.js"] = {
+      ["alternate"] = { "{}.js", "{dirname}/../{basename}.js" },
+      ["type"] = "test",
+    },
+    ["*.spec.js"] = {
+      ["alternate"] = { "{}.js", "{dirname}/../{basename}.js" },
+      ["type"] = "test",
+    },
+  },
+  ["project.clj"] = {
+    ["*.clj"] = {
+      ["alternate"] = "{dirname}/../test/{basename}_test.clj",
+      ["type"] = "source",
+    },
+    ["*_test.clj"] = {
+      ["alternate"] = "{dirname}/../src/{basename}.clj",
+      ["type"] = "source",
+    },
+  },
+}

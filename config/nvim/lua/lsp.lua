@@ -43,9 +43,8 @@ local on_attach = function(client, bufnr)
       vim.lsp.buf.format({ timeout_ms = 2000 })
     end, bufopts)
 
-    vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
+    vim.api.nvim_clear_autocmds({ buffer = bufnr })
     vim.api.nvim_create_autocmd("BufWritePre", {
-      group = augroup,
       buffer = bufnr,
       callback = function()
         vim.lsp.buf.format({ bufnr = bufnr, timeout_ms = 2000 })
