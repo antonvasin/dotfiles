@@ -16,3 +16,4 @@ images
 *.snap
 public/*
 dist/*
+tmp

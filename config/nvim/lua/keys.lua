@@ -57,7 +57,8 @@ vim.cmd([[nnoremap ; :]])
 vim.keymap.set("n", "Y", "y$", bufopts)
 
 -- Get full folder path in command mdoe
--- vim.keymap.set("c", "cwd", "lcd %:p:h-")
+vim.keymap.set("c", "cwd", "lcd %:p:h")
+vim.keymap.set("n", "<leader>cd", ":lcd %:p:h<cr>", bufopts)
 
 -- Save  with single key
 vim.keymap.set("n", "s", ":w<cr>", bufopts)

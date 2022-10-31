@@ -221,6 +221,14 @@ vim.g.projectionist_heuristics = {
       ["type"] = "test",
     },
   },
+  ["deno.json"] = {
+    [".ts"] = {
+      ["alternate"] = {
+        "{}_test.ts",
+        "{}.test.ts",
+      },
+    },
+  },
   ["project.clj"] = {
     ["*.clj"] = {
       ["alternate"] = "{dirname}/../test/{basename}_test.clj",

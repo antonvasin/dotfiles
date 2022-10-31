@@ -41,14 +41,14 @@ return packer.startup(function(use)
   use("luisiacc/gruvbox-baby")
   use("sainnhe/gruvbox-material")
   use("rafamadriz/neon")
-  use({
-    "f-person/auto-dark-mode.nvim",
-    config = function()
-      local dark_mode = require("auto-dark-mode")
-      dark_mode.setup({})
-      -- dark_mode.init()
-    end,
-  })
+  -- use({
+  --   "f-person/auto-dark-mode.nvim",
+  --   config = function()
+  --     local dark_mode = require("auto-dark-mode")
+  --     dark_mode.setup({})
+  --     -- dark_mode.init()
+  --   end,
+  -- })
 
   -- Editing & Navigation
   use({
