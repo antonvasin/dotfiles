@@ -74,7 +74,6 @@ vim.opt.clipboard:append({ "unnamedplus" })
 
 -- Backups
 vim.opt.undofile = true
-vim.opt.undodir = "~/.config/nvim/tmp/undo//"
 vim.opt.backup = false
 vim.opt.swapfile = false
 
