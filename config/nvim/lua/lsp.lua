@@ -94,7 +94,7 @@ local function deno_init_opts()
 end
 
 lspconfig.denols.setup({
-  root_dir = util.root_pattern("deno.json", "mod.ts", "main.ts", "import_map.json", "lock.json"),
+  root_dir = util.root_pattern("deno.json", "deno.jsonc", "mod.ts", "main.ts", "import_map.json", "lock.json"),
   init_options = deno_init_opts(),
   capabilities = capabilities,
   on_attach = on_attach,
