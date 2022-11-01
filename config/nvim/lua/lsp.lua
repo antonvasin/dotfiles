@@ -232,8 +232,9 @@ vim.diagnostic.config({
 null_ls.setup({
   sources = {
     null_ls.builtins.formatting.stylua,
-    -- null_ls.builtins.formatting.prettier,
+    null_ls.builtins.formatting.prettier,
     null_ls.builtins.diagnostics.actionlint,
+    -- null_ls.builtins.diagnostics.stylelint,
   },
   on_attach = function(client, bufnr)
     if client.server_capabilities.documentFormattingProvider then
