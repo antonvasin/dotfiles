@@ -131,12 +131,11 @@ unsetopt nomatch
 #### Alias
 alias vim='nvim'
 alias vi='nvim'
-alias v='nvim'
+alias v='neovide'
 
 alias vmore='nvim -u ~/.config/nvim/more.vim'
 alias less='less -R'
 alias mkdir='mkdir -p'
-alias c='bat'
 alias xz='source ~/.zshrc'
 alias help='tldr'
 alias top='sudo htop'
@@ -195,6 +194,9 @@ export PATH=$PATH:$GOROOT/bin
 
 # GPG
 export GPG_TTY=$(tty)
+
+# enable visual fx
+export NEOVIDE_MULTIGRID='true'
 
 # autoload -U +X bashcompinit && bashcompinit
 # complete -o nospace -C /usr/local/bin/terraform terraform

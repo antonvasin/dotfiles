@@ -180,10 +180,10 @@ function showHelp() {
 }
 
 const keys = {
-  e: ['Code', 'Visual Studio Code', 'VimR', 'Emacs', 'Oni'],
+  e: ['Code', 'Visual Studio Code', 'VimR', 'Emacs', 'Oni', 'Neovide'],
   b: ['Firefox', 'Chromium', 'Google Chrome', 'Arc'],
   n: ['Notion'],
-  r: ['Roam Research', 'Obsidian'],
+  r: ['Obsidian', 'Roam Research'],
   s: ['Safari'],
   t: ['iTerm', 'iTerm2', 'Hyper'],
 };

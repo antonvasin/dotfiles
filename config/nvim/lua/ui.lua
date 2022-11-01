@@ -28,26 +28,26 @@ vim.g.gruvbox_material_enable_italic = 1
 vim.cmd("colorscheme gruvbox-material")
 
 require("lualine").setup({
-	-- theme = "neon",
-	theme = "gruvbox-material",
-	options = {
-		section_separators = "",
-		component_separators = "",
-		icons_enabled = false,
-		-- sections = {
-		-- 	lualine_b = {
-		-- 		"branch",
-		-- 		"diff",
-		-- 		{
-		-- 			"diagnostics",
-		-- 			icons_enabled = true,
-		-- 			symbols = { error = "●", warn = "◎", info = "○", hint = "◇" },
-		-- 			always_visible = true,
-		-- 			sources = { "nvim_lsp" },
-		-- 		},
-		-- 	},
-		-- },
-	},
+  -- theme = "neon",
+  theme = "gruvbox-material",
+  options = {
+    section_separators = "",
+    component_separators = "",
+    icons_enabled = false,
+    -- sections = {
+    -- 	lualine_b = {
+    -- 		"branch",
+    -- 		"diff",
+    -- 		{
+    -- 			"diagnostics",
+    -- 			icons_enabled = true,
+    -- 			symbols = { error = "●", warn = "◎", info = "○", hint = "◇" },
+    -- 			always_visible = true,
+    -- 			sources = { "nvim_lsp" },
+    -- 		},
+    -- 	},
+    -- },
+  },
 })
 
 -- IndentLine
@@ -75,3 +75,10 @@ vim.cmd([[
 ]])
 
 vim.cmd("autocmd VimResized * wincmd =")
+
+if vim.g.neovide then
+  -- vim.g.neovide_floating_blur_amount_x = 8.0
+  -- vim.g.neovide_floating_blur_amount_y = 8.0
+  vim.g.neovide_cursor_trail_size = 0.1
+  vim.g.neovide_hide_mouse_when_typing = true
+end

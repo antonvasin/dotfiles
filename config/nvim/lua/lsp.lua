@@ -65,7 +65,6 @@ local has_words_before = function()
   return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
 end
 
-local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require("cmp_nvim_lsp").default_capabilities()
 
 require("neodev").setup({})
@@ -218,27 +217,28 @@ cmp.setup({
 })
 
 vim.diagnostic.config({
+  virtual_text = {
+    severety = vim.diagnostic.severity.ERROR,
+    source = "if_many",
+  },
   float = {
     source = "always",
     focusable = false,
   },
-  update_in_insert = false, -- default to false
-  severity_sort = true, -- default to false
+  update_in_insert = true,
+  severity_sort = true,
 })
 
 null_ls.setup({
   sources = {
     null_ls.builtins.formatting.stylua,
     -- null_ls.builtins.formatting.prettier,
-    -- null_ls.builtins.completion.spell,
-    -- null_ls.builtins.diagnostics.luacheck,
     null_ls.builtins.diagnostics.actionlint,
   },
   on_attach = function(client, bufnr)
     if client.server_capabilities.documentFormattingProvider then
       vim.api.nvim_clear_autocmds({ buffer = bufnr })
       vim.api.nvim_create_autocmd("BufWritePre", {
-        group = augroup,
         buffer = bufnr,
         callback = function()
           vim.lsp.buf.format({ bufnr = bufnr, timeout_ms = 2000 })
@@ -250,10 +250,12 @@ null_ls.setup({
 
 lspconfig.dockerls.setup({
   on_attach = on_attach,
+  capabilities = capabilities,
 })
 
 lspconfig.sumneko_lua.setup({
   on_attach = on_attach,
+  capabilities = capabilities,
   settings = {
     Lua = {
       completion = {
@@ -268,3 +270,5 @@ require("nvim-treesitter.configs").setup({
   highlight = { enabled = true },
   auto_install = true,
 })
+
+-- TODO https://github.com/neovim/nvim-lspconfig/wiki/UI-Customization
