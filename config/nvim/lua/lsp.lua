@@ -16,6 +16,10 @@ vim.keymap.set("n", "gE", vim.diagnostic.setloclist, opts)
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
 local on_attach = function(client, bufnr)
+  if client.name == "denols" then
+    null_ls.disable("prettier")
+  end
+
   -- Enable completion triggered by <c-x><c-o>
   vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
 
@@ -234,19 +238,8 @@ null_ls.setup({
     null_ls.builtins.formatting.stylua,
     null_ls.builtins.formatting.prettier,
     null_ls.builtins.diagnostics.actionlint,
-    -- null_ls.builtins.diagnostics.stylelint,
   },
-  on_attach = function(client, bufnr)
-    if client.server_capabilities.documentFormattingProvider then
-      vim.api.nvim_clear_autocmds({ buffer = bufnr })
-      vim.api.nvim_create_autocmd("BufWritePre", {
-        buffer = bufnr,
-        callback = function()
-          vim.lsp.buf.format({ bufnr = bufnr, timeout_ms = 2000 })
-        end,
-      })
-    end
-  end,
+  on_attach = on_attach,
 })
 
 lspconfig.dockerls.setup({

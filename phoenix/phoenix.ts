@@ -17,9 +17,9 @@ Phoenix.set({ openAtLogin: true });
 /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
 function stringify(value: any): string {
   switch (typeof value) {
-    case 'object':
+    case "object":
       return JSON.stringify(value, null, 2);
-    case 'function':
+    case "function":
       return value.toString();
     default:
       return value;
@@ -30,11 +30,11 @@ function stringify(value: any): string {
 /* eslint-disable-next-line @typescript-eslint/no-unused-vars, @typescript-eslint/no-explicit-any */
 function log(...args: any[]) {
   args = args.map((arg) => stringify(arg));
-  Phoenix.log(args.join(' '));
+  Phoenix.log(args.join(" "));
 }
 
 // Hyper
-const Hyper: Phoenix.ModifierKey[] = ['ctrl', 'shift', 'alt', 'cmd'];
+const Hyper: Phoenix.ModifierKey[] = ["ctrl", "shift", "alt", "cmd"];
 
 function mapHyperKeys(map: Record<string, () => void>) {
   // Object.keys(map).forEach((key) => Key.on(key, Hyper, map[key]));
@@ -55,14 +55,14 @@ function switchApp(app: string) {
 function switchApps(...apps: string[]) {
   return () => {
     if (apps.length === 1) {
-      switchApp(apps[0] || '')();
+      switchApp(apps[0] || "")();
     } else {
       const app = [...apps]
         .reverse()
         .map(App.get)
         .find((app) => app != null);
 
-      app ? app.focus() : switchApp(apps[0] || '')();
+      app ? app.focus() : switchApp(apps[0] || "")();
     }
   };
 }
@@ -137,23 +137,23 @@ function perfectEditor() {
 
 const DisplayPresets = {
   Left: [
-    'id:2A598ACF-DADC-00E5-F48F-6624E6A9A951 res:1792x1120 hz:59 color_depth:8 scaling:on origin:(0,0) degree:0',
-    'id:41AB4FC6-4993-396B-A30E-657DD8D2DE03 res:2560x1440 hz:60 color_depth:8 scaling:on origin:(1792,-920) degree:0',
+    "id:2A598ACF-DADC-00E5-F48F-6624E6A9A951 res:1792x1120 hz:59 color_depth:8 scaling:on origin:(0,0) degree:0",
+    "id:41AB4FC6-4993-396B-A30E-657DD8D2DE03 res:2560x1440 hz:60 color_depth:8 scaling:on origin:(1792,-920) degree:0",
   ],
   Right: [
-    'id:2A598ACF-DADC-00E5-F48F-6624E6A9A951 res:1792x1120 hz:59 color_depth:8 scaling:on origin:(0,0) degree:0',
-    'id:41AB4FC6-4993-396B-A30E-657DD8D2DE03 res:2560x1440 hz:60 color_depth:8 scaling:on origin:(-2560,-915) degree:0',
+    "id:2A598ACF-DADC-00E5-F48F-6624E6A9A951 res:1792x1120 hz:59 color_depth:8 scaling:on origin:(0,0) degree:0",
+    "id:41AB4FC6-4993-396B-A30E-657DD8D2DE03 res:2560x1440 hz:60 color_depth:8 scaling:on origin:(-2560,-915) degree:0",
   ],
   Below: [
-    'id:2A598ACF-DADC-00E5-F48F-6624E6A9A951 res:1792x1120 hz:59 color_depth:8 scaling:on origin:(0,0) degree:0',
-    'id:41AB4FC6-4993-396B-A30E-657DD8D2DE03 res:2560x1440 hz:60 color_depth:8 scaling:on origin:(-392,-1440) degree:0',
+    "id:2A598ACF-DADC-00E5-F48F-6624E6A9A951 res:1792x1120 hz:59 color_depth:8 scaling:on origin:(0,0) degree:0",
+    "id:41AB4FC6-4993-396B-A30E-657DD8D2DE03 res:2560x1440 hz:60 color_depth:8 scaling:on origin:(-392,-1440) degree:0",
   ],
   Mirror: [
-    'id:41AB4FC6-4993-396B-A30E-657DD8D2DE03+2A598ACF-DADC-00E5-F48F-6624E6A9A951 res:2560x1440 hz:60 color_depth:8 scaling:on origin:(0,0) degree:0',
+    "id:41AB4FC6-4993-396B-A30E-657DD8D2DE03+2A598ACF-DADC-00E5-F48F-6624E6A9A951 res:2560x1440 hz:60 color_depth:8 scaling:on origin:(0,0) degree:0",
   ],
 };
 
-const displayplacerPath = '/usr/local/bin/displayplacer';
+const displayplacerPath = "/usr/local/bin/displayplacer";
 
 function arrangeDisplays(args: string[], msg: string) {
   return () => {
@@ -172,34 +172,34 @@ function showHelp() {
   Modal.build({
     duration: 5,
     text: _.toPairs(keys)
-      .map(([k, v]) => `${k}: ${v.join(', ')}`)
-      .join('\n'),
+      .map(([k, v]) => `${k}: ${v.join(", ")}`)
+      .join("\n"),
     weight: 30,
     origin: () => ({ x: 200, y: 200 }),
   }).show();
 }
 
 const keys = {
-  e: ['Code', 'Visual Studio Code', 'VimR', 'Emacs', 'Oni', 'Neovide'],
-  b: ['Firefox', 'Chromium', 'Google Chrome', 'Arc'],
-  n: ['Notion'],
-  r: ['Obsidian', 'Roam Research'],
-  s: ['Safari'],
-  t: ['iTerm', 'iTerm2', 'Hyper'],
+  e: ["Code", "Visual Studio Code", "VimR", "Emacs", "Oni", "Neovide"],
+  b: ["Firefox", "Chromium", "Google Chrome", "Arc"],
+  n: ["Notion"],
+  r: ["Obsidian", "Roam Research"],
+  s: ["Safari"],
+  t: ["iTerm", "iTerm2", "Hyper"],
 };
 
 mapHyperKeys({
   ..._.mapValues(keys, (val) => switchApps(...val)),
   0: rightHalf,
-  1: arrangeDisplays(DisplayPresets.Left, 'MacBook is on the left'),
-  2: arrangeDisplays(DisplayPresets.Below, 'MacBook is below'),
-  3: arrangeDisplays(DisplayPresets.Right, 'MacBook is on the right'),
-  4: arrangeDisplays(DisplayPresets.Mirror, 'Displays are mirrored'),
+  1: arrangeDisplays(DisplayPresets.Left, "MacBook is on the left"),
+  2: arrangeDisplays(DisplayPresets.Below, "MacBook is below"),
+  3: arrangeDisplays(DisplayPresets.Right, "MacBook is on the right"),
+  4: arrangeDisplays(DisplayPresets.Mirror, "Displays are mirrored"),
   o: only,
   9: leftHalf,
   c: center,
-  '=': perfectEditor,
-  '[': leftThreeFourths,
-  ']': rightThreeFourths,
-  '\\': showHelp,
+  "=": perfectEditor,
+  "[": leftThreeFourths,
+  "]": rightThreeFourths,
+  "\\": showHelp,
 });
