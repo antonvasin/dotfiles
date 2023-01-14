@@ -79,6 +79,9 @@
   protocol = https
 [diff]
   tool = vimdiff
+[pager]
+  diff = ov -F --section-delimiter "^diff"
+  log = ov -F --section-delimiter "^commit"
 [grep]
   lineNumber = true
 [push]
