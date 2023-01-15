@@ -82,6 +82,7 @@
 [pager]
   diff = ov -F --section-delimiter "^diff"
   log = ov -F --section-delimiter "^commit"
+  branch = false
 [grep]
   lineNumber = true
 [push]
