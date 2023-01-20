@@ -92,17 +92,12 @@
   enabled = true
 [remote "origin"]
 	prune = true
-[user "readymag"]
-	name = Anton Vasin
-	email = antonvasin@readymag.com
-[user "personal"]
-	name = Anton Vasin
-	email = 944260+antonvasin@users.noreply.github.com
-	signingkey = FFDE8F96261E71C0
+[include]
+  path = /Users/antonvasin/.gitidentities
 [init]
 	templateDir = /Users/antonvasin/.config/git/template
-; [merge]
-; 	conflictstyle = diff3
+[merge]
+	conflictstyle = diff3
 [gpg]
 	program = /usr/local/bin/gpg
 [commit]
