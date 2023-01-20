@@ -67,8 +67,10 @@ vim.keymap.set("n", "s", ":w<cr>", bufopts)
 vim.cmd("map K <Nop>")
 
 -- FZF
-vim.keymap.set("n", "<C-t>", ":FZF<cr>", bufopts)
-vim.keymap.set("n", "<C-p>", ":FZF<cr>", bufopts)
+-- vim.keymap.set("n", "<C-t>", ":FZF<cr>", bufopts)
+-- vim.keymap.set("n", "<C-p>", ":FZF<cr>", bufopts)
+--
+vim.api.nvim_set_keymap("n", "<c-P>", "<cmd>lua require('fzf-lua').files()<CR>", { noremap = true, silent = true })
 
 -- Leader
 vim.keymap.set("n", "<SPACE>", "<Nop>", bufopts)

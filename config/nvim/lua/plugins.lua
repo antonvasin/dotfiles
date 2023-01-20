@@ -81,9 +81,13 @@ return packer.startup(function(use)
   use("tpope/vim-speeddating") -- ctrl-a ctrl-x for date and time
   use("lyokha/vim-xkbswitch")
   use("bronson/vim-visual-star-search")
-  use({ "junegunn/fzf.vim", requires = {
-    "/usr/local/opt/fzf",
-  } })
+  -- use({
+  --   "junegunn/fzf.vim",
+  --   requires = {
+  --     "/usr/local/opt/fzf",
+  --   },
+  -- })
+  use({ "ibhagwan/fzf-lua" })
 
   -- Integrations
   use("mileszs/ack.vim")
