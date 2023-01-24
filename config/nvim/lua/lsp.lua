@@ -236,7 +236,9 @@ vim.diagnostic.config({
 null_ls.setup({
   sources = {
     null_ls.builtins.formatting.stylua,
-    null_ls.builtins.formatting.prettier,
+    null_ls.builtins.formatting.prettier.with({
+      prefer_local = "node_modules/.bin",
+    }),
     null_ls.builtins.diagnostics.actionlint,
   },
   on_attach = on_attach,
