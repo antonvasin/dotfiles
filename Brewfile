@@ -83,6 +83,7 @@ brew "volta"
 brew "watch"
 brew "wget"
 brew "youtube-dl"
+brew "yt-dlp", link: false
 brew "zbar"
 brew "zsh"
 brew "derailed/k9s/k9s"
