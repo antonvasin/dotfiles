@@ -42,6 +42,9 @@ vim.keymap.set("n", "<C-y>", "3<C-y>", bufopts)
 vim.keymap.set("v", "<", "<gv", bufopts)
 vim.keymap.set("v", ">", ">gv", bufopts)
 
+vim.keymap.set("n", "<Tab>", ">>")
+vim.keymap.set("n", "<S-Tab>", "<<")
+
 -- Actions
 
 -- Case-insensitive search
