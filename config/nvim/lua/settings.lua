@@ -240,3 +240,7 @@ vim.g.projectionist_heuristics = {
     },
   },
 }
+
+vim.cmd([[
+  autocmd BufRead,BufEnter *.astro set filetype=astro
+]])
