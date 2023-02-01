@@ -125,6 +125,8 @@ lspconfig.jsonls.setup({
 
 lspconfig.astro.setup({
   root_dir = util.root_pattern("astro.config.mjs"),
+  capabilities = capabilities,
+  on_attach = on_attach,
 })
 
 local kind_icons = {
