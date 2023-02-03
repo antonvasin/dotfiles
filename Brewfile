@@ -64,7 +64,7 @@ brew "minikube"
 brew "minimal-racket"
 brew "mitmproxy"
 brew "ncdu"
-brew "neovim", args: ["HEAD"]
+brew "neovim"
 brew "pinentry-mac"
 brew "prettyping"
 brew "ripgrep"
