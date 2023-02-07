@@ -20,6 +20,13 @@ local on_attach = function(client, bufnr)
     null_ls.disable("prettier")
   end
 
+  if require("lspconfig").util.root_pattern("deno.json", "deno.jsonc")(vim.fn.getcwd()) then
+    if client.name == "tsserver" then
+      client.stop()
+      return
+    end
+  end
+
   -- Enable completion triggered by <c-x><c-o>
   vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
 
