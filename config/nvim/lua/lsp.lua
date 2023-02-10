@@ -136,6 +136,11 @@ lspconfig.astro.setup({
   on_attach = on_attach,
 })
 
+lspconfig.eslint.setup({
+  on_attach = on_attach,
+  capabilities = capabilities,
+})
+
 local kind_icons = {
   Text = "Ｔ",
   Method = "()",
@@ -253,6 +258,7 @@ null_ls.setup({
       prefer_local = "node_modules/.bin",
     }),
     null_ls.builtins.diagnostics.actionlint,
+    null_ls.builtins.code_actions.eslint,
   },
   on_attach = on_attach,
 })
