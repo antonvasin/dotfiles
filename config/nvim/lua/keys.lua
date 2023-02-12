@@ -86,7 +86,7 @@ vim.cmd([[
   noremap <leader>u :MundoToggle<cr>
   nnoremap <leader>lw :%s/^\s\+<cr>:nohl<cr>
   nnoremap <leader>bl :g/^$/d<cr>:nohl<cr>
-  nnoremap <leader>ev :e $MYVIMRC<cr>
+  nnoremap <leader>ev :tabe $MYVIMRC<cr>:lcd %:p:h<cr>
   " Yank whole text line without spaces
   nnoremap <leader>y ^y$
   nnoremap <leader>S :%s///<left>
