@@ -1,5 +1,4 @@
-local lspconfig = require("lspconfig")
-local util = lspconfig.util
+local root_pattern = require("lspconfig.util").root_pattern
 local luasnip = require("luasnip")
 local cmp = require("cmp")
 local null_ls = require("null-ls")
@@ -8,12 +7,6 @@ require("nvim-lsp-installer").setup({
     automatic_installation = true,
 })
 
-local opts = { noremap = true, silent = true }
-vim.keymap.set("n", "ge", vim.diagnostic.open_float, opts)
-vim.keymap.set("n", "gE", vim.diagnostic.setloclist, opts)
--- vim.keymap.set('n', 'd', vim.diagnostic.goto_prev, opts)
--- vim.keymap.set('n', 'd', vim.diagnostic.goto_next, opts)
-
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
 local on_attach = function(client, bufnr)
@@ -21,7 +14,7 @@ local on_attach = function(client, bufnr)
     null_ls.disable("prettier")
   end
 
-  if util.root_pattern("deno.json", "deno.jsonc")(vim.fn.getcwd()) then
+  if root_pattern("deno.json", "deno.jsonc")(vim.fn.getcwd()) then
     if client.name == "tsserver" then
       client.stop()
       return
@@ -38,7 +31,6 @@ local on_attach = function(client, bufnr)
   vim.keymap.set("n", "gd", vim.lsp.buf.definition, bufopts)
   vim.keymap.set("n", "K", vim.lsp.buf.hover, bufopts)
   vim.keymap.set("n", "gi", vim.lsp.buf.implementation, bufopts)
-  --vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, bufopts)
   vim.keymap.set("n", "<leader>wa", vim.lsp.buf.add_workspace_folder, bufopts)
   vim.keymap.set("n", "<leader>wr", vim.lsp.buf.remove_workspace_folder, bufopts)
   vim.keymap.set("n", "<leader>wl", function()
@@ -48,11 +40,15 @@ local on_attach = function(client, bufnr)
   vim.keymap.set("n", "<leader>r", vim.lsp.buf.rename, bufopts)
   vim.keymap.set("n", "<leader>.", vim.lsp.buf.code_action, bufopts)
   vim.keymap.set("n", "gr", vim.lsp.buf.references, bufopts)
-  vim.keymap.set("n", "<space>f", vim.lsp.buf.format, bufopts)
+
+  vim.keymap.set("n", "ge", vim.diagnostic.open_float, bufopts)
+  vim.keymap.set("n", "gE", vim.diagnostic.setloclist, bufopts)
+  vim.keymap.set("n", "]d", vim.diagnostic.goto_prev, bufopts)
+  vim.keymap.set("n", "[d", vim.diagnostic.goto_next, bufopts)
 
   if client.server_capabilities.documentFormattingProvider then
     vim.keymap.set("n", "<leader>f", function()
-      vim.lsp.buf.format({ timeout_ms = 2000 })
+      vim.lsp.buf.format({ timeout_ms = 5000 })
     end, bufopts)
 
     vim.api.nvim_clear_autocmds({ buffer = bufnr })
@@ -69,19 +65,41 @@ local on_attach = function(client, bufnr)
       vim.lsp.buf.format({ timeout_ms = 2000 })
     end, bufopts)
   end
+
+  -- Highlight symbol on cursor hold
+  if client.server_capabilities.documentHighlightProvider then
+    vim.api.nvim_create_augroup("lsp_document_highlight", {
+        clear = false,
+    })
+    vim.api.nvim_clear_autocmds({
+        buffer = bufnr,
+        group = "lsp_document_highlight",
+    })
+    vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
+        group = "lsp_document_highlight",
+        buffer = bufnr,
+        callback = vim.lsp.buf.document_highlight,
+    })
+    vim.api.nvim_create_autocmd({ "CursorMoved", "CursorMovedI" }, {
+        group = "lsp_document_highlight",
+        buffer = bufnr,
+        callback = vim.lsp.buf.clear_references,
+    })
+  end
 end
 
--- local capabilities = vim.lsp.protocol.make_client_capabilities()
--- capabilities = require("cmp_nvim_lsp").update_capabilities(capabilities)
 local capabilities = require("cmp_nvim_lsp").default_capabilities()
 capabilities.textDocument.completion.completionItem.snippetSupport = true
 
+-- Call before lspconfig
 require("neodev").setup({})
+
+local lspconfig = require("lspconfig")
 
 lspconfig.astro.setup({})
 
 lspconfig.tsserver.setup({
-    root_dir = util.root_pattern("tsconfig.json", "package.json"),
+    root_dir = root_pattern("tsconfig.json", "package.json"),
     capabilities = capabilities,
     on_attach = on_attach,
 })
@@ -100,7 +118,7 @@ local function deno_init_opts()
 end
 
 lspconfig.denols.setup({
-    root_dir = util.root_pattern("deno.json", "deno.jsonc", "mod.ts", "main.ts", "import_map.json", "lock.json"),
+    root_dir = root_pattern("deno.json", "deno.jsonc", "mod.ts", "main.ts", "import_map.json", "lock.json"),
     init_options = deno_init_opts(),
     capabilities = capabilities,
     on_attach = on_attach,
@@ -133,7 +151,7 @@ lspconfig.jsonls.setup({
 })
 
 lspconfig.astro.setup({
-    root_dir = util.root_pattern("astro.config.mjs"),
+    root_dir = root_pattern("astro.config.mjs"),
     capabilities = capabilities,
     on_attach = on_attach,
 })
@@ -144,12 +162,9 @@ lspconfig.eslint.setup({
 })
 
 local has_words_before = function()
-  unpack = unpack or table.unpack
   local line, col = unpack(vim.api.nvim_win_get_cursor(0))
   return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
 end
-
-local lspkind = require("lspkind")
 
 cmp.setup({
     snippet = {
@@ -158,6 +173,8 @@ cmp.setup({
         end,
     },
     mapping = cmp.mapping.preset.insert({
+        ["<C-p>"] = cmp.mapping.select_prev_item(),
+        ["<C-n>"] = cmp.mapping.select_next_item(),
         ["<C-d>"] = cmp.mapping.scroll_docs( -4),
         ["<C-f>"] = cmp.mapping.scroll_docs(4),
         ["<C-Space>"] = cmp.mapping.complete(),
@@ -186,9 +203,15 @@ cmp.setup({
           end
         end, { "i", "s" }),
     }),
+    sources = {
+        { name = "nvim_lsp" },
+        { name = "luasnip" },
+        { name = "emoji" },
+        { name = "buffer " },
+    },
     completion = {
         winhighlight = "Normal:Pmenu,FloatBorder:Pmenu,Search:None",
-        col_offset = -2,
+        col_offset = -3,
         side_padding = 0,
     },
     window = {
@@ -196,14 +219,27 @@ cmp.setup({
             border = "rounded",
         },
     },
-    sources = {
-        { name = "nvim_lsp" },
-        { name = "luasnip" },
-        { name = "emoji" },
-        { name = "buffer " },
-    },
     formatting = {
-        format = lspkind.cmp_format(),
+        fields = { "kind", "abbr", "menu" },
+
+        format = function(entry, vim_item)
+          local lspkind_config = { mode = "symbol_text", maxwidth = 50, preset = "codicons" }
+          local kind = require("lspkind").cmp_format(lspkind_config)(entry, vim_item)
+          local strings = vim.split(kind.kind, "%s", { trimempty = true })
+          local item = entry:get_completion_item()
+          kind.kind = " " .. (strings[1] or "") .. " "
+
+          if item.detail then
+            kind.menu = "    " .. item.detail
+          else
+            kind.menu = "    " .. (strings[2] or "")
+          end
+
+          -- vim.notify(vim.inspect(entry.completion_item))
+          -- item.data.file -> filename
+
+          return kind
+        end,
     },
     experimental = {
         ghost_text = true,
@@ -224,6 +260,22 @@ vim.diagnostic.config({
     },
     update_in_insert = true,
     severity_sort = true,
+})
+
+-- Show diagnostics on cursor hold
+vim.api.nvim_create_autocmd("CursorHold", {
+    buffer = bufnr,
+    callback = function()
+      local opts = {
+          focusable = false,
+          close_events = { "BufLeave", "CursorMoved", "InsertEnter", "FocusLost" },
+          border = "rounded",
+          source = "always",
+          prefix = " ",
+          scope = "cursor",
+      }
+      vim.diagnostic.open_float(nil, opts)
+    end,
 })
 
 null_ls.setup({

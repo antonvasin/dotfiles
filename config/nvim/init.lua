@@ -1,5 +1,5 @@
 require("plugins")
 require("settings")
-require("keys")
-require("lsp")
 require("ui")
+require("lsp")
+require("keys")
