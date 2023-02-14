@@ -1,4 +1,5 @@
-local util = require("lspconfig.util")
+local lspconfig = require("lspconfig")
+local util = lspconfig.util
 local luasnip = require("luasnip")
 local cmp = require("cmp")
 local null_ls = require("null-ls")
@@ -20,7 +21,7 @@ local on_attach = function(client, bufnr)
     null_ls.disable("prettier")
   end
 
-  if require("lspconfig").util.root_pattern("deno.json", "deno.jsonc")(vim.fn.getcwd()) then
+  if util.root_pattern("deno.json", "deno.jsonc")(vim.fn.getcwd()) then
     if client.name == "tsserver" then
       client.stop()
       return
@@ -76,8 +77,6 @@ local capabilities = require("cmp_nvim_lsp").default_capabilities()
 capabilities.textDocument.completion.completionItem.snippetSupport = true
 
 require("neodev").setup({})
-
-local lspconfig = require("lspconfig")
 
 lspconfig.astro.setup({})
 
@@ -144,39 +143,13 @@ lspconfig.eslint.setup({
     capabilities = capabilities,
 })
 
-local kind_icons = {
-    Text = "Ｔ",
-    Method = "()",
-    Function = "ƒ",
-    Constructor = "new",
-    Field = ".",
-    Variable = "var",
-    Class = "C",
-    Interface = "I",
-    Module = "M",
-    Property = ".",
-    Unit = "U",
-    Value = "V",
-    Enum = "",
-    Keyword = "",
-    Snippet = "Snip",
-    Color = "",
-    File = "📄",
-    Reference = "Ref",
-    Folder = "📂",
-    EnumMember = "[]",
-    Constant = "const",
-    Struct = "Struct",
-    Event = "Event",
-    Operator = "op",
-    TypeParameter = "<T>",
-}
-
 local has_words_before = function()
   unpack = unpack or table.unpack
   local line, col = unpack(vim.api.nvim_win_get_cursor(0))
   return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
 end
+
+local lspkind = require("lspkind")
 
 cmp.setup({
     snippet = {
@@ -230,15 +203,7 @@ cmp.setup({
         { name = "buffer " },
     },
     formatting = {
-        fields = { "kind", "abbr" },
-        format = function(entry, vim_item)
-          -- This concatonates the icons with the name of the item kind
-          vim_item.kind = string.format("%s %s", kind_icons[vim_item.kind], vim_item.kind)
-          local strings = vim.split(vim_item.kind, "%s", { trimempty = true })
-          vim_item.kind = "" .. strings[1] .. " "
-          vim_item.menu = "    (" .. strings[2] .. ")"
-          return vim_item
-        end,
+        format = lspkind.cmp_format(),
     },
     experimental = {
         ghost_text = true,
