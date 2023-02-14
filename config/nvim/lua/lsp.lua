@@ -4,7 +4,7 @@ local cmp = require("cmp")
 local null_ls = require("null-ls")
 
 require("nvim-lsp-installer").setup({
-  automatic_installation = true,
+    automatic_installation = true,
 })
 
 local opts = { noremap = true, silent = true }
@@ -56,10 +56,10 @@ local on_attach = function(client, bufnr)
 
     vim.api.nvim_clear_autocmds({ buffer = bufnr })
     vim.api.nvim_create_autocmd("BufWritePre", {
-      buffer = bufnr,
-      callback = function()
-        vim.lsp.buf.format({ bufnr = bufnr, timeout_ms = 2000 })
-      end,
+        buffer = bufnr,
+        callback = function()
+          vim.lsp.buf.format({ bufnr = bufnr, timeout_ms = 2000 })
+        end,
     })
   end
 
@@ -70,13 +70,10 @@ local on_attach = function(client, bufnr)
   end
 end
 
--- nvim-cmp
-local has_words_before = function()
-  local line, col = unpack(vim.api.nvim_win_get_cursor(0))
-  return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
-end
-
-capabilities = require("cmp_nvim_lsp").default_capabilities()
+-- local capabilities = vim.lsp.protocol.make_client_capabilities()
+-- capabilities = require("cmp_nvim_lsp").update_capabilities(capabilities)
+local capabilities = require("cmp_nvim_lsp").default_capabilities()
+capabilities.textDocument.completion.completionItem.snippetSupport = true
 
 require("neodev").setup({})
 
@@ -85,15 +82,15 @@ local lspconfig = require("lspconfig")
 lspconfig.astro.setup({})
 
 lspconfig.tsserver.setup({
-  root_dir = util.root_pattern("tsconfig.json", "package.json"),
-  capabilities = capabilities,
-  on_attach = on_attach,
+    root_dir = util.root_pattern("tsconfig.json", "package.json"),
+    capabilities = capabilities,
+    on_attach = on_attach,
 })
 
 local function deno_init_opts()
   opts = {
-    unstable = true,
-    lint = true,
+      unstable = true,
+      lint = true,
   }
 
   if vim.fn.filereadable("./import_map.json") == 1 then
@@ -104,186 +101,199 @@ local function deno_init_opts()
 end
 
 lspconfig.denols.setup({
-  root_dir = util.root_pattern("deno.json", "deno.jsonc", "mod.ts", "main.ts", "import_map.json", "lock.json"),
-  init_options = deno_init_opts(),
-  capabilities = capabilities,
-  on_attach = on_attach,
-  filetypes = {
-    "javascript",
-    "javascriptreact",
-    "javascript.jsx",
-    "typescript",
-    "typescriptreact",
-    "typescript.tsx",
-    "markdown",
-  },
+    root_dir = util.root_pattern("deno.json", "deno.jsonc", "mod.ts", "main.ts", "import_map.json", "lock.json"),
+    init_options = deno_init_opts(),
+    capabilities = capabilities,
+    on_attach = on_attach,
+    filetypes = {
+        "javascript",
+        "javascriptreact",
+        "javascript.jsx",
+        "typescript",
+        "typescriptreact",
+        "typescript.tsx",
+        "markdown",
+    },
 })
 
 lspconfig.jsonls.setup({
-  init_options = {
-    json = {
-      schemas = require("schemastore").json.schemas(),
-      validate = { enable = true },
+    init_options = {
+        json = {
+            schemas = require("schemastore").json.schemas({
+                select = {
+                    ".eslintrc",
+                    "package.json",
+                    "tsconfig.json",
+                },
+            }),
+            validate = { enable = true },
+        },
     },
-  },
-  capabilities = capabilities,
-  on_attach = on_attach,
+    capabilities = capabilities,
+    on_attach = on_attach,
 })
 
 lspconfig.astro.setup({
-  root_dir = util.root_pattern("astro.config.mjs"),
-  capabilities = capabilities,
-  on_attach = on_attach,
+    root_dir = util.root_pattern("astro.config.mjs"),
+    capabilities = capabilities,
+    on_attach = on_attach,
 })
 
 lspconfig.eslint.setup({
-  on_attach = on_attach,
-  capabilities = capabilities,
+    on_attach = on_attach,
+    capabilities = capabilities,
 })
 
 local kind_icons = {
-  Text = "Ｔ",
-  Method = "()",
-  Function = "ƒ",
-  Constructor = "new",
-  Field = ".",
-  Variable = "var",
-  Class = "C",
-  Interface = "I",
-  Module = "M",
-  Property = ".",
-  Unit = "U",
-  Value = "V",
-  Enum = "",
-  Keyword = "",
-  Snippet = "Snip",
-  Color = "",
-  File = "📄",
-  Reference = "Ref",
-  Folder = "📂",
-  EnumMember = "[]",
-  Constant = "const",
-  Struct = "Struct",
-  Event = "Event",
-  Operator = "op",
-  TypeParameter = "<T>",
+    Text = "Ｔ",
+    Method = "()",
+    Function = "ƒ",
+    Constructor = "new",
+    Field = ".",
+    Variable = "var",
+    Class = "C",
+    Interface = "I",
+    Module = "M",
+    Property = ".",
+    Unit = "U",
+    Value = "V",
+    Enum = "",
+    Keyword = "",
+    Snippet = "Snip",
+    Color = "",
+    File = "📄",
+    Reference = "Ref",
+    Folder = "📂",
+    EnumMember = "[]",
+    Constant = "const",
+    Struct = "Struct",
+    Event = "Event",
+    Operator = "op",
+    TypeParameter = "<T>",
 }
 
+local has_words_before = function()
+  unpack = unpack or table.unpack
+  local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+  return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
+end
+
 cmp.setup({
-  snippet = {
-    expand = function(args)
-      luasnip.lsp_expand(args.body)
-    end,
-  },
-  mapping = cmp.mapping.preset.insert({
-    ["<C-d>"] = cmp.mapping.scroll_docs(-4),
-    ["<C-f>"] = cmp.mapping.scroll_docs(4),
-    ["<C-Space>"] = cmp.mapping.complete(),
-    ["<CR>"] = cmp.mapping.confirm({
-      behavior = cmp.ConfirmBehavior.Replace,
-      select = true,
-    }),
-    ["<Tab>"] = cmp.mapping(function(fallback)
-      if cmp.visible() then
-        cmp.select_next_item()
-      elseif luasnip.expand_or_jumpable() then
-        luasnip.expand_or_jump()
-      else
-        fallback()
-      end
-    end, { "i", "s" }),
-    ["<S-Tab>"] = cmp.mapping(function(fallback)
-      if cmp.visible() then
-        cmp.select_prev_item()
-      elseif luasnip.jumpable(-1) then
-        luasnip.jump(-1)
-      else
-        fallback()
-      end
-    end, { "i", "s" }),
-  }),
-
-  completion = {
-    winhighlight = "Normal:Pmenu,FloatBorder:Pmenu,Search:None",
-    col_offset = -2,
-    side_padding = 0,
-  },
-
-  window = {
-    completion = {
-      border = "rounded",
+    snippet = {
+        expand = function(args)
+          luasnip.lsp_expand(args.body)
+        end,
     },
-  },
-
-  sources = {
-    { name = "nvim_lsp" },
-    { name = "luasnip" },
-    { name = "emoji" },
-  },
-
-  formatting = {
-    fields = { "kind", "abbr" },
-    format = function(entry, vim_item)
-      -- This concatonates the icons with the name of the item kind
-      vim_item.kind = string.format("%s %s", kind_icons[vim_item.kind], vim_item.kind)
-      local strings = vim.split(vim_item.kind, "%s", { trimempty = true })
-      vim_item.kind = "" .. strings[1] .. " "
-      vim_item.menu = "    (" .. strings[2] .. ")"
-      return vim_item
-    end,
-  },
-
-  experimental = {
-    ghost_text = true,
-  },
+    mapping = cmp.mapping.preset.insert({
+        ["<C-d>"] = cmp.mapping.scroll_docs( -4),
+        ["<C-f>"] = cmp.mapping.scroll_docs(4),
+        ["<C-Space>"] = cmp.mapping.complete(),
+        ["<CR>"] = cmp.mapping.confirm({
+            behavior = cmp.ConfirmBehavior.Replace,
+            select = true,
+        }),
+        ["<Tab>"] = cmp.mapping(function(fallback)
+          if cmp.visible() then
+            cmp.select_next_item()
+          elseif luasnip.expand_or_locally_jumpable() then
+            luasnip.expand_or_jump()
+          elseif has_words_before() then
+            cmp.complete()
+          else
+            fallback()
+          end
+        end, { "i", "s" }),
+        ["<S-Tab>"] = cmp.mapping(function(fallback)
+          if cmp.visible() then
+            cmp.select_prev_item()
+          elseif luasnip.jumpable( -1) then
+            luasnip.jump( -1)
+          else
+            fallback()
+          end
+        end, { "i", "s" }),
+    }),
+    completion = {
+        winhighlight = "Normal:Pmenu,FloatBorder:Pmenu,Search:None",
+        col_offset = -2,
+        side_padding = 0,
+    },
+    window = {
+        completion = {
+            border = "rounded",
+        },
+    },
+    sources = {
+        { name = "nvim_lsp" },
+        { name = "luasnip" },
+        { name = "emoji" },
+        { name = "buffer " },
+    },
+    formatting = {
+        fields = { "kind", "abbr" },
+        format = function(entry, vim_item)
+          -- This concatonates the icons with the name of the item kind
+          vim_item.kind = string.format("%s %s", kind_icons[vim_item.kind], vim_item.kind)
+          local strings = vim.split(vim_item.kind, "%s", { trimempty = true })
+          vim_item.kind = "" .. strings[1] .. " "
+          vim_item.menu = "    (" .. strings[2] .. ")"
+          return vim_item
+        end,
+    },
+    experimental = {
+        ghost_text = true,
+    },
+    view = {
+        entries = { name = "custom", selection_order = "near_cursor" },
+    },
 })
 
 vim.diagnostic.config({
-  virtual_text = {
-    severety = vim.diagnostic.severity.ERROR,
-    source = "if_many",
-  },
-  float = {
-    source = "always",
-    focusable = false,
-  },
-  update_in_insert = true,
-  severity_sort = true,
+    virtual_text = {
+        severety = vim.diagnostic.severity.ERROR,
+        source = "if_many",
+    },
+    float = {
+        source = "always",
+        focusable = false,
+    },
+    update_in_insert = true,
+    severity_sort = true,
 })
 
 null_ls.setup({
-  sources = {
-    null_ls.builtins.formatting.stylua,
-    null_ls.builtins.formatting.prettier.with({
-      prefer_local = "node_modules/.bin",
-    }),
-    null_ls.builtins.diagnostics.actionlint,
-    null_ls.builtins.code_actions.eslint,
-  },
-  on_attach = on_attach,
+    sources = {
+        null_ls.builtins.formatting.stylua,
+        null_ls.builtins.formatting.prettier.with({
+            prefer_local = "node_modules/.bin",
+        }),
+        null_ls.builtins.diagnostics.actionlint,
+        null_ls.builtins.code_actions.eslint,
+    },
+    on_attach = on_attach,
 })
 
 lspconfig.dockerls.setup({
-  on_attach = on_attach,
-  capabilities = capabilities,
+    on_attach = on_attach,
+    capabilities = capabilities,
 })
 
-lspconfig.sumneko_lua.setup({
-  on_attach = on_attach,
-  capabilities = capabilities,
-  settings = {
-    Lua = {
-      completion = {
-        callSnippet = "Replace",
-      },
+lspconfig.lua_ls.setup({
+    on_attach = on_attach,
+    capabilities = capabilities,
+    settings = {
+        Lua = {
+            completion = {
+                callSnippet = "Replace",
+            },
+        },
     },
-  },
 })
 
 require("nvim-treesitter.configs").setup({
-  ensure_installed = { "javascript", "typescript", "css", "html", "go", "clojure", "bash", "sql", "vim", "lua" },
-  highlight = { enabled = true },
-  auto_install = true,
+    ensure_installed = { "javascript", "typescript", "css", "html", "go", "clojure", "bash", "sql", "vim", "lua" },
+    highlight = { enabled = true },
+    auto_install = true,
 })
 
 -- TODO https://github.com/neovim/nvim-lspconfig/wiki/UI-Customization
