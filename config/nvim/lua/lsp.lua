@@ -223,7 +223,11 @@ cmp.setup({
         fields = { "kind", "abbr", "menu" },
 
         format = function(entry, vim_item)
-          local lspkind_config = { mode = "symbol_text", maxwidth = 50, preset = "codicons" }
+          local lspkind_config = {
+              mode = "symbol_text",
+              maxwidth = 50,
+              -- preset = "codicons",
+          }
           local kind = require("lspkind").cmp_format(lspkind_config)(entry, vim_item)
           local strings = vim.split(kind.kind, "%s", { trimempty = true })
           local item = entry:get_completion_item()
