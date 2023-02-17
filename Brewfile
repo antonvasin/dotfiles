@@ -94,6 +94,7 @@ brew "qmk/qmk/qmk", link: false
 brew "thoughtbot/formulae/rcm"
 cask "adoptopenjdk"
 cask "alacritty"
+cask "audacity"
 cask "balenaetcher"
 cask "blackhole-2ch"
 cask "brave-browser"
