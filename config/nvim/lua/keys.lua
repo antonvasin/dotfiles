@@ -7,10 +7,10 @@ vim.keymap.set("n", "<C-h>", "<C-w>h", bufopts)
 vim.keymap.set("n", "<C-j>", "<C-w>j", bufopts)
 vim.keymap.set("n", "<C-k>", "<C-w>k", bufopts)
 vim.keymap.set("n", "<C-l>", "<C-w>l", bufopts)
-vim.keymap.set("t", "<C-h>", "<C-><C-n><C-w>h", bufopts)
-vim.keymap.set("t", "<C-j>", "<C-><C-n><C-w>j", bufopts)
-vim.keymap.set("t", "<C-k>", "<C-><C-n><C-w>k", bufopts)
-vim.keymap.set("t", "<C-l>", "<C-><C-n><C-w>l", bufopts)
+vim.keymap.set("t", "<C-h>", "<C-\\><C-n><C-w>h", bufopts)
+vim.keymap.set("t", "<C-j>", "<C-\\><C-n><C-w>j", bufopts)
+vim.keymap.set("t", "<C-k>", "<C-\\><C-n><C-w>k", bufopts)
+vim.keymap.set("t", "<C-l>", "<C-\\><C-n><C-w>l", bufopts)
 
 -- Resize
 vim.keymap.set("n", "<Right>", "<C-w>>", bufopts)
@@ -70,7 +70,7 @@ vim.cmd("map K <Nop>")
 -- vim.keymap.set("n", "<C-t>", ":FZF<cr>", bufopts)
 -- vim.keymap.set("n", "<C-p>", ":FZF<cr>", bufopts)
 --
-vim.api.nvim_set_keymap("n", "<c-P>", "<cmd>lua require('fzf-lua').files()<CR>", { noremap = true, silent = true })
+vim.api.nvim_set_keymap("n", "<c-P>", "<cmd>lua require('fzf-lua').files()<CR>", bufopts)
 
 -- Leader
 vim.keymap.set("n", "<SPACE>", "<Nop>", bufopts)
@@ -164,6 +164,6 @@ vim.cmd([[
   command! W noa write
 
   " tab (window) nav
-  map <C-Tab> gt
-  map <C-S-Tab> gT
+  "map <C-Tab> gt
+  "map <C-S-Tab> gT
 ]])
