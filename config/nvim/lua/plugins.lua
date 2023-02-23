@@ -116,7 +116,13 @@ return packer.startup(function(use)
   use({ "sheerun/vim-go", ft = { "go" } })
   use({ "tpope/vim-jdaddy", ft = { "json" } })
   use({ "neoclide/jsonc.vim", ft = "json" })
-  use({ "ap/vim-css-color", ft = { "html", "css", "javascript", "typescript", "vue", "less", "sass", "stylus" } })
+  -- use({ "ap/vim-css-color", ft = { "html", "css", "javascript", "typescript", "vue", "less", "sass", "stylus" } })
+  use({
+    "norcalli/nvim-colorizer.lua",
+    config = function()
+      require("colorizer").setup({ "css", "javascript", "typescript", "astro", "less", "vue", "stylus", "html" })
+    end,
+  })
   use({ "wuelnerdotexe/vim-astro", ft = { "astro" } })
   use({ "ellisonleao/glow.nvim", ft = { "markdown" } })
 
