@@ -160,7 +160,7 @@ if [[ -f /usr/local/bin/bat ]]; then
 fi
 
 # ping -> prettyping
-[[ -f /usr/local/bin/prettyping ]] && alias ping='prettyping --nolegend'
+# [[ -f /usr/local/bin/prettyping ]] && alias ping='prettyping --nolegend'
 
 # find -> fd
 [[ -f /usr/local/bin/fd ]] && alias find='fd'
