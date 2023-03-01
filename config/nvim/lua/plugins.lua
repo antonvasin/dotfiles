@@ -36,7 +36,18 @@ return packer.startup(function(use)
   use("wbthomason/packer.nvim") -- Have packer manage itself
 
   -- Look
-  use("nvim-lualine/lualine.nvim")
+  use({
+    "nvim-lualine/lualine.nvim",
+    config = function()
+      require("lualine").setup({
+        theme = "gruvbox-material",
+        options = {
+          section_separators = "",
+          component_separators = "",
+        },
+      })
+    end,
+  })
 
   use({ "sainnhe/gruvbox-material" })
   -- use({
