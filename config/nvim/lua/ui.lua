@@ -53,5 +53,5 @@ if vim.g.neovide then
   -- vim.g.neovide_floating_blur_amount_y = 8.0
   vim.g.neovide_cursor_trail_size = 0.1
   vim.g.neovide_hide_mouse_when_typing = true
-  vim.opt.guifont = { "JetBrainsMono Nerd Font", "h14" }
+  vim.opt.guifont = { "JetBrainsMono Nerd Font Mono", ":h14" }
 end

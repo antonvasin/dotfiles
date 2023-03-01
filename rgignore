@@ -3,4 +3,4 @@
 !.editorconfig
 !.eslint*
 !.dockerignore
-!docker-compose.*.yml
+!.github/
