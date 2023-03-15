@@ -167,3 +167,6 @@ vim.cmd([[
   "map <C-Tab> gt
   "map <C-S-Tab> gT
 ]])
+
+-- MarkdownPreview
+vim.keymap.set("n", "<leader>md", "<Plug>MarkdownPreviewToggle")
