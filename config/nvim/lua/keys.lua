@@ -113,6 +113,8 @@ vim.cmd([[
   " neoterm
   vnoremap <leader>tr :TREPLSendSelection<cr>
   nnoremap <leader>tr :TREPLSendLine<cr>
+  " don't send escape sequence with S-Space
+  tnoremap <S-Space> <Space>
 
   nnoremap <leader>j :Ttoggle<cr>
   nnoremap ` :Ttoggle<cr>
