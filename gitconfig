@@ -80,8 +80,8 @@
 [diff]
   tool = vimdiff
 [pager]
-  diff = ov -F --section-delimiter "^diff"
-  log = ov -F --section-delimiter "^commit"
+  ; diff = ov -F --section-delimiter "^diff"
+  ; log = ov -F --section-delimiter "^commit"
   branch = false
 [grep]
   lineNumber = true
@@ -92,8 +92,10 @@
   enabled = true
 [remote "origin"]
 	prune = true
-[include]
-  path = /Users/antonvasin/.gitidentities
+[includeIf "gitdir:~/code"]
+  path = /Users/antonvasin/.gitconfig.personal
+[includeIf "gitdir:~/code/rm/"]
+  path = /Users/antonvasin/.gitconfig.work
 [init]
 	templateDir = /Users/antonvasin/.config/git/template
 [merge]

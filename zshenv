@@ -23,7 +23,7 @@ export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 
 export EDITOR='nvim'
 export VISUAL='nvim'
-export PAGER='ov'
+export PAGER='less'
 
 export XDG_CONFIG_HOME="$HOME/.config"
 
