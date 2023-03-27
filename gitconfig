@@ -92,10 +92,8 @@
   enabled = true
 [remote "origin"]
 	prune = true
-[includeIf "gitdir:~/code"]
-  path = /Users/antonvasin/.gitconfig.personal
-[includeIf "gitdir:~/code/rm/"]
-  path = /Users/antonvasin/.gitconfig.work
+[include]
+  path = /Users/antonvasin/.gitidentities
 [init]
 	templateDir = /Users/antonvasin/.config/git/template
 [merge]
