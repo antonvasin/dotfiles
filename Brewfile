@@ -92,6 +92,7 @@ brew "jakehilborn/jakehilborn/displayplacer"
 brew "noborus/tap/ov"
 brew "qmk/qmk/qmk", link: false
 brew "thoughtbot/formulae/rcm"
+cask "1password-cli"
 cask "adoptopenjdk"
 cask "alacritty"
 cask "audacity"

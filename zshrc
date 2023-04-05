@@ -207,3 +207,4 @@ dy() {
   dig +noall +answer +additional "$1" @dns.toys
 }
 
+source /Users/antonvasin/.config/op/plugins.sh

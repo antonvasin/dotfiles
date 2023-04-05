@@ -191,7 +191,7 @@ cmp.setup({
   mapping = cmp.mapping.preset.insert({
     ["<C-p>"] = cmp.mapping.select_prev_item(),
     ["<C-n>"] = cmp.mapping.select_next_item(),
-    ["<C-d>"] = cmp.mapping.scroll_docs( -4),
+    ["<C-d>"] = cmp.mapping.scroll_docs(-4),
     ["<C-f>"] = cmp.mapping.scroll_docs(4),
     ["<C-Space>"] = cmp.mapping.complete(),
     ["<CR>"] = cmp.mapping.confirm({
@@ -212,8 +212,8 @@ cmp.setup({
     ["<S-Tab>"] = cmp.mapping(function(fallback)
       if cmp.visible() then
         cmp.select_prev_item()
-      elseif luasnip.jumpable( -1) then
-        luasnip.jump( -1)
+      elseif luasnip.jumpable(-1) then
+        luasnip.jump(-1)
       else
         fallback()
       end
@@ -237,7 +237,6 @@ cmp.setup({
   },
   formatting = {
     fields = { "kind", "abbr", "menu" },
-
     format = function(entry, vim_item)
       local lspkind_config = {
         mode = "symbol_text",
@@ -292,6 +291,11 @@ null_ls.setup({
     null_ls.builtins.code_actions.eslint,
   },
   on_attach = on_attach,
+})
+
+lspconfig.cssls.setup({
+  on_attach = on_attach,
+  capabilities = capabilities,
 })
 
 lspconfig.dockerls.setup({
