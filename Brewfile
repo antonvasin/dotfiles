@@ -1,3 +1,4 @@
+tap "caarlos0/tap"
 tap "d12frosted/emacs-plus"
 tap "derailed/k9s"
 tap "domt4/autoupdate"
@@ -86,6 +87,7 @@ brew "youtube-dl"
 brew "yt-dlp", link: false
 brew "zbar"
 brew "zsh"
+brew "caarlos0/tap/fork-cleaner"
 brew "derailed/k9s/k9s"
 brew "hashicorp/tap/terraform"
 brew "jakehilborn/jakehilborn/displayplacer"
