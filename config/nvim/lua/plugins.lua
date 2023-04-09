@@ -59,6 +59,7 @@ return packer.startup(function(use)
   --   end,
   -- })
   use("mortepau/codicons.nvim")
+  use({ "lewis6991/gitsigns.nvim" })
 
   -- Editing & Navigation
   use({

@@ -49,3 +49,5 @@ if vim.g.neovide then
 end
 
 vim.opt.signcolumn = "yes"
+
+require("gitsigns").setup()
