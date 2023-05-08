@@ -112,8 +112,6 @@ require("neodev").setup({})
 
 local lspconfig = require("lspconfig")
 
-lspconfig.astro.setup({})
-
 lspconfig.tsserver.setup({
   root_dir = root_pattern("tsconfig.json", "package.json"),
   capabilities = capabilities,
