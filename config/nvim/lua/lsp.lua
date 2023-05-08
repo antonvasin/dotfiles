@@ -148,7 +148,7 @@ lspconfig.denols.setup({
 })
 
 lspconfig.jsonls.setup({
-  init_options = {
+  settings = {
     json = {
       schemas = require("schemastore").json.schemas({
         select = {
