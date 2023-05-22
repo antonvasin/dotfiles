@@ -92,6 +92,8 @@ vim.cmd([[
   nnoremap <leader>w <C-w>
   nnoremap <leader>md :Glow<cr>
 
+  nnoremap <leader>dt i<C-R>=strftime("%FT%T%z")<CR><Esc>
+
   nmap <leader>ja :A<cr>
   nmap <leader>jA :AV<cr>
 
