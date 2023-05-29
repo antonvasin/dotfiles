@@ -243,4 +243,5 @@ vim.g.projectionist_heuristics = {
 
 vim.cmd([[
   autocmd BufRead,BufEnter *.astro set filetype=astro
+  autocmd BufRead,BufEnter *.mdx set filetype=markdown
 ]])
