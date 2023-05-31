@@ -131,6 +131,9 @@ return packer.startup(function(use)
           require("treesitter-context").setup({})
         end,
       },
+      {
+        "JoosepAlviste/nvim-ts-context-commentstring",
+      },
     },
   })
   use({ "sheerun/vim-go", ft = { "go" } })
