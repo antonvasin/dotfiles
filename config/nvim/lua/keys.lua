@@ -86,11 +86,12 @@ vim.cmd([[
   nnoremap <leader>ev :tabe $MYVIMRC<cr>:lcd %:p:h<cr>
   " Yank whole text line without spaces
   nnoremap <leader>y ^y$
-  nnoremap <leader>S :%s///<left>
+  nnoremap <leader>r :%s///<left>
   nnoremap <leader>a :Ack!<space>
   nnoremap <leader>qq :qa!<cr>
   nnoremap <leader>w <C-w>
   nnoremap <leader>md :Glow<cr>
+  nnoremap <leader>ls :LspInfo<cr>
 
   nnoremap <leader>dt i<C-R>=strftime("%FT%T%z")<CR><Esc>
 
