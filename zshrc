@@ -200,9 +200,6 @@ export GPG_TTY=$(tty)
 # enable visual fx
 export NEOVIDE_MULTIGRID='true'
 
-# autoload -U +X bashcompinit && bashcompinit
-# complete -o nospace -C /usr/local/bin/terraform terraform
-#
 # DNS Toys
 dy() {
   dig +noall +answer +additional "$1" @dns.toys
