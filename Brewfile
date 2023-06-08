@@ -167,7 +167,6 @@ mas "Pine Player", id: 1112075769
 mas "Reeder", id: 1529448980
 mas "Telegram", id: 747648890
 mas "TextSniper", id: 1528890965
-mas "uBlacklist for Safari", id: 1547912640
 mas "Vimari", id: 1480933944
 mas "Vinegar", id: 1591303229
 mas "VOX", id: 461369673
