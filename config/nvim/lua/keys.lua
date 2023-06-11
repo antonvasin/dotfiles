@@ -1,6 +1,8 @@
 local bufopts = { noremap = true, silent = true }
 
--- Windows
+-- Leader
+vim.keymap.set("n", "<SPACE>", "<Nop>", bufopts)
+vim.g.mapleader = " "
 
 -- Pane movement with <C-h|j|k|l>
 vim.keymap.set("n", "<C-h>", "<C-w>h", bufopts)
@@ -17,8 +19,6 @@ vim.keymap.set("n", "<Right>", "<C-w>>", bufopts)
 vim.keymap.set("n", "<left>", "<C-w><", bufopts)
 vim.keymap.set("n", "<Up>", "<C-w>-", bufopts)
 vim.keymap.set("n", "<Down>", "<C-w>+", bufopts)
-
--- Movement
 
 -- Treat warped lines as regular lines
 vim.keymap.set("n", "j", "gj", bufopts)
@@ -41,8 +41,6 @@ vim.keymap.set("n", "<C-y>", "3<C-y>", bufopts)
 -- Keep visual mode when indenting
 vim.keymap.set("v", "<", "<gv", bufopts)
 vim.keymap.set("v", ">", ">gv", bufopts)
-
--- Actions
 
 -- Case-insensitive search
 vim.keymap.set("n", "/", "/\\v", bufopts)
@@ -72,9 +70,10 @@ vim.cmd("map K <Nop>")
 --
 vim.api.nvim_set_keymap("n", "<c-P>", "<cmd>lua require('fzf-lua').files()<CR>", bufopts)
 
--- Leader
-vim.keymap.set("n", "<SPACE>", "<Nop>", bufopts)
-vim.g.mapleader = " "
+-- LSP
+vim.keymap.set("n", "<leader>Ls", ":LspInfo<cr>", bufopts)
+vim.keymap.set("n", "<leader>Li", ":LspInstall<cr>", bufopts)
+vim.keymap.set("n", "<leader>Lx", ":LspStop ", bufopts)
 
 vim.cmd([[
   " Leader maps
@@ -91,7 +90,6 @@ vim.cmd([[
   nnoremap <leader>qq :qa!<cr>
   nnoremap <leader>w <C-w>
   nnoremap <leader>md :Glow<cr>
-  nnoremap <leader>ls :LspInfo<cr>
 
   nnoremap <leader>dt i<C-R>=strftime("%FT%T%z")<CR><Esc>
 
