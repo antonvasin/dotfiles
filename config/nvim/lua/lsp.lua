@@ -44,8 +44,8 @@ local on_attach = function(client, bufnr)
 
 	vim.keymap.set("n", "ge", vim.diagnostic.open_float, bufopts)
 	vim.keymap.set("n", "gE", vim.diagnostic.setloclist, bufopts)
-	vim.keymap.set("n", "]d", vim.diagnostic.goto_prev, bufopts)
-	vim.keymap.set("n", "[d", vim.diagnostic.goto_next, bufopts)
+	vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, bufopts)
+	vim.keymap.set("n", "]d", vim.diagnostic.goto_next, bufopts)
 
 	if client.server_capabilities.documentFormattingProvider then
 		vim.keymap.set("n", "<leader>f", function()
