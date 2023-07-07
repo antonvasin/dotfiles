@@ -185,6 +185,7 @@ alias za=find-alias
 
 [[ $commands[kubectl] ]] && source <(kubectl completion zsh)
 eval "$(op completion zsh)"; compdef _op op
+compinit
 export VOLTA_HOME="$HOME/.volta"
 export PATH="$VOLTA_HOME/bin:$PATH"
 
