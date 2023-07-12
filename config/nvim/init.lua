@@ -10,12 +10,12 @@ if fn.empty(fn.glob(install_path)) > 0 then
 end
 
 -- Autocommand that reloads neovim whenever you save the plugins.lua file
-vim.cmd([[
-  augroup packer_user_config
-    autocmd!
-    autocmd BufWritePost plugins.lua source <afile> | PackerSync
-  augroup end
-]])
+-- vim.cmd([[
+--   augroup packer_user_config
+--     autocmd!
+--     autocmd BufWritePost plugins.lua source <afile> | PackerSync
+--   augroup end
+-- ]])
 
 -- Use a protected call so we don't error out on first use
 local status_ok, packer = pcall(require, "packer")
@@ -38,10 +38,19 @@ packer.startup(function(use)
 
   -- Look
   use({
+    "jesseleite/nvim-noirbuddy",
+    requires = { "tjdevries/colorbuddy.nvim", branch = "dev" },
+  })
+  use({ "andreypopp/vim-colors-plain" })
+  use({ "sainnhe/gruvbox-material" })
+  use({
     "nvim-lualine/lualine.nvim",
     config = function()
+      local noirbuddy_lualine = require("noirbuddy.plugins.lualine")
       require("lualine").setup({
-        theme = "gruvbox-material",
+        theme = noirbuddy_lualine.theme,
+        sections = noirbuddy_lualine.sections,
+        inactive_sections = noirbuddy_lualine.inactive_sections,
         options = {
           section_separators = "",
           component_separators = "",
@@ -49,9 +58,6 @@ packer.startup(function(use)
       })
     end,
   })
-
-  use({ "andreypopp/vim-colors-plain" })
-  use({ "sainnhe/gruvbox-material" })
   -- use({
   --   "f-person/auto-dark-mode.nvim",
   --   config = function()
@@ -344,7 +350,7 @@ au TermOpen * setlocal nonumber norelativenumber
 
 autocmd BufWritePre * :%s/\s\+$//e
 
-autocmd BufWritePost $MYVIMRC nested source $MYVIMRC
+" autocmd BufWritePost $MYVIMRC nested source $MYVIMRC
 
 " filetypes
 autocmd BufRead,BufNewFile Jenkinsfile set ft=groovy
@@ -448,11 +454,22 @@ vim.g.gruvbox_material_background = "soft"
 vim.g.gruvbox_material_foreground = "mix"
 vim.g.gruvbox_material_better_performance = 1
 vim.g.gruvbox_material_enable_italic = 1
--- vim.cmd("colorscheme gruvbox-material")
-vim.cmd([[
-  colorscheme plain
-  set background=dark
-]])
+-- vim.cmd.colorscheme("gruvbox-material");
+
+vim.cmd("set background=dark")
+
+require("noirbuddy").setup({
+  preset = "minimal",
+  colors = {
+    primary = "#6EE2FF",
+    secondary = "#9EAACE",
+  },
+  styles = {
+    italic = true,
+    -- bold = true,
+    underline = true,
+  },
+})
 
 -- IndentLine
 vim.g.indentLine_enabled = 0
