@@ -41,7 +41,7 @@ packer.startup(function(use)
     "nvim-lualine/lualine.nvim",
     config = function()
       require("lualine").setup({
-        -- theme = "gruvbox-material",
+        theme = "gruvbox-material",
         options = {
           section_separators = "",
           component_separators = "",
@@ -50,8 +50,8 @@ packer.startup(function(use)
     end,
   })
 
-  use("davidosomething/vim-colors-meh")
-  -- use({ "sainnhe/gruvbox-material" })
+  use({ "andreypopp/vim-colors-plain" })
+  use({ "sainnhe/gruvbox-material" })
   -- use({
   --   "f-person/auto-dark-mode.nvim",
   --   config = function()
@@ -444,11 +444,15 @@ vim.opt.termguicolors = true
 -- vim.cmd("colorscheme gruvbox")
 
 -- gruvbox-material
--- vim.g.gruvbox_material_background = "soft"
--- vim.g.gruvbox_material_foreground = "mix"
--- vim.g.gruvbox_material_better_performance = 1
--- vim.g.gruvbox_material_enable_italic = 1
-vim.cmd("colorscheme meh")
+vim.g.gruvbox_material_background = "soft"
+vim.g.gruvbox_material_foreground = "mix"
+vim.g.gruvbox_material_better_performance = 1
+vim.g.gruvbox_material_enable_italic = 1
+-- vim.cmd("colorscheme gruvbox-material")
+vim.cmd([[
+  colorscheme plain
+  set background=dark
+]])
 
 -- IndentLine
 vim.g.indentLine_enabled = 0
