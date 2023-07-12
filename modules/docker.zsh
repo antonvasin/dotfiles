@@ -9,5 +9,6 @@ alias dcb='docker compose build'
 alias dcr='docker compose restart'
 alias dcl='docker compose logs -f --tail=50'
 alias dcx='docker compose exec'
+alias dls='docker compose ls'
 
 alias kc='kubectl'
