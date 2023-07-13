@@ -461,7 +461,8 @@ vim.cmd("set background=dark")
 require("noirbuddy").setup({
   preset = "minimal",
   colors = {
-    primary = "#6EE2FF",
+    -- primary = "#6EE2FF",
+    primary = "#60d5f2",
     secondary = "#9EAACE",
   },
   styles = {
