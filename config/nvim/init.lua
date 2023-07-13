@@ -151,7 +151,16 @@ packer.startup(function(use)
   use({
     "norcalli/nvim-colorizer.lua",
     config = function()
-      require("colorizer").setup({ "css", "javascript", "typescript", "astro", "less", "vue", "stylus", "html" })
+      require("colorizer").setup({
+        css = { css_fn = true },
+        "javascript",
+        "typescript",
+        "astro",
+        "less",
+        "vue",
+        "stylus",
+        "html",
+      })
     end,
   })
   use({ "wuelnerdotexe/vim-astro", ft = { "astro" } })
