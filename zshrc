@@ -148,7 +148,7 @@ unalias rm 2>/dev/null
 #### Override standart stuff
 # ls -> exa
 if [[ -f /usr/local/bin/exa ]]; then
-  alias l="exa -la --git --group-directories-first"
+  alias l="exa -la --no-user --no-permissions --git --group-directories-first"
 else
   alias l="ls -lah"
 fi
@@ -207,5 +207,5 @@ dy() {
 }
 
 source /Users/antonvasin/.config/op/plugins.sh
-eval 
+eval
 RMT_AC_ZSH_SETUP_PATH=/Users/antonvasin/Library/Caches/@rm/tool/autocomplete/zsh_setup && test -f $RMT_AC_ZSH_SETUP_PATH && source $RMT_AC_ZSH_SETUP_PATH; # rmt autocomplete setup
