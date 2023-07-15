@@ -464,22 +464,23 @@ vim.g.gruvbox_material_foreground = "mix"
 vim.g.gruvbox_material_better_performance = 1
 vim.g.gruvbox_material_enable_italic = 1
 -- vim.cmd.colorscheme("gruvbox-material");
+vim.cmd.colorscheme("plain")
 
 vim.cmd("set background=dark")
 
-require("noirbuddy").setup({
-  preset = "minimal",
-  colors = {
-    -- primary = "#6EE2FF",
-    primary = "#60d5f2",
-    secondary = "#9EAACE",
-  },
-  styles = {
-    italic = true,
-    -- bold = true,
-    underline = true,
-  },
-})
+-- require("noirbuddy").setup({
+--   preset = "minimal",
+--   colors = {
+--     -- primary = "#6EE2FF",
+--     primary = "#60d5f2",
+--     secondary = "#9EAACE",
+--   },
+--   styles = {
+--     italic = true,
+--     -- bold = true,
+--     underline = true,
+--   },
+-- })
 
 -- IndentLine
 vim.g.indentLine_enabled = 0
