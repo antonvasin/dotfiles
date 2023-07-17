@@ -37,27 +37,31 @@ packer.startup(function(use)
   use("wbthomason/packer.nvim") -- Have packer manage itself
 
   -- Look
-  use({
-    "jesseleite/nvim-noirbuddy",
-    requires = { "tjdevries/colorbuddy.nvim", branch = "dev" },
-  })
+  -- use({
+  --   "jesseleite/nvim-noirbuddy",
+  -- requires = { "tjdevries/colorbuddy.nvim", branch = "dev" },
+  -- config = function()
+  --   require("noirbuddy").setup({
+  --     preset = "slate",
+  --     -- colors = {
+  --     --   -- primary = "#6EE2FF",
+  --     --   primary = "#60d5f2",
+  --     --   secondary = "#9EAACE",
+  --     -- },
+  --     styles = {
+  --       italic = true,
+  --       -- bold = true,
+  --       underline = true,
+  --     },
+  --   })
+  -- end,
+  -- })
+  use({ "kvrohit/rasmus.nvim" })
   use({ "andreypopp/vim-colors-plain" })
+  use({ "preservim/vim-colors-pencil" })
   use({ "sainnhe/gruvbox-material" })
-  use({
-    "nvim-lualine/lualine.nvim",
-    config = function()
-      local noirbuddy_lualine = require("noirbuddy.plugins.lualine")
-      require("lualine").setup({
-        theme = noirbuddy_lualine.theme,
-        sections = noirbuddy_lualine.sections,
-        inactive_sections = noirbuddy_lualine.inactive_sections,
-        options = {
-          section_separators = "",
-          component_separators = "",
-        },
-      })
-    end,
-  })
+  use({ "nvim-lualine/lualine.nvim" })
+  use("lukas-reineke/indent-blankline.nvim")
   -- use({
   --   "f-person/auto-dark-mode.nvim",
   --   config = function()
@@ -66,7 +70,6 @@ packer.startup(function(use)
   --     -- dark_mode.init()
   --   end,
   -- })
-  use("mortepau/codicons.nvim")
   use({ "lewis6991/gitsigns.nvim" })
 
   -- Editing & Navigation
@@ -451,6 +454,7 @@ vim.cmd([[
 -------- UI --------
 -- 24-bit colors
 vim.opt.termguicolors = true
+vim.api.nvim_set_option("background", "dark")
 
 -- Gruvbox
 -- vim.g.gruvbox_italic = 1
@@ -464,26 +468,32 @@ vim.g.gruvbox_material_foreground = "mix"
 vim.g.gruvbox_material_better_performance = 1
 vim.g.gruvbox_material_enable_italic = 1
 -- vim.cmd.colorscheme("gruvbox-material");
-vim.cmd.colorscheme("plain")
-vim.api.nvim_set_option("background", "dark")
 
--- require("noirbuddy").setup({
---   preset = "minimal",
---   colors = {
---     -- primary = "#6EE2FF",
---     primary = "#60d5f2",
---     secondary = "#9EAACE",
---   },
---   styles = {
---     italic = true,
---     -- bold = true,
---     underline = true,
---   },
--- })
+-- rasmus
+vim.g.rasmus_italic_keywords = true
+-- vim.g.rasmus_variant = "monochrome"
+vim.cmd.colorscheme("rasmus")
+
+-- lualine
+require("lualine").setup({
+  theme = "auto",
+  options = {
+    section_separators = "",
+    component_separators = "",
+    sections = {},
+  },
+})
 
 -- IndentLine
-vim.g.indentLine_enabled = 0
-vim.g.indentLine_char = "┆"
+require("indent_blankline").setup({
+  -- for example, context is off by default, use this to turn it on
+  char = "┆", --┊
+  treesitter = true,
+  indent_level = 5,
+  -- show_current_context = true,
+  -- show_current_context_start = true,
+  show_first_indent_level = false,
+})
 
 -- Tab symbols, etc
 vim.opt.listchars = "tab:▸ ,eol:¬,extends:❯,precedes:❮,nbsp:␣"
@@ -632,6 +642,9 @@ local on_attach = function(client, bufnr)
       callback = vim.lsp.buf.clear_references,
     })
   end
+
+  -- attempt to fix highlight conflicts with treesitter
+  client.server_capabilities.semanticTokensProvider = nil
 
   -- Show diagnostics on cursor hold
   vim.api.nvim_create_autocmd("CursorHold", {
@@ -1055,6 +1068,13 @@ vim.cmd([[
   " tab (window) nav
   "map <C-Tab> gt
   "map <C-S-Tab> gT
+
+  function! SynStack()
+    if !exists("*synstack")
+      return
+    endif
+    echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
+  endfunc
 ]])
 
 -- MarkdownPreview
