@@ -478,9 +478,22 @@ vim.cmd.colorscheme("rasmus")
 require("lualine").setup({
   theme = "auto",
   options = {
+    icons_enabled = true,
     section_separators = "",
     component_separators = "",
-    sections = {},
+  },
+  sections = {
+    lualine_b = {
+      "branch",
+      "diff",
+      { "diagnostics", symbols = { error = "✗ ", warn = "⚠ ", info = "i ", hint = "✶ " } },
+    },
+
+    lualine_x = {
+      "encoding",
+      { "fileformat", symbols = { unix = "𝕏", dos = "𝕎", mac = "𝕄" } },
+      "filetype",
+    },
   },
 })
 
