@@ -134,6 +134,7 @@ alias vi='nvim'
 alias v='nvim'
 alias nv='neovide'
 
+alias c='cat'
 alias vmore='nvim -u ~/.config/nvim/more.vim'
 alias less='less -R'
 alias mkdir='mkdir -p'
@@ -153,10 +154,19 @@ else
   alias l="ls -lah"
 fi
 
+function catanything {
+  if [[ $1 == *.md ]]; then
+    mdcat $1
+  else
+    bat $1
+  fi
+}
+
 # cat -> bat
+export BAT_THEME='gruvbox'
 if [[ -f /usr/local/bin/bat ]]; then
-  alias cat='bat'
-  export BAT_THEME='gruvbox'
+  # alias cat='bat'
+  alias cat='catanything'
 fi
 
 # ping -> prettyping
