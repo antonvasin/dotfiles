@@ -898,7 +898,7 @@ lspconfig.rust_analyzer.setup({
 })
 
 require("nvim-treesitter.configs").setup({
-  ensure_installed = { "javascript", "typescript", "css", "html", "go", "clojure", "bash", "sql", "vim", "lua" },
+  ensure_installed = { "javascript", "typescript", "css", "html", "bash", "sql", "vim", "lua" },
   highlight = { enabled = true },
   auto_install = true,
   context_commentstring = {
@@ -906,10 +906,9 @@ require("nvim-treesitter.configs").setup({
   },
 })
 
--- TODO https://github.com/neovim/nvim-lspconfig/wiki/UI-Customization
 -------- LSP --------
 
--------- KESY --------
+-------- KEYS --------
 local bufopts = { noremap = true, silent = true }
 
 -- Leader
@@ -1062,7 +1061,9 @@ vim.cmd([[
   endfunction
 
   map Q <Nop>
+]])
 
+vim.cmd([[
   if (!exists('g:vscode'))
     nnoremap <silent> Q :call CloseWindowOrKillBuffer()<CR>
     nnoremap <silent> <D-w> :call CloseWindowOrKillBuffer()<CR>
@@ -1090,6 +1091,23 @@ vim.cmd([[
   endfunc
 ]])
 
+local toggleColors = function()
+  if vim.g.colors_name == "rasmus" then
+    -- local variants = { "dark", "monochrome" }
+    local cur_variant = vim.g.rasmus_variant
+    -- print(cur_variant, "var")
+    if cur_variant == "dark" then
+      print("set mono")
+      vim.g.rasmus_variant = "monochrome"
+    else
+      print("set dark")
+      vim.g.rasmus_variant = "dark"
+    end
+  end
+end
+
+vim.keymap.set("n", "<leader>CC", toggleColors, bufopts)
+
 -- MarkdownPreview
 vim.keymap.set("n", "<leader>md", "<Plug>MarkdownPreviewToggle")
--------- KESY --------
+-------- KEYS --------
