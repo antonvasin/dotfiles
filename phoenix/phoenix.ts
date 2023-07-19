@@ -181,7 +181,7 @@ function showHelp() {
 
 const keys = {
   e: ["Code", "Visual Studio Code", "VimR", "Emacs", "Oni", "Neovide", "neovide"],
-  b: ["Arc", "Firefox", "Chromium", "Google Chrome"],
+  b: ["Arc", "Google Chrome", "Safari", "Firefox", "Chromium"],
   n: ["Notion"],
   r: ["Obsidian", "Roam Research"],
   s: ["Safari"],
