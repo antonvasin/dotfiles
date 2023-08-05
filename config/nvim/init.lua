@@ -636,25 +636,20 @@ local on_attach = function(client, bufnr)
   end
 
   -- Highlight symbol on cursor hold
-  -- if client.server_capabilities.documentHighlightProvider then
-  --   vim.api.nvim_create_augroup("lsp_document_highlight", {
-  --     clear = false,
-  --   })
-  --   vim.api.nvim_clear_autocmds({
-  --     buffer = bufnr,
-  --     group = "lsp_document_highlight",
-  --   })
-  --   vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
-  --     group = "lsp_document_highlight",
-  --     buffer = bufnr,
-  --     callback = vim.lsp.buf.document_highlight,
-  --   })
-  --   vim.api.nvim_create_autocmd({ "CursorMoved", "CursorMovedI" }, {
-  --     group = "lsp_document_highlight",
-  --     buffer = bufnr,
-  --     callback = vim.lsp.buf.clear_references,
-  --   })
-  -- end
+  if client.server_capabilities.documentHighlightProvider then
+    vim.api.nvim_create_augroup("lsp_document_highlight", { clear = false })
+    vim.api.nvim_clear_autocmds({ buffer = bufnr, group = "lsp_document_highlight" })
+    vim.api.nvim_create_autocmd({ "CursorHold" }, {
+      group = "lsp_document_highlight",
+      buffer = bufnr,
+      callback = vim.lsp.buf.document_highlight,
+    })
+    vim.api.nvim_create_autocmd({ "CursorMoved" }, {
+      group = "lsp_document_highlight",
+      buffer = bufnr,
+      callback = vim.lsp.buf.clear_references,
+    })
+  end
 
   -- attempt to fix highlight conflicts with treesitter
   client.server_capabilities.semanticTokensProvider = nil
@@ -971,6 +966,8 @@ vim.keymap.set("n", "<leader>cd", ":lcd %:p:h<cr>", bufopts)
 
 -- Save  with single key
 vim.keymap.set("n", "s", ":w<cr>", bufopts)
+
+vim.keymap.set("n", "<leader>cc", ":cclose<cr>")
 
 -- Unmap K
 vim.cmd("map K <Nop>")
