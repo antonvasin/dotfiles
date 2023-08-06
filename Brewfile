@@ -23,7 +23,7 @@ tap "render-oss/render"
 tap "thoughtbot/formulae"
 brew "act"
 brew "actionlint"
-brew "awscli"
+brew "awscli", link: false
 brew "bat"
 brew "colima"
 brew "coreutils"
