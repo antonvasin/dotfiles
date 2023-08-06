@@ -537,7 +537,7 @@ if vim.g.neovide then
   vim.g.neovide_cursor_trail_size = 0.05
   vim.g.neovide_cursor_animation_length = 0.07
   vim.g.neovide_hide_mouse_when_typing = true
-  vim.o.guifont = "JetBrains Mono:h14"
+  vim.o.guifont = "Iosevka Term:h15"
   vim.g.neovide_remember_window_size = true
 
   -- Allow clipboard copy paste in neovim
