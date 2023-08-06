@@ -694,7 +694,7 @@
 	<key>Default Arrangement Name</key>
 	<string>work</string>
 	<key>Default Bookmark Guid</key>
-	<string>A2D7F6D9-63DC-45B9-BA58-5B4B04D130F3</string>
+	<string>82751C9A-0C2F-46EB-966E-1601EC7A8473</string>
 	<key>DeleteProfile_SilenceUntil</key>
 	<real>698104632.50935304</real>
 	<key>DeleteProfile_selection</key>
@@ -2449,7 +2449,7 @@
 			<key>Mouse Reporting</key>
 			<true/>
 			<key>Name</key>
-			<string>Copy of Default</string>
+			<string>Iosevka</string>
 			<key>Non Ascii Font</key>
 			<string>codicon 15</string>
 			<key>Non-ASCII Anti Aliased</key>
