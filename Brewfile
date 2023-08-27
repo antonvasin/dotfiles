@@ -89,7 +89,6 @@ brew "wget"
 brew "youtube-dl"
 brew "yt-dlp", link: false
 brew "zbar"
-brew "zig"
 brew "zsh"
 brew "caarlos0/tap/fork-cleaner"
 brew "derailed/k9s/k9s"
