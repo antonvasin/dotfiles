@@ -80,6 +80,9 @@ ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets)
 #ZSH_HIGHLIGHT_STYLES[comment]='fg=10'
 
 zstyle ':zim:git' aliases-prefix 'g'
+
+fpath=(~/.config/zsh/completions $fpath)
+
 # ------------------
 # Initialize modules
 # ------------------
@@ -180,8 +183,6 @@ fi
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 bindkey '^F' fzf-cd-widget
-
-fpath=(/usr/local/share/zsh-completions $fpath)
 
 export PURE_CMD_MAX_EXEC_TIME=999
 
