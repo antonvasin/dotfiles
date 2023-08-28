@@ -168,6 +168,7 @@ packer.startup(function(use)
   })
   use({ "wuelnerdotexe/vim-astro", ft = { "astro" } })
   use({ "ellisonleao/glow.nvim", ft = { "markdown" } })
+  use("ziglang/zig.vim")
 
   -- LSP
   use("nvim-lua/plenary.nvim")
@@ -742,7 +743,7 @@ lspconfig.eslint.setup({
   capabilities = capabilities,
 })
 
-lspconfig.zsl.setup({})
+lspconfig.zls.setup({})
 
 local has_words_before = function()
   local line, col = unpack(vim.api.nvim_win_get_cursor(0))
