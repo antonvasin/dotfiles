@@ -151,11 +151,11 @@ unalias rm 2>/dev/null
 
 #### Override standart stuff
 # ls -> exa
-if [[ -f /usr/local/bin/exa ]]; then
-  alias l="exa -la --no-user --no-permissions --git --group-directories-first"
-else
+# if [[ -f /usr/local/bin/exa ]]; then
+#   alias l="exa -la --no-user --no-permissions --git --group-directories-first"
+# else
   alias l="ls -lah"
-fi
+# fi
 
 function catanything {
   if [[ $1 == *.md ]]; then
