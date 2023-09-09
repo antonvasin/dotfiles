@@ -63,14 +63,14 @@ packer.startup(function(use)
   use({ "sainnhe/gruvbox-material" })
   use({ "nvim-lualine/lualine.nvim" })
   use("lukas-reineke/indent-blankline.nvim")
-  -- use({
-  --   "f-person/auto-dark-mode.nvim",
-  --   config = function()
-  --     local dark_mode = require("auto-dark-mode")
-  --     dark_mode.setup({})
-  --     -- dark_mode.init()
-  --   end,
-  -- })
+  use({
+    "f-person/auto-dark-mode.nvim",
+    config = function()
+      local dark_mode = require("auto-dark-mode")
+      dark_mode.setup({})
+      -- dark_mode.init()
+    end,
+  })
   use({ "lewis6991/gitsigns.nvim" })
 
   -- Editing & Navigation
@@ -329,10 +329,9 @@ augroup END
 -- Also will not count acronym with 's' at the end a spelling error
 -- Also will not count numbers that are part of this
 -- Recognizes the following as correct:
-vim.opt.spell = true
 vim.opt.spelllang = { "en_gb" }
 vim.cmd([[
-autocmd FileType qf,json,yaml,neoterm,fzf, setlocal nospell
+autocmd FileType markdown,text,html setlocal spell
 hi SpellBad cterm=underdotted
 " hi clear SpellBad
 " hi lCursor guifg=NONE guibg=Cyan
@@ -456,7 +455,7 @@ vim.cmd([[
 -------- UI --------
 -- 24-bit colors
 vim.opt.termguicolors = true
-vim.api.nvim_set_option("background", "light")
+vim.api.nvim_set_option("background", "dark")
 
 -- Gruvbox
 -- vim.g.gruvbox_italic = 1
