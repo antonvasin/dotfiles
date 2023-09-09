@@ -57,6 +57,7 @@ packer.startup(function(use)
   -- end,
   -- })
   use({ "kvrohit/rasmus.nvim" })
+  use({ "NLKNguyen/papercolor-theme" })
   use({ "andreypopp/vim-colors-plain" })
   use({ "preservim/vim-colors-pencil" })
   use({ "sainnhe/gruvbox-material" })
@@ -455,7 +456,7 @@ vim.cmd([[
 -------- UI --------
 -- 24-bit colors
 vim.opt.termguicolors = true
-vim.api.nvim_set_option("background", "dark")
+vim.api.nvim_set_option("background", "light")
 
 -- Gruvbox
 -- vim.g.gruvbox_italic = 1
@@ -473,7 +474,9 @@ vim.g.gruvbox_material_enable_italic = 1
 -- rasmus
 vim.g.rasmus_italic_keywords = true
 -- vim.g.rasmus_variant = "monochrome"
-vim.cmd.colorscheme("rasmus")
+--
+-- vim.cmd.colorscheme("rasmus")
+vim.cmd.colorscheme("PaperColor")
 
 -- lualine
 require("lualine").setup({
@@ -615,6 +618,11 @@ local on_attach = function(client, bufnr)
   vim.keymap.set("n", "gE", vim.diagnostic.setloclist, bufopts)
   vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, bufopts)
   vim.keymap.set("n", "]d", vim.diagnostic.goto_next, bufopts)
+
+  if vim.fn.exists("&makeprg") == 1 then
+    -- Bind <leader>m to :make<CR>
+    vim.keymap.set("n", "<leader>m", ":make<CR>", bufopts)
+  end
 
   if client.server_capabilities.documentFormattingProvider then
     vim.keymap.set("n", "<leader>f", function()
