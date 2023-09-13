@@ -105,6 +105,7 @@ cask "adoptopenjdk"
 cask "alacritty"
 cask "audacity"
 cask "balenaetcher"
+cask "blackhole-16ch"
 cask "blackhole-2ch"
 cask "brave-browser"
 cask "calibre"
@@ -163,6 +164,7 @@ mas "GarageBand", id: 682658836
 mas "iMovie", id: 408981434
 mas "JSONPeep", id: 1458969831
 mas "Keynote", id: 409183694
+mas "LadioCast", id: 411213048
 mas "NordVPN IKE", id: 1116599239
 mas "Numbers", id: 409203825
 mas "Octotree", id: 1457450145
