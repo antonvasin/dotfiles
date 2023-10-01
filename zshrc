@@ -218,5 +218,6 @@ dy() {
 }
 
 source /Users/antonvasin/.config/op/plugins.sh
-eval
-RMT_AC_ZSH_SETUP_PATH=/Users/antonvasin/Library/Caches/@rm/tool/autocomplete/zsh_setup && test -f $RMT_AC_ZSH_SETUP_PATH && source $RMT_AC_ZSH_SETUP_PATH; # rmt autocomplete setup
+
+# Put homebrew java first
+export PATH="/usr/local/opt/openjdk/bin:$PATH"

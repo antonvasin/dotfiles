@@ -62,7 +62,9 @@ packer.startup(function(use)
   use({ "preservim/vim-colors-pencil" })
   use({ "sainnhe/gruvbox-material" })
   use({ "nvim-lualine/lualine.nvim" })
-  use("lukas-reineke/indent-blankline.nvim")
+  use({
+    "lukas-reineke/indent-blankline.nvim",
+  })
   use({
     "f-person/auto-dark-mode.nvim",
     config = function()
@@ -176,7 +178,8 @@ packer.startup(function(use)
   use({
     "neovim/nvim-lspconfig",
     requires = {
-      "williamboman/nvim-lsp-installer",
+      "williamboman/mason.nvim",
+      "williamboman/mason-lspconfig.nvim",
       "jose-elias-alvarez/null-ls.nvim",
     },
   })
@@ -500,17 +503,6 @@ require("lualine").setup({
   },
 })
 
--- IndentLine
-require("indent_blankline").setup({
-  -- for example, context is off by default, use this to turn it on
-  char = "┆", --┊
-  treesitter = true,
-  indent_level = 5,
-  -- show_current_context = true,
-  -- show_current_context_start = true,
-  show_first_indent_level = false,
-})
-
 -- Tab symbols, etc
 vim.opt.listchars = "tab:▸ ,eol:¬,extends:❯,precedes:❮,nbsp:␣"
 vim.opt.fillchars = "vert:│"
@@ -564,6 +556,24 @@ vim.opt.wildmode = "longest,list,full"
 vim.opt.wildmenu = true
 
 require("gitsigns").setup()
+
+require("ibl").setup({
+  scope = {
+    char = "▏",
+    enabled = true,
+    show_start = false,
+    show_end = false,
+  },
+  indent = {
+    char = "▏",
+    smart_indent_cap = true,
+    priority = 2,
+  },
+})
+
+local hooks = require("ibl.hooks")
+hooks.register(hooks.type.WHITESPACE, hooks.builtin.hide_first_space_indent_level)
+hooks.register(hooks.type.WHITESPACE, hooks.builtin.hide_first_tab_indent_level)
 -------- UI --------
 
 -------- LSP --------
@@ -572,7 +582,8 @@ local luasnip = require("luasnip")
 local cmp = require("cmp")
 local null_ls = require("null-ls")
 
-require("nvim-lsp-installer").setup({
+require("mason").setup()
+require("mason-lspconfig").setup({
   automatic_installation = true,
 })
 
@@ -753,6 +764,16 @@ lspconfig.eslint.setup({
 lspconfig.zls.setup({
   on_attach = on_attach,
   capabilities = capabilities,
+})
+
+lspconfig.jdtls.setup({
+  on_attach = on_attach,
+  capabilities = capabilities,
+  root_dir = function()
+    return vim.fs.dirname(
+      vim.fs.find({ ".gradlew", ".gitignore", "mvnw", "build.grade.kts" }, { upward = true })[1]
+    ) .. "\\"
+  end,
 })
 
 local has_words_before = function()
