@@ -88,7 +88,7 @@ brew "volta"
 brew "watch"
 brew "wget"
 brew "youtube-dl"
-brew "yt-dlp", link: false
+brew "yt-dlp"
 brew "zbar"
 brew "zsh"
 brew "caarlos0/tap/fork-cleaner"
