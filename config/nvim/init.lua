@@ -245,12 +245,38 @@ vim.opt.linespace = 0
 -- Show matching brackets.
 vim.opt.showmatch = true
 vim.opt.wrap = true
-vim.opt.foldenable = true
-vim.opt.foldmethod = "syntax"
-vim.opt.foldlevelstart = 20
 vim.opt.completeopt = { "menu", "menuone", "preview", "noselect", "noinsert" }
 vim.opt.shortmess = "atIc"
 vim.opt.cmdheight = 2
+
+-- folding
+vim.opt.foldenable = true
+vim.opt.foldmethod = "expr"
+vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
+vim.opt.foldlevelstart = 20
+
+-- function to create a list of commands and convert them to autocommands
+-------- This function is taken from https://github.com/norcalli/nvim_utils
+local nvim_create_augroups = function(definitions)
+  for group_name, definition in pairs(definitions) do
+    vim.api.nvim_command("augroup " .. group_name)
+    vim.api.nvim_command("autocmd!")
+    for _, def in ipairs(definition) do
+      local command = table.concat(vim.tbl_flatten({ "autocmd", def }), " ")
+      vim.api.nvim_command(command)
+    end
+    vim.api.nvim_command("augroup END")
+  end
+end
+
+local autoCommands = {
+  -- other autocommands
+  open_folds = {
+    { "BufReadPost,FileReadPost", "*", "normal zR" },
+  },
+}
+
+nvim_create_augroups(autoCommands)
 
 -- do not highlight lines longer than 800 char
 vim.opt.synmaxcol = 800
