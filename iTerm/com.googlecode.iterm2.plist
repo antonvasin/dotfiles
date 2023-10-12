@@ -2768,7 +2768,7 @@
 	<key>PromptOnQuit</key>
 	<false/>
 	<key>ShowFullScreenTabBar</key>
-	<false/>
+	<true/>
 	<key>ShowNewOutputIndicator</key>
 	<true/>
 	<key>SmartPlacement</key>
