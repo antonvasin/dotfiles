@@ -253,30 +253,7 @@ vim.opt.cmdheight = 2
 vim.opt.foldenable = true
 vim.opt.foldmethod = "expr"
 vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
-vim.opt.foldlevelstart = 20
-
--- function to create a list of commands and convert them to autocommands
--------- This function is taken from https://github.com/norcalli/nvim_utils
-local nvim_create_augroups = function(definitions)
-  for group_name, definition in pairs(definitions) do
-    vim.api.nvim_command("augroup " .. group_name)
-    vim.api.nvim_command("autocmd!")
-    for _, def in ipairs(definition) do
-      local command = table.concat(vim.tbl_flatten({ "autocmd", def }), " ")
-      vim.api.nvim_command(command)
-    end
-    vim.api.nvim_command("augroup END")
-  end
-end
-
-local autoCommands = {
-  -- other autocommands
-  open_folds = {
-    { "BufReadPost,FileReadPost", "*", "normal zR" },
-  },
-}
-
-nvim_create_augroups(autoCommands)
+vim.opt.foldlevelstart = 99
 
 -- do not highlight lines longer than 800 char
 vim.opt.synmaxcol = 800
@@ -796,9 +773,8 @@ lspconfig.jdtls.setup({
   on_attach = on_attach,
   capabilities = capabilities,
   root_dir = function()
-    return vim.fs.dirname(
-      vim.fs.find({ ".gradlew", ".gitignore", "mvnw", "build.grade.kts" }, { upward = true })[1]
-    ) .. "\\"
+    return vim.fs.dirname(vim.fs.find({ ".gradlew", ".gitignore", "mvnw", "build.gradle" }, { upward = true })[1])
+        .. "\\"
   end,
 })
 
