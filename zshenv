@@ -51,3 +51,5 @@ export MNML_MAGICENTER=''
 
 export DENO_INSTALL="/Users/antonvasin/.deno"
 export PATH="$DENO_INSTALL/bin:$PATH"
+
+export HOMEBREW_NO_AUTO_UPDATE=1
