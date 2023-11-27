@@ -4,15 +4,11 @@ Configured for/with:
 
 - mac OS
 - [NeoVim](https://neovim.io/)
-- [VSCode](https://code.visualstudio.com/)
-- [Phoenix](https://github.com/kasper/phoenix)
 - [Homebrew](https://brew.sh)
-- [gruvbox theme](https://github.com/morhetz/gruvbox)
-- [JetBrains Mono](https://www.jetbrains.com/lp/mono/)
 - [iTerm](https://iterm2.com/)
 - [Karabiner-Elements](https://github.com/tekezo/Karabiner-Elements)
-- [`git`](https://git-scm.com/)
 - [`rcm`](https://github.com/thoughtbot/rcm)
+- [`git`](https://git-scm.com/)
 - [`hub`](https://github.com/github/hub)
 - [`zsh`](http://zsh.sourceforge.net/)
 - [`zim`](https://github.com/zimfw/zimfw)
