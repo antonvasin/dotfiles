@@ -1,3 +1,0 @@
-[submodule "packages/nova-sublime-text"]
-	path = packages/nova-sublime-text
-	url = git@github.com:driesvints/nova-sublime-text.git
