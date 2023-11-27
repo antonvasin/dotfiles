@@ -104,7 +104,6 @@ packer.startup(function(use)
   use("kana/vim-textobj-user")
   use("mattn/emmet-vim")
   use("tpope/vim-speeddating") -- ctrl-a ctrl-x for date and time
-  use("lyokha/vim-xkbswitch")
   use("bronson/vim-visual-star-search")
   use({ "ibhagwan/fzf-lua" })
 
@@ -292,9 +291,6 @@ vim.opt.swapfile = false
 vim.g.scratch_autohide = 0
 
 vim.g.netrw_localrmdir = "rm -r"
-
--- xkbswitch
-vim.g.XkbSwitchEnabled = 1
 
 -- rg
 -- let g:ack_autoclose = 1
