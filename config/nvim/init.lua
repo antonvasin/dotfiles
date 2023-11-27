@@ -536,11 +536,11 @@ if vim.g.neovide then
 
   -- Allow clipboard copy paste in neovim
   vim.g.neovide_input_use_logo = 1
-  vim.keymap.set("n", "<D-s>", ":w<CR>")     -- Save
-  vim.keymap.set("v", "<D-c>", '"+y')        -- Copy
-  vim.keymap.set("n", "<D-v>", '"+P')        -- Paste normal mode
-  vim.keymap.set("v", "<D-v>", '"+P')        -- Paste visual mode
-  vim.keymap.set("c", "<D-v>", "<C-R>+")     -- Paste command mode
+  vim.keymap.set("n", "<D-s>", ":w<CR>")      -- Save
+  vim.keymap.set("v", "<D-c>", '"+y')         -- Copy
+  vim.keymap.set("n", "<D-v>", '"+P')         -- Paste normal mode
+  vim.keymap.set("v", "<D-v>", '"+P')         -- Paste visual mode
+  vim.keymap.set("c", "<D-v>", "<C-R>+")      -- Paste command mode
   vim.keymap.set("i", "<D-v>", '<ESC>l"+Pli') -- Paste insert mode
 
   vim.api.nvim_set_keymap("", "<D-v>", "+p<CR>", { noremap = true, silent = true })
@@ -927,11 +927,11 @@ lspconfig.rust_analyzer.setup({
 require("nvim-treesitter.configs").setup({
   ensure_installed = { "javascript", "typescript", "css", "html", "bash", "sql", "vim", "lua" },
   highlight = { enabled = true },
-  auto_install = true,
-  context_commentstring = {
-    enable = true,
-  },
+  auto_install = true
 })
+
+require('ts_context_commentstring').setup {}
+vim.g.skip_ts_context_commentstring_module = true
 
 -------- LSP --------
 
