@@ -148,14 +148,9 @@ alias j='fasd_cd -d'
 
 # Do not confirm rm
 unalias rm 2>/dev/null
+unalias gh
 
-#### Override standart stuff
-# ls -> exa
-# if [[ -f /usr/local/bin/exa ]]; then
-#   alias l="exa -la --no-user --no-permissions --git --group-directories-first"
-# else
-  alias l="ls -lah"
-# fi
+alias l="ls -lah"
 
 function catanything {
   if [[ $1 == *.md ]]; then
@@ -171,13 +166,6 @@ if [[ -f /usr/local/bin/bat ]]; then
   # alias cat='bat'
   alias cat='catanything'
 fi
-
-# ping -> prettyping
-# [[ -f /usr/local/bin/prettyping ]] && alias ping='prettyping --nolegend'
-
-# find -> fd
-[[ -f /usr/local/bin/fd ]] && alias find='fd'
-
 
 #### fzf
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
@@ -195,7 +183,7 @@ zle -N find-alias
 alias za=find-alias
 
 [[ $commands[kubectl] ]] && source <(kubectl completion zsh)
-# eval "$(op completion zsh)"; compdef _op op
+eval "$(op completion zsh)"; compdef _op op
 compinit
 export VOLTA_HOME="$HOME/.volta"
 export PATH="$VOLTA_HOME/bin:$PATH"
@@ -217,7 +205,7 @@ dy() {
   dig +noall +answer +additional "$1" @dns.toys
 }
 
-# source /Users/antonvasin/.config/op/plugins.sh
+source /Users/antonvasin/.config/op/plugins.sh
 
 # Put homebrew java first
 export PATH="/usr/local/opt/openjdk/bin:$PATH"
