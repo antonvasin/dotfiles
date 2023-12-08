@@ -1,6 +1,5 @@
 [user]
 	useConfigOnly = true
-	signingkey = FFDE8F96261E71C0
 [github]
   user = antonvasin
 [core]
@@ -102,3 +101,9 @@
 	program = /opt/homebrew/bin/gpg
 [commit]
   gpgsign = true
+[credential "https://github.com"]
+	helper =
+	helper = !/opt/homebrew/bin/gh auth git-credential
+[credential "https://gist.github.com"]
+	helper =
+	helper = !/opt/homebrew/bin/gh auth git-credential

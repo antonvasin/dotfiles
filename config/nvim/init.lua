@@ -131,10 +131,6 @@ packer.startup(function(use)
   -- Syntax
   use("rizzatti/dash.vim")
   use({
-    "tpope/vim-fireplace",
-    ft = { "clojure" },
-  })
-  use({
     "nvim-treesitter/nvim-treesitter",
     run = ":TSUpdate",
     requires = {
@@ -266,6 +262,11 @@ vim.opt.showbreak = "└  "
 vim.opt.inccommand = "nosplit"
 vim.opt.diffopt:append({ "vertical" })
 vim.opt.viewoptions = { "folds", "cursor" }
+
+-- Leader
+vim.api.nvim_set_keymap("", "<Space>", "<Nop>", { silent = true, noremap = true })
+vim.g.mapleader = " "
+vim.g.maplocalleader = " "
 
 --don't wait too long for next keystroke
 vim.opt.timeoutlen = 500
@@ -536,11 +537,11 @@ if vim.g.neovide then
 
   -- Allow clipboard copy paste in neovim
   vim.g.neovide_input_use_logo = 1
-  vim.keymap.set("n", "<D-s>", ":w<CR>")      -- Save
-  vim.keymap.set("v", "<D-c>", '"+y')         -- Copy
-  vim.keymap.set("n", "<D-v>", '"+P')         -- Paste normal mode
-  vim.keymap.set("v", "<D-v>", '"+P')         -- Paste visual mode
-  vim.keymap.set("c", "<D-v>", "<C-R>+")      -- Paste command mode
+  vim.keymap.set("n", "<D-s>", ":w<CR>")     -- Save
+  vim.keymap.set("v", "<D-c>", '"+y')        -- Copy
+  vim.keymap.set("n", "<D-v>", '"+P')        -- Paste normal mode
+  vim.keymap.set("v", "<D-v>", '"+P')        -- Paste visual mode
+  vim.keymap.set("c", "<D-v>", "<C-R>+")     -- Paste command mode
   vim.keymap.set("i", "<D-v>", '<ESC>l"+Pli') -- Paste insert mode
 
   vim.api.nvim_set_keymap("", "<D-v>", "+p<CR>", { noremap = true, silent = true })
@@ -673,20 +674,20 @@ local on_attach = function(client, bufnr)
   client.server_capabilities.semanticTokensProvider = nil
 
   -- Show diagnostics on cursor hold
-  vim.api.nvim_create_autocmd("CursorHold", {
-    buffer = bufnr,
-    callback = function()
-      local opts = {
-        focusable = false,
-        close_events = { "BufLeave", "CursorMoved", "InsertEnter", "FocusLost" },
-        border = "rounded",
-        source = "always",
-        prefix = " ",
-        scope = "cursor",
-      }
-      vim.diagnostic.open_float(nil, opts)
-    end,
-  })
+  -- vim.api.nvim_create_autocmd("CursorHold", {
+  --   buffer = bufnr,
+  --   callback = function()
+  --     local opts = {
+  --       focusable = false,
+  --       close_events = { "BufLeave", "CursorMoved", "InsertEnter", "FocusLost" },
+  --       border = "rounded",
+  --       source = "always",
+  --       prefix = " ",
+  --       scope = "cursor",
+  --     }
+  --     vim.diagnostic.open_float(nil, opts)
+  --   end,
+  -- })
 end
 
 local capabilities = require("cmp_nvim_lsp").default_capabilities()
@@ -822,7 +823,7 @@ cmp.setup({
     { name = "nvim_lsp" },
     { name = "luasnip" },
     { name = "emoji" },
-    { name = "buffer " },
+    { name = "buffer" },
   },
   completion = {
     winhighlight = "Normal:Pmenu,FloatBorder:Pmenu,Search:None",
@@ -927,20 +928,16 @@ lspconfig.rust_analyzer.setup({
 require("nvim-treesitter.configs").setup({
   ensure_installed = { "javascript", "typescript", "css", "html", "bash", "sql", "vim", "lua" },
   highlight = { enabled = true },
-  auto_install = true
+  auto_install = true,
 })
 
-require('ts_context_commentstring').setup {}
+require("ts_context_commentstring").setup({})
 vim.g.skip_ts_context_commentstring_module = true
 
 -------- LSP --------
 
 -------- KEYS --------
 local bufopts = { noremap = true, silent = true }
-
--- Leader
-vim.keymap.set("n", "<SPACE>", "<Nop>", bufopts)
-vim.g.mapleader = " "
 
 -- Pane movement with <C-h|j|k|l>
 vim.keymap.set("n", "<C-h>", "<C-w>h", bufopts)
@@ -1051,9 +1048,6 @@ vim.cmd([[
   nnoremap <leader>gs :Git status<cr>
   nnoremap <leader>gP :Git push --force<cr>
 
-  " neoterm
-  vnoremap <leader>tr :TREPLSendSelection<cr>
-  nnoremap <leader>tr :TREPLSendLine<cr>
   " don't send escape sequence with S-Space
   tnoremap <S-Space> <Space>
 
@@ -1065,6 +1059,7 @@ vim.cmd([[
   nnoremap <leader>tc :Tclear<cr>
   let g:neoterm_default_mod='botright'
   let g:neoterm_autoinsert=1
+  let g:neoterm_repl_python='python3'
 
   cabbr <expr> %% expand('%:p:h')
 
@@ -1139,4 +1134,5 @@ vim.keymap.set("n", "<leader>CC", toggleColors, bufopts)
 
 -- MarkdownPreview
 vim.keymap.set("n", "<leader>md", "<Plug>MarkdownPreviewToggle")
+
 -------- KEYS --------
