@@ -1,0 +1,30 @@
+#!/usr/bin/env zsh
+# Function to switch to an app or launch it if it's not running
+switch_app() {
+  local app=$1
+
+  # Check if the app is running
+  if pgrep "$app" > /dev/null; then
+    open -a "$app"
+  fi
+}
+
+# Function to switch between a list of apps with prioritization
+switch_apps() {
+  local apps=($@)
+  local app_found=0
+
+  # Reverse the array to prioritize rightmost apps
+  for app in ${(Oa)apps}; do
+    if pgrep "$app" > /dev/null; then
+      switch_app "$app"
+      app_found=1
+      break
+    fi
+  done
+
+  # If no app was found, launch the first one
+  if (( !app_found )); then
+    switch_app $apps[1]
+  fi
+}
