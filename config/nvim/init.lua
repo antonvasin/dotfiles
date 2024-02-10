@@ -84,7 +84,8 @@ packer.startup(function(use)
   })
   use("junegunn/goyo.vim")
   use("mtth/scratch.vim")
-  use("simnalamburt/vim-mundo")
+  -- use("simnalamburt/vim-mundo")
+  use("mbbill/undotree")
   use({
     "numToStr/Comment.nvim",
     config = function()
@@ -1012,11 +1013,16 @@ vim.keymap.set("n", "<leader>Ls", ":LspInfo<cr>", bufopts)
 vim.keymap.set("n", "<leader>Li", ":LspInstall<cr>", bufopts)
 vim.keymap.set("n", "<leader>Lx", ":LspStop ", bufopts)
 
+-- Undo History
+vim.g.undotree_WindowLayout = 2
+vim.g.undotree_SplitWidth = 34
+vim.keymap.set("n", "<leader>u", vim.cmd.UndotreeToggle)
+
 vim.cmd([[
   " Leader maps
   nnoremap <leader>l :set list!<cr> \| :IndentLinesToggle<cr>
   nnoremap <leader><space> :nohl<cr>
-  noremap <leader>u :MundoToggle<cr>
+  "noremap <leader>u :MundoToggle<cr>
   nnoremap <leader>lw :%s/^\s\+<cr>:nohl<cr>
   nnoremap <leader>bl :g/^$/d<cr>:nohl<cr>
   nnoremap <leader>ev :tabe $MYVIMRC<cr>:lcd %:p:h<cr>
