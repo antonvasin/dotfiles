@@ -1,18 +1,4 @@
 {
     "trailingComma": "all",
-    "printWidth": 100,
-    "overrides": [
-        {
-            "files": "*.json",
-            "options": {
-                "tabWidth": 4
-            }
-        },
-        {
-            "files": ["*.html"],
-            "options": {
-                "tabWidth": 4
-            }
-        }
-    ]
+    "printWidth": 100
 }
