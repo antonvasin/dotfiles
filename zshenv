@@ -28,6 +28,8 @@ export PAGER='less'
 export XDG_CONFIG_HOME="$HOME/.config"
 
 export PATH="/usr/local/bin:/usr/local/sbin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
+# link unversioned python commands
+export PATH="/opt/homebrew/opt/python@3.11/libexec/bin:$PATH"
 
 # code
 export PATH="/Applications/Visual Studio Code.app/Contents/Resources/app/bin:$PATH"
