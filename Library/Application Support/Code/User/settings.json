@@ -258,7 +258,7 @@
   "vscode-neovim.neovimInitVimPaths.darwin": "/Users/antonvasin/.config/nvim/init.vim",
   "javascript.updateImportsOnFileMove.enabled": "always",
   "git.confirmSync": false,
-  "workbench.editor.showTabs": false,
+  "workbench.editor.showTabs": "single",
   "editor.suggestSelection": "first",
   "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
   "[dockerfile]": {
