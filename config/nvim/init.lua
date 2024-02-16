@@ -247,7 +247,7 @@ vim.opt.cmdheight = 2
 
 -- folding
 vim.opt.foldenable = true
-vim.opt.foldmethod = "expr"
+vim.opt.foldmethod = "manual"
 vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
 vim.opt.foldlevelstart = 99
 
@@ -1057,9 +1057,9 @@ vim.cmd([[
   " don't send escape sequence with S-Space
   tnoremap <S-Space> <Space>
 
-  nnoremap <leader>j :Ttoggle<cr>
+  " nnoremap <leader>j :Ttoggle<cr>
   nnoremap ` :Ttoggle<cr>
-  tnoremap <leader>j <C-\><C-n>:Ttoggle<cr>
+  " tnoremap <leader>j <C-\><C-n>:Ttoggle<cr>
   tnoremap ` <C-\><C-n>:Ttoggle<cr>
 
   nnoremap <leader>tc :Tclear<cr>
