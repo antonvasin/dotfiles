@@ -254,7 +254,6 @@
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "redhat.telemetry.enabled": false,
-  "vscode-neovim.neovimExecutablePaths.darwin": "/usr/local/bin/nvim",
   "vscode-neovim.neovimInitVimPaths.darwin": "/Users/antonvasin/.config/nvim/init.vim",
   "javascript.updateImportsOnFileMove.enabled": "always",
   "git.confirmSync": false,
@@ -273,5 +272,8 @@
   },
   "[scss]": {
     "editor.defaultFormatter": "vscode.css-language-features"
+  },
+  "extensions.experimental.affinity": {
+    "asvetliakov.vscode-neovim": 1
   }
 }
