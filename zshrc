@@ -209,3 +209,6 @@ source /Users/antonvasin/.config/op/plugins.sh
 
 # Put homebrew java first
 export PATH="/usr/local/opt/openjdk/bin:$PATH"
+
+# Setup private env
+source .private.zshenv
