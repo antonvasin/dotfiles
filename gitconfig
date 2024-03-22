@@ -76,12 +76,17 @@
   autosetuprebase = always
 [hub]
   protocol = https
+
 [diff]
-  tool = vimdiff
+  tool = difftastic
+[difftool]
+  prompt = false
+[difftool "difftastic"]
+  cmd = difft "$LOCAL" "$REMOTE"
 [pager]
-  ; diff = ov -F --section-delimiter "^diff"
-  ; log = ov -F --section-delimiter "^commit"
+  difftool = true
   branch = false
+
 [grep]
   lineNumber = true
 [push]
