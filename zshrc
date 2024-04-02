@@ -211,4 +211,4 @@ source /Users/antonvasin/.config/op/plugins.sh
 export PATH="/usr/local/opt/openjdk/bin:$PATH"
 
 # Setup private env
-source .private.zshenv
+source ~/.private.zshenv
