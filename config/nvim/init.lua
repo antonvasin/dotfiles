@@ -37,6 +37,7 @@ packer.startup(function(use)
   use("wbthomason/packer.nvim") -- Have packer manage itself
 
   -- Look
+  use({ "NLKNguyen/papercolor-theme" })
   use({ "nvim-lualine/lualine.nvim" })
   use({
     "lukas-reineke/indent-blankline.nvim",
@@ -438,7 +439,7 @@ vim.cmd([[
 -- 24-bit colors
 vim.opt.termguicolors = true
 vim.api.nvim_set_option("background", "dark")
-vim.cmd.colorscheme("habamax")
+vim.cmd.colorscheme("PaperColor")
 
 -- lualine
 require("lualine").setup({
@@ -907,12 +908,12 @@ require("nvim-treesitter.configs").setup({
     },
     swap = {
       enable = true,
-      swap_next = {
-        ["<leader>a"] = "@parameter.inner",
-      },
-      swap_previous = {
-        ["<leader>A"] = "@parameter.inner",
-      },
+      -- swap_next = {
+      --   ["<leader>a"] = "@parameter.inner",
+      -- },
+      -- swap_previous = {
+      --   ["<leader>A"] = "@parameter.inner",
+      -- },
     },
     move = {
       enable = true,
