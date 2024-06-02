@@ -18,14 +18,10 @@ require("lazy").setup({
   "pappasam/papercolor-theme-slim",
   "nvim-lualine/lualine.nvim",
   "lukas-reineke/indent-blankline.nvim",
-  -- use({
-  --   "f-person/auto-dark-mode.nvim",
-  --   config = function()
-  --     local dark_mode = require("auto-dark-mode")
-  --     dark_mode.setup({})
-  --     -- dark_mode.init()
-  --   end,
-  -- })
+  {
+    "f-person/auto-dark-mode.nvim",
+    config = true,
+  },
   "lewis6991/gitsigns.nvim",
 
   -- Editing & Navigation
@@ -72,28 +68,19 @@ require("lazy").setup({
   -- nice things for netrw
   "tpope/vim-vinegar",
   "tpope/vim-projectionist",
-  { "Shougo/vimproc.vim", run = "make" },
+  { "Shougo/vimproc.vim", build = "make" },
   "kassio/neoterm",
 
   -- Syntax
   "rizzatti/dash.vim",
   {
     "nvim-treesitter/nvim-treesitter",
-    run = ":TSUpdate",
+    build = ":TSUpdate",
     dependencies = {
-      {
-        "nvim-treesitter/nvim-treesitter-context",
-        config = function()
-          require("treesitter-context").setup({})
-        end,
-      },
-      { "JoosepAlviste/nvim-ts-context-commentstring" },
+      "nvim-treesitter/nvim-treesitter-context",
+      "JoosepAlviste/nvim-ts-context-commentstring",
+      "nvim-treesitter/nvim-treesitter-textobjects",
     },
-  },
-  {
-    "nvim-treesitter/nvim-treesitter-textobjects",
-    after = "nvim-treesitter",
-    dependencies = "nvim-treesitter/nvim-treesitter",
   },
   { "sheerun/vim-go",     ft = { "go" } },
   { "tpope/vim-jdaddy",   ft = { "json" } },
