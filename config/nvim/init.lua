@@ -37,19 +37,20 @@ packer.startup(function(use)
   use("wbthomason/packer.nvim") -- Have packer manage itself
 
   -- Look
-  use({ "NLKNguyen/papercolor-theme" })
+  -- use({ "NLKNguyen/papercolor-theme" })
+  use({ "pappasam/papercolor-theme-slim" })
   use({ "nvim-lualine/lualine.nvim" })
   use({
     "lukas-reineke/indent-blankline.nvim",
   })
-  use({
-    "f-person/auto-dark-mode.nvim",
-    config = function()
-      local dark_mode = require("auto-dark-mode")
-      dark_mode.setup({})
-      -- dark_mode.init()
-    end,
-  })
+  -- use({
+  --   "f-person/auto-dark-mode.nvim",
+  --   config = function()
+  --     local dark_mode = require("auto-dark-mode")
+  --     dark_mode.setup({})
+  --     -- dark_mode.init()
+  --   end,
+  -- })
   use({ "lewis6991/gitsigns.nvim" })
 
   -- Editing & Navigation
@@ -430,8 +431,8 @@ vim.cmd([[
 -------- UI --------
 -- 24-bit colors
 vim.opt.termguicolors = true
-vim.api.nvim_set_option("background", "dark")
-vim.cmd.colorscheme("PaperColor")
+vim.api.nvim_set_option("background", "light")
+vim.cmd.colorscheme("PaperColorSlim")
 
 -- lualine
 require("lualine").setup({
@@ -1141,3 +1142,11 @@ vim.cmd([[
 vim.keymap.set("n", "<leader>md", "<Plug>MarkdownPreviewToggle")
 
 -------- KEYS --------
+
+vim.api.nvim_set_hl(0, "Identifier", { link = "Normal" })
+vim.api.nvim_set_hl(0, "Keyword", { italic = true })
+vim.api.nvim_set_hl(0, "PreProc", { link = "Normal" })
+vim.api.nvim_set_hl(0, "Special", { bold = true })
+vim.api.nvim_set_hl(0, "Function", { bold = true })
+-- vim.api.nvim_set_hl(0, "typescriptImport", { link = "Normal" })
+-- vim.api.nvim_set_hl(0, "typescriptExport", { link = "Normal" })

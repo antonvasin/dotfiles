@@ -3,8 +3,24 @@ local config = wezterm.config_builder()
 
 config.font = wezterm.font("Iosevka Term")
 config.font_size = 15.0
-config.color_scheme = "Papercolor Dark (Gogh)"
+-- config.color_scheme = "Papercolor Dark (Gogh)"
 
+function get_appearance()
+  if wezterm.gui then
+    return wezterm.gui.get_appearance()
+  end
+  return "Dark"
+end
+
+function scheme_for_appearance(appearance)
+  if appearance:find("Dark") then
+    return "Papercolor Dark (Gogh)"
+  else
+    return "Papercolor Light (Gogh)"
+  end
+end
+
+config.color_scheme = scheme_for_appearance(get_appearance())
 config.native_macos_fullscreen_mode = true
 
 config.keys = {
