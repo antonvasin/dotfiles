@@ -1,21 +1,12 @@
 -------- PLUGINS --------
-local fn = vim.fn
 
 -- Automatically install packer
-local install_path = fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
-if fn.empty(fn.glob(install_path)) > 0 then
+local install_path = vim.fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
+if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
   PACKER_BOOTSTRAP =
-      fn.system({ "git", "clone", "--depth", "1", "https://github.com/wbthomason/packer.nvim", install_path })
+      vim.fn.system({ "git", "clone", "--depth", "1", "https://github.com/wbthomason/packer.nvim", install_path })
   print("Installing packer close and reopen Neovim...")
 end
-
--- Autocommand that reloads neovim whenever you save the plugins.lua file
--- vim.cmd([[
---   augroup packer_user_config
---     autocmd!
---     autocmd BufWritePost plugins.lua source <afile> | PackerSync
---   augroup end
--- ]])
 
 -- Use a protected call so we don't error out on first use
 local status_ok, packer = pcall(require, "packer")
@@ -859,16 +850,38 @@ lspconfig.dockerls.setup({
 })
 
 lspconfig.lua_ls.setup({
+  on_init = function(client)
+    local path = client.workspace_folders[1].name
+    if vim.loop.fs_stat(path .. "/.luarc.json") or vim.loop.fs_stat(path .. "/.luarc.jsonc") then
+      return
+    end
+
+    client.config.settings.Lua = vim.tbl_deep_extend("force", client.config.settings.Lua, {
+      runtime = {
+        -- Tell the language server which version of Lua you're using
+        -- (most likely LuaJIT in the case of Neovim)
+        version = "LuaJIT",
+      },
+      -- Make the server aware of Neovim runtime files
+      workspace = {
+        checkThirdParty = false,
+        library = {
+          vim.env.VIMRUNTIME,
+          -- Depending on the usage, you might want to add additional paths here.
+          -- "${3rd}/luv/library"
+          -- "${3rd}/busted/library",
+        },
+        -- or pull in all of 'runtimepath'. NOTE: this is a lot slower
+        -- library = vim.api.nvim_get_runtime_file("", true)
+      },
+    })
+  end,
   on_attach = on_attach,
   capabilities = capabilities,
   settings = {
     Lua = {
       completion = {
         callSnippet = "Replace",
-      },
-      workspace = {
-        -- remove annoying "Do you need to configure your work environment as luv"
-        checkThirdParty = false,
       },
     },
   },
@@ -1143,10 +1156,16 @@ vim.keymap.set("n", "<leader>md", "<Plug>MarkdownPreviewToggle")
 
 -------- KEYS --------
 
-vim.api.nvim_set_hl(0, "Identifier", { link = "Normal" })
-vim.api.nvim_set_hl(0, "Keyword", { italic = true })
-vim.api.nvim_set_hl(0, "PreProc", { link = "Normal" })
-vim.api.nvim_set_hl(0, "Special", { bold = true })
-vim.api.nvim_set_hl(0, "Function", { bold = true })
+vim.api.nvim_create_autocmd("ColorScheme", {
+  pattern = "PaperColorSlim",
+  callback = function()
+    vim.api.nvim_set_hl(0, "Identifier", { link = "Normal" })
+    vim.api.nvim_set_hl(0, "Keyword", { italic = true })
+    vim.api.nvim_set_hl(0, "PreProc", { link = "Normal" })
+    vim.api.nvim_set_hl(0, "Special", { bold = true })
+    vim.api.nvim_set_hl(0, "Function", { bold = true })
+    vim.api.nvim_set_hl(0, "Statement", { bold = true })
+  end,
+})
 -- vim.api.nvim_set_hl(0, "typescriptImport", { link = "Normal" })
 -- vim.api.nvim_set_hl(0, "typescriptExport", { link = "Normal" })
