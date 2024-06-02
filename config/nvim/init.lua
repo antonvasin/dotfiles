@@ -1,39 +1,23 @@
 -------- PLUGINS --------
-
--- Automatically install packer
-local install_path = vim.fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
-if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
-  PACKER_BOOTSTRAP =
-      vim.fn.system({ "git", "clone", "--depth", "1", "https://github.com/wbthomason/packer.nvim", install_path })
-  print("Installing packer close and reopen Neovim...")
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not (vim.uv or vim.loop).fs_stat(lazypath) then
+  vim.fn.system({
+    "git",
+    "clone",
+    "--filter=blob:none",
+    "https://github.com/folke/lazy.nvim.git",
+    "--branch=stable", -- latest stable release
+    lazypath,
+  })
 end
+vim.opt.rtp:prepend(lazypath)
 
--- Use a protected call so we don't error out on first use
-local status_ok, packer = pcall(require, "packer")
-if not status_ok then
-  return
-end
-
--- Have packer use a popup window
-packer.init({
-  display = {
-    open_fn = function()
-      return require("packer.util").float({ border = "single" })
-    end,
-  },
-})
-
--- Install your plugins here
-packer.startup(function(use)
-  use("wbthomason/packer.nvim") -- Have packer manage itself
-
+require("lazy").setup({
   -- Look
   -- use({ "NLKNguyen/papercolor-theme" })
-  use({ "pappasam/papercolor-theme-slim" })
-  use({ "nvim-lualine/lualine.nvim" })
-  use({
-    "lukas-reineke/indent-blankline.nvim",
-  })
+  "pappasam/papercolor-theme-slim",
+  "nvim-lualine/lualine.nvim",
+  "lukas-reineke/indent-blankline.nvim",
   -- use({
   --   "f-person/auto-dark-mode.nvim",
   --   config = function()
@@ -42,60 +26,61 @@ packer.startup(function(use)
   --     -- dark_mode.init()
   --   end,
   -- })
-  use({ "lewis6991/gitsigns.nvim" })
+  "lewis6991/gitsigns.nvim",
 
   -- Editing & Navigation
-  use({
+  {
     "windwp/nvim-autopairs",
     config = function()
       require("nvim-autopairs").setup({})
     end,
-  })
-  use("junegunn/goyo.vim")
-  use("mtth/scratch.vim")
+  },
+  "junegunn/goyo.vim",
+  "mtth/scratch.vim",
   -- use("simnalamburt/vim-mundo")
-  use("mbbill/undotree")
-  use({
+  "mbbill/undotree",
+  {
     "numToStr/Comment.nvim",
     config = function()
       require("Comment").setup()
     end,
-  })
-  use("tpope/vim-repeat")
-  use("tpope/vim-surround")
-  use("tpope/vim-unimpaired")
-  use({
+  },
+  "tpope/vim-repeat",
+  "tpope/vim-surround",
+  "tpope/vim-unimpaired",
+  {
     "guns/vim-sexp",
     ft = { "clojure", "scheme", "racket", "lisp" },
-    requires = {
+    dependencies = {
       "tpope/vim-sexp-mappings-for-regular-people",
     },
-  })
-  use("kana/vim-textobj-user")
-  use("mattn/emmet-vim")
-  use("tpope/vim-speeddating") -- ctrl-a ctrl-x for date and time
-  use("bronson/vim-visual-star-search")
-  use({ "ibhagwan/fzf-lua" })
+  },
+  "kana/vim-textobj-user",
+  "mattn/emmet-vim",
+  "tpope/vim-speeddating", -- ctrl-a ctrl-x for date and time
+  "bronson/vim-visual-star-search",
+  { "ibhagwan/fzf-lua" },
 
   -- Integrations
-  use("mileszs/ack.vim")
-  use({
+  "mileszs/ack.vim",
+  {
     "tpope/vim-fugitive",
-    requires = {
+    dependencies = {
       "tpope/vim-rhubarb",
     },
-  })
-  use("tpope/vim-vinegar") -- nice things for netrw
-  use("tpope/vim-projectionist")
-  use({ "Shougo/vimproc.vim", run = "make" })
-  use("kassio/neoterm")
+  },
+  -- nice things for netrw
+  "tpope/vim-vinegar",
+  "tpope/vim-projectionist",
+  { "Shougo/vimproc.vim", run = "make" },
+  "kassio/neoterm",
 
   -- Syntax
-  use("rizzatti/dash.vim")
-  use({
+  "rizzatti/dash.vim",
+  {
     "nvim-treesitter/nvim-treesitter",
     run = ":TSUpdate",
-    requires = {
+    dependencies = {
       {
         "nvim-treesitter/nvim-treesitter-context",
         config = function()
@@ -104,16 +89,16 @@ packer.startup(function(use)
       },
       { "JoosepAlviste/nvim-ts-context-commentstring" },
     },
-  })
-  use({
+  },
+  {
     "nvim-treesitter/nvim-treesitter-textobjects",
     after = "nvim-treesitter",
-    requires = "nvim-treesitter/nvim-treesitter",
-  })
-  use({ "sheerun/vim-go", ft = { "go" } })
-  use({ "tpope/vim-jdaddy", ft = { "json" } })
-  use({ "neoclide/jsonc.vim", ft = "json" })
-  use({
+    dependencies = "nvim-treesitter/nvim-treesitter",
+  },
+  { "sheerun/vim-go",     ft = { "go" } },
+  { "tpope/vim-jdaddy",   ft = { "json" } },
+  { "neoclide/jsonc.vim", ft = "json" },
+  {
     "norcalli/nvim-colorizer.lua",
     config = function()
       require("colorizer").setup({
@@ -127,24 +112,24 @@ packer.startup(function(use)
         "html",
       })
     end,
-  })
-  use({ "wuelnerdotexe/vim-astro", ft = { "astro" } })
-  use({ "ellisonleao/glow.nvim", ft = { "markdown" } })
-  use("ziglang/zig.vim")
+  },
+  { "wuelnerdotexe/vim-astro", ft = { "astro" } },
+  { "ellisonleao/glow.nvim",   ft = { "markdown" } },
+  "ziglang/zig.vim",
 
   -- LSP
-  use("nvim-lua/plenary.nvim")
-  use({
+  "nvim-lua/plenary.nvim",
+  {
     "neovim/nvim-lspconfig",
-    requires = {
+    dependencies = {
       "williamboman/mason.nvim",
       "williamboman/mason-lspconfig.nvim",
       "jose-elias-alvarez/null-ls.nvim",
     },
-  })
-  use({
+  },
+  {
     "hrsh7th/nvim-cmp",
-    requires = {
+    dependencies = {
       "hrsh7th/cmp-nvim-lsp",
       "saadparwaiz1/cmp_luasnip",
       "L3MON4D3/LuaSnip",
@@ -153,16 +138,24 @@ packer.startup(function(use)
       "onsails/lspkind.nvim",
       "b0o/schemastore.nvim",
     },
-  })
+  },
 
-  use("folke/neodev.nvim")
-
-  -- Automatically set up your configuration after cloning packer.nvim
-  -- Put this at the end after all plugins
-  if PACKER_BOOTSTRAP then
-    require("packer").sync()
-  end
-end)
+  -- neovim dev
+  {
+    "folke/lazydev.nvim",
+    ft = "lua", -- only load on lua files
+    opts = {
+      library = {
+        -- Library items can be absolute paths
+        -- "~/projects/my-awesome-lib",
+        -- Or relative, which means they will be resolved as a plugin
+        -- "LazyVim",
+        -- When relative, you can also provide a path to the library in the plugin dir
+        -- "luvit-meta/library", -- see below
+      },
+    },
+  },
+})
 -------- PLUGINS --------
 
 -------- SETTINGS --------
@@ -638,9 +631,6 @@ end
 local capabilities = require("cmp_nvim_lsp").default_capabilities()
 capabilities.textDocument.completion.completionItem.snippetSupport = true
 
--- Call before lspconfig
-require("neodev").setup({})
-
 local lspconfig = require("lspconfig")
 
 lspconfig.tsserver.setup({
@@ -765,6 +755,7 @@ cmp.setup({
     end, { "i", "s" }),
   }),
   sources = {
+    { name = "lazydev" },
     { name = "nvim_lsp" },
     { name = "luasnip" },
     { name = "emoji" },

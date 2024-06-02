@@ -49,6 +49,7 @@ config.keys = {
     mods = "CTRL|SHIFT|ALT",
     action = wezterm.action.SplitPane({
       direction = "Left",
+      size = { Percent = 40 },
     }),
   },
   {
@@ -56,6 +57,7 @@ config.keys = {
     mods = "CTRL|SHIFT|ALT",
     action = wezterm.action.SplitPane({
       direction = "Right",
+      size = { Percent = 40 },
     }),
   },
   {
