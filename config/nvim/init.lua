@@ -15,7 +15,23 @@ vim.opt.rtp:prepend(lazypath)
 require("lazy").setup({
   -- Look
   -- use({ "NLKNguyen/papercolor-theme" })
-  "pappasam/papercolor-theme-slim",
+  {
+    "pappasam/papercolor-theme-slim",
+    config = function()
+      vim.api.nvim_create_autocmd("ColorScheme", {
+        pattern = "PaperColorSlim",
+        callback = function()
+          -- Mute bunch of colors to get almost mono colorscheme
+          vim.api.nvim_set_hl(0, "Identifier", { link = "Normal" })
+          vim.api.nvim_set_hl(0, "Keyword", { italic = true })
+          vim.api.nvim_set_hl(0, "PreProc", { link = "Normal" })
+          vim.api.nvim_set_hl(0, "Special", { bold = true })
+          vim.api.nvim_set_hl(0, "Function", { bold = true })
+          vim.api.nvim_set_hl(0, "Statement", { bold = true })
+        end,
+      })
+    end,
+  },
   "nvim-lualine/lualine.nvim",
   "lukas-reineke/indent-blankline.nvim",
   {
@@ -1133,17 +1149,3 @@ vim.cmd([[
 vim.keymap.set("n", "<leader>md", "<Plug>MarkdownPreviewToggle")
 
 -------- KEYS --------
-
-vim.api.nvim_create_autocmd("ColorScheme", {
-  pattern = "PaperColorSlim",
-  callback = function()
-    vim.api.nvim_set_hl(0, "Identifier", { link = "Normal" })
-    vim.api.nvim_set_hl(0, "Keyword", { italic = true })
-    vim.api.nvim_set_hl(0, "PreProc", { link = "Normal" })
-    vim.api.nvim_set_hl(0, "Special", { bold = true })
-    vim.api.nvim_set_hl(0, "Function", { bold = true })
-    vim.api.nvim_set_hl(0, "Statement", { bold = true })
-  end,
-})
--- vim.api.nvim_set_hl(0, "typescriptImport", { link = "Normal" })
--- vim.api.nvim_set_hl(0, "typescriptExport", { link = "Normal" })
