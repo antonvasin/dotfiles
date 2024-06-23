@@ -16,6 +16,13 @@ require("lazy").setup({
   -- Look
   -- use({ "NLKNguyen/papercolor-theme" })
   {
+    "zenbones-theme/zenbones.nvim",
+    -- Optionally install Lush. Allows for more configuration or extending the colorscheme
+    -- If you don't want to install lush, make sure to set g:zenbones_compat = 1
+    -- In Vim, compat mode is turned on as Lush only works in Neovim.
+    dependencies = "rktjmp/lush.nvim",
+  },
+  {
     "pappasam/papercolor-theme-slim",
     config = function()
       vim.api.nvim_create_autocmd("ColorScheme", {
@@ -77,7 +84,7 @@ require("lazy").setup({
   {
     "mileszs/ack.vim",
     init = function()
-      vim.g.ackprg = 'rg --sort path --vimgrep --smart-case --no-heading'
+      vim.g.ackprg = "rg --sort path --vimgrep --smart-case --no-heading"
     end,
   },
   {
@@ -424,7 +431,8 @@ vim.cmd([[
 -- 24-bit colors
 vim.opt.termguicolors = true
 vim.api.nvim_set_option("background", "light")
-vim.cmd.colorscheme("PaperColorSlim")
+-- vim.cmd.colorscheme("PaperColorSlim")
+vim.cmd.colorscheme("zenwritten")
 
 -- lualine
 require("lualine").setup({
@@ -483,11 +491,11 @@ if vim.g.neovide then
 
   -- Allow clipboard copy paste in neovim
   vim.g.neovide_input_use_logo = 1
-  vim.keymap.set("n", "<D-s>", ":w<CR>")      -- Save
-  vim.keymap.set("v", "<D-c>", '"+y')         -- Copy
-  vim.keymap.set("n", "<D-v>", '"+P')         -- Paste normal mode
-  vim.keymap.set("v", "<D-v>", '"+P')         -- Paste visual mode
-  vim.keymap.set("c", "<D-v>", "<C-R>+")      -- Paste command mode
+  vim.keymap.set("n", "<D-s>", ":w<CR>")     -- Save
+  vim.keymap.set("v", "<D-c>", '"+y')        -- Copy
+  vim.keymap.set("n", "<D-v>", '"+P')        -- Paste normal mode
+  vim.keymap.set("v", "<D-v>", '"+P')        -- Paste visual mode
+  vim.keymap.set("c", "<D-v>", "<C-R>+")     -- Paste command mode
   vim.keymap.set("i", "<D-v>", '<ESC>l"+Pli') -- Paste insert mode
 
   vim.api.nvim_set_keymap("", "<D-v>", "+p<CR>", { noremap = true, silent = true })
