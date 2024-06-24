@@ -14,70 +14,15 @@ vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
   -- Look
-  -- use({ "NLKNguyen/papercolor-theme" })
-  {
-    "zenbones-theme/zenbones.nvim",
-    -- Optionally install Lush. Allows for more configuration or extending the colorscheme
-    -- If you don't want to install lush, make sure to set g:zenbones_compat = 1
-    -- In Vim, compat mode is turned on as Lush only works in Neovim.
-    dependencies = "rktjmp/lush.nvim",
-  },
-  {
-    "pappasam/papercolor-theme-slim",
-    config = function()
-      vim.api.nvim_create_autocmd("ColorScheme", {
-        pattern = "PaperColorSlim",
-        callback = function()
-          -- Mute bunch of colors to get almost mono colorscheme
-          vim.api.nvim_set_hl(0, "Identifier", { link = "Normal" })
-          vim.api.nvim_set_hl(0, "Keyword", { italic = true })
-          vim.api.nvim_set_hl(0, "PreProc", { link = "Normal" })
-          vim.api.nvim_set_hl(0, "Special", { bold = true })
-          vim.api.nvim_set_hl(0, "Function", { bold = true })
-          vim.api.nvim_set_hl(0, "Statement", { bold = true })
-        end,
-      })
-    end,
-  },
-  "nvim-lualine/lualine.nvim",
-  "lukas-reineke/indent-blankline.nvim",
-  {
-    "f-person/auto-dark-mode.nvim",
-    config = true,
-  },
-  "lewis6991/gitsigns.nvim",
+  { "f-person/auto-dark-mode.nvim", config = true, },
 
   -- Editing & Navigation
-  {
-    "windwp/nvim-autopairs",
-    config = function()
-      require("nvim-autopairs").setup({})
-    end,
-  },
-  "junegunn/goyo.vim",
-  "mtth/scratch.vim",
-  -- use("simnalamburt/vim-mundo")
+  { "windwp/nvim-autopairs",        config = true },
   "mbbill/undotree",
-  {
-    "numToStr/Comment.nvim",
-    config = function()
-      require("Comment").setup()
-    end,
-  },
+  { "numToStr/Comment.nvim", config = true },
   "tpope/vim-repeat",
   "tpope/vim-surround",
   "tpope/vim-unimpaired",
-  {
-    "guns/vim-sexp",
-    ft = { "clojure", "scheme", "racket", "lisp" },
-    dependencies = {
-      "tpope/vim-sexp-mappings-for-regular-people",
-    },
-  },
-  "kana/vim-textobj-user",
-  "mattn/emmet-vim",
-  "tpope/vim-speeddating", -- ctrl-a ctrl-x for date and time
-  "bronson/vim-visual-star-search",
   { "ibhagwan/fzf-lua" },
 
   -- Integrations
@@ -87,20 +32,11 @@ require("lazy").setup({
       vim.g.ackprg = "rg --sort path --vimgrep --smart-case --no-heading"
     end,
   },
-  {
-    "tpope/vim-fugitive",
-    dependencies = {
-      "tpope/vim-rhubarb",
-    },
-  },
   -- nice things for netrw
   "tpope/vim-vinegar",
-  "tpope/vim-projectionist",
-  { "Shougo/vimproc.vim", build = "make" },
   "kassio/neoterm",
 
   -- Syntax
-  "rizzatti/dash.vim",
   {
     "nvim-treesitter/nvim-treesitter",
     build = ":TSUpdate",
@@ -113,23 +49,6 @@ require("lazy").setup({
   { "sheerun/vim-go",     ft = { "go" } },
   { "tpope/vim-jdaddy",   ft = { "json" } },
   { "neoclide/jsonc.vim", ft = "json" },
-  {
-    "norcalli/nvim-colorizer.lua",
-    config = function()
-      require("colorizer").setup({
-        css = { css_fn = true },
-        "javascript",
-        "typescript",
-        "astro",
-        "less",
-        "vue",
-        "stylus",
-        "html",
-      })
-    end,
-  },
-  { "wuelnerdotexe/vim-astro", ft = { "astro" } },
-  { "ellisonleao/glow.nvim",   ft = { "markdown" } },
   "ziglang/zig.vim",
 
   -- LSP
@@ -139,7 +58,6 @@ require("lazy").setup({
     dependencies = {
       "williamboman/mason.nvim",
       "williamboman/mason-lspconfig.nvim",
-      "jose-elias-alvarez/null-ls.nvim",
     },
   },
   {
@@ -261,8 +179,6 @@ vim.opt.undofile = true
 vim.opt.backup = false
 vim.opt.swapfile = false
 
-vim.g.scratch_autohide = 0
-
 vim.g.netrw_localrmdir = "rm -r"
 
 -- rg
@@ -271,11 +187,6 @@ vim.g.ackprg = "rg --vimgrep --smart-case"
 vim.g.ack_use_cword_for_empty_search = 1
 
 vim.g.markdown_fenced_languages = { "ts=typescript" }
-
--- Astro
-vim.g.astro_typescript = "enable"
-vim.g.astro_stylus = "enable"
-vim.g.astro_indent = "disable"
 
 -- Make sure Vim returns to the same line when you reopen a file.
 vim.cmd([[
@@ -315,25 +226,6 @@ syn match AcronymNoSpell '\<\(\u\|\d\)\{3,}s\?\>' contains=@NoSpell
 vim.cmd("syn match UrlNoSpell 'w+://[^[:space:]]+' contains=@NoSpell")
 
 vim.cmd([[
-" Goyo
-function! s:goyo_enter()
-  " set relativenumber
-  " set number
-  set scrolloff=999
-endfunction
-
-function! s:goyo_leave()
-  set scrolloff=5
-  set background=dark
-endfunction
-
-autocmd! User GoyoEnter
-autocmd! User GoyoLeave
-autocmd  User GoyoEnter nested call <SID>goyo_enter()
-autocmd  User GoyoLeave nested call <SID>goyo_leave()
-]])
-
-vim.cmd([[
 au TermOpen * setlocal nonumber norelativenumber
 
 autocmd BufWritePre * :%s/\s\+$//e
@@ -356,106 +248,16 @@ function! ExecuteMacroOverVisualRange()
 endfunction
 
 autocmd filetype qf wincmd J
-
-" emmet
-let g:user_emmet_settings = {
-\    'typescript.tsx': {
-\        'extends': 'jsx',
-\        'quote_char': "'"
-\    }
-\}
 ]])
 
-vim.g.projectionist_heuristics = {
-  ["package.json"] = {
-    ["*.tsx"] = {
-      ["alternate"] = {
-        "{dirname}/__tests__/{basename}.test.tsx",
-        "{basename}.test.tsx",
-        "{basename}.spec.tsx",
-      },
-      ["type"] = "component",
-    },
-    ["*.test.tsx"] = {
-      ["alternate"] = "{dirname}/../{basename}.tsx",
-      ["type"] = "test",
-    },
-    ["*.ts"] = {
-      ["alternate"] = { "{basename}.test.ts", "{dirname}/{basename}.test.ts" },
-      ["type"] = "source",
-    },
-    ["*.test.ts"] = {
-      ["alternate"] = { "{basename}.ts", "{dirname}/../{basename}.ts" },
-      ["type"] = "test",
-    },
-    ["*.js"] = {
-      ["alternate"] = { "{dirname}/__tests__/{basename}.test.js", "{}.test.js", "{}.spec.js" },
-      ["type"] = "source",
-    },
-    ["*.test.js"] = {
-      ["alternate"] = { "{}.js", "{dirname}/../{basename}.js" },
-      ["type"] = "test",
-    },
-    ["*.spec.js"] = {
-      ["alternate"] = { "{}.js", "{dirname}/../{basename}.js" },
-      ["type"] = "test",
-    },
-  },
-  ["deno.json"] = {
-    [".ts"] = {
-      ["alternate"] = {
-        "{}_test.ts",
-        "{}.test.ts",
-      },
-    },
-  },
-  ["project.clj"] = {
-    ["*.clj"] = {
-      ["alternate"] = "{dirname}/../test/{basename}_test.clj",
-      ["type"] = "source",
-    },
-    ["*_test.clj"] = {
-      ["alternate"] = "{dirname}/../src/{basename}.clj",
-      ["type"] = "source",
-    },
-  },
-}
-
-vim.cmd([[
-  autocmd BufRead,BufEnter *.astro set filetype=astro
-  autocmd BufRead,BufEnter *.mdx set filetype=markdown
-]])
 -------- SETTINGS --------
 
 -------- UI --------
 -- 24-bit colors
 vim.opt.termguicolors = true
-vim.api.nvim_set_option("background", "light")
--- vim.cmd.colorscheme("PaperColorSlim")
-vim.cmd.colorscheme("zenwritten")
 
--- lualine
-require("lualine").setup({
-  theme = "auto",
-  options = {
-    icons_enabled = true,
-    section_separators = "",
-    component_separators = "",
-  },
-  sections = {
-    lualine_b = {
-      "branch",
-      "diff",
-      { "diagnostics", symbols = { error = "✗ ", warn = "⚠ ", info = "i ", hint = "✶ " } },
-    },
-
-    lualine_x = {
-      "encoding",
-      { "fileformat", symbols = { unix = "𝕏", dos = "𝕎", mac = "𝕄" } },
-      "filetype",
-    },
-  },
-})
+vim.api.nvim_set_hl(0, "Special", {})
+vim.api.nvim_set_hl(0, "Function", {})
 
 -- Tab symbols, etc
 vim.opt.listchars = "tab:▸ ,eol:¬,extends:❯,precedes:❮,nbsp:␣"
@@ -482,59 +284,16 @@ vim.cmd("autocmd VimResized * wincmd =")
 vim.opt.winblend = 25
 vim.opt.pumblend = 25
 
-if vim.g.neovide then
-  vim.g.neovide_cursor_trail_size = 0.05
-  vim.g.neovide_cursor_animation_length = 0.07
-  vim.g.neovide_hide_mouse_when_typing = true
-  vim.o.guifont = "Iosevka Term:h15"
-  vim.g.neovide_remember_window_size = true
-
-  -- Allow clipboard copy paste in neovim
-  vim.g.neovide_input_use_logo = 1
-  vim.keymap.set("n", "<D-s>", ":w<CR>")     -- Save
-  vim.keymap.set("v", "<D-c>", '"+y')        -- Copy
-  vim.keymap.set("n", "<D-v>", '"+P')        -- Paste normal mode
-  vim.keymap.set("v", "<D-v>", '"+P')        -- Paste visual mode
-  vim.keymap.set("c", "<D-v>", "<C-R>+")     -- Paste command mode
-  vim.keymap.set("i", "<D-v>", '<ESC>l"+Pli') -- Paste insert mode
-
-  vim.api.nvim_set_keymap("", "<D-v>", "+p<CR>", { noremap = true, silent = true })
-  vim.api.nvim_set_keymap("!", "<D-v>", "<C-R>+", { noremap = true, silent = true })
-  vim.api.nvim_set_keymap("t", "<D-v>", "<C-R>+", { noremap = true, silent = true })
-  vim.api.nvim_set_keymap("v", "<D-v>", "<C-R>+", { noremap = true, silent = true })
-end
-
 vim.opt.signcolumn = "yes"
 
 vim.opt.wildmode = "longest,list,full"
 vim.opt.wildmenu = true
-
-require("gitsigns").setup()
-
-require("ibl").setup({
-  scope = {
-    char = "▏",
-    enabled = true,
-    show_start = false,
-    show_end = false,
-  },
-  indent = {
-    char = "▏",
-    smart_indent_cap = true,
-    priority = 2,
-  },
-})
-
-local hooks = require("ibl.hooks")
-hooks.register(hooks.type.WHITESPACE, hooks.builtin.hide_first_space_indent_level)
-hooks.register(hooks.type.WHITESPACE, hooks.builtin.hide_first_tab_indent_level)
 -------- UI --------
 
 -------- LSP --------
 local root_pattern = require("lspconfig.util").root_pattern
 local luasnip = require("luasnip")
 local cmp = require("cmp")
-local null_ls = require("null-ls")
 
 require("mason").setup()
 require("mason-lspconfig").setup({
@@ -544,11 +303,6 @@ require("mason-lspconfig").setup({
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
 local on_attach = function(client, bufnr)
-  if client.name == "denols" then
-    null_ls.disable("prettier")
-    vim.keymap.set("n", "<leader>di", ":DenolsCache<cr>")
-  end
-
   if root_pattern("deno.json", "deno.jsonc")(vim.fn.getcwd()) then
     if client.name == "tsserver" then
       client.stop()
@@ -626,22 +380,6 @@ local on_attach = function(client, bufnr)
 
   -- attempt to fix highlight conflicts with treesitter
   client.server_capabilities.semanticTokensProvider = nil
-
-  -- Show diagnostics on cursor hold
-  -- vim.api.nvim_create_autocmd("CursorHold", {
-  --   buffer = bufnr,
-  --   callback = function()
-  --     local opts = {
-  --       focusable = false,
-  --       close_events = { "BufLeave", "CursorMoved", "InsertEnter", "FocusLost" },
-  --       border = "rounded",
-  --       source = "always",
-  --       prefix = " ",
-  --       scope = "cursor",
-  --     }
-  --     vim.diagnostic.open_float(nil, opts)
-  --   end,
-  -- })
 end
 
 local capabilities = require("cmp_nvim_lsp").default_capabilities()
@@ -697,12 +435,6 @@ lspconfig.jsonls.setup({
       validate = { enable = true },
     },
   },
-  capabilities = capabilities,
-  on_attach = on_attach,
-})
-
-lspconfig.astro.setup({
-  root_dir = root_pattern("astro.config.mjs"),
   capabilities = capabilities,
   on_attach = on_attach,
 })
@@ -832,18 +564,6 @@ vim.diagnostic.config({
   },
   update_in_insert = true,
   severity_sort = true,
-})
-
-null_ls.setup({
-  sources = {
-    null_ls.builtins.formatting.stylua,
-    null_ls.builtins.formatting.prettier.with({
-      prefer_local = "node_modules/.bin",
-    }),
-    null_ls.builtins.diagnostics.actionlint,
-    null_ls.builtins.code_actions.eslint,
-  },
-  on_attach = on_attach,
 })
 
 lspconfig.cssls.setup({
@@ -1077,19 +797,10 @@ vim.cmd([[
   nmap <leader>jA :AV<cr>
 
   nnoremap <leader>o :only<cr>
-  nnoremap <leader>z :Goyo<cr>
 
   " Hex
   nnoremap <leader>x :%!xxd<cr>
   nnoremap <leader>X :%!xxd -r<cr>
-
-  " Fugitive.vim
-  nnoremap <leader>gw :Gw<cr>
-  nnoremap <leader>gc :Git commit<cr>
-  nnoremap <leader>ga :Git commit --amend<cr>
-  nnoremap <leader>gA :Git commit --amend --reuse-message=HEAD<cr>
-  nnoremap <leader>gs :Git status<cr>
-  nnoremap <leader>gP :Git push --force<cr>
 
   " don't send escape sequence with S-Space
   tnoremap <S-Space> <Space>
@@ -1145,10 +856,6 @@ vim.cmd([[
   end
 
   command! W noa write
-
-  " tab (window) nav
-  "map <C-Tab> gt
-  "map <C-S-Tab> gT
 
   function! SynStack()
     if !exists("*synstack")
