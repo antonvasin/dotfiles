@@ -18,11 +18,18 @@ require("lazy").setup({
 
   -- Editing & Navigation
   { "windwp/nvim-autopairs",        config = true },
+  { "numToStr/Comment.nvim",        config = true },
   "mbbill/undotree",
-  { "numToStr/Comment.nvim", config = true },
-  "tpope/vim-repeat",
-  "tpope/vim-surround",
-  "tpope/vim-unimpaired",
+  {
+    "kylechui/nvim-surround",
+    version = "*", -- Use for stability; omit to use `main` branch for the latest features
+    event = "VeryLazy",
+    config = function()
+      require("nvim-surround").setup({
+        -- Configuration here, or leave empty to use defaults
+      })
+    end
+  },
   { "ibhagwan/fzf-lua" },
 
   -- Integrations
@@ -42,14 +49,13 @@ require("lazy").setup({
     build = ":TSUpdate",
     dependencies = {
       "nvim-treesitter/nvim-treesitter-context",
-      "JoosepAlviste/nvim-ts-context-commentstring",
       "nvim-treesitter/nvim-treesitter-textobjects",
+      "JoosepAlviste/nvim-ts-context-commentstring",
     },
   },
-  { "sheerun/vim-go",     ft = { "go" } },
-  { "tpope/vim-jdaddy",   ft = { "json" } },
+  { "tpope/vim-jdaddy",   ft = "json" },
   { "neoclide/jsonc.vim", ft = "json" },
-  "ziglang/zig.vim",
+  { "ziglang/zig.vim",    ft = 'zig' },
 
   -- LSP
   "nvim-lua/plenary.nvim",
@@ -72,22 +78,7 @@ require("lazy").setup({
       "b0o/schemastore.nvim",
     },
   },
-
-  -- neovim dev
-  {
-    "folke/lazydev.nvim",
-    ft = "lua", -- only load on lua files
-    opts = {
-      library = {
-        -- Library items can be absolute paths
-        -- "~/projects/my-awesome-lib",
-        -- Or relative, which means they will be resolved as a plugin
-        -- "LazyVim",
-        -- When relative, you can also provide a path to the library in the plugin dir
-        -- "luvit-meta/library", -- see below
-      },
-    },
-  },
+  { "folke/lazydev.nvim", ft = "lua" },
 })
 -------- PLUGINS --------
 
@@ -233,10 +224,6 @@ autocmd BufWritePre * :%s/\s\+$//e
 " autocmd BufWritePost $MYVIMRC nested source $MYVIMRC
 
 " filetypes
-autocmd BufRead,BufNewFile Jenkinsfile set ft=groovy
-autocmd BufRead,BufNewFile *.jenkinsfile set ft=groovy
-autocmd BufRead,BufNewFile *.tpl set ft=html
-autocmd BufRead,BufNewFile *.coffee set noexpandtab
 autocmd BufRead,BufNewFile tsconfig*.json set filetype=jsonc
 autocmd BufRead,BufNewFile *.plist set filetype=xml
 
@@ -256,8 +243,10 @@ autocmd filetype qf wincmd J
 -- 24-bit colors
 vim.opt.termguicolors = true
 
-vim.api.nvim_set_hl(0, "Special", {})
+-- Use default theme, mute functions and brackets
 vim.api.nvim_set_hl(0, "Function", {})
+-- mute import/export, etc
+vim.api.nvim_set_hl(0, "Special", {})
 
 -- Tab symbols, etc
 vim.opt.listchars = "tab:▸ ,eol:¬,extends:❯,precedes:❮,nbsp:␣"
@@ -706,6 +695,12 @@ vim.keymap.set("t", "<C-h>", "<C-\\><C-n><C-w>h", bufopts)
 vim.keymap.set("t", "<C-j>", "<C-\\><C-n><C-w>j", bufopts)
 vim.keymap.set("t", "<C-k>", "<C-\\><C-n><C-w>k", bufopts)
 vim.keymap.set("t", "<C-l>", "<C-\\><C-n><C-w>l", bufopts)
+
+-- Move lines
+vim.keymap.set("n", "<A-j>", ":m .+1<CR>==")     -- move line up(n)
+vim.keymap.set("n", "<A-k>", ":m .-2<CR>==")     -- move line down(n)
+vim.keymap.set("v", "<A-j>", ":m '>+1<CR>gv=gv") -- move line up(v)
+vim.keymap.set("v", "<A-k>", ":m '<-2<CR>gv=gv") -- move line down(v)
 
 -- Resize
 vim.keymap.set("n", "<Right>", "<C-w>>", bufopts)
