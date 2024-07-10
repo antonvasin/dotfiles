@@ -79,6 +79,7 @@ require("lazy").setup({
     },
   },
   { "folke/lazydev.nvim", ft = "lua" },
+  "nvimtools/none-ls.nvim"
 })
 -------- PLUGINS --------
 
@@ -247,6 +248,7 @@ vim.opt.termguicolors = true
 vim.api.nvim_set_hl(0, "Function", {})
 -- mute import/export, etc
 vim.api.nvim_set_hl(0, "Special", {})
+vim.api.nvim_set_hl(0, "Todo", { bg = 'NvimLightYellow' })
 
 -- Tab symbols, etc
 vim.opt.listchars = "tab:▸ ,eol:¬,extends:❯,precedes:❮,nbsp:␣"
@@ -283,6 +285,7 @@ vim.opt.wildmenu = true
 local root_pattern = require("lspconfig.util").root_pattern
 local luasnip = require("luasnip")
 local cmp = require("cmp")
+local null_ls = require("null-ls")
 
 require("mason").setup()
 require("mason-lspconfig").setup({
@@ -293,6 +296,7 @@ require("mason-lspconfig").setup({
 -- after the language server attaches to the current buffer
 local on_attach = function(client, bufnr)
   if root_pattern("deno.json", "deno.jsonc")(vim.fn.getcwd()) then
+    null_ls.disable("prettier")
     if client.name == "tsserver" then
       client.stop()
       return
@@ -681,6 +685,17 @@ require("nvim-treesitter.configs").setup({
 require("ts_context_commentstring").setup({})
 vim.g.skip_ts_context_commentstring_module = true
 
+null_ls.setup({
+  sources = {
+    null_ls.builtins.formatting.stylua,
+    null_ls.builtins.formatting.prettier.with({
+      prefer_local = "node_modules/.bin",
+    }),
+    null_ls.builtins.diagnostics.actionlint,
+    null_ls.builtins.code_actions.eslint,
+  },
+  on_attach = on_attach,
+})
 -------- LSP --------
 
 -------- KEYS --------
