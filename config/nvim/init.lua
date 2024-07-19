@@ -14,7 +14,7 @@ vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
   -- Look
-  { "f-person/auto-dark-mode.nvim", config = true, },
+  { "f-person/auto-dark-mode.nvim", config = true },
 
   -- Editing & Navigation
   { "windwp/nvim-autopairs",        config = true },
@@ -28,7 +28,7 @@ require("lazy").setup({
       require("nvim-surround").setup({
         -- Configuration here, or leave empty to use defaults
       })
-    end
+    end,
   },
   { "ibhagwan/fzf-lua" },
 
@@ -55,7 +55,7 @@ require("lazy").setup({
   },
   { "tpope/vim-jdaddy",   ft = "json" },
   { "neoclide/jsonc.vim", ft = "json" },
-  { "ziglang/zig.vim",    ft = 'zig' },
+  { "ziglang/zig.vim",    ft = "zig" },
 
   -- LSP
   "nvim-lua/plenary.nvim",
@@ -79,7 +79,7 @@ require("lazy").setup({
     },
   },
   { "folke/lazydev.nvim", ft = "lua" },
-  "nvimtools/none-ls.nvim"
+  "nvimtools/none-ls.nvim",
 })
 -------- PLUGINS --------
 
@@ -124,7 +124,7 @@ vim.opt.showmatch = true
 vim.opt.wrap = true
 vim.opt.completeopt = { "menu", "menuone", "preview", "noselect", "noinsert" }
 vim.opt.shortmess = "atIc"
-vim.opt.cmdheight = 2
+vim.opt.cmdheight = 1
 
 -- folding
 vim.opt.foldenable = true
@@ -248,7 +248,7 @@ vim.opt.termguicolors = true
 vim.api.nvim_set_hl(0, "Function", {})
 -- mute import/export, etc
 vim.api.nvim_set_hl(0, "Special", {})
-vim.api.nvim_set_hl(0, "Todo", { bg = 'NvimLightYellow' })
+vim.api.nvim_set_hl(0, "Todo", { bg = "NvimLightYellow" })
 
 -- Tab symbols, etc
 vim.opt.listchars = "tab:▸ ,eol:¬,extends:❯,precedes:❮,nbsp:␣"
@@ -432,10 +432,10 @@ lspconfig.jsonls.setup({
   on_attach = on_attach,
 })
 
-lspconfig.eslint.setup({
-  on_attach = on_attach,
-  capabilities = capabilities,
-})
+-- lspconfig.eslint.setup({
+--   on_attach = on_attach,
+--   capabilities = capabilities,
+-- })
 
 lspconfig.zls.setup({
   on_attach = on_attach,
@@ -571,10 +571,11 @@ lspconfig.dockerls.setup({
 
 lspconfig.lua_ls.setup({
   on_init = function(client)
-    local path = client.workspace_folders[1].name
-    if vim.loop.fs_stat(path .. "/.luarc.json") or vim.loop.fs_stat(path .. "/.luarc.jsonc") then
-      return
-    end
+    -- local path = client.workspace_folders[1].name
+    --
+    -- if vim.loop.fs_stat(path .. "/.luarc.json") or vim.loop.fs_stat(path .. "/.luarc.jsonc") then
+    --   return
+    -- end
 
     client.config.settings.Lua = vim.tbl_deep_extend("force", client.config.settings.Lua, {
       runtime = {
@@ -692,7 +693,7 @@ null_ls.setup({
       prefer_local = "node_modules/.bin",
     }),
     null_ls.builtins.diagnostics.actionlint,
-    null_ls.builtins.code_actions.eslint,
+    -- null_ls.builtins.code_actions.eslint,
   },
   on_attach = on_attach,
 })
