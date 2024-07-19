@@ -56,6 +56,26 @@ require("lazy").setup({
   { "tpope/vim-jdaddy",   ft = "json" },
   { "neoclide/jsonc.vim", ft = "json" },
   { "ziglang/zig.vim",    ft = "zig" },
+  {
+    "chrisgrieser/nvim-spider",
+    keys = {
+      {
+        "w",
+        "<cmd>lua require('spider').motion('w')<CR>",
+        mode = { "n", "o", "x" },
+      },
+      {
+        "e",
+        "<cmd>lua require('spider').motion('e')<CR>",
+        mode = { "n", "o", "x" },
+      },
+      {
+        "b",
+        "<cmd>lua require('spider').motion('b')<CR>",
+        mode = { "n", "o", "x" },
+      },
+    },
+  },
 
   -- LSP
   "nvim-lua/plenary.nvim",
