@@ -55,3 +55,5 @@ export DENO_INSTALL="/Users/antonvasin/.deno"
 export PATH="$DENO_INSTALL/bin:$PATH"
 
 export HOMEBREW_NO_AUTO_UPDATE=1
+
+export JAVA_HOME="/usr/local/opt/openjdk/libexec/openjdk.jdk/Contents/Home"
