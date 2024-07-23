@@ -200,7 +200,7 @@
                 "type": "basic"
               },
               {
-                "description": "r = iTerm2",
+                "description": "t = Terminal",
                 "from": {
                   "key_code": "t",
                   "modifiers": {
@@ -220,9 +220,9 @@
                 "type": "basic"
               },
               {
-                "description": "option + t = notes",
+                "description": "option + n = Notes",
                 "from": {
-                  "key_code": "t",
+                  "key_code": "n",
                   "modifiers": {
                     "mandatory": [
                       "left_option",
@@ -235,13 +235,13 @@
                 },
                 "to": [
                   {
-                    "shell_command": "open -a notes"
+                    "shell_command": "open -a Obsidian"
                   }
                 ],
                 "type": "basic"
               },
               {
-                "description": "command + g = Chrome",
+                "description": "command + b = Alt Browser",
                 "from": {
                   "key_code": "b",
                   "modifiers": {
@@ -255,7 +255,7 @@
                 },
                 "to": [
                   {
-                    "shell_command": "open -a 'Google Chrome'"
+                    "shell_command": "open -a 'Arc'"
                   }
                 ],
                 "type": "basic"
