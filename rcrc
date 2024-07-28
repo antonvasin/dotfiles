@@ -1,4 +1,4 @@
-EXCLUDES="LICENSE README.md setup.sh gitignore git_template osx packages modules phoenix config/karabiner/automatic_backups gruvbox_dark.itermcolors gruvbox.sublime-color-scheme bin lib backup"
+EXCLUDES="LICENSE README.md setup.sh gitignore git_template osx packages modules phoenix config/karabiner/automatic_backups gruvbox_dark.itermcolors gruvbox.sublime-color-scheme bin lib backup scripts"
 DOTFILES_DIRS="$HOME/dotfiles"
 UNDOTTED="Library"
 SYMLINK_DIRS=config/karabiner
