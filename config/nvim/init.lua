@@ -42,6 +42,21 @@ require("lazy").setup({
   -- nice things for netrw
   "tpope/vim-vinegar",
   "kassio/neoterm",
+  {
+    "wallpants/github-preview.nvim",
+    cmd = { "GithubPreviewToggle" },
+    keys = { "<leader>mp" },
+    opts = {
+      -- config goes here
+    },
+    config = function(_, opts)
+      local gpreview = require("github-preview")
+      gpreview.setup(opts)
+
+      local fns = gpreview.fns
+      vim.keymap.set("n", "<leader>mp", fns.toggle)
+    end,
+  },
 
   -- Syntax
   {
@@ -373,10 +388,10 @@ local on_attach = function(client, bufnr)
   vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, bufopts)
   vim.keymap.set("n", "]d", vim.diagnostic.goto_next, bufopts)
 
-  if vim.fn.exists("&makeprg") == 1 then
-    -- Bind <leader>m to :make<CR>
-    vim.keymap.set("n", "<leader>m", ":make<CR>", bufopts)
-  end
+  -- if vim.fn.exists("&makeprg") == 1 then
+  --   -- Bind <leader>m to :make<CR>
+  --   vim.keymap.set("n", "<leader>m", ":make<CR>", bufopts)
+  -- end
 
   if client.server_capabilities.documentFormattingProvider then
     vim.keymap.set("n", "<leader>f", function()
