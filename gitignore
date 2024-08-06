@@ -66,3 +66,4 @@ Session.vim
 .vim
 docker-compose.override.yml
 Session.vim
+.ccls-cache

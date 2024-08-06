@@ -446,13 +446,15 @@ local on_attach = function(client, bufnr)
 			vim.lsp.buf.format({ timeout_ms = 5000 })
 		end, bufopts)
 
-		vim.api.nvim_clear_autocmds({ buffer = bufnr })
-		vim.api.nvim_create_autocmd("BufWritePre", {
-			buffer = bufnr,
-			callback = function()
-				vim.lsp.buf.format({ bufnr = bufnr, timeout_ms = 2000 })
-			end,
-		})
+		if vim.bo.filetype == "typescript" or vim.bo.filetype == "javascript" then
+			vim.api.nvim_clear_autocmds({ buffer = bufnr })
+			vim.api.nvim_create_autocmd("BufWritePre", {
+				buffer = bufnr,
+				callback = function()
+					vim.lsp.buf.format({ bufnr = bufnr, timeout_ms = 2000 })
+				end,
+			})
+		end
 	end
 
 	if client.server_capabilities.documentRangeFormattingProvider then
@@ -546,6 +548,16 @@ lspconfig.jsonls.setup({
 lspconfig.zls.setup({
 	on_attach = on_attach,
 	capabilities = capabilities,
+})
+
+lspconfig.ccls.setup({
+	on_attach = on_attach,
+	capabilities = capabilities,
+init_options = {
+    cache = {
+      directory = "/Users/antonvasin/.ccls-cache";
+    };
+  }
 })
 
 -- lspconfig.jdtls.setup({
