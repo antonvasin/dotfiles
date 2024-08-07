@@ -997,8 +997,5 @@ vim.cmd([[
   endfunc
 ]])
 
--- MarkdownPreview
-vim.keymap.set("n", "<leader>md", "<Plug>MarkdownPreviewToggle")
-
 vim.keymap.set("n", "<leader>S", toggle_scratch, bufopts)
 -------- KEYS --------
