@@ -931,9 +931,9 @@ vim.keymap.set("n", "s", ":w<cr>", bufopts) -- Save  with single key
 vim.keymap.set("n", "<leader>cc", ":cclose<cr>")
 vim.cmd("map K <Nop>") -- Unmap K
 
--- let g:neoterm_default_mod='botright'
--- let g:neoterm_autoinsert=1
--- let g:neoterm_repl_python='python3'
+vim.g.neoterm_default_mod = "botright"
+vim.g.neoterm_autoinsert = 1
+vim.g.neoterm_repl_python = "python3"
 
 -- cabbr <expr> %% expand('%:p:h')
 
