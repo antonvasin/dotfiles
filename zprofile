@@ -7,4 +7,4 @@ export PATH="$HOME/.cargo/bin:$PATH"
 source ~/.orbstack/shell/init.zsh 2>/dev/null || :
 eval $(/opt/homebrew/bin/brew shellenv)
 
-export PATH="$PATH:$HOME/code/zig-macos"
+export PATH="$PATH:$HOME/.zig/zls-latest:$HOME/.zig/latest"
