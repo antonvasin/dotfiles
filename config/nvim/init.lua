@@ -112,6 +112,95 @@ require("lazy").setup({
 			"onsails/lspkind.nvim",
 			"b0o/schemastore.nvim",
 		},
+		config = function()
+			local cmp = require("cmp")
+			cmp.setup({
+				snippet = {
+					expand = function(args)
+						luasnip.lsp_expand(args.body)
+					end,
+				},
+				mapping = cmp.mapping.preset.insert({
+					["<C-p>"] = cmp.mapping.select_prev_item(),
+					["<C-n>"] = cmp.mapping.select_next_item(),
+					["<C-d>"] = cmp.mapping.scroll_docs(-4),
+					["<C-f>"] = cmp.mapping.scroll_docs(4),
+					["<C-Space>"] = cmp.mapping.complete(),
+					["<CR>"] = cmp.mapping.confirm({
+						behavior = cmp.ConfirmBehavior.Replace,
+						select = true,
+					}),
+					["<Tab>"] = cmp.mapping(function(fallback)
+						if cmp.visible() then
+							cmp.select_next_item()
+						elseif luasnip.expand_or_locally_jumpable() then
+							luasnip.expand_or_jump()
+						elseif has_words_before() then
+							cmp.complete()
+						else
+							fallback()
+						end
+					end, { "i", "s" }),
+					["<S-Tab>"] = cmp.mapping(function(fallback)
+						if cmp.visible() then
+							cmp.select_prev_item()
+						elseif luasnip.jumpable(-1) then
+							luasnip.jump(-1)
+						else
+							fallback()
+						end
+					end, { "i", "s" }),
+				}),
+				sources = {
+					{ name = "lazydev" },
+					{ name = "nvim_lsp" },
+					{ name = "luasnip" },
+					{ name = "emoji" },
+					{ name = "buffer" },
+				},
+				completion = {
+					winhighlight = "Normal:Pmenu,FloatBorder:Pmenu,Search:None",
+					col_offset = -3,
+					side_padding = 0,
+				},
+				window = {
+					completion = {
+						border = "rounded",
+					},
+				},
+				formatting = {
+					fields = { "kind", "abbr", "menu" },
+					format = function(entry, vim_item)
+						local lspkind_config = {
+							mode = "symbol_text",
+							maxwidth = 50,
+							-- preset = "codicons",
+						}
+						local kind = require("lspkind").cmp_format(lspkind_config)(entry, vim_item)
+						local strings = vim.split(kind.kind, "%s", { trimempty = true })
+						local item = entry:get_completion_item()
+						kind.kind = " " .. (strings[1] or "") .. " "
+
+						if item.detail then
+							kind.menu = "    " .. item.detail
+						else
+							kind.menu = "    " .. (strings[2] or "")
+						end
+
+						-- vim.notify(vim.inspect(entry.completion_item))
+						-- item.data.file -> filename
+
+						return kind
+					end,
+				},
+				experimental = {
+					ghost_text = true,
+				},
+				view = {
+					entries = { name = "custom", selection_order = "near_cursor" },
+				},
+			})
+		end,
 	},
 	{ "folke/lazydev.nvim", ft = "lua" },
 	"nvimtools/none-ls.nvim",
@@ -174,7 +263,7 @@ vim.opt.tabstop = 2
 vim.opt.shiftwidth = 2
 vim.opt.softtabstop = 2
 vim.opt.expandtab = true
-vim.opt.scrolloff = 5
+vim.opt.scrolloff = 8
 vim.opt.showmode = false
 vim.opt.autoindent = true
 vim.opt.autoread = true
@@ -235,9 +324,7 @@ vim.g.maplocalleader = " "
 
 --don't wait too long for next keystroke
 vim.opt.timeoutlen = 500
-if not vim.g.vscode then
-	vim.opt.updatetime = 100
-end
+vim.opt.updatetime = 50
 
 vim.opt.iminsert = 0
 vim.opt.imsearch = 0
@@ -446,7 +533,7 @@ local on_attach = function(client, bufnr)
 			vim.lsp.buf.format({ timeout_ms = 5000 })
 		end, bufopts)
 
-		if vim.bo.filetype == "typescript" or vim.bo.filetype == "javascript" then
+		if vim.bo.filetype == "typescript" or vim.bo.filetype == "javascript" or vim.bo.filetype == "lua" then
 			vim.api.nvim_clear_autocmds({ buffer = bufnr })
 			vim.api.nvim_create_autocmd("BufWritePre", {
 				buffer = bufnr,
@@ -553,11 +640,11 @@ lspconfig.zls.setup({
 lspconfig.ccls.setup({
 	on_attach = on_attach,
 	capabilities = capabilities,
-init_options = {
-    cache = {
-      directory = "/Users/antonvasin/.ccls-cache";
-    };
-  }
+	init_options = {
+		cache = {
+			directory = "/Users/antonvasin/.ccls-cache",
+		},
+	},
 })
 
 -- lspconfig.jdtls.setup({
@@ -819,6 +906,36 @@ null_ls.setup({
 
 -------- KEYS --------
 local bufopts = { noremap = true, silent = true }
+-- Leader maps
+vim.keymap.set("n", "<leader>l", ":set list!<cr> \\| :IndentLinesToggle<cr>")
+vim.keymap.set("n", "<leader><space>", ":nohl<cr>")
+vim.keymap.set("n", "<leader>lw", ":%s/^\\s\\+<cr>:nohl<cr>")
+vim.keymap.set("n", "<leader>bl", ":g/^$/d<cr>:nohl<cr>")
+vim.keymap.set("n", "<leader>ev", ":tabe $MYVIMRC<cr>:lcd %:p:h<cr>")
+vim.keymap.set("n", "<leader>y", "^y$") -- Yank whole text line without spaces
+vim.keymap.set("n", "<leader>R", ":%s///<left>")
+vim.keymap.set("n", "<leader>a", ":Ack!<space>")
+vim.keymap.set("n", "<leader>qq", ":qa!<cr>")
+vim.keymap.set("n", "<leader>w", "<C-w>")
+vim.keymap.set("n", "<leader>o", ":only<cr>")
+vim.keymap.set("n", "<leader>dt", 'i<C-R>=strftime("%FT%T%z")<CR><Esc>')
+vim.keymap.set("n", "<leader>x", ":%!xxd<cr>") --    -> HEX
+vim.keymap.set("n", "<leader>X", ":%!xxd -r<cr>") -- HEX ->
+vim.keymap.set("n", "`", ":Ttoggle<cr>")
+vim.keymap.set("n", "<leader>tc", ":Tclear<cr>")
+vim.keymap.set("n", "<S-Space>", "<Space>") -- don't send escape sequence with S-Space
+vim.keymap.set("n", "J", "mzJ`z", bufopts) -- Cursor don't jump when joining lines
+vim.keymap.set("n", "*", "*``", bufopts) -- Don't jump to first highlight
+vim.keymap.set("n", "Y", "y$", bufopts) -- Yank till end of the line
+vim.keymap.set("n", "s", ":w<cr>", bufopts) -- Save  with single key
+vim.keymap.set("n", "<leader>cc", ":cclose<cr>")
+vim.cmd("map K <Nop>") -- Unmap K
+
+-- let g:neoterm_default_mod='botright'
+-- let g:neoterm_autoinsert=1
+-- let g:neoterm_repl_python='python3'
+
+-- cabbr <expr> %% expand('%:p:h')
 
 -- Pane movement with <C-h|j|k|l>
 vim.keymap.set("n", "<C-h>", "<C-w>h", bufopts)
@@ -849,12 +966,6 @@ vim.keymap.set("n", "<Down>", "<C-w>+", bufopts)
 vim.keymap.set("n", "j", "gj", bufopts)
 vim.keymap.set("n", "k", "gk", bufopts)
 
--- Cursor don't jump when joining lines
-vim.keymap.set("n", "J", "mzJ`z", bufopts)
-
--- Don't jump to first highlight
-vim.keymap.set("n", "*", "*``", bufopts)
-
 -- Keep search matches in the middle of the window.
 vim.keymap.set("n", "n", "nzzzv", bufopts)
 vim.keymap.set("n", "N", "Nzzzv", bufopts)
@@ -871,131 +982,48 @@ vim.keymap.set("v", ">", ">gv", bufopts)
 vim.keymap.set("n", "/", "/\\v", bufopts)
 vim.keymap.set("v", "/", "/\\v", bufopts)
 
--- Easy commands with ;
--- lua version waits for the next key to enter command mode
--- vim.keymap.set("n", ";", ":", bufopts)
-vim.cmd([[nnoremap ; :]])
-
--- Yank till end of the line
-vim.keymap.set("n", "Y", "y$", bufopts)
+vim.cmd([[nnoremap ; :]]) -- Easy commands with ;
+-- vim.keymap.set("n", ";", ":", bufopts) -- lua version waits for the next key to enter command mode
 
 -- Get full folder path in command mdoe
 vim.keymap.set("c", "cwd", "lcd %:p:h")
 vim.keymap.set("n", "<leader>cd", ":lcd %:p:h<cr>", bufopts)
 
--- Save  with single key
-vim.keymap.set("n", "s", ":w<cr>", bufopts)
-
-vim.keymap.set("n", "<leader>cc", ":cclose<cr>")
-
--- Unmap K
-vim.cmd("map K <Nop>")
-
 -- FZF
 -- vim.keymap.set("n", "<C-t>", ":FZF<cr>", bufopts)
 -- vim.keymap.set("n", "<C-p>", ":FZF<cr>", bufopts)
---
 vim.api.nvim_set_keymap("n", "<c-P>", "<cmd>lua require('fzf-lua').files()<CR>", bufopts)
-
--- LSP
-vim.keymap.set("n", "<leader>Ls", ":LspInfo<cr>", bufopts)
-vim.keymap.set("n", "<leader>Li", ":LspInstall<cr>", bufopts)
-vim.keymap.set("n", "<leader>Lx", ":LspStop ", bufopts)
 
 -- Undo History
 vim.g.undotree_WindowLayout = 2
 vim.g.undotree_SplitWidth = 34
 vim.keymap.set("n", "<leader>u", vim.cmd.UndotreeToggle)
 
-vim.cmd([[
-  " Leader maps
-  nnoremap <leader>l :set list!<cr> \| :IndentLinesToggle<cr>
-  nnoremap <leader><space> :nohl<cr>
-  "noremap <leader>u :MundoToggle<cr>
-  nnoremap <leader>lw :%s/^\s\+<cr>:nohl<cr>
-  nnoremap <leader>bl :g/^$/d<cr>:nohl<cr>
-  nnoremap <leader>ev :tabe $MYVIMRC<cr>:lcd %:p:h<cr>
-  " Yank whole text line without spaces
-  nnoremap <leader>y ^y$
-  nnoremap <leader>R :%s///<left>
-  nnoremap <leader>a :Ack!<space>
-  nnoremap <leader>qq :qa!<cr>
-  nnoremap <leader>w <C-w>
-  nnoremap <leader>md :Glow<cr>
-
-  nnoremap <leader>dt i<C-R>=strftime("%FT%T%z")<CR><Esc>
-
-  nmap <leader>ja :A<cr>
-  nmap <leader>jA :AV<cr>
-
-  nnoremap <leader>o :only<cr>
-
-  " Hex
-  nnoremap <leader>x :%!xxd<cr>
-  nnoremap <leader>X :%!xxd -r<cr>
-
-  " don't send escape sequence with S-Space
-  tnoremap <S-Space> <Space>
-
-  " nnoremap <leader>j :Ttoggle<cr>
-  nnoremap ` :Ttoggle<cr>
-  " tnoremap <leader>j <C-\><C-n>:Ttoggle<cr>
-  tnoremap ` <C-\><C-n>:Ttoggle<cr>
-
-  nnoremap <leader>tc :Tclear<cr>
-  let g:neoterm_default_mod='botright'
-  let g:neoterm_autoinsert=1
-  let g:neoterm_repl_python='python3'
-
-  cabbr <expr> %% expand('%:p:h')
-
-  " fzf
-  nnoremap <leader>b :Buffers<cr>
-]])
-
-vim.cmd([[
-  function! CloseWindowOrKillBuffer()
-    let number_of_windows_to_this_buffer = len(filter(range(1, winnr('$')), "winbufnr(v:val) == bufnr('%')"))
-
-    " We should never bdelete a nerd tree
-    if matchstr(expand("%"), 'NERD') == 'NERD'
-      wincmd c
-      return
-    endif
-
-    if number_of_windows_to_this_buffer > 1
-      wincmd c
-    else
-      bdelete
-    endif
-  endfunction
-
-  map Q <Nop>
-]])
-
-vim.cmd([[
-  if (!exists('g:vscode'))
-    nnoremap <silent> Q :call CloseWindowOrKillBuffer()<CR>
-    nnoremap <silent> <D-w> :call CloseWindowOrKillBuffer()<CR>
-  else
-    map - <Nop>
-  end
-
-  if has('gui_running')
-    nnoremap <D-p> :FZF<CR>
-    set showtabline=0
-    set guioptions=
-  end
-
-  command! W noa write
-
-  function! SynStack()
-    if !exists("*synstack")
-      return
-    endif
-    echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
-  endfunc
-]])
+vim.keymap.set("n", "Q", "<Nop>")
+-- vim.cmd([[
+--   function! CloseWindowOrKillBuffer()
+--     let number_of_windows_to_this_buffer = len(filter(range(1, winnr('$')), "winbufnr(v:val) == bufnr('%')"))
+--
+--     " We should never bdelete a nerd tree
+--     if matchstr(expand("%"), 'NERD') == 'NERD'
+--       wincmd c
+--       return
+--     endif
+--
+--     if number_of_windows_to_this_buffer > 1
+--       wincmd c
+--     else
+--       bdelete
+--     endif
+--   endfunction
+--
+--   map Q <Nop>
+--
+--   nnoremap <silent> Q :call CloseWindowOrKillBuffer()<CR>
+--   nnoremap <silent> <D-w> :call CloseWindowOrKillBuffer()<CR>
+--   command! W noa write
+-- ]])
 
 vim.keymap.set("n", "<leader>S", toggle_scratch, bufopts)
+
 -------- KEYS --------
