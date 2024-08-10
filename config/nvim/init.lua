@@ -819,7 +819,7 @@ lspconfig.rust_analyzer.setup({
 })
 
 require("nvim-treesitter.configs").setup({
-	ensure_installed = { "javascript", "typescript", "css", "html", "bash", "sql", "vim", "lua" },
+	ensure_installed = { "javascript", "typescript", "css", "html", "bash", "sql", "vim", "vimdoc", "lua" },
 	highlight = { enabled = true },
 	auto_install = true,
 	textobjects = {
