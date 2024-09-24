@@ -12,6 +12,13 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
+if vim.g.neovide then
+	vim.o.guifont = "Iosevka Comfy:h14" -- text below applies for VimScript
+	vim.g.neovide_scroll_animation_length = 0.1
+	vim.g.neovide_hide_mouse_when_typing = true
+	vim.g.neovide_cursor_animation_length = 0
+end
+
 require("lazy").setup({
 	-- Look
 	{ "f-person/auto-dark-mode.nvim", config = true },
@@ -33,6 +40,7 @@ require("lazy").setup({
 	{ "ibhagwan/fzf-lua" },
 
 	-- Integrations
+	"nvim-lua/plenary.nvim",
 	{
 		"mileszs/ack.vim",
 		init = function()
@@ -57,6 +65,10 @@ require("lazy").setup({
 			vim.keymap.set("n", "<leader>mp", fns.toggle)
 		end,
 	},
+	-- {
+	-- 	"yacineMTB/dingllm.nvim",
+	-- 	dependencies = { "nvim-lua/plenary.nvim" },
+	-- },
 
 	-- Syntax
 	{
@@ -93,7 +105,6 @@ require("lazy").setup({
 	},
 
 	-- LSP
-	"nvim-lua/plenary.nvim",
 	{
 		"neovim/nvim-lspconfig",
 		dependencies = {
@@ -114,6 +125,12 @@ require("lazy").setup({
 		},
 		config = function()
 			local cmp = require("cmp")
+			local luasnip = require("luasnip")
+			local has_words_before = function()
+				local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+				return col ~= 0
+					and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
+			end
 			cmp.setup({
 				snippet = {
 					expand = function(args)
@@ -204,54 +221,6 @@ require("lazy").setup({
 	},
 	{ "folke/lazydev.nvim", ft = "lua" },
 	"nvimtools/none-ls.nvim",
-	{
-		"mfussenegger/nvim-jdtls",
-		ft = "java",
-		config = function()
-			local config = {
-				cmd = { "/opt/homebrew/bin/jdtls" },
-				root_dir = vim.fs.dirname(vim.fs.find({ "gradlew", ".git", "mvnw" }, { upward = true })[1]),
-				on_attach = function(client)
-					local bufopts = { noremap = true, silent = true, buffer = bufnr }
-					vim.keymap.set("n", "gd", vim.lsp.buf.definition, bufopts)
-					vim.keymap.set("n", "gD", vim.lsp.buf.type_definition, bufopts)
-					-- vim.keymap.set("n", "gD", vim.lsp.buf.declaration, bufopts)
-					vim.keymap.set("n", "K", vim.lsp.buf.hover, bufopts)
-					vim.keymap.set("n", "gi", vim.lsp.buf.implementation, bufopts)
-					vim.keymap.set("n", "<leader>wa", vim.lsp.buf.add_workspace_folder, bufopts)
-					vim.keymap.set("n", "<leader>wr", vim.lsp.buf.remove_workspace_folder, bufopts)
-					vim.keymap.set("n", "<leader>wl", function()
-						print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-					end, bufopts)
-					-- vim.keymap.set("n", "gt", vim.lsp.buf.type_definition, bufopts)
-					-- find-replace
-					vim.keymap.set("n", "<leader>r", vim.lsp.buf.rename, bufopts)
-					vim.keymap.set("n", "<leader>.", vim.lsp.buf.code_action, bufopts)
-					vim.keymap.set("n", "gr", vim.lsp.buf.references, bufopts)
-
-					vim.keymap.set("n", "ge", vim.diagnostic.open_float, bufopts)
-					vim.keymap.set("n", "gE", vim.diagnostic.setloclist, bufopts)
-					vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, bufopts)
-					vim.keymap.set("n", "]d", vim.diagnostic.goto_next, bufopts)
-
-					if client.server_capabilities.documentFormattingProvider then
-						vim.keymap.set("n", "<leader>f", function()
-							vim.lsp.buf.format({ timeout_ms = 5000 })
-						end, bufopts)
-
-						vim.api.nvim_clear_autocmds({ buffer = bufnr })
-						vim.api.nvim_create_autocmd("BufWritePre", {
-							buffer = bufnr,
-							callback = function()
-								vim.lsp.buf.format({ bufnr = bufnr, timeout_ms = 2000 })
-							end,
-						})
-					end
-				end,
-			}
-			require("jdtls").start_or_attach(config)
-		end,
-	},
 })
 -------- PLUGINS --------
 
@@ -576,7 +545,6 @@ capabilities.textDocument.completion.completionItem.snippetSupport = true
 local lspconfig = require("lspconfig")
 
 lspconfig.tsserver.setup({
-	-- root_dir = root_pattern( --[[ "tsconfig.json",  ]] "package.json"),
 	capabilities = capabilities,
 	on_attach = on_attach,
 })
@@ -656,99 +624,7 @@ lspconfig.ccls.setup({
 -- 	end,
 -- })
 
-local has_words_before = function()
-	local line, col = unpack(vim.api.nvim_win_get_cursor(0))
-	return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
-end
-
 require("luasnip.loaders.from_vscode").lazy_load()
-
-cmp.setup({
-	snippet = {
-		expand = function(args)
-			luasnip.lsp_expand(args.body)
-		end,
-	},
-	mapping = cmp.mapping.preset.insert({
-		["<C-p>"] = cmp.mapping.select_prev_item(),
-		["<C-n>"] = cmp.mapping.select_next_item(),
-		["<C-d>"] = cmp.mapping.scroll_docs(-4),
-		["<C-f>"] = cmp.mapping.scroll_docs(4),
-		["<C-Space>"] = cmp.mapping.complete(),
-		["<CR>"] = cmp.mapping.confirm({
-			behavior = cmp.ConfirmBehavior.Replace,
-			select = true,
-		}),
-		["<Tab>"] = cmp.mapping(function(fallback)
-			if cmp.visible() then
-				cmp.select_next_item()
-			elseif luasnip.expand_or_locally_jumpable() then
-				luasnip.expand_or_jump()
-			elseif has_words_before() then
-				cmp.complete()
-			else
-				fallback()
-			end
-		end, { "i", "s" }),
-		["<S-Tab>"] = cmp.mapping(function(fallback)
-			if cmp.visible() then
-				cmp.select_prev_item()
-			elseif luasnip.jumpable(-1) then
-				luasnip.jump(-1)
-			else
-				fallback()
-			end
-		end, { "i", "s" }),
-	}),
-	sources = {
-		{ name = "lazydev" },
-		{ name = "nvim_lsp" },
-		{ name = "luasnip" },
-		{ name = "emoji" },
-		{ name = "buffer" },
-	},
-	completion = {
-		winhighlight = "Normal:Pmenu,FloatBorder:Pmenu,Search:None",
-		col_offset = -3,
-		side_padding = 0,
-	},
-	window = {
-		completion = {
-			border = "rounded",
-		},
-	},
-	formatting = {
-		fields = { "kind", "abbr", "menu" },
-		format = function(entry, vim_item)
-			local lspkind_config = {
-				mode = "symbol_text",
-				maxwidth = 50,
-				-- preset = "codicons",
-			}
-			local kind = require("lspkind").cmp_format(lspkind_config)(entry, vim_item)
-			local strings = vim.split(kind.kind, "%s", { trimempty = true })
-			local item = entry:get_completion_item()
-			kind.kind = " " .. (strings[1] or "") .. " "
-
-			if item.detail then
-				kind.menu = "    " .. item.detail
-			else
-				kind.menu = "    " .. (strings[2] or "")
-			end
-
-			-- vim.notify(vim.inspect(entry.completion_item))
-			-- item.data.file -> filename
-
-			return kind
-		end,
-	},
-	experimental = {
-		ghost_text = true,
-	},
-	view = {
-		entries = { name = "custom", selection_order = "near_cursor" },
-	},
-})
 
 vim.diagnostic.config({
 	virtual_text = false,
@@ -888,6 +764,11 @@ require("nvim-treesitter.configs").setup({
 	},
 })
 
+require("treesitter-context").setup({
+	enable = true,
+	max_lines = 1,
+})
+
 require("ts_context_commentstring").setup({})
 vim.g.skip_ts_context_commentstring_module = true
 
@@ -922,6 +803,7 @@ vim.keymap.set("n", "<leader>dt", 'i<C-R>=strftime("%FT%T%z")<CR><Esc>')
 vim.keymap.set("n", "<leader>x", ":%!xxd<cr>") --    -> HEX
 vim.keymap.set("n", "<leader>X", ":%!xxd -r<cr>") -- HEX ->
 vim.keymap.set("n", "`", ":Ttoggle<cr>")
+vim.keymap.set("t", "`", "<C-\\><C-n>:Ttoggle<cr>")
 vim.keymap.set("n", "<leader>tc", ":Tclear<cr>")
 vim.keymap.set("n", "<S-Space>", "<Space>") -- don't send escape sequence with S-Space
 vim.keymap.set("n", "J", "mzJ`z", bufopts) -- Cursor don't jump when joining lines
@@ -948,13 +830,11 @@ vim.keymap.set("t", "<C-k>", "<C-\\><C-n><C-w>k", bufopts)
 vim.keymap.set("t", "<C-l>", "<C-\\><C-n><C-w>l", bufopts)
 
 -- Move lines
-vim.keymap.set("n", "<A-j>", ":m .+1<CR>==") -- move line up(n)
-vim.keymap.set("n", "<A-k>", ":m .-2<CR>==") -- move line down(n)
 vim.keymap.set("n", "]e", ":m .+1<CR>==") -- move line up(n)
 vim.keymap.set("n", "[e", ":m .-2<CR>==") -- move line down(n)
 
-vim.keymap.set("v", "<A-j>", ":m '>+1<CR>gv=gv") -- move line up(v)
-vim.keymap.set("v", "<A-k>", ":m '<-2<CR>gv=gv") -- move line down(v)
+vim.keymap.set("v", "]e", ":m '>+1<CR>gv=gv") -- move line up(v)
+vim.keymap.set("v", "[e", ":m '<-2<CR>gv=gv") -- move line down(v)
 
 -- Resize
 vim.keymap.set("n", "<Right>", "<C-w>>", bufopts)
@@ -971,8 +851,8 @@ vim.keymap.set("n", "n", "nzzzv", bufopts)
 vim.keymap.set("n", "N", "Nzzzv", bufopts)
 
 -- Scroll by 3 lines on <C-e|y>
-vim.keymap.set("n", "<C-e>", "3<C-e>", bufopts)
-vim.keymap.set("n", "<C-y>", "3<C-y>", bufopts)
+-- vim.keymap.set("n", "<C-e>", "3<C-e>", bufopts)
+-- vim.keymap.set("n", "<C-y>", "3<C-y>", bufopts)
 
 -- Keep visual mode when indenting
 vim.keymap.set("v", "<", "<gv", bufopts)
@@ -1000,30 +880,10 @@ vim.g.undotree_SplitWidth = 34
 vim.keymap.set("n", "<leader>u", vim.cmd.UndotreeToggle)
 
 vim.keymap.set("n", "Q", "<Nop>")
--- vim.cmd([[
---   function! CloseWindowOrKillBuffer()
---     let number_of_windows_to_this_buffer = len(filter(range(1, winnr('$')), "winbufnr(v:val) == bufnr('%')"))
---
---     " We should never bdelete a nerd tree
---     if matchstr(expand("%"), 'NERD') == 'NERD'
---       wincmd c
---       return
---     endif
---
---     if number_of_windows_to_this_buffer > 1
---       wincmd c
---     else
---       bdelete
---     endif
---   endfunction
---
---   map Q <Nop>
---
---   nnoremap <silent> Q :call CloseWindowOrKillBuffer()<CR>
---   nnoremap <silent> <D-w> :call CloseWindowOrKillBuffer()<CR>
---   command! W noa write
--- ]])
 
 vim.keymap.set("n", "<leader>S", toggle_scratch, bufopts)
 
+vim.keymap.set({ "n", "v" }, "<leader>i", function()
+	require("llm").invoke_llm_and_stream_into_editor({ replace = true, provider = "openai" })
+end, { desc = "LLM Assitant Anthropic" })
 -------- KEYS --------

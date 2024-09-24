@@ -1,9 +1,10 @@
 local wezterm = require("wezterm")
 local config = wezterm.config_builder()
 
-config.font = wezterm.font("Iosevka Term")
-config.font_size = 15.0
+config.font = wezterm.font("Iosevka Comfy")
+config.font_size = 14.0
 -- config.color_scheme = "Papercolor Dark (Gogh)"
+config.audible_bell = "Disabled"
 
 function get_appearance()
 	if wezterm.gui then
