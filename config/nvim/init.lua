@@ -22,6 +22,13 @@ end
 require("lazy").setup({
 	-- Look
 	{ "f-person/auto-dark-mode.nvim", config = true },
+	{
+		"nvim-lualine/lualine.nvim",
+		dependencies = { "nvim-tree/nvim-web-devicons" },
+		config = function()
+			require("lualine").setup({})
+		end,
+	},
 
 	-- Editing & Navigation
 	{ "windwp/nvim-autopairs", config = true },
@@ -37,7 +44,7 @@ require("lazy").setup({
 			})
 		end,
 	},
-	{ "ibhagwan/fzf-lua" },
+	"ibhagwan/fzf-lua",
 
 	-- Integrations
 	"nvim-lua/plenary.nvim",
@@ -145,7 +152,7 @@ require("lazy").setup({
 					["<C-Space>"] = cmp.mapping.complete(),
 					["<CR>"] = cmp.mapping.confirm({
 						behavior = cmp.ConfirmBehavior.Replace,
-						select = true,
+						-- select = true,
 					}),
 					["<Tab>"] = cmp.mapping(function(fallback)
 						if cmp.visible() then
@@ -462,7 +469,7 @@ require("mason-lspconfig").setup({
 local on_attach = function(client, bufnr)
 	if root_pattern("deno.json", "deno.jsonc")(vim.fn.getcwd()) then
 		null_ls.disable("prettier")
-		if client.name == "tsserver" then
+		if client.name == "ts_ls" then
 			client.stop()
 			return
 		end
@@ -544,7 +551,7 @@ capabilities.textDocument.completion.completionItem.snippetSupport = true
 
 local lspconfig = require("lspconfig")
 
-lspconfig.tsserver.setup({
+lspconfig.ts_ls.setup({
 	capabilities = capabilities,
 	on_attach = on_attach,
 })
@@ -615,14 +622,10 @@ lspconfig.ccls.setup({
 	},
 })
 
--- lspconfig.jdtls.setup({
--- 	on_attach = on_attach,
--- 	capabilities = capabilities,
--- 	root_dir = function()
--- 		return vim.fs.dirname(vim.fs.find({ ".gradlew", ".gitignore", "mvnw", "build.gradle" }, { upward = true })[1])
--- 			.. "\\"
--- 	end,
--- })
+lspconfig.jdtls.setup({
+	on_attach = on_attach,
+	capabilities = capabilities,
+})
 
 require("luasnip.loaders.from_vscode").lazy_load()
 
@@ -802,6 +805,7 @@ vim.keymap.set("n", "<leader>o", ":only<cr>")
 vim.keymap.set("n", "<leader>dt", 'i<C-R>=strftime("%FT%T%z")<CR><Esc>')
 vim.keymap.set("n", "<leader>x", ":%!xxd<cr>") --    -> HEX
 vim.keymap.set("n", "<leader>X", ":%!xxd -r<cr>") -- HEX ->
+vim.keymap.set("n", "<leader>W", ":noa w<cr>")
 vim.keymap.set("n", "`", ":Ttoggle<cr>")
 vim.keymap.set("t", "`", "<C-\\><C-n>:Ttoggle<cr>")
 vim.keymap.set("n", "<leader>tc", ":Tclear<cr>")
@@ -830,11 +834,22 @@ vim.keymap.set("t", "<C-k>", "<C-\\><C-n><C-w>k", bufopts)
 vim.keymap.set("t", "<C-l>", "<C-\\><C-n><C-w>l", bufopts)
 
 -- Move lines
-vim.keymap.set("n", "]e", ":m .+1<CR>==") -- move line up(n)
-vim.keymap.set("n", "[e", ":m .-2<CR>==") -- move line down(n)
-
-vim.keymap.set("v", "]e", ":m '>+1<CR>gv=gv") -- move line up(v)
-vim.keymap.set("v", "[e", ":m '<-2<CR>gv=gv") -- move line down(v)
+-- vim.keymap.set("n", "]e", ":m .+1<CR>==") -- move line up(n)
+-- vim.keymap.set("n", "[e", ":m .-2<CR>==") -- move line down(n)
+-- vim.keymap.set("v", "]e", ":m '>+1<CR>gv=gv") -- move line up(v)
+-- vim.keymap.set("v", "[e", ":m '<-2<CR>gv=gv") -- move line down(v)
+vim.keymap.set("n", "[e", function()
+	return require("moveline").move("up")
+end, { expr = true })
+vim.keymap.set("n", "]e", function()
+	return require("moveline").move("down")
+end, { expr = true })
+vim.keymap.set("x", "[e", function()
+	return require("moveline").move_selection("up")
+end, { expr = true })
+vim.keymap.set("x", "]e", function()
+	return require("moveline").move_selection("down")
+end, { expr = true })
 
 -- Resize
 vim.keymap.set("n", "<Right>", "<C-w>>", bufopts)
@@ -885,5 +900,5 @@ vim.keymap.set("n", "<leader>S", toggle_scratch, bufopts)
 
 vim.keymap.set({ "n", "v" }, "<leader>i", function()
 	require("llm").invoke_llm_and_stream_into_editor({ replace = true, provider = "openai" })
-end, { desc = "LLM Assitant Anthropic" })
+end, { desc = "LLM Assitant OpenAI" })
 -------- KEYS --------

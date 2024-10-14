@@ -25,6 +25,7 @@ M.providers = {
 	openai = {
 		url = "https://api.openai.com/v1/chat/completions",
 		model = "gpt-4o",
+		-- model = "o1-preview",
 		api_key_name = "OPENAI_API_KEY",
 		handle_spec_data = function(data_stream)
 			if data_stream:match('"delta":') then

@@ -88,6 +88,16 @@ config.keys = {
 		mods = "CTRL|CMD",
 		action = wezterm.action.ToggleFullScreen,
 	},
+	-- {
+	-- 	key = "r",
+	-- 	mods = "CMD",
+	-- 	action = wezterm.action.DisableDefaultAssignment,
+	-- },
+	{
+		key = "r",
+		mods = "CMD",
+		action = wezterm.action.ClearScrollback("ScrollbackAndViewport"),
+	},
 }
 
 return config
