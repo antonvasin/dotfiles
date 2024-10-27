@@ -21,14 +21,14 @@ end
 
 require("lazy").setup({
 	-- Look
-	{ "f-person/auto-dark-mode.nvim", config = true },
 	{
 		"nvim-lualine/lualine.nvim",
-		dependencies = { "nvim-tree/nvim-web-devicons" },
 		config = function()
 			require("lualine").setup({})
 		end,
 	},
+	{ "nvim-tree/nvim-web-devicons" },
+	{ "lewis6991/gitsigns.nvim", config = true },
 
 	-- Editing & Navigation
 	{ "windwp/nvim-autopairs", config = true },
@@ -44,7 +44,39 @@ require("lazy").setup({
 			})
 		end,
 	},
-	"ibhagwan/fzf-lua",
+	{ "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
+	{
+		"nvim-telescope/telescope.nvim",
+		dependencies = { "nvim-lua/plenary.nvim" },
+		branch = "0.1.x",
+		config = function()
+			local actions = require("telescope.actions")
+			require("telescope").setup({
+				defaults = {
+					layout_strategy = "flex",
+					mappings = {
+						i = {
+							["<esc>"] = actions.close,
+						},
+					},
+				},
+				pickers = {
+					find_files = {
+						-- `hidden = true` will still show the inside of `.git/` as it's not `.gitignore`d.
+						find_command = { "rg", "--follow", "--files", "--hidden", "--glob", "!**/.git/*" },
+					},
+				},
+				extenstions = {
+					fzf = {
+						fuzzy = true,
+						override_generic_sorter = true,
+						override_file_sorter = true,
+						case_mode = "smart_case",
+					},
+				},
+			})
+		end,
+	},
 
 	-- Integrations
 	"nvim-lua/plenary.nvim",
@@ -81,12 +113,10 @@ require("lazy").setup({
 	{
 		"nvim-treesitter/nvim-treesitter",
 		build = ":TSUpdate",
-		dependencies = {
-			"nvim-treesitter/nvim-treesitter-context",
-			"nvim-treesitter/nvim-treesitter-textobjects",
-			"JoosepAlviste/nvim-ts-context-commentstring",
-		},
 	},
+	"nvim-treesitter/nvim-treesitter-context",
+	"nvim-treesitter/nvim-treesitter-textobjects",
+	"JoosepAlviste/nvim-ts-context-commentstring",
 	{ "tpope/vim-jdaddy", ft = "json" },
 	{ "neoclide/jsonc.vim", ft = "json" },
 	{ "ziglang/zig.vim", ft = "zig" },
@@ -112,13 +142,10 @@ require("lazy").setup({
 	},
 
 	-- LSP
-	{
-		"neovim/nvim-lspconfig",
-		dependencies = {
-			"williamboman/mason.nvim",
-			"williamboman/mason-lspconfig.nvim",
-		},
-	},
+
+	"neovim/nvim-lspconfig",
+	"williamboman/mason.nvim",
+	"williamboman/mason-lspconfig.nvim",
 	{
 		"hrsh7th/nvim-cmp",
 		dependencies = {
@@ -229,6 +256,7 @@ require("lazy").setup({
 	{ "folke/lazydev.nvim", ft = "lua" },
 	"nvimtools/none-ls.nvim",
 })
+require("telescope").load_extension("fzf")
 -------- PLUGINS --------
 
 -------- SETTINGS --------
@@ -393,8 +421,13 @@ vim.opt.termguicolors = true
 -- Use default theme, mute functions and brackets
 vim.api.nvim_set_hl(0, "Function", {})
 -- mute import/export, etc
--- vim.api.nvim_set_hl(0, "Special", {})
-vim.api.nvim_set_hl(0, "Todo", { bg = "NvimLightYellow" })
+vim.api.nvim_set_hl(0, "Special", {})
+
+if vim.o.background == "dark" then
+	vim.api.nvim_set_hl(0, "Todo", { bg = "NvimLightYellow", fg = "NvimDarkGray1" })
+else
+	vim.api.nvim_set_hl(0, "Todo", { bg = "NvimLightYellow", fg = "NvimLightGray4" })
+end
 
 -- Tab symbols, etc
 vim.opt.listchars = "tab:▸ ,eol:¬,extends:❯,precedes:❮,nbsp:␣"
@@ -409,11 +442,6 @@ vim.cmd([[
     au BufWinEnter * setlocal cursorline
     au WinLeave * setlocal nocursorline
   augroup END
-]])
-
-vim.cmd([[
-  autocmd! FileType fzf,neoterm
-  autocmd FileType fzf,neoterm set laststatus=0 | autocmd WinLeave <buffer> set laststatus=2
 ]])
 
 vim.cmd("autocmd VimResized * wincmd =")
@@ -455,14 +483,23 @@ end
 
 -------- LSP --------
 local root_pattern = require("lspconfig.util").root_pattern
-local luasnip = require("luasnip")
-local cmp = require("cmp")
 local null_ls = require("null-ls")
 
 require("mason").setup()
 require("mason-lspconfig").setup({
 	automatic_installation = true,
 })
+
+local function map_key(mode, map, fn, desc, buffer)
+	local bufopts = { noremap = true, silent = true }
+	if buffer then
+		bufopts.buffer = buffer
+	end
+	if desc then
+		bufopts.desc = desc
+	end
+	vim.keymap.set(mode, map, fn, bufopts)
+end
 
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
@@ -477,27 +514,30 @@ local on_attach = function(client, bufnr)
 
 	-- Mappings.
 	-- See `:help vim.lsp.*` for documentation on any of the below functions
-	local bufopts = { noremap = true, silent = true, buffer = bufnr }
-	vim.keymap.set("n", "gd", vim.lsp.buf.definition, bufopts)
-	vim.keymap.set("n", "gD", vim.lsp.buf.type_definition, bufopts)
-	-- vim.keymap.set("n", "gD", vim.lsp.buf.declaration, bufopts)
-	vim.keymap.set("n", "K", vim.lsp.buf.hover, bufopts)
-	vim.keymap.set("n", "gi", vim.lsp.buf.implementation, bufopts)
-	vim.keymap.set("n", "<leader>wa", vim.lsp.buf.add_workspace_folder, bufopts)
-	vim.keymap.set("n", "<leader>wr", vim.lsp.buf.remove_workspace_folder, bufopts)
-	vim.keymap.set("n", "<leader>wl", function()
-		print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-	end, bufopts)
-	-- vim.keymap.set("n", "gt", vim.lsp.buf.type_definition, bufopts)
-	-- find-replace
-	vim.keymap.set("n", "<leader>r", vim.lsp.buf.rename, bufopts)
-	vim.keymap.set("n", "<leader>.", vim.lsp.buf.code_action, bufopts)
-	vim.keymap.set("n", "gr", vim.lsp.buf.references, bufopts)
+	map_key("n", "gd", vim.lsp.buf.definition, "LSP Go to definition", bufnr)
+	map_key("n", "gD", vim.lsp.buf.type_definition, "LSP Go to declaration", bufnr)
+	map_key("n", "K", vim.lsp.buf.hover, "LSP Hover", bufnr)
+	-- vim.keymap.set("n", "gi", vim.lsp.buf.implementation, bufopts)
+	map_key("n", "<leader>r", vim.lsp.buf.rename, "LSP Rename", bufnr)
+	map_key("n", "<leader>.", vim.lsp.buf.code_action, "LSP Code Action", bufnr)
+	map_key("n", "gr", vim.lsp.buf.references, "LSP Go to references", bufnr)
 
-	vim.keymap.set("n", "ge", vim.diagnostic.open_float, bufopts)
-	vim.keymap.set("n", "gE", vim.diagnostic.setloclist, bufopts)
-	vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, bufopts)
-	vim.keymap.set("n", "]d", vim.diagnostic.goto_next, bufopts)
+	map_key("n", "ge", vim.diagnostic.open_float, "LSP Diagnostics", bufnr)
+	map_key("n", "gE", vim.diagnostic.setloclist, "LSP Diagnostics quickfix", bufnr)
+	map_key("n", "]d", function()
+		vim.diagnostic.jump({ count = 1, float = true })
+	end, "LSP Go to next error", bufnr)
+	map_key("n", "[d", function()
+		vim.diagnostic.jump({ count = -1, float = true })
+	end, "LSP Go to prev error", bufnr)
+	map_key("n", "<leader>fs", require("telescope.builtin").lsp_document_symbols, "Telescope LSP symbols ", bufnr)
+	map_key(
+		"n",
+		"<leader>fS",
+		require("telescope.builtin").lsp_workspace_symbols,
+		"Telescope workspace LSP symbols",
+		bufnr
+	)
 
 	-- if vim.fn.exists("&makeprg") == 1 then
 	--   -- Bind <leader>m to :make<CR>
@@ -505,9 +545,9 @@ local on_attach = function(client, bufnr)
 	-- end
 
 	if client.server_capabilities.documentFormattingProvider then
-		vim.keymap.set("n", "<leader>f", function()
+		map_key("n", "<leader>f", function()
 			vim.lsp.buf.format({ timeout_ms = 5000 })
-		end, bufopts)
+		end, "Format buffer", bufnr)
 
 		if vim.bo.filetype == "typescript" or vim.bo.filetype == "javascript" or vim.bo.filetype == "lua" then
 			vim.api.nvim_clear_autocmds({ buffer = bufnr })
@@ -521,9 +561,9 @@ local on_attach = function(client, bufnr)
 	end
 
 	if client.server_capabilities.documentRangeFormattingProvider then
-		vim.keymap.set("n", "<leader>f", function()
+		map_key("v", "<leader>f", function()
 			vim.lsp.buf.format({ timeout_ms = 2000 })
-		end, bufopts)
+		end, "Format selection", bufnr)
 	end
 
 	-- Highlight symbol on cursor hold
@@ -819,6 +859,7 @@ vim.cmd("map K <Nop>") -- Unmap K
 
 vim.g.neoterm_default_mod = "botright"
 vim.g.neoterm_autoinsert = 1
+vim.g.neoterm_size = 12
 vim.g.neoterm_repl_python = "python3"
 
 -- cabbr <expr> %% expand('%:p:h')
@@ -834,10 +875,6 @@ vim.keymap.set("t", "<C-k>", "<C-\\><C-n><C-w>k", bufopts)
 vim.keymap.set("t", "<C-l>", "<C-\\><C-n><C-w>l", bufopts)
 
 -- Move lines
--- vim.keymap.set("n", "]e", ":m .+1<CR>==") -- move line up(n)
--- vim.keymap.set("n", "[e", ":m .-2<CR>==") -- move line down(n)
--- vim.keymap.set("v", "]e", ":m '>+1<CR>gv=gv") -- move line up(v)
--- vim.keymap.set("v", "[e", ":m '<-2<CR>gv=gv") -- move line down(v)
 vim.keymap.set("n", "[e", function()
 	return require("moveline").move("up")
 end, { expr = true })
@@ -884,11 +921,6 @@ vim.cmd([[nnoremap ; :]]) -- Easy commands with ;
 vim.keymap.set("c", "cwd", "lcd %:p:h")
 vim.keymap.set("n", "<leader>cd", ":lcd %:p:h<cr>", bufopts)
 
--- FZF
--- vim.keymap.set("n", "<C-t>", ":FZF<cr>", bufopts)
--- vim.keymap.set("n", "<C-p>", ":FZF<cr>", bufopts)
-vim.api.nvim_set_keymap("n", "<c-P>", "<cmd>lua require('fzf-lua').files()<CR>", bufopts)
-
 -- Undo History
 vim.g.undotree_WindowLayout = 2
 vim.g.undotree_SplitWidth = 34
@@ -901,4 +933,13 @@ vim.keymap.set("n", "<leader>S", toggle_scratch, bufopts)
 vim.keymap.set({ "n", "v" }, "<leader>i", function()
 	require("llm").invoke_llm_and_stream_into_editor({ replace = true, provider = "openai" })
 end, { desc = "LLM Assitant OpenAI" })
+
+--- Telescope
+local telescope = require("telescope.builtin")
+vim.keymap.set("n", "<C-p>", telescope.find_files, { desc = "Telescope find files" })
+vim.keymap.set("n", "<leader>fg", telescope.live_grep, { desc = "Telescope live grep" })
+vim.keymap.set("n", "<leader>fG", telescope.grep_string, { desc = "Telescope grep string" })
+vim.keymap.set("n", "<leader>fb", telescope.buffers, { desc = "Telescope buffers" })
+vim.keymap.set("n", "<leader>fh", telescope.help_tags, { desc = "Telescope help tags" })
+
 -------- KEYS --------

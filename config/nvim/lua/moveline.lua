@@ -2,6 +2,12 @@ local M = {}
 
 local call_path = "v:lua.require'moveline'."
 
+-- from https://github.com/tummetott/unimpaired.nvim/blob/main/lua/unimpaired/functions.lua#L7
+--
+-- Dot repetition of a custom mapping breaks as soon as there is a dot repeatable normal
+-- mode command inside the mapping. This function restores the dot repetition of
+-- the mapping while preserving the [count] when called as last statement inside
+-- the custom mapping
 local restore_dot_repetition = function(count)
 	count = count or ""
 	local callback = vim.go.operatorfunc
