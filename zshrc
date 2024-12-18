@@ -175,6 +175,11 @@ if [[ -f /usr/local/bin/bat ]]; then
   # alias cat='catanything'
 fi
 
+# find -> fd
+if [[ -f /opt/homebrew/bin/fd ]]; then
+  alias find='fd'
+fi
+
 #### fzf
 # [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 # bindkey '^F' fzf-cd-widget
@@ -208,3 +213,6 @@ export PATH="/usr/local/opt/openjdk/bin:$PATH"
 
 # Setup private env
 # source ~/.private.zshenv
+
+# bun completions
+[ -s "/Users/antonvasin/.bun/_bun" ] && source "/Users/antonvasin/.bun/_bun"
