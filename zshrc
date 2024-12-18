@@ -160,19 +160,10 @@ unalias gh
 
 alias l="ls -lah"
 
-# function catanything {
-#   if [[ $1 == *.md ]]; then
-#     mdcat $1
-#   else
-#     bat $1
-#   fi
-# }
-
 # cat -> bat
 export BAT_THEME='gruvbox'
 if [[ -f /usr/local/bin/bat ]]; then
   alias cat='bat'
-  # alias cat='catanything'
 fi
 
 # find -> fd
@@ -181,8 +172,6 @@ if [[ -f /opt/homebrew/bin/fd ]]; then
 fi
 
 #### fzf
-# [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-# bindkey '^F' fzf-cd-widget
 eval "$(fzf --zsh)"
 
 export PURE_CMD_MAX_EXEC_TIME=999
@@ -212,7 +201,9 @@ export GPG_TTY=$(tty)
 export PATH="/usr/local/opt/openjdk/bin:$PATH"
 
 # Setup private env
-# source ~/.private.zshenv
+if [[ -f ~/.private.zshenv ]]; then
+  source ~/.private.zshenv
+fi
 
 # bun completions
 [ -s "/Users/antonvasin/.bun/_bun" ] && source "/Users/antonvasin/.bun/_bun"

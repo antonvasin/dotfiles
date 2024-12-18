@@ -106,9 +106,9 @@
 	name = Anton Vasin
 	email = 944260+antonvasin@users.noreply.github.com
   signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOo99+oque1lOijrGzXI4toQYJBkRT3O8UkRdNdsn04Z
-; [gpg]
-;   format = ssh
-; [gpg "ssh"]
-;   program = "/Applications/1Password.app/Contents/MacOS/op-ssh-sign"
-; [commit]
-;   gpgsign = true
+[gpg]
+  format = ssh
+[gpg "ssh"]
+  program = "/Applications/1Password.app/Contents/MacOS/op-ssh-sign"
+[commit]
+  gpgsign = true
