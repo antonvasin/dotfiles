@@ -2,6 +2,7 @@
 #
 # User configuration sourced by interactive shells
 #
+
 # -----------------
 # Zsh configuration
 # -----------------
@@ -29,18 +30,23 @@ bindkey -v
 # Remove path separator from WORDCHARS.
 WORDCHARS=${WORDCHARS//[\/]}
 
+# -----------------
+# Zim configuration
+# -----------------
+
+# Use degit instead of git as the default tool to install and update modules.
+#zstyle ':zim:zmodule' use 'degit'
 
 # --------------------
 # Module configuration
 # --------------------
 
 #
-# completion
+# git
 #
 
-# Set a custom path for the completion dump file.
-# If none is provided, the default ${ZDOTDIR:-${HOME}}/.zcompdump is used.
-#zstyle ':zim:completion' dumpfile "${ZDOTDIR:-${HOME}}/.zcompdump-${ZSH_VERSION}"
+# Set a custom prefix for the generated aliases. The default prefix is 'G'.
+zstyle ':zim:git' aliases-prefix 'g'
 
 #
 # input
@@ -62,9 +68,13 @@ WORDCHARS=${WORDCHARS//[\/]}
 # zsh-autosuggestions
 #
 
+# Disable automatic widget re-binding on each precmd. This can be set when
+# zsh-users/zsh-autosuggestions is the last module in your ~/.zimrc.
+ZSH_AUTOSUGGEST_MANUAL_REBIND=1
+
 # Customize the style that the suggestions are shown with.
 # See https://github.com/zsh-users/zsh-autosuggestions/blob/master/README.md#suggestion-highlight-style
-#ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=10'
+#ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=242'
 
 #
 # zsh-syntax-highlighting
@@ -77,20 +87,28 @@ ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets)
 # Customize the main highlighter styles.
 # See https://github.com/zsh-users/zsh-syntax-highlighting/blob/master/docs/highlighters/main.md#how-to-tweak-it
 #typeset -A ZSH_HIGHLIGHT_STYLES
-#ZSH_HIGHLIGHT_STYLES[comment]='fg=10'
-
-zstyle ':zim:git' aliases-prefix 'g'
-
-fpath=(~/.config/zsh/completions $fpath)
+#ZSH_HIGHLIGHT_STYLES[comment]='fg=242'
 
 # ------------------
 # Initialize modules
 # ------------------
 
-if [[ ${ZIM_HOME}/init.zsh -ot ${ZDOTDIR:-${HOME}}/.zimrc ]]; then
-  # Update static initialization script if it's outdated, before sourcing it
+ZIM_HOME=${ZDOTDIR:-${HOME}}/.zim
+# Download zimfw plugin manager if missing.
+if [[ ! -e ${ZIM_HOME}/zimfw.zsh ]]; then
+  if (( ${+commands[curl]} )); then
+    curl -fsSL --create-dirs -o ${ZIM_HOME}/zimfw.zsh \
+        https://github.com/zimfw/zimfw/releases/latest/download/zimfw.zsh
+  else
+    mkdir -p ${ZIM_HOME} && wget -nv -O ${ZIM_HOME}/zimfw.zsh \
+        https://github.com/zimfw/zimfw/releases/latest/download/zimfw.zsh
+  fi
+fi
+# Install missing modules, and update ${ZIM_HOME}/init.zsh if missing or outdated.
+if [[ ! ${ZIM_HOME}/init.zsh -nt ${ZDOTDIR:-${HOME}}/.zimrc ]]; then
   source ${ZIM_HOME}/zimfw.zsh init -q
 fi
+# Initialize modules.
 source ${ZIM_HOME}/init.zsh
 
 # ------------------------------
@@ -101,29 +119,19 @@ source ${ZIM_HOME}/init.zsh
 # zsh-history-substring-search
 #
 
-# Bind ^[[A/^[[B manually so up/down works both before and after zle-line-init
-bindkey '^[[A' history-substring-search-up
-bindkey '^[[B' history-substring-search-down
-
-# Bind up and down keys
 zmodload -F zsh/terminfo +p:terminfo
-if [[ -n ${terminfo[kcuu1]} && -n ${terminfo[kcud1]} ]]; then
-  bindkey ${terminfo[kcuu1]} history-substring-search-up
-  bindkey ${terminfo[kcud1]} history-substring-search-down
-fi
+# Bind ^[[A/^[[B manually so up/down works both before and after zle-line-init
+for key ('^[[A' '^P' ${terminfo[kcuu1]}) bindkey ${key} history-substring-search-up
+for key ('^[[B' '^N' ${terminfo[kcud1]}) bindkey ${key} history-substring-search-down
+for key ('k') bindkey -M vicmd ${key} history-substring-search-up
+for key ('j') bindkey -M vicmd ${key} history-substring-search-down
+unset key
+# }}} End configuration added by Zim install
 
-bindkey '^P' history-substring-search-up
-bindkey '^N' history-substring-search-down
-bindkey -M vicmd 'k' history-substring-search-up
-bindkey -M vicmd 'j' history-substring-search-down
 
 for module in ~/dotfiles/modules/*.zsh; do
   source ${module}
 done
-
-# Source Iterm2 integration
-test -e ${HOME}/.iterm2_shell_integration.zsh && source ${HOME}/.iterm2_shell_integration.zsh
-
 
 # Remove lag when switching between vi and regular zsh modes
 export KEYTIMEOUT=1
@@ -152,19 +160,19 @@ unalias gh
 
 alias l="ls -lah"
 
-function catanything {
-  if [[ $1 == *.md ]]; then
-    mdcat $1
-  else
-    bat $1
-  fi
-}
+# function catanything {
+#   if [[ $1 == *.md ]]; then
+#     mdcat $1
+#   else
+#     bat $1
+#   fi
+# }
 
 # cat -> bat
 export BAT_THEME='gruvbox'
 if [[ -f /usr/local/bin/bat ]]; then
-  # alias cat='bat'
-  alias cat='catanything'
+  alias cat='bat'
+  # alias cat='catanything'
 fi
 
 #### fzf
@@ -182,11 +190,7 @@ find-alias() {
 zle -N find-alias
 alias za=find-alias
 
-[[ $commands[kubectl] ]] && source <(kubectl completion zsh)
 eval "$(op completion zsh)"; compdef _op op
-compinit
-export VOLTA_HOME="$HOME/.volta"
-export PATH="$VOLTA_HOME/bin:$PATH"
 
 # Go
 export GOPATH=$HOME/golang
@@ -197,18 +201,10 @@ export PATH=$PATH:$GOROOT/bin
 # GPG
 export GPG_TTY=$(tty)
 
-# enable visual fx
-export NEOVIDE_MULTIGRID='true'
-
-# DNS Toys
-dy() {
-  dig +noall +answer +additional "$1" @dns.toys
-}
-
-source /Users/antonvasin/.config/op/plugins.sh
+# source /Users/antonvasin/.config/op/plugins.sh
 
 # Put homebrew java first
 export PATH="/usr/local/opt/openjdk/bin:$PATH"
 
 # Setup private env
-source ~/.private.zshenv
+# source ~/.private.zshenv
