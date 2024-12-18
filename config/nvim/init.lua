@@ -418,15 +418,18 @@ autocmd filetype qf wincmd J
 -- 24-bit colors
 vim.opt.termguicolors = true
 
--- Use default theme, mute functions and brackets
+-- Use default theme with overrides
+-- https://github.com/neovim/neovim/blob/master/src/nvim/highlight_group.c#L144
 vim.api.nvim_set_hl(0, "Function", {})
 -- mute import/export, etc
-vim.api.nvim_set_hl(0, "Special", {})
+-- vim.api.nvim_set_hl(0, "Special", {})
+vim.api.nvim_set_hl(0, "PreProc", { link = "Special" })
 
 if vim.o.background == "dark" then
-	vim.api.nvim_set_hl(0, "Todo", { bg = "NvimLightYellow", fg = "NvimDarkGray1" })
+  vim.api.nvim_set_hl(0, "Todo", { bg = "NvimLightYellow", fg = "NvimDarkGray1" })
+  vim.api.nvim_set_hl(0, "Type", { bold = true })
 else
-	vim.api.nvim_set_hl(0, "Todo", { bg = "NvimLightYellow", fg = "NvimLightGray4" })
+  vim.api.nvim_set_hl(0, "Todo", { bg = "NvimLightYellow", fg = "NvimLightGray4" })
 end
 
 -- Tab symbols, etc
@@ -940,6 +943,9 @@ vim.keymap.set("n", "<C-p>", telescope.find_files, { desc = "Telescope find file
 vim.keymap.set("n", "<leader>fg", telescope.live_grep, { desc = "Telescope live grep" })
 vim.keymap.set("n", "<leader>fG", telescope.grep_string, { desc = "Telescope grep string" })
 vim.keymap.set("n", "<leader>fb", telescope.buffers, { desc = "Telescope buffers" })
+vim.keymap.set("n", "<leader>fh", telescope.help_tags, { desc = "Telescope help tags" })
+
+-------- KEYS --------
 vim.keymap.set("n", "<leader>fh", telescope.help_tags, { desc = "Telescope help tags" })
 
 -------- KEYS --------
