@@ -30,27 +30,27 @@ config.initial_rows = 50
 config.keys = {
   {
     key = "h",
-    mods = "CTRL|SHIFT",
+    mods = "CTRL|CMD",
     action = wezterm.action.ActivatePaneDirection("Left"),
   },
   {
     key = "l",
-    mods = "CTRL|SHIFT",
+    mods = "CTRL|CMD",
     action = wezterm.action.ActivatePaneDirection("Right"),
   },
   {
     key = "k",
-    mods = "CTRL|SHIFT",
+    mods = "CTRL|CMD",
     action = wezterm.action.ActivatePaneDirection("Up"),
   },
   {
     key = "j",
-    mods = "CTRL|SHIFT",
+    mods = "CTRL|CMD",
     action = wezterm.action.ActivatePaneDirection("Down"),
   },
   {
     key = "h",
-    mods = "CTRL|SHIFT|ALT",
+    mods = "CTRL|CMD|ALT",
     action = wezterm.action.SplitPane({
       direction = "Left",
       size = { Percent = 40 },
@@ -58,7 +58,7 @@ config.keys = {
   },
   {
     key = "l",
-    mods = "CTRL|SHIFT|ALT",
+    mods = "CTRL|CMD|ALT",
     action = wezterm.action.SplitPane({
       direction = "Right",
       size = { Percent = 40 },
@@ -66,14 +66,14 @@ config.keys = {
   },
   {
     key = "k",
-    mods = "CTRL|SHIFT|ALT",
+    mods = "CTRL|CMD|ALT",
     action = wezterm.action.SplitPane({
       direction = "Up",
     }),
   },
   {
     key = "j",
-    mods = "CTRL|SHIFT|ALT",
+    mods = "CTRL|CMD|ALT",
     action = wezterm.action.SplitPane({
       direction = "Down",
     }),
