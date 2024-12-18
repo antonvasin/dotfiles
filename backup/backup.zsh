@@ -1,5 +1,5 @@
 #!/usr/bin/env zsh
-DOTFILE_DIR="/Users/antonvasin/dotfiles"
+DOTFILE_DIR="/Users/avsn/dotfiles"
 
 cd "$DOTFILE_DIR" || exit
 

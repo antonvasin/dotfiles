@@ -176,9 +176,9 @@ if [[ -f /usr/local/bin/bat ]]; then
 fi
 
 #### fzf
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
-bindkey '^F' fzf-cd-widget
+# [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+# bindkey '^F' fzf-cd-widget
+eval "$(fzf --zsh)"
 
 export PURE_CMD_MAX_EXEC_TIME=999
 
