@@ -90,18 +90,11 @@ require("lazy").setup({
 	"tpope/vim-vinegar",
 	"kassio/neoterm",
 	{
-		"wallpants/github-preview.nvim",
-		cmd = { "GithubPreviewToggle" },
-		keys = { "<leader>mp" },
-		opts = {
-			-- config goes here
-		},
-		config = function(_, opts)
-			local gpreview = require("github-preview")
-			gpreview.setup(opts)
-
-			local fns = gpreview.fns
-			vim.keymap.set("n", "<leader>mp", fns.toggle)
+		"iamcco/markdown-preview.nvim",
+		cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
+		ft = { "markdown" },
+		build = function()
+			vim.fn["mkdp#util#install"]()
 		end,
 	},
 	-- {
@@ -150,6 +143,7 @@ require("lazy").setup({
 		"hrsh7th/nvim-cmp",
 		dependencies = {
 			"hrsh7th/cmp-nvim-lsp",
+			"hrsh7th/cmp-path",
 			"saadparwaiz1/cmp_luasnip",
 			"L3MON4D3/LuaSnip",
 			"rafamadriz/friendly-snippets",
@@ -203,11 +197,12 @@ require("lazy").setup({
 					end, { "i", "s" }),
 				}),
 				sources = {
-					{ name = "lazydev" },
 					{ name = "nvim_lsp" },
+					{ name = "path" },
 					{ name = "luasnip" },
-					{ name = "emoji" },
 					{ name = "buffer" },
+					{ name = "lazydev" },
+					{ name = "emoji" },
 				},
 				completion = {
 					winhighlight = "Normal:Pmenu,FloatBorder:Pmenu,Search:None",
@@ -298,7 +293,7 @@ vim.opt.linespace = 0
 -- Show matching brackets.
 vim.opt.showmatch = true
 vim.opt.wrap = true
-vim.opt.completeopt = { "menu", "menuone", "preview", "noselect", "noinsert" }
+vim.opt.completeopt = { "menu", "preview", "noselect", "noinsert" }
 vim.opt.shortmess = "atIc"
 vim.opt.cmdheight = 1
 
@@ -426,10 +421,10 @@ vim.api.nvim_set_hl(0, "Function", {})
 vim.api.nvim_set_hl(0, "PreProc", { link = "Special" })
 
 if vim.o.background == "dark" then
-  vim.api.nvim_set_hl(0, "Todo", { bg = "NvimLightYellow", fg = "NvimDarkGray1" })
-  vim.api.nvim_set_hl(0, "Type", { bold = true })
+	vim.api.nvim_set_hl(0, "Todo", { bg = "NvimLightYellow", fg = "NvimDarkGray1" })
+	vim.api.nvim_set_hl(0, "Type", { bold = true })
 else
-  vim.api.nvim_set_hl(0, "Todo", { bg = "NvimLightYellow", fg = "NvimLightGray4" })
+	vim.api.nvim_set_hl(0, "Todo", { bg = "NvimLightYellow", fg = "NvimLightGray4" })
 end
 
 -- Tab symbols, etc
@@ -517,8 +512,8 @@ local on_attach = function(client, bufnr)
 
 	-- Mappings.
 	-- See `:help vim.lsp.*` for documentation on any of the below functions
-	map_key("n", "gd", vim.lsp.buf.definition, "LSP Go to definition", bufnr)
-	map_key("n", "gD", vim.lsp.buf.type_definition, "LSP Go to declaration", bufnr)
+	map_key("n", "gd", vim.lsp.buf.type_definition, "LSP Go to declaration", bufnr)
+	map_key("n", "gD", vim.lsp.buf.definition, "LSP Go to definition", bufnr)
 	map_key("n", "K", vim.lsp.buf.hover, "LSP Hover", bufnr)
 	-- vim.keymap.set("n", "gi", vim.lsp.buf.implementation, bufopts)
 	map_key("n", "<leader>r", vim.lsp.buf.rename, "LSP Rename", bufnr)
@@ -552,15 +547,15 @@ local on_attach = function(client, bufnr)
 			vim.lsp.buf.format({ timeout_ms = 5000 })
 		end, "Format buffer", bufnr)
 
-		if vim.bo.filetype == "typescript" or vim.bo.filetype == "javascript" or vim.bo.filetype == "lua" then
-			vim.api.nvim_clear_autocmds({ buffer = bufnr })
-			vim.api.nvim_create_autocmd("BufWritePre", {
-				buffer = bufnr,
-				callback = function()
-					vim.lsp.buf.format({ bufnr = bufnr, timeout_ms = 2000 })
-				end,
-			})
-		end
+		-- if vim.bo.filetype == "typescript" or vim.bo.filetype == "javascript" or vim.bo.filetype == "lua" then
+		vim.api.nvim_clear_autocmds({ buffer = bufnr })
+		vim.api.nvim_create_autocmd("BufWritePre", {
+			buffer = bufnr,
+			callback = function()
+				vim.lsp.buf.format({ bufnr = bufnr, timeout_ms = 2000 })
+			end,
+		})
+		-- end
 	end
 
 	if client.server_capabilities.documentRangeFormattingProvider then
@@ -645,11 +640,8 @@ lspconfig.jsonls.setup({
 	on_attach = on_attach,
 })
 
--- lspconfig.eslint.setup({
---   on_attach = on_attach,
---   capabilities = capabilities,
--- })
-
+-- Disable autoformat from zig.vim since we're using LSP
+vim.g.zig_fmt_autosave = 0
 lspconfig.zls.setup({
 	on_attach = on_attach,
 	capabilities = capabilities,
@@ -741,7 +733,19 @@ lspconfig.rust_analyzer.setup({
 })
 
 require("nvim-treesitter.configs").setup({
-	ensure_installed = { "javascript", "typescript", "css", "html", "bash", "sql", "vim", "vimdoc", "lua" },
+	ensure_installed = {
+		"javascript",
+		"typescript",
+		"css",
+		"html",
+		"bash",
+		"sql",
+		"vim",
+		"vimdoc",
+		"lua",
+		"c",
+		"python",
+	},
 	highlight = { enabled = true },
 	auto_install = true,
 	textobjects = {

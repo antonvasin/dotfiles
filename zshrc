@@ -207,3 +207,4 @@ fi
 
 # bun completions
 [ -s "/Users/antonvasin/.bun/_bun" ] && source "/Users/antonvasin/.bun/_bun"
+alias python=python3

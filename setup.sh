@@ -22,5 +22,5 @@ curl -fsSL https://raw.githubusercontent.com/zimfw/install/master/install.zsh | 
 echo "Installing dotfiles…"
 rcup
 
-echo "Restarting gpg-agent…"
-killall gpg-agent && gpg-agent --daemon
+# echo "Restarting gpg-agent…"
+# killall gpg-agent && gpg-agent --daemon

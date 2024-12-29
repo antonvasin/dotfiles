@@ -34,9 +34,6 @@ export PATH="/opt/homebrew/opt/python@3.11/libexec/bin:$PATH"
 # code
 export PATH="/Applications/Visual Studio Code.app/Contents/Resources/app/bin:$PATH"
 
-# doom-emacs
-# export PATH="$HOME/.emacs.d/bin:$PATH"
-
 # gnu utils
 # export PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
 # export PATH="/usr/local/opt/gnu-sed/libexec/gnubin:$PATH"
@@ -51,9 +48,11 @@ export NPM_CONFIG_SAVE=true
 
 export MNML_MAGICENTER=''
 
-export DENO_INSTALL="/Users/antonvasin/.deno"
+export DENO_INSTALL="/Users/avsn/.deno"
 export PATH="$DENO_INSTALL/bin:$PATH"
 
 export HOMEBREW_NO_AUTO_UPDATE=1
 
 export JAVA_HOME="/usr/local/opt/openjdk/libexec/openjdk.jdk/Contents/Home"
+
+export PATH="/Users/avsn/.volta/bin:$PATH"
