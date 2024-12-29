@@ -949,7 +949,31 @@ vim.keymap.set("n", "<leader>fG", telescope.grep_string, { desc = "Telescope gre
 vim.keymap.set("n", "<leader>fb", telescope.buffers, { desc = "Telescope buffers" })
 vim.keymap.set("n", "<leader>fh", telescope.help_tags, { desc = "Telescope help tags" })
 
--------- KEYS --------
 vim.keymap.set("n", "<leader>fh", telescope.help_tags, { desc = "Telescope help tags" })
 
+local function close_window_or_kill_buffer()
+	-- Count windows showing current buffer
+	local wins = vim.fn.winnr("$")
+	local count = 0
+	for i = 1, wins do
+		if vim.fn.winbufnr(i) == vim.fn.bufnr("%") then
+			count = count + 1
+		end
+	end
+
+	-- Handle NERDTree specially
+	if string.match(vim.fn.expand("%"), "NERD") then
+		vim.cmd("wincmd c")
+		return
+	end
+
+	if count > 1 then
+		vim.cmd("wincmd c")
+	else
+		vim.cmd("bdelete")
+	end
+end
+
+-- Map Q to the function
+vim.keymap.set("n", "Q", close_window_or_kill_buffer, { silent = true })
 -------- KEYS --------
