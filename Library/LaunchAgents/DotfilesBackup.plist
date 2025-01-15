@@ -6,10 +6,10 @@
     <string>DotfilesBackup</string>
 
     <key>UserName</key>
-    <string>antonvasin</string>
+    <string>avsn</string>
 
     <key>Program</key>
-    <string>/Users/antonvasin/dotfiles/backup/backup.zsh</string>
+    <string>/Users/avsn/dotfiles/backup.zsh</string>
 
     <key>StartInterval</key>
     <integer>14400</integer>

@@ -12,3 +12,13 @@ alias dcx='docker compose exec'
 alias dls='docker compose ls'
 
 alias kc='kubectl'
+
+# Run docker container with current host directory mounted to /src
+grr() {
+  if [[ $# -eq 0 ]]; then
+    echo "Missing argument"
+  else
+    name=$1
+    docker run -it --rm --name=$name -v="${PWD}:/src" "${name}:latest" bash
+  fi
+}

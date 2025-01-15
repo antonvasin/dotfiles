@@ -144,7 +144,17 @@ function M.write_string_at_cursor(str)
 	end)
 end
 
-local function get_prompt(opts)
+local group = vim.api.nvim_create_augroup("LLM_AutoGroup", { clear = true })
+local active_job = nil
+
+function M.invoke_llm_and_stream_into_editor(opts)
+	local provider = opts.provider or "anthropic"
+	if not M.providers[provider] then
+		print("Can't find config for provider.")
+		return
+	end
+	vim.api.nvim_clear_autocmds({ group = group })
+
 	local replace = opts.replace or true
 	local visual_lines = M.get_visual_selection()
 	local prompt = ""
@@ -161,20 +171,6 @@ local function get_prompt(opts)
 		prompt = M.get_lines_until_cursor()
 	end
 
-	return prompt
-end
-
-local group = vim.api.nvim_create_augroup("LLM_AutoGroup", { clear = true })
-local active_job = nil
-
-function M.invoke_llm_and_stream_into_editor(opts)
-	local provider = opts.provider or "anthropic"
-	if not M.providers[provider] then
-		print("Can't find config for provider.")
-		return
-	end
-	vim.api.nvim_clear_autocmds({ group = group })
-	local prompt = get_prompt(opts)
 	local system_prompt = opts.system_prompt or default_system_prompt
 	local make_curl_args_fn = M.providers[provider].get_args
 	local args = make_curl_args_fn(opts, prompt, system_prompt)
