@@ -258,6 +258,8 @@ require("telescope").load_extension("fzf")
 -- Enable mouse usage (all modes)
 vim.opt.mouse = "a"
 
+vim.opt.mousescroll = "ver:3,hor:0"
+
 vim.opt.tabstop = 2
 vim.opt.shiftwidth = 2
 vim.opt.softtabstop = 2
@@ -939,6 +941,9 @@ vim.keymap.set("n", "<leader>S", toggle_scratch, bufopts)
 vim.keymap.set({ "n", "v" }, "<leader>i", function()
 	require("llm").invoke_llm_and_stream_into_editor({ replace = true, provider = "openai" })
 end, { desc = "LLM Assitant OpenAI" })
+
+-- C-d to S-Tab (inverse tab)
+vim.keymap.set("i", "<S-Tab>", "<C-d>", bufopts)
 
 --- Telescope
 local telescope = require("telescope.builtin")

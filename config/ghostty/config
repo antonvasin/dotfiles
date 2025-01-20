@@ -1,0 +1,6 @@
+font-family = Iosevka Comfy
+font-size = 14
+
+theme = NvimDark
+
+keybind = cmd+r=clear_screen
