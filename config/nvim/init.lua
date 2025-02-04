@@ -97,10 +97,6 @@ require("lazy").setup({
 			vim.fn["mkdp#util#install"]()
 		end,
 	},
-	-- {
-	-- 	"yacineMTB/dingllm.nvim",
-	-- 	dependencies = { "nvim-lua/plenary.nvim" },
-	-- },
 
 	-- Syntax
 	{
@@ -939,7 +935,7 @@ vim.keymap.set("n", "Q", "<Nop>")
 vim.keymap.set("n", "<leader>S", toggle_scratch, bufopts)
 
 vim.keymap.set({ "n", "v" }, "<leader>i", function()
-	require("llm").invoke_llm_and_stream_into_editor({ replace = true, provider = "openai" })
+	require("llm").invoke_llm_and_stream_into_editor({ replace = true, provider = "anthropic" })
 end, { desc = "LLM Assitant OpenAI" })
 
 -- C-d to S-Tab (inverse tab)

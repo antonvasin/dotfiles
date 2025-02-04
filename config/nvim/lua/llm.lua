@@ -1,12 +1,8 @@
 local M = {}
 local Job = require("plenary.job")
 
-local function get_api_key(name)
-	return os.getenv(name)
-end
-
 local default_system_prompt =
-	"You're a programming assistant. You're being send the code with comments comments containing description of the task. Replace the code that you're sent, only following the comments. Do not talk at all. Only output valid code. Think step by step. Nevery provide any backticks that surround the code. Any comment that is asking you for something should be removed after you satisfy them. Other comments should left alone."
+	"You're a programming assistant. You're being send the code with comments comments containing description of the task. Replace the code that you're sent, only following the comments. Do not talk at all. Only output valid code. Think step by step. Nevery provide any backticks that surround the code. Any comment that is asking you for something should be removed after you satisfy them. Other comments should be left alone."
 
 M.providers = {
 	anthropic = {
@@ -41,28 +37,38 @@ M.providers = {
 	},
 }
 
-function M.providers.anthropic.get_args(prompt, system_prompt)
-	local api_key = get_api_key(M.providers.anthropic.api_key_name)
+function M.providers.anthropic.get_args(opts, prompt, system_prompt)
+	local api_key = os.getenv(M.providers.anthropic.api_key_name)
 	local data = {
-		system = system_prompt,
-		messages = { { role = "user", content = prompt } },
 		model = M.providers.anthropic.model,
+		messages = {
+			{ role = "assistant", content = system_prompt },
+			{ role = "user", content = prompt },
+		},
 		stream = true,
 		max_tokens = 4096,
 	}
-	local args = { "-N", "-X", "POST", "-H", "Content-Type: application/json", "-d", vim.json.encode(data) }
+
+	local args = { "-N", "-v" }
+
 	if api_key then
 		table.insert(args, "-H")
 		table.insert(args, "x-api-key: " .. api_key)
 		table.insert(args, "-H")
 		table.insert(args, "anthropic-version: 2023-06-01")
+		table.insert(args, "-H")
+		table.insert(args, "Content-Type: application/json")
+		table.insert(args, "-d")
+		table.insert(args, vim.json.encode(data))
+		table.insert(args, M.providers.anthropic.url)
+	else
+		print("ANTHROPIC_API_KEY not found")
 	end
-	table.insert(args, M.providers.anthropic .. url)
 	return args
 end
 
 function M.providers.openai.get_args(opts, prompt, system_prompt)
-	local api_key = get_api_key(M.providers.openai.api_key_name)
+	local api_key = os.getenv(M.providers.openai.api_key_name)
 	local data = {
 		messages = { { role = "system", content = system_prompt }, { role = "user", content = prompt } },
 		model = M.providers.openai.model,
@@ -73,6 +79,8 @@ function M.providers.openai.get_args(opts, prompt, system_prompt)
 	if api_key then
 		table.insert(args, "-H")
 		table.insert(args, "Authorization: Bearer " .. api_key)
+	else
+		print("No OPENAI_API_KEY found")
 	end
 	table.insert(args, M.providers.openai.url)
 	return args
@@ -200,12 +208,15 @@ function M.invoke_llm_and_stream_into_editor(opts)
 		on_stdout = function(_, out)
 			parse_and_call(out)
 		end,
-		on_stderr = function(_, _) end,
+		on_stderr = function(_, err)
+			print("LLM Error: ", err)
+		end,
 		on_exit = function()
 			active_job = nil
 		end,
 	})
 
+	-- M.debug_curl(args)
 	active_job:start()
 
 	vim.api.nvim_create_autocmd("User", {
@@ -222,6 +233,29 @@ function M.invoke_llm_and_stream_into_editor(opts)
 
 	vim.api.nvim_set_keymap("n", "<Esc>", ":doautocmd User LLM_Escape<CR>", { noremap = true, silent = true })
 	return active_job
+end
+
+function M.debug_curl(args)
+	local all_output = {}
+	local debug_job = Job:new({
+		command = "curl",
+		args = args,
+		on_stdout = function(_, out)
+			table.insert(all_output, "STDOUT: " .. out)
+		end,
+		on_stderr = function(_, err)
+			table.insert(all_output, "STDERR: " .. err)
+		end,
+		on_exit = function()
+			vim.schedule(function()
+				local buf = vim.api.nvim_create_buf(false, true)
+				vim.api.nvim_buf_set_lines(buf, 0, -1, false, all_output)
+				vim.api.nvim_command("vsplit")
+				vim.api.nvim_win_set_buf(0, buf)
+			end)
+		end,
+	})
+	debug_job:sync()
 end
 
 return M

@@ -56,3 +56,9 @@ export HOMEBREW_NO_AUTO_UPDATE=1
 export JAVA_HOME="/usr/local/opt/openjdk/libexec/openjdk.jdk/Contents/Home"
 
 export PATH="/Users/avsn/.volta/bin:$PATH"
+
+# Setup private env
+if [[ -f ~/.private.zshenv ]]; then
+  source ~/.private.zshenv
+fi
+

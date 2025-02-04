@@ -200,11 +200,6 @@ export GPG_TTY=$(tty)
 # Put homebrew java first
 export PATH="/usr/local/opt/openjdk/bin:$PATH"
 
-# Setup private env
-if [[ -f ~/.private.zshenv ]]; then
-  source ~/.private.zshenv
-fi
-
 # bun completions
 [ -s "/Users/antonvasin/.bun/_bun" ] && source "/Users/antonvasin/.bun/_bun"
 alias python=python3
