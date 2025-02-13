@@ -143,7 +143,6 @@ unsetopt nomatch
 alias vim='nvim'
 alias vi='nvim'
 alias v='nvim'
-alias nv='neovide'
 
 alias c='cat'
 alias vmore='nvim -u ~/.config/nvim/more.vim'

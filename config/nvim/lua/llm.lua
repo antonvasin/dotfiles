@@ -2,7 +2,7 @@ local M = {}
 local Job = require("plenary.job")
 
 local default_system_prompt =
-	"You're a programming assistant. You're being send the code with comments comments containing description of the task. Replace the code that you're sent, only following the comments. Do not talk at all. Only output valid code. Think step by step. Nevery provide any backticks that surround the code. Any comment that is asking you for something should be removed after you satisfy them. Other comments should be left alone."
+	"You're a programming assistant. You're being send the code with comments containing description of the task. Replace the code that you've received, only following the comments. Do not talk at all. Only output valid code. Think step by step. Nevery provide any backticks that surround the code. Any comment that is asking you for something should be removed after you satisfy them. Other comments should be left alone."
 
 M.providers = {
 	anthropic = {
@@ -180,6 +180,7 @@ function M.invoke_llm_and_stream_into_editor(opts)
 	end
 
 	local system_prompt = opts.system_prompt or default_system_prompt
+	system_prompt = system_prompt .. " Programming language is " .. vim.bo.filetype .. "."
 	local make_curl_args_fn = M.providers[provider].get_args
 	local args = make_curl_args_fn(opts, prompt, system_prompt)
 	local handle_data_fn = M.providers[provider].handle_spec_data
@@ -209,7 +210,7 @@ function M.invoke_llm_and_stream_into_editor(opts)
 			parse_and_call(out)
 		end,
 		on_stderr = function(_, err)
-			print("LLM Error: ", err)
+			-- print("LLM Error: ", err)
 		end,
 		on_exit = function()
 			active_job = nil
