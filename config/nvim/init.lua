@@ -97,6 +97,12 @@ require("lazy").setup({
 			vim.fn["mkdp#util#install"]()
 		end,
 	},
+	{
+		-- TODO: setup with nvim-dap-ui and codeldb
+		-- https://github.com/dmtrKovalenko/my-nvim-config/blob/main/lua/plugins/dap.lua
+		"mfussenegger/nvim-dap",
+		-- config = function() end,
+	},
 
 	-- Syntax
 	{
