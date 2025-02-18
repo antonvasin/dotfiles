@@ -1,8 +1,11 @@
 font-family = Iosevka Comfy
 font-size = 14
 
-theme = NvimDark
+theme = dark:NvimDark,light:NvimLight
 
 keybind = cmd+r=clear_screen
 copy-on-select = clipboard
 mouse-hide-while-typing = true
+
+keybind = global:ctrl+shift+cmd+opt+grave_accent=toggle_quick_terminal
+
