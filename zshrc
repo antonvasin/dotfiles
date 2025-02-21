@@ -144,24 +144,22 @@ alias vim='nvim'
 alias vi='nvim'
 alias v='nvim'
 
-alias c='cat'
-alias vmore='nvim -u ~/.config/nvim/more.vim'
 alias less='less -R'
 alias mkdir='mkdir -p'
 alias xz='source ~/.zshrc'
 alias help='tldr'
 alias top='sudo htop'
 alias j='fasd_cd -d'
+alias l="ls -lah"
 
 # Do not confirm rm
 unalias rm 2>/dev/null
+# zimfw conflicts with GitHub CLI
 unalias gh
-
-alias l="ls -lah"
 
 # cat -> bat
 export BAT_THEME='gruvbox'
-if [[ -f /usr/local/bin/bat ]]; then
+if [[ -f /opt/homebrew/bin/bat ]]; then
   alias cat='bat'
 fi
 
