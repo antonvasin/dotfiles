@@ -199,4 +199,8 @@ export PATH="/usr/local/opt/openjdk/bin:$PATH"
 
 # bun completions
 [ -s "/Users/antonvasin/.bun/_bun" ] && source "/Users/antonvasin/.bun/_bun"
+eval "$(register-python-argcomplete pipx)"
 alias python=python3
+
+# Created by `pipx` on 2025-03-01 21:16:25
+export PATH="$PATH:/Users/avsn/.local/bin"
