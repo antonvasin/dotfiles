@@ -516,8 +516,8 @@ local on_attach = function(client, bufnr)
 
 	-- Mappings.
 	-- See `:help vim.lsp.*` for documentation on any of the below functions
-	map_key("n", "gd", vim.lsp.buf.type_definition, "LSP Go to declaration", bufnr)
-	map_key("n", "gD", vim.lsp.buf.definition, "LSP Go to definition", bufnr)
+	map_key("n", "gd", vim.lsp.buf.definition, "LSP Go to definition", bufnr)
+	map_key("n", "gD", vim.lsp.buf.type_definition, "LSP Go to type declaration", bufnr)
 	map_key("n", "K", vim.lsp.buf.hover, "LSP Hover", bufnr)
 	-- vim.keymap.set("n", "gi", vim.lsp.buf.implementation, bufopts)
 	map_key("n", "<leader>r", vim.lsp.buf.rename, "LSP Rename", bufnr)
