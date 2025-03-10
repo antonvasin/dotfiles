@@ -252,6 +252,7 @@ require("lazy").setup({
 	},
 	{ "folke/lazydev.nvim", ft = "lua" },
 	"nvimtools/none-ls.nvim",
+	"ranjithshegde/ccls.nvim",
 })
 require("telescope").load_extension("fzf")
 -------- PLUGINS --------
@@ -649,6 +650,8 @@ lspconfig.zls.setup({
 	on_attach = on_attach,
 	capabilities = capabilities,
 })
+
+require("ccls").setup({ lsp = { use_defaults = true } })
 
 lspconfig.ccls.setup({
 	on_attach = on_attach,
