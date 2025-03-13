@@ -253,6 +253,7 @@ require("lazy").setup({
 	{ "folke/lazydev.nvim", ft = "lua" },
 	"nvimtools/none-ls.nvim",
 	"ranjithshegde/ccls.nvim",
+	{ "mfussenegger/nvim-jdtls" },
 })
 require("telescope").load_extension("fzf")
 -------- PLUGINS --------
@@ -666,9 +667,16 @@ lspconfig.ccls.setup({
 lspconfig.jdtls.setup({
 	on_attach = on_attach,
 	capabilities = capabilities,
+	-- settings = {
+	-- 	java = {
+	-- 		project = {
+	-- 			sourcePaths = { "src/main/java" },
+	-- 		},
+	-- 	},
+	-- },
 })
 
-require("luasnip.loaders.from_vscode").lazy_load()
+-- require("luasnip.loaders.from_vscode").lazy_load()
 
 vim.diagnostic.config({
 	virtual_text = false,
@@ -833,6 +841,16 @@ null_ls.setup({
 		null_ls.builtins.formatting.stylua,
 		null_ls.builtins.formatting.prettier.with({
 			prefer_local = "node_modules/.bin",
+			filetypes = {
+				"javascript",
+				"typescript",
+				"css",
+				"scss",
+				"html",
+				"json",
+				"yaml",
+				"graphql",
+			},
 		}),
 		null_ls.builtins.diagnostics.actionlint,
 		-- null_ls.builtins.code_actions.eslint,
