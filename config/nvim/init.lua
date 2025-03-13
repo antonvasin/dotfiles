@@ -347,6 +347,8 @@ vim.opt.backup = false
 vim.opt.swapfile = false
 
 vim.g.netrw_localrmdir = "rm -r"
+vim.g.netrw_keepdir = 0
+vim.g.netrw_winsize = 30
 
 -- rg
 -- let g:ack_autoclose = 1
