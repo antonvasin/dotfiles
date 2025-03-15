@@ -867,9 +867,9 @@ local bufopts = { noremap = true, silent = true }
 vim.keymap.set("n", "<leader>l", ":set list!<cr> \\| :IndentLinesToggle<cr>")
 vim.keymap.set("n", "<leader><space>", ":nohl<cr>")
 vim.keymap.set("n", "<leader>lw", ":%s/^\\s\\+<cr>:nohl<cr>")
-vim.keymap.set("n", "<leader>bl", ":g/^$/d<cr>:nohl<cr>")
+vim.keymap.set("n", "<leader>bl", ":g/^$/d<cr>:nohl<cr>", { desc = "Collapse all empty lines" })
 vim.keymap.set("n", "<leader>ev", ":tabe $MYVIMRC<cr>:lcd %:p:h<cr>")
-vim.keymap.set("n", "<leader>y", "^y$") -- Yank whole text line without spaces
+vim.keymap.set("n", "<leader>y", "^y$", { desc = "Yank whole text line without spaces" })
 vim.keymap.set("n", "<leader>R", ":%s///<left>")
 vim.keymap.set("n", "<leader>a", ":Ack!<space>")
 vim.keymap.set("n", "<leader>qq", ":qa!<cr>")
