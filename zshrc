@@ -147,7 +147,6 @@ alias v='nvim'
 alias less='less -R'
 alias mkdir='mkdir -p'
 alias xz='source ~/.zshrc'
-alias help='tldr'
 alias top='sudo htop'
 alias j='fasd_cd -d'
 alias l="ls -lah"
