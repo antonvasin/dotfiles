@@ -459,32 +459,6 @@ vim.opt.signcolumn = "yes"
 
 vim.opt.wildmode = "longest,list,full"
 vim.opt.wildmenu = true
-
-local buf_scratch_name = "*scratch*"
-
-local create_scratch_buffer = function()
-	local buf = vim.api.nvim_create_buf(true, true)
-	vim.api.nvim_buf_set_name(buf, buf_scratch_name)
-	return buf
-end
-
-local get_buf_by_name = function(name)
-	for _, buf in ipairs(vim.api.nvim_list_bufs()) do
-		local buf_name = vim.api.nvim_buf_get_name(buf)
-		if buf_name == name then
-			return buf
-		end
-	end
-	return -1
-end
-
-local toggle_scratch = function()
-	local buf = get_buf_by_name(buf_scratch_name)
-	if buf < 0 then
-		buf = create_scratch_buffer()
-	end
-end
-
 -------- UI --------
 
 -------- LSP --------
@@ -961,7 +935,9 @@ vim.keymap.set("n", "<leader>u", vim.cmd.UndotreeToggle)
 
 vim.keymap.set("n", "Q", "<Nop>")
 
-vim.keymap.set("n", "<leader>S", toggle_scratch, bufopts)
+local scratch = require("scratch")
+scratch.setup()
+vim.keymap.set("n", "<leader>S", scratch.open_scratch_float, bufopts)
 
 vim.keymap.set({ "n", "v" }, "<leader>i", function()
 	require("llm").invoke_llm_and_stream_into_editor({ replace = true, provider = "anthropic" })
