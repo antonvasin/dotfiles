@@ -644,11 +644,11 @@ lspconfig.jdtls.setup({
   on_attach = on_attach,
   capabilities = capabilities,
   -- settings = {
-  -- 	java = {
-  -- 		project = {
-  -- 			sourcePaths = { "src/main/java" },
-  -- 		},
-  -- 	},
+  --  java = {
+  --    project = {
+  --      sourcePaths = { "src/main/java" },
+  --    },
+  --  },
   -- },
 })
 
@@ -814,7 +814,6 @@ vim.g.skip_ts_context_commentstring_module = true
 
 null_ls.setup({
   sources = {
-    null_ls.builtins.formatting.stylua,
     null_ls.builtins.formatting.prettier.with({
       prefer_local = "node_modules/.bin",
       filetypes = {
@@ -981,4 +980,9 @@ end
 
 -- Map Q to the function
 vim.keymap.set("n", "Q", close_window_or_kill_buffer, { silent = true })
+
+-- Lazy
+vim.keymap.set("n", "<leader>lu", ":Lazy update<cr>", { desc = "Update plugins" })
+vim.keymap.set("n", "<leader>lc", ":Lazy clean<cr>", { desc = "Update plugins" })
+
 -------- KEYS --------
