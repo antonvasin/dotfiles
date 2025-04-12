@@ -157,9 +157,10 @@ unalias rm 2>/dev/null
 unalias gh
 
 # cat -> bat
-export BAT_THEME='gruvbox'
 if [[ -f /opt/homebrew/bin/bat ]]; then
-  alias cat="bat --theme=\$(defaults read -globalDomain AppleInterfaceStyle &> /dev/null && echo Colddark-Cold || echo Colddark-Dark)"
+  export BAT_THEME_LIGHT="Coldark-Cold"
+  export BAT_THEME_DARK="Coldark-Dark"
+  alias cat="bat"
 fi
 
 # find -> fd

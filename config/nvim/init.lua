@@ -141,6 +141,7 @@ require("lazy").setup({
   "neovim/nvim-lspconfig",
   "williamboman/mason.nvim",
   "williamboman/mason-lspconfig.nvim",
+  "b0o/schemastore.nvim",
   {
     "hrsh7th/nvim-cmp",
     dependencies = {
@@ -151,7 +152,6 @@ require("lazy").setup({
       "rafamadriz/friendly-snippets",
       "hrsh7th/cmp-emoji",
       "onsails/lspkind.nvim",
-      "b0o/schemastore.nvim",
     },
     config = function()
       local cmp = require("cmp")
@@ -210,6 +210,7 @@ require("lazy").setup({
           winhighlight = "Normal:Pmenu,FloatBorder:Pmenu,Search:None",
           col_offset = -3,
           side_padding = 0,
+          autocomplete = false,
         },
         window = {
           completion = {
