@@ -289,9 +289,6 @@ vim.opt.backspace = { "indent", "eol", "start" }
 vim.opt.hidden = true
 vim.opt.splitbelow = true
 vim.opt.splitright = true
-vim.opt.visualbell = true
-vim.opt.cursorline = true
-vim.opt.guicursor:append({ "n-v-c:blinkon0" })
 vim.opt.laststatus = 2
 vim.opt.textwidth = 79
 -- Show (partial) command in status line.
@@ -421,6 +418,9 @@ autocmd filetype qf wincmd J
 -------- UI --------
 -- 24-bit colors
 vim.opt.termguicolors = true
+vim.opt.visualbell = true
+vim.opt.cursorline = true
+vim.opt.guicursor:append({ "n-v-c:blinkon0" })
 
 -- Use default theme with overrides
 -- https://github.com/neovim/neovim/blob/master/src/nvim/highlight_group.c#L144
@@ -428,13 +428,15 @@ vim.api.nvim_set_hl(0, "Function", {})
 -- mute import/export, etc
 -- vim.api.nvim_set_hl(0, "Special", {})
 vim.api.nvim_set_hl(0, "PreProc", { link = "Special" })
-
+vim.api.nvim_set_hl(0, "Cursor", { fg = "NvimLightBlue" })
 if vim.o.background == "dark" then
   vim.api.nvim_set_hl(0, "Todo", { bg = "NvimLightYellow", fg = "NvimDarkGray1" })
   vim.api.nvim_set_hl(0, "Type", { bold = true })
 else
   vim.api.nvim_set_hl(0, "Todo", { bg = "NvimLightYellow", fg = "NvimLightGray4" })
 end
+
+
 
 -- Tab symbols, etc
 vim.opt.listchars = "tab:▸ ,eol:¬,extends:❯,precedes:❮,nbsp:␣"
