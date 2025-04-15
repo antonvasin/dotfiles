@@ -12,13 +12,6 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
-if vim.g.neovide then
-  vim.o.guifont = "Iosevka Comfy:h14" -- text below applies for VimScript
-  vim.g.neovide_scroll_animation_length = 0.1
-  vim.g.neovide_hide_mouse_when_typing = true
-  vim.g.neovide_cursor_animation_length = 0
-end
-
 require("lazy").setup({
   -- Look
   {
@@ -428,7 +421,7 @@ vim.api.nvim_set_hl(0, "Function", {})
 -- mute import/export, etc
 -- vim.api.nvim_set_hl(0, "Special", {})
 vim.api.nvim_set_hl(0, "PreProc", { link = "Special" })
-vim.api.nvim_set_hl(0, "Cursor", { fg = "NvimLightBlue" })
+-- vim.api.nvim_set_hl(0, "Cursor", { bg = "NvimLightBlue", fg = "White" })
 if vim.o.background == "dark" then
   vim.api.nvim_set_hl(0, "Todo", { bg = "NvimLightYellow", fg = "NvimDarkGray1" })
   vim.api.nvim_set_hl(0, "Type", { bold = true })
