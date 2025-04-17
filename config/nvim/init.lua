@@ -417,6 +417,7 @@ vim.opt.guicursor:append({ "n-v-c:blinkon0" })
 
 -- Use default theme with overrides
 -- https://github.com/neovim/neovim/blob/master/src/nvim/highlight_group.c#L144
+-- https://github.com/nshern/neovim-default-colorscheme-extras?tab=readme-ov-file
 vim.api.nvim_set_hl(0, "Function", {})
 -- mute import/export, etc
 -- vim.api.nvim_set_hl(0, "Special", {})
