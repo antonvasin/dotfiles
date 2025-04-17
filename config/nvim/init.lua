@@ -449,8 +449,9 @@ vim.cmd([[
 
 vim.cmd("autocmd VimResized * wincmd =")
 
-vim.opt.winblend = 25
-vim.opt.pumblend = 25
+-- XXX: chars bleed into float windows
+-- vim.opt.winblend = 25
+-- vim.opt.pumblend = 25
 
 vim.opt.signcolumn = "yes"
 
