@@ -168,6 +168,11 @@ if [[ -f /opt/homebrew/bin/fd ]]; then
   alias find='fd'
 fi
 
+# llm aliases
+if [[ -f /opt/homebrew/bin/llm ]]; then
+  alias llmC="llm -m claude-3.7-sonnet -o thinking 1"
+fi
+
 #### fzf
 eval "$(fzf --zsh)"
 
