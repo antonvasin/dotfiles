@@ -20,12 +20,11 @@ require("lazy").setup({
       require("lualine").setup({})
     end,
   },
-  { "nvim-tree/nvim-web-devicons" },
-  { "lewis6991/gitsigns.nvim",    config = true },
+  { "lewis6991/gitsigns.nvim", config = true },
 
   -- Editing & Navigation
-  { "windwp/nvim-autopairs",      config = true },
-  { "numToStr/Comment.nvim",      config = true },
+  { "windwp/nvim-autopairs",   config = true },
+  { "numToStr/Comment.nvim",   config = true },
   "mbbill/undotree",
   {
     "kylechui/nvim-surround",
@@ -495,7 +494,7 @@ local on_attach = function(client, bufnr)
   map_key("n", "gd", vim.lsp.buf.definition, "LSP Go to definition", bufnr)
   map_key("n", "gD", vim.lsp.buf.type_definition, "LSP Go to type declaration", bufnr)
   map_key("n", "K", vim.lsp.buf.hover, "LSP Hover", bufnr)
-  vim.keymap.set("n", "gi", vim.lsp.buf.implementation, bufopts)
+  map_key("n", "gi", vim.lsp.buf.implementation, "LSP Implementation", bufnr)
   map_key("n", "<leader>r", vim.lsp.buf.rename, "LSP Rename", bufnr)
   map_key("n", "<leader>.", vim.lsp.buf.code_action, "LSP Code Action", bufnr)
   map_key("n", "gr", vim.lsp.buf.references, "LSP Go to references", bufnr)
@@ -649,8 +648,6 @@ lspconfig.jdtls.setup({
   --  },
   -- },
 })
-
--- require("luasnip.loaders.from_vscode").lazy_load()
 
 vim.diagnostic.config({
   virtual_text = false,
