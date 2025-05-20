@@ -844,8 +844,8 @@ vim.keymap.set("n", "<leader>qq", ":qa!<cr>")
 vim.keymap.set("n", "<leader>w", "<C-w>")
 vim.keymap.set("n", "<leader>o", ":only<cr>")
 vim.keymap.set("n", "<leader>dt", 'i<C-R>=strftime("%FT%T%z")<CR><Esc>')
-vim.keymap.set("n", "<leader>x", ":%!xxd<cr>")    --    -> HEX
-vim.keymap.set("n", "<leader>X", ":%!xxd -r<cr>") -- HEX ->
+vim.keymap.set("n", "<leader>x", ":%!xxd<cr>")    -- file -> HEX
+vim.keymap.set("n", "<leader>X", ":%!xxd -r<cr>") -- HEX -> file
 vim.keymap.set("n", "<leader>W", ":noa w<cr>")
 vim.keymap.set("n", "`", ":Ttoggle<cr>")
 vim.keymap.set("t", "`", "<C-\\><C-n>:Ttoggle<cr>")
