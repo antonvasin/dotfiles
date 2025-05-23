@@ -717,6 +717,8 @@ lspconfig.rust_analyzer.setup({
   capabilities = capabilities,
 })
 
+lspconfig.html.setup {}
+
 require("nvim-treesitter.configs").setup({
   ensure_installed = {
     "javascript",
@@ -827,6 +829,8 @@ null_ls.setup({
   },
   on_attach = on_attach,
 })
+
+
 -------- LSP --------
 
 -------- KEYS --------
