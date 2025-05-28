@@ -526,15 +526,15 @@ local on_attach = function(client, bufnr)
       vim.lsp.buf.format({ timeout_ms = 5000 })
     end, "Format buffer", bufnr)
 
-    -- if vim.bo.filetype == "typescript" or vim.bo.filetype == "javascript" or vim.bo.filetype == "lua" or vim.bo.filetype == "zig" then
-    --   vim.api.nvim_clear_autocmds({ buffer = bufnr })
-    --   vim.api.nvim_create_autocmd("BufWritePre", {
-    --     buffer = bufnr,
-    --     callback = function()
-    --       vim.lsp.buf.format({ bufnr = bufnr, timeout_ms = 2000 })
-    --     end,
-    --   })
-    -- end
+    if vim.bo.filetype == "typescript" or vim.bo.filetype == "javascript" or vim.bo.filetype == "lua" or vim.bo.filetype == "zig" then
+      vim.api.nvim_clear_autocmds({ buffer = bufnr })
+      vim.api.nvim_create_autocmd("BufWritePre", {
+        buffer = bufnr,
+        callback = function()
+          vim.lsp.buf.format({ bufnr = bufnr, timeout_ms = 2000 })
+        end,
+      })
+    end
   end
 
   if client.server_capabilities.documentRangeFormattingProvider then
