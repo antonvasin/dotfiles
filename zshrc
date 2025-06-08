@@ -209,3 +209,6 @@ alias python=python3
 
 # Created by `pipx` on 2025-03-01 21:16:25
 export PATH="$PATH:/Users/avsn/.local/bin"
+
+# broken Claude shell
+alias claude="SHELL=/bin/bash claude"
