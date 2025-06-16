@@ -39,7 +39,10 @@ require("lazy").setup({
   { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
   {
     "nvim-telescope/telescope.nvim",
-    dependencies = { "nvim-lua/plenary.nvim" },
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "nvim-telescope/telescope-ui-select.nvim"
+    },
     branch = "0.1.x",
     config = function()
       local actions = require("telescope.actions")
@@ -65,12 +68,20 @@ require("lazy").setup({
             override_file_sorter = true,
             case_mode = "smart_case",
           },
+          -- ["ui-select"] = {
+          --   require('telescope.themes').get_dropdown {
+          --
+          --   }
+          -- }
         },
       })
+
+      require("telescope").load_extension("ui-select")
     end,
   },
 
   -- Integrations
+  "tpope/vim-fugitive",
   "nvim-lua/plenary.nvim",
   {
     "mileszs/ack.vim",
@@ -127,6 +138,7 @@ require("lazy").setup({
       },
     },
   },
+  "tpope/vim-sleuth",
 
   -- LSP
 
