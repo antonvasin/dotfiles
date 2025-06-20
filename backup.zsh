@@ -15,7 +15,7 @@ if ! git diff --quiet HEAD || git status --short; then
   git push origin main
 fi
 
-cd "$OBSIDIAN_DIR" || exit
+cd $OBSIDIAN_DIR || exit
 
 if ! git diff --quiet HEAD || git status --short; then
   git add --all
