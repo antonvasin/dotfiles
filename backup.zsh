@@ -1,6 +1,6 @@
 #!/usr/bin/env zsh
 DOTFILE_DIR="/Users/avsn/dotfiles"
-OBSIDIAN_DIR="/Users/avsn/Library/Mobile\ Documents/iCloud\~md\~obsidian/Documents/avsn-2022/"
+OBSIDIAN_DIR="/Users/avsn/Library/Mobile Documents/iCloud~md~obsidian/Documents/avsn-2022/"
 
 cd "$DOTFILE_DIR" || exit
 
