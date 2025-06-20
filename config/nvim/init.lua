@@ -166,11 +166,14 @@ require("lazy").setup({
     config = function()
       local cmp = require("cmp")
       local luasnip = require("luasnip")
+      -- require('luasnip.loaders.from_vscode').lazy_load()
+
       local has_words_before = function()
         local line, col = unpack(vim.api.nvim_win_get_cursor(0))
         return col ~= 0
             and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
       end
+
       cmp.setup({
         snippet = {
           expand = function(args)
@@ -307,7 +310,7 @@ vim.opt.linespace = 0
 -- Show matching brackets.
 vim.opt.showmatch = true
 vim.opt.wrap = true
-vim.opt.completeopt = { "menu", "preview", "noselect", "noinsert" }
+vim.opt.completeopt = { "menu", "menuone", "preview", "noselect", "noinsert" }
 vim.opt.shortmess = "atIc"
 vim.opt.cmdheight = 1
 
@@ -865,7 +868,8 @@ vim.keymap.set("n", "<leader>a", ":Ack!<space>")
 vim.keymap.set("n", "<leader>qq", ":qa!<cr>")
 vim.keymap.set("n", "<leader>w", "<C-w>")
 vim.keymap.set("n", "<leader>o", ":only<cr>")
-vim.keymap.set("n", "<leader>dt", 'i<C-R>=strftime("%FT%T%z")<CR><Esc>')
+vim.keymap.set("n", "<leader>dt", 'a<C-R>=strftime("%Y-%m-%d")<CR><Esc>')
+vim.keymap.set("n", "<leader>dT", 'a<C-R>=strftime("%FT%T%z")<CR><Esc>')
 vim.keymap.set("n", "<leader>x", ":%!xxd<cr>")    -- file -> HEX
 vim.keymap.set("n", "<leader>X", ":%!xxd -r<cr>") -- HEX -> file
 vim.keymap.set("n", "<leader>W", ":noa w<cr>")
