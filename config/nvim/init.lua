@@ -101,10 +101,57 @@ require("lazy").setup({
     end,
   },
   {
-    -- TODO: setup with nvim-dap-ui and codeldb
-    -- https://github.com/dmtrKovalenko/my-nvim-config/blob/main/lua/plugins/dap.lua
     "mfussenegger/nvim-dap",
-    -- config = function() end,
+    dependencies = {
+      { "rcarriga/nvim-dap-ui",            types = true, },
+      "nvim-neotest/nvim-nio",
+      { "theHamsta/nvim-dap-virtual-text", opts = { enabled = true, }, },
+    },
+    config = function()
+      local dap = require("dap")
+      local dapui = require("dapui")
+      dapui.setup()
+
+      dap.set_log_level('TRACE')
+      vim.keymap.set('n', '<F5>', function() dap.continue() end)
+      vim.keymap.set('n', '<F9>', function() dap.toggle_breakpoint() end)
+      vim.keymap.set('n', '<F10>', function() dap.step_over() end)
+      vim.keymap.set('n', '<F11>', function() dap.step_into() end)
+      vim.keymap.set('n', '<F12>', function() dap.step_out() end)
+      -- vim.keymap.set("n", '<leader>dk', function() require('dap').continue() end)
+      -- vim.keymap.set("n", '<leader>dl', function() require('dap').run_last() end)
+      vim.keymap.set("n", '<leader>b', function() dap.toggle_breakpoint() end)
+
+      dap.listeners.before.attach.dapui_config = function()
+        dapui.open()
+      end
+      dap.listeners.before.launch.dapui_config = function()
+        dapui.open()
+      end
+
+      -- close Dap UI with :DapCloseUI
+      vim.api.nvim_create_user_command("DapCloseUI", function()
+        require("dapui").close()
+      end, {})
+
+      dap.adapters.lldb = {
+        type = "executable",
+        command = "/usr/bin/lldb",
+        name = "lldb",
+      }
+
+      dap.configurations.zig = {
+        {
+          name = 'Launch',
+          type = 'lldb',
+          request = 'launch',
+          program = '${workspaceFolder}/zig-out/bin/${workspaceFolderBasename}',
+          cwd = '${workspaceFolder}',
+          stopOnEntry = false,
+          args = {},
+        },
+      }
+    end,
   },
 
   -- Syntax
@@ -977,7 +1024,6 @@ vim.keymap.set("n", "<leader>fh", telescope.help_tags, { desc = "Telescope help 
 vim.keymap.set("n", "<leader>fh", telescope.help_tags, { desc = "Telescope help tags" })
 
 local function close_window_or_kill_buffer()
-  -- Count windows showing current buffer
   local wins = vim.fn.winnr("$")
   local count = 0
   for i = 1, wins do
@@ -999,7 +1045,6 @@ local function close_window_or_kill_buffer()
   end
 end
 
--- Map Q to the function
 vim.keymap.set("n", "Q", close_window_or_kill_buffer, { silent = true })
 
 -- Lazy
