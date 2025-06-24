@@ -211,4 +211,3 @@ alias python=python3
 export PATH="$PATH:/Users/avsn/.local/bin"
 
 # broken Claude shell
-alias claude="SHELL=/bin/bash claude"

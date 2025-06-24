@@ -10,3 +10,4 @@ minimum-contrast = 2
 
 keybind = cmd+r=clear_screen
 keybind = global:ctrl+shift+cmd+opt+grave_accent=toggle_quick_terminal
+keybind = shift+enter=text:\n
