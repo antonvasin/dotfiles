@@ -487,7 +487,7 @@ vim.opt.guicursor:append({ "n-v-c:blinkon0" })
 -- https://github.com/nshern/neovim-default-colorscheme-extras?tab=readme-ov-file
 -- vim.api.nvim_set_hl(0, "Function", {})
 -- mute import/export, etc
-vim.api.nvim_set_hl(0, "Special", {})
+vim.api.nvim_set_hl(0, "Special", { bold = true })
 vim.api.nvim_set_hl(0, "PreProc", { link = "Special" })
 vim.api.nvim_set_hl(0, "Cursor", { bg = "NvimLightBlue", fg = "White" })
 if vim.o.background == "dark" then
