@@ -800,6 +800,7 @@ require("nvim-treesitter.configs").setup({
     "lua",
     "c",
     "python",
+    "zig",
   },
   highlight = { enabled = true },
   auto_install = true,
