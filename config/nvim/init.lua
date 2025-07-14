@@ -530,7 +530,9 @@ vim.opt.wildmenu = true
 local root_pattern = require("lspconfig.util").root_pattern
 local null_ls = require("null-ls")
 
-require("mason").setup()
+require("mason").setup({
+  ensure_installed = { "black" }
+})
 require("mason-lspconfig").setup({
   automatic_installation = true,
 })
@@ -899,6 +901,7 @@ null_ls.setup({
       },
     }),
     null_ls.builtins.diagnostics.actionlint,
+    null_ls.builtins.formatting.black,
     -- null_ls.builtins.code_actions.eslint,
   },
   on_attach = on_attach,
