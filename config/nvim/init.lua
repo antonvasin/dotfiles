@@ -785,6 +785,11 @@ lspconfig.rust_analyzer.setup({
   capabilities = capabilities,
 })
 
+lspconfig.pylsp.setup {
+  on_attach = on_attach,
+  capabilities = capabilities,
+}
+
 lspconfig.html.setup {}
 
 require("nvim-treesitter.configs").setup({
