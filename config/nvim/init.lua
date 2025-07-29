@@ -1082,4 +1082,6 @@ vim.keymap.set("n", "Q", close_window_or_kill_buffer, { silent = true })
 vim.keymap.set("n", "<leader>lu", ":Lazy update<cr>", { desc = "Update plugins" })
 vim.keymap.set("n", "<leader>lc", ":Lazy clean<cr>", { desc = "Update plugins" })
 
+vim.keymap.set("n", "<leader>tt", ":NvimTreeToggle<cr>", { desc = "Toggle NvimTree" })
+
 -------- KEYS --------

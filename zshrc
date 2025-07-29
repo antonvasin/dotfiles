@@ -187,6 +187,7 @@ zle -N find-alias
 alias za=find-alias
 
 eval "$(op completion zsh)"; compdef _op op
+eval "$(npm completion)"; compdef _op op
 
 # Go
 export GOPATH=$HOME/golang
