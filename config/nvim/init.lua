@@ -21,14 +21,13 @@ require("lazy").setup({
   { "windwp/nvim-autopairs",     config = true },
   { "numToStr/Comment.nvim",     config = true },
   "mbbill/undotree",
-  { "kylechui/nvim-surround",          event = "VeryLazy",  config = true, },
+  { "kylechui/nvim-surround",                   event = "VeryLazy", config = true, },
+  { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
   {
-    -- TODO: REPLACE WITH FZF-LUA
     "nvim-telescope/telescope.nvim",
     dependencies = {
       "nvim-lua/plenary.nvim",
       "nvim-telescope/telescope-ui-select.nvim"
-      { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
     },
     branch = "0.1.x",
     config = function()
@@ -153,9 +152,9 @@ require("lazy").setup({
   "nvim-treesitter/nvim-treesitter-context",
   "nvim-treesitter/nvim-treesitter-textobjects",
   "JoosepAlviste/nvim-ts-context-commentstring",
-  { "tpope/vim-jdaddy",   ft = "json" },
-  { "neoclide/jsonc.vim", ft = "json" },
-  { "ziglang/zig.vim",    ft = "zig" },
+  { "tpope/vim-jdaddy",                ft = "json" },
+  { "neoclide/jsonc.vim",              ft = "json" },
+  { "ziglang/zig.vim",                 ft = "zig" },
   {
     "chrisgrieser/nvim-spider",
     keys = {
