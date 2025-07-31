@@ -14,39 +14,27 @@ vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
   -- Look
-  {
-    "nvim-lualine/lualine.nvim",
-    config = function()
-      require("lualine").setup({})
-    end,
-  },
-  { "lewis6991/gitsigns.nvim", config = true },
+  { "nvim-lualine/lualine.nvim", config = true, },
+  { "lewis6991/gitsigns.nvim",   config = true },
 
   -- Editing & Navigation
-  { "windwp/nvim-autopairs",   config = true },
-  { "numToStr/Comment.nvim",   config = true },
+  { "windwp/nvim-autopairs",     config = true },
+  { "numToStr/Comment.nvim",     config = true },
   "mbbill/undotree",
+  { "kylechui/nvim-surround",          event = "VeryLazy",  config = true, },
   {
-    "kylechui/nvim-surround",
-    version = "*", -- Use for stability; omit to use `main` branch for the latest features
-    event = "VeryLazy",
-    config = function()
-      require("nvim-surround").setup({
-        -- Configuration here, or leave empty to use defaults
-      })
-    end,
-  },
-  { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
-  {
+    -- TODO: REPLACE WITH FZF-LUA
     "nvim-telescope/telescope.nvim",
     dependencies = {
       "nvim-lua/plenary.nvim",
       "nvim-telescope/telescope-ui-select.nvim"
+      { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
     },
     branch = "0.1.x",
     config = function()
+      local telescope = require('telescope')
       local actions = require("telescope.actions")
-      require("telescope").setup({
+      telescope.setup({
         defaults = {
           layout_strategy = "flex",
           mappings = {
@@ -68,15 +56,11 @@ require("lazy").setup({
             override_file_sorter = true,
             case_mode = "smart_case",
           },
-          -- ["ui-select"] = {
-          --   require('telescope.themes').get_dropdown {
-          --
-          --   }
-          -- }
         },
       })
 
-      require("telescope").load_extension("ui-select")
+      telescope.load_extension("fzf")
+      telescope.load_extension("ui-select")
     end,
   },
 
@@ -90,13 +74,8 @@ require("lazy").setup({
     end,
   },
   -- nice things for netrw
-  -- "tpope/vim-vinegar",
-  {
-    "nvim-tree/nvim-tree.lua",
-    config = function()
-      require('nvim-tree').setup()
-    end
-  },
+  "tpope/vim-vinegar",
+  -- { "nvim-tree/nvim-tree.lua", config = true },
   "kassio/neoterm",
   {
     -- Install markdown preview, use npx if available.
@@ -170,16 +149,13 @@ require("lazy").setup({
   },
 
   -- Syntax
-  {
-    "nvim-treesitter/nvim-treesitter",
-    build = ":TSUpdate",
-  },
+  { "nvim-treesitter/nvim-treesitter", build = ":TSUpdate", },
   "nvim-treesitter/nvim-treesitter-context",
   "nvim-treesitter/nvim-treesitter-textobjects",
   "JoosepAlviste/nvim-ts-context-commentstring",
-  { "tpope/vim-jdaddy",                         ft = "json" },
-  { "neoclide/jsonc.vim",                       ft = "json" },
-  { "ziglang/zig.vim",                          ft = "zig" },
+  { "tpope/vim-jdaddy",   ft = "json" },
+  { "neoclide/jsonc.vim", ft = "json" },
+  { "ziglang/zig.vim",    ft = "zig" },
   {
     "chrisgrieser/nvim-spider",
     keys = {
@@ -214,13 +190,7 @@ require("lazy").setup({
       "hrsh7th/cmp-nvim-lsp",
       "hrsh7th/cmp-path",
       "saadparwaiz1/cmp_luasnip",
-      {
-        "L3MON4D3/LuaSnip",
-        -- follow latest release.
-        version = "v2.*", -- Replace <CurrentMajor> by the latest released major (first number of latest release)
-        -- install jsregexp (optional!).
-        build = "make install_jsregexp"
-      },
+      { "L3MON4D3/LuaSnip", build = "make install_jsregexp" },
       "rafamadriz/friendly-snippets",
       "hrsh7th/cmp-emoji",
       "onsails/lspkind.nvim",
@@ -228,7 +198,6 @@ require("lazy").setup({
     config = function()
       local cmp = require("cmp")
       local luasnip = require("luasnip")
-      -- require('luasnip.loaders.from_vscode').lazy_load()
 
       local has_words_before = function()
         local line, col = unpack(vim.api.nvim_win_get_cursor(0))
@@ -298,7 +267,6 @@ require("lazy").setup({
             local lspkind_config = {
               mode = "symbol_text",
               maxwidth = 50,
-              -- preset = "codicons",
             }
             local kind = require("lspkind").cmp_format(lspkind_config)(entry, vim_item)
             local strings = vim.split(kind.kind, "%s", { trimempty = true })
@@ -310,9 +278,6 @@ require("lazy").setup({
             else
               kind.menu = "    " .. (strings[2] or "")
             end
-
-            -- vim.notify(vim.inspect(entry.completion_item))
-            -- item.data.file -> filename
 
             return kind
           end,
@@ -331,7 +296,6 @@ require("lazy").setup({
   "ranjithshegde/ccls.nvim",
   { "mfussenegger/nvim-jdtls" },
 })
-require("telescope").load_extension("fzf")
 -------- PLUGINS --------
 
 -------- SETTINGS --------
@@ -419,8 +383,6 @@ vim.opt.undofile = true
 vim.opt.backup = false
 vim.opt.swapfile = false
 
--- vim.g.loaded_netrw = 1
--- vim.g.loaded_netrwPlugin = 1
 vim.g.netrw_localrmdir = "rm -r"
 vim.g.netrw_winsize = 30
 
