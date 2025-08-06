@@ -12,3 +12,11 @@ ghR() {
   remote_url="$(gh repo view $1 --json url --jq .url).git"
   git remote add origin $remote_url
 }
+
+gWA() {
+  git worktree $1 $2
+  if [ -e CLAUDE.md ] cp CLAUDE.md $1/
+  if [ -e .env ] cp .env $1/
+  if [ -e .claude ] cp -r .claude $1/
+  cd $1
+}
