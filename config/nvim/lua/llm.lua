@@ -2,13 +2,13 @@ local M = {}
 local Job = require("plenary.job")
 
 local default_system_prompt =
-	"You're a programming assistant. You're being send the code with comments containing description of the task. Replace the code that you've received, only following the comments. Do not talk at all. Only output valid code. Think step by step. Nevery provide any backticks that surround the code. Any comment that is asking you for something should be removed after you satisfy them. Other comments should be left alone."
+"You're a programming assistant. You're being send the code with comments containing description of the task. Replace the code that you've received, only following the comments. Do not talk at all. Only output valid code. Think step by step. Nevery provide any backticks that surround the code. Any comment that is asking you for something should be removed after you satisfy them. Other comments should be left alone."
 
 M.providers = {
 	anthropic = {
 		url = "https://api.anthropic.com/v1/messages",
 		model = "claude-3-5-sonnet-20240620",
-		api_key_name = "ANTHROPIC_API_KEY",
+		api_key_name = "NVIM_ANTHROPIC_API_KEY",
 		handle_spec_data = function(data_stream, event_state)
 			if event_state == "content_block_delta" then
 				local json = vim.json.decode(data_stream)
@@ -22,7 +22,7 @@ M.providers = {
 		url = "https://api.openai.com/v1/chat/completions",
 		model = "gpt-4o",
 		-- model = "o1-preview",
-		api_key_name = "OPENAI_API_KEY",
+		api_key_name = "NVIM_OPENAI_API_KEY",
 		handle_spec_data = function(data_stream)
 			if data_stream:match('"delta":') then
 				local json = vim.json.decode(data_stream)
@@ -43,7 +43,7 @@ function M.providers.anthropic.get_args(opts, prompt, system_prompt)
 		model = M.providers.anthropic.model,
 		messages = {
 			{ role = "assistant", content = system_prompt },
-			{ role = "user", content = prompt },
+			{ role = "user",      content = prompt },
 		},
 		stream = true,
 		max_tokens = 4096,
