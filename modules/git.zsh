@@ -6,7 +6,8 @@ alias gpft='git push --follow-tags'
 alias gpd='git push --delete'
 alias gsd='git diff --staged'
 alias gpf='git push --force-with-lease'
-alias ghv="gh repo view -w"
+alias ghv="gh repo view --web"
+alias ghpr="gh pr view --web"
 
 ghR() {
   remote_url="$(gh repo view $1 --json url --jq .url).git"
