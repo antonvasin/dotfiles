@@ -2,7 +2,7 @@ local M = {}
 local Job = require("plenary.job")
 
 local default_system_prompt =
-"You're a programming assistant. You're being send the code with comments containing description of the task. Replace the code that you've received, only following the comments. Do not talk at all. Only output valid code. Think step by step. Nevery provide any backticks that surround the code. Any comment that is asking you for something should be removed after you satisfy them. Other comments should be left alone."
+"You're a programming assistant. You're being send the code with comments containing description of the task. Replace the code that you've received, only following the comments. Do not talk at all. Only output valid code. Think step by step. Never provide any backticks that surround the code. Any comment that is asking you for something should be removed after you satisfy them. Other comments should be left alone."
 
 M.providers = {
 	anthropic = {
