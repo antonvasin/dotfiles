@@ -293,6 +293,12 @@ require("lazy").setup({
   { "folke/lazydev.nvim",     ft = "lua" },
   "nvimtools/none-ls.nvim",
   "ranjithshegde/ccls.nvim",
+  {
+    'Civitasv/cmake-tools.nvim',
+    config = function()
+      require('cmake-tools').setup({})
+    end
+  },
   { "mfussenegger/nvim-jdtls" },
 })
 -------- PLUGINS --------
