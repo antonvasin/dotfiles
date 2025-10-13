@@ -4,6 +4,7 @@
   user = antonvasin
 [core]
   excludesfile = ~/dotfiles/gitignore
+	autocrlf = input
 [color]
   pager = true
   ui = auto
@@ -106,3 +107,5 @@
   helper = !/opt/homebrew/bin/gh auth git-credential
 [commit]
   gpgsign = true
+[init]
+	defaultBranch = main

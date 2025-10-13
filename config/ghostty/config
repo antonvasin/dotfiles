@@ -1,6 +1,6 @@
 font-family = Iosevka Comfy
-font-size = 14
-theme = dark:NvimDark,light:NvimLight
+font-size = 14.5
+theme = dark:Nvim Dark,light:Nvim Light
 cursor-color = #4169E1
 cursor-text = #ffffff
 copy-on-select = clipboard
