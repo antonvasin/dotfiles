@@ -179,7 +179,7 @@ require("lazy").setup({
 
   -- LSP
 
-  "neovim/nvim-lspconfig",
+  { "neovim/nvim-lspconfig", lazy = true },
   "williamboman/mason.nvim",
   "williamboman/mason-lspconfig.nvim",
   "b0o/schemastore.nvim",
@@ -256,9 +256,8 @@ require("lazy").setup({
           autocomplete = false,
         },
         window = {
-          completion = {
-            border = "rounded",
-          },
+          completion = cmp.config.window.bordered({}),
+          documentation = cmp.config.window.bordered({}),
         },
         formatting = {
           fields = { "kind", "abbr", "menu" },
@@ -290,7 +289,7 @@ require("lazy").setup({
       })
     end,
   },
-  { "folke/lazydev.nvim",     ft = "lua" },
+  { "folke/lazydev.nvim",    ft = "lua" },
   "nvimtools/none-ls.nvim",
   "ranjithshegde/ccls.nvim",
   {
@@ -507,6 +506,20 @@ vim.opt.signcolumn = "yes"
 
 vim.opt.wildmode = "longest,list,full"
 vim.opt.wildmenu = true
+
+vim.diagnostic.config({
+  virtual_text = false,
+  -- virtual_text = {
+  --   severety = vim.diagnostic.severity.ERROR,
+  --   source = "if_many",
+  -- },
+  float = {
+    source = "if_many",
+    focusable = false,
+  },
+  update_in_insert = true,
+  severity_sort = true,
+})
 -------- UI --------
 
 -------- LSP --------
@@ -545,7 +558,8 @@ local on_attach = function(client, bufnr)
   -- See `:help vim.lsp.*` for documentation on any of the below functions
   map_key("n", "gd", vim.lsp.buf.definition, "LSP Go to definition", bufnr)
   map_key("n", "gD", vim.lsp.buf.type_definition, "LSP Go to type declaration", bufnr)
-  map_key("n", "K", vim.lsp.buf.hover, "LSP Hover", bufnr)
+  map_key("n", "K", function() vim.lsp.buf.hover { border = 'single', max_height = 25, max_width = 80 } end, "LSP Hover",
+    bufnr)
   map_key("n", "gi", vim.lsp.buf.implementation, "LSP Implementation", bufnr)
   map_key("n", "<leader>r", vim.lsp.buf.rename, "LSP Rename", bufnr)
   map_key("n", "<leader>.", vim.lsp.buf.code_action, "LSP Code Action", bufnr)
@@ -612,18 +626,36 @@ local on_attach = function(client, bufnr)
   end
 
   -- attempt to fix highlight conflicts with treesitter
-  client.server_capabilities.semanticTokensProvider = nil
+  -- client.server_capabilities.semanticTokensProvider = false
 end
 
 local capabilities = require("cmp_nvim_lsp").default_capabilities()
 capabilities.textDocument.completion.completionItem.snippetSupport = true
 
-local lspconfig = require("lspconfig")
+local enabled_servers = {
+  "ts_ls",
+  "lua_ls",
+  "denols",
+  "jsonls",
+  "zls",
+  "clangd",
+  "jdtls",
+  "cssls",
+  "dockerls",
+  "rust_analyzer",
+  "pylsp",
+  "html",
+  "ruff",
+}
 
-lspconfig.ts_ls.setup({
-  capabilities = capabilities,
+vim.lsp.enable(enabled_servers)
+
+vim.lsp.config("*", {
   on_attach = on_attach,
+  capabilities = capabilities,
 })
+
+require("lspconfig")
 
 local function deno_init_opts()
   local opts = {
@@ -638,7 +670,7 @@ local function deno_init_opts()
   return opts
 end
 
-lspconfig.denols.setup({
+vim.lsp.config("denols", {
   root_dir = root_pattern("deno.json", "deno.jsonc", "mod.ts", "import_map.json", "lock.json"),
   init_options = deno_init_opts(),
   capabilities = capabilities,
@@ -653,7 +685,7 @@ lspconfig.denols.setup({
   },
 })
 
-lspconfig.jsonls.setup({
+vim.lsp.config("jsonls", {
   settings = {
     json = {
       schemas = require("schemastore").json.schemas({
@@ -672,60 +704,17 @@ lspconfig.jsonls.setup({
 
 -- Disable autoformat from zig.vim since we're using LSP
 vim.g.zig_fmt_autosave = 0
-lspconfig.zls.setup({
-  on_attach = on_attach,
-  capabilities = capabilities,
-})
 
-require("ccls").setup({ lsp = { use_defaults = true } })
-
-lspconfig.ccls.setup({
+vim.lsp.config("clangd", {
+  cmake_build_options = { "-j12" },
   on_attach = on_attach,
   capabilities = capabilities,
   init_options = {
-    cache = {
-      directory = "/Users/antonvasin/.ccls-cache",
-    },
-  },
+    fallbackFlags = { '--std=c23' }
+  }
 })
 
-lspconfig.jdtls.setup({
-  on_attach = on_attach,
-  capabilities = capabilities,
-  -- settings = {
-  --  java = {
-  --    project = {
-  --      sourcePaths = { "src/main/java" },
-  --    },
-  --  },
-  -- },
-})
-
-vim.diagnostic.config({
-  virtual_text = false,
-  -- virtual_text = {
-  --   severety = vim.diagnostic.severity.ERROR,
-  --   source = "if_many",
-  -- },
-  float = {
-    source = "if_many",
-    focusable = false,
-  },
-  update_in_insert = true,
-  severity_sort = true,
-})
-
-lspconfig.cssls.setup({
-  on_attach = on_attach,
-  capabilities = capabilities,
-})
-
-lspconfig.dockerls.setup({
-  on_attach = on_attach,
-  capabilities = capabilities,
-})
-
-lspconfig.lua_ls.setup({
+vim.lsp.config("lua_ls", {
   on_init = function(client)
     -- local path = client.workspace_folders[1].name
     --
@@ -764,26 +753,6 @@ lspconfig.lua_ls.setup({
   },
 })
 
-lspconfig.rust_analyzer.setup({
-  on_attach = on_attach,
-  capabilities = capabilities,
-})
-
-lspconfig.pylsp.setup {
-  on_attach = on_attach,
-  capabilities = capabilities,
-}
-
-lspconfig.html.setup {
-  on_attach = on_attach,
-  capabilities = capabilities,
-}
-
-lspconfig.ruff.setup {
-  on_attach = on_attach,
-  capabilities = capabilities,
-}
-
 require("nvim-treesitter.configs").setup({
   ensure_installed = {
     "javascript",
@@ -798,6 +767,8 @@ require("nvim-treesitter.configs").setup({
     "c",
     "python",
     "zig",
+    "c",
+    "cpp"
   },
   highlight = { enabled = true },
   auto_install = true,
@@ -881,7 +852,9 @@ null_ls.setup({
       prefer_local = "node_modules/.bin",
       filetypes = {
         "javascript",
+        "javascriptreact",
         "typescript",
+        "typescriptreact",
         "css",
         "scss",
         "html",
@@ -891,7 +864,8 @@ null_ls.setup({
       },
     }),
     null_ls.builtins.diagnostics.actionlint,
-    -- null_ls.builtins.code_actions.eslint,
+    null_ls.builtins.diagnostics.eslint,
+    null_ls.builtins.code_actions.eslint,
   },
   on_attach = on_attach,
 })
@@ -913,10 +887,10 @@ vim.keymap.set("n", "<leader>a", ":Ack!<space>")
 vim.keymap.set("n", "<leader>qq", ":qa!<cr>")
 vim.keymap.set("n", "<leader>w", "<C-w>")
 vim.keymap.set("n", "<leader>o", ":only<cr>")
-vim.keymap.set("n", "<leader>dt", 'a<C-R>=strftime("%Y-%m-%d")<CR><Esc>')
-vim.keymap.set("n", "<leader>dT", 'a<C-R>=strftime("%FT%T%z")<CR><Esc>')
-vim.keymap.set("n", "<leader>x", ":%!xxd<cr>")    -- file -> HEX
-vim.keymap.set("n", "<leader>X", ":%!xxd -r<cr>") -- HEX -> file
+vim.keymap.set("n", "<leader>dt", 'a<C-R>=strftime("%Y-%m-%d")<CR><Esc>') -- current datetime YYYY-MM-DD
+vim.keymap.set("n", "<leader>dT", 'a<C-R>=strftime("%FT%T%z")<CR><Esc>')  -- current datetime ISO 8601
+vim.keymap.set("n", "<leader>x", ":%!xxd<cr>")                            -- file -> HEX
+vim.keymap.set("n", "<leader>X", ":%!xxd -r<cr>")                         -- HEX -> file
 vim.keymap.set("n", "<leader>W", ":noa w<cr>")
 vim.keymap.set("n", "`", ":Ttoggle<cr>")
 vim.keymap.set("t", "`", "<C-\\><C-n>:Ttoggle<cr>")
