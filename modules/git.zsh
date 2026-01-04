@@ -15,7 +15,8 @@ ghR() {
 }
 
 gWA() {
-  git worktree $1 $2
+  git branch $2
+  git worktree add $1 $2
   if [ -e CLAUDE.md ] cp CLAUDE.md $1/
   if [ -e .env ] cp .env $1/
   if [ -e .claude ] cp -r .claude $1/

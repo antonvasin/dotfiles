@@ -29,13 +29,14 @@ require("lazy").setup({
       "nvim-lua/plenary.nvim",
       "nvim-telescope/telescope-ui-select.nvim"
     },
-    branch = "0.1.x",
     config = function()
       local telescope = require('telescope')
       local actions = require("telescope.actions")
       telescope.setup({
         defaults = {
-          layout_strategy = "flex",
+          layout_strategy = "vertical",
+          layout_config = { height = 0.9, width = 0.9 },
+          path_display = { shorten = 2 },
           mappings = {
             i = {
               ["<esc>"] = actions.close,
@@ -75,7 +76,6 @@ require("lazy").setup({
   -- nice things for netrw
   "tpope/vim-vinegar",
   -- { "nvim-tree/nvim-tree.lua", config = true },
-  "kassio/neoterm",
   {
     -- Install markdown preview, use npx if available.
     "iamcco/markdown-preview.nvim",
@@ -146,6 +146,17 @@ require("lazy").setup({
       }
     end,
   },
+  {
+    'akinsho/toggleterm.nvim',
+    version = "*",
+    config = function()
+      require('toggleterm').setup({
+        open_mapping = '`',
+        shade_terminals = false
+      })
+    end
+  },
+
 
   -- Syntax
   { "nvim-treesitter/nvim-treesitter", build = ":TSUpdate", },
@@ -179,7 +190,13 @@ require("lazy").setup({
 
   -- LSP
 
-  { "neovim/nvim-lspconfig", lazy = true },
+  {
+    "neovim/nvim-lspconfig",
+    lazy = true,
+    dependencies = {
+      { "p00f/clangd_extensions.nvim", config = true }
+    }
+  },
   "williamboman/mason.nvim",
   "williamboman/mason-lspconfig.nvim",
   "b0o/schemastore.nvim",
@@ -289,7 +306,7 @@ require("lazy").setup({
       })
     end,
   },
-  { "folke/lazydev.nvim",    ft = "lua" },
+  { "folke/lazydev.nvim",     ft = "lua" },
   "nvimtools/none-ls.nvim",
   "ranjithshegde/ccls.nvim",
   {
@@ -469,9 +486,9 @@ vim.opt.guicursor:append({ "n-v-c:blinkon0" })
 -- https://github.com/nshern/neovim-default-colorscheme-extras?tab=readme-ov-file
 -- vim.api.nvim_set_hl(0, "Function", {})
 -- mute import/export, etc
-vim.api.nvim_set_hl(0, "Special", { bold = true })
-vim.api.nvim_set_hl(0, "PreProc", { link = "Special" })
 vim.api.nvim_set_hl(0, "Cursor", { bg = "NvimLightBlue", fg = "White" })
+-- vim.api.nvim_set_hl(0, "Special", { bold = true })
+-- vim.api.nvim_set_hl(0, "PreProc", { link = "Special" })
 if vim.o.background == "dark" then
   vim.api.nvim_set_hl(0, "Todo", { bg = "NvimLightYellow", fg = "NvimDarkGray1" })
   vim.api.nvim_set_hl(0, "Type", { bold = true })
@@ -563,6 +580,7 @@ local on_attach = function(client, bufnr)
   map_key("n", "gi", vim.lsp.buf.implementation, "LSP Implementation", bufnr)
   map_key("n", "<leader>r", vim.lsp.buf.rename, "LSP Rename", bufnr)
   map_key("n", "<leader>.", vim.lsp.buf.code_action, "LSP Code Action", bufnr)
+  map_key("v", "<leader>.", vim.lsp.buf.code_action, "LSP Code Action", bufnr)
   map_key("n", "gr", vim.lsp.buf.references, "LSP Go to references", bufnr)
 
   map_key("n", "ge", vim.diagnostic.open_float, "LSP Diagnostics", bufnr)
@@ -573,14 +591,12 @@ local on_attach = function(client, bufnr)
   map_key("n", "[d", function()
     vim.diagnostic.jump({ count = -1, float = true })
   end, "LSP Go to prev error", bufnr)
-  map_key("n", "<leader>fs", require("telescope.builtin").lsp_document_symbols, "Telescope LSP symbols ", bufnr)
-  map_key(
-    "n",
-    "<leader>fS",
-    require("telescope.builtin").lsp_workspace_symbols,
-    "Telescope workspace LSP symbols",
-    bufnr
-  )
+
+  map_key("n", "<leader>fs", function()
+    require("telescope.builtin").lsp_document_symbols({ show_line = true, symbol_width = 50 })
+  end, "Telescope LSP symbols ", bufnr)
+
+  map_key("n", "<leader>fS", require("telescope.builtin").lsp_workspace_symbols, "Telescope workspace LSP symbols", bufnr)
 
   -- if vim.fn.exists("&makeprg") == 1 then
   --   -- Bind <leader>m to :make<CR>
@@ -657,32 +673,18 @@ vim.lsp.config("*", {
 
 require("lspconfig")
 
-local function deno_init_opts()
-  local opts = {
-    unstable = true,
-    lint = true,
-  }
-
-  if vim.fn.filereadable("./import_map.json") == 1 then
-    opts.importMap = "./import_map.json"
-  end
-
-  return opts
-end
-
 vim.lsp.config("denols", {
   root_dir = root_pattern("deno.json", "deno.jsonc", "mod.ts", "import_map.json", "lock.json"),
-  init_options = deno_init_opts(),
   capabilities = capabilities,
   on_attach = on_attach,
-  filetypes = {
-    "javascript",
-    "javascriptreact",
-    "javascript.jsx",
-    "typescript",
-    "typescriptreact",
-    "typescript.tsx",
-  },
+  -- filetypes = {
+  --   "javascript",
+  --   "javascriptreact",
+  --   "javascript.jsx",
+  --   "typescript",
+  --   "typescriptreact",
+  --   "typescript.tsx",
+  -- },
 })
 
 vim.lsp.config("jsonls", {
@@ -707,7 +709,11 @@ vim.g.zig_fmt_autosave = 0
 
 vim.lsp.config("clangd", {
   cmake_build_options = { "-j12" },
-  on_attach = on_attach,
+  on_attach = function(client, buf)
+    map_key("n", "<leader>A", ":ClangdSwitchSourceHeader<CR>")
+    map_key("n", "<leader>AV", ":vsp<CR>:ClangdSwitchSourceHeader<CR>")
+    on_attach(client, buf)
+  end,
   capabilities = capabilities,
   init_options = {
     fallbackFlags = { '--std=c23' }
@@ -753,6 +759,17 @@ vim.lsp.config("lua_ls", {
   },
 })
 
+vim.lsp.config("zls", {
+  on_attach = on_attach,
+  capabilities = capabilities,
+  settings = {
+    zls = {
+      enable_build_on_save = true,
+      semantic_tokens = "partial",
+    }
+  }
+})
+
 require("nvim-treesitter.configs").setup({
   ensure_installed = {
     "javascript",
@@ -768,9 +785,10 @@ require("nvim-treesitter.configs").setup({
     "python",
     "zig",
     "c",
-    "cpp"
+    "cpp",
+    "comment"
   },
-  highlight = { enabled = true },
+  highlight = { enable = true },
   auto_install = true,
   textobjects = {
     select = {
@@ -844,7 +862,7 @@ require("treesitter-context").setup({
 })
 
 require("ts_context_commentstring").setup({})
-vim.g.skip_ts_context_commentstring_module = true
+-- vim.g.skip_ts_context_commentstring_module = true
 
 null_ls.setup({
   sources = {
@@ -863,9 +881,9 @@ null_ls.setup({
         "graphql",
       },
     }),
-    null_ls.builtins.diagnostics.actionlint,
-    null_ls.builtins.diagnostics.eslint,
-    null_ls.builtins.code_actions.eslint,
+    -- null_ls.builtins.diagnostics.actionlint,
+    -- null_ls.builtins.diagnostics.eslint,
+    -- null_ls.builtins.code_actions.eslint,
   },
   on_attach = on_attach,
 })
@@ -892,8 +910,6 @@ vim.keymap.set("n", "<leader>dT", 'a<C-R>=strftime("%FT%T%z")<CR><Esc>')  -- cur
 vim.keymap.set("n", "<leader>x", ":%!xxd<cr>")                            -- file -> HEX
 vim.keymap.set("n", "<leader>X", ":%!xxd -r<cr>")                         -- HEX -> file
 vim.keymap.set("n", "<leader>W", ":noa w<cr>")
-vim.keymap.set("n", "`", ":Ttoggle<cr>")
-vim.keymap.set("t", "`", "<C-\\><C-n>:Ttoggle<cr>")
 vim.keymap.set("n", "<leader>tc", ":Tclear<cr>")
 vim.keymap.set("n", "<S-Space>", "<Space>") -- don't send escape sequence with S-Space
 vim.keymap.set("n", "J", "mzJ`z", bufopts)  -- Cursor don't jump when joining lines
@@ -902,11 +918,6 @@ vim.keymap.set("n", "Y", "y$", bufopts)     -- Yank till end of the line
 vim.keymap.set("n", "s", ":w<cr>", bufopts) -- Save  with single key
 vim.keymap.set("n", "<leader>cc", ":cclose<cr>")
 vim.cmd("map K <Nop>")                      -- Unmap K
-
-vim.g.neoterm_default_mod = "botright"
-vim.g.neoterm_autoinsert = 1
-vim.g.neoterm_size = 12
-vim.g.neoterm_repl_python = "python3"
 
 -- cabbr <expr> %% expand('%:p:h')
 
@@ -1022,7 +1033,5 @@ vim.keymap.set("n", "Q", close_window_or_kill_buffer, { silent = true })
 -- Lazy
 vim.keymap.set("n", "<leader>lu", ":Lazy update<cr>", { desc = "Update plugins" })
 vim.keymap.set("n", "<leader>lc", ":Lazy clean<cr>", { desc = "Update plugins" })
-
-vim.keymap.set("n", "<leader>tt", ":NvimTreeToggle<cr>", { desc = "Toggle NvimTree" })
 
 -------- KEYS --------

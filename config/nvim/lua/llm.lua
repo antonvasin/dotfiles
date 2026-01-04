@@ -7,7 +7,7 @@ local default_system_prompt =
 M.providers = {
 	anthropic = {
 		url = "https://api.anthropic.com/v1/messages",
-		model = "claude-3-5-sonnet-20240620",
+		model = "claude-opus-4-5",
 		api_key_name = "NVIM_ANTHROPIC_API_KEY",
 		handle_spec_data = function(data_stream, event_state)
 			if event_state == "content_block_delta" then
