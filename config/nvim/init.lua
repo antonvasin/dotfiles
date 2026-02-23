@@ -312,7 +312,24 @@ require("lazy").setup({
   {
     'Civitasv/cmake-tools.nvim',
     config = function()
-      require('cmake-tools').setup({})
+      -- vim.api.nvim_create_autocmd("User", {
+      --   pattern = "CMakeToolsEnterProject",
+      --   callback = function()
+      --   end
+      -- })
+
+      require('cmake-tools').setup({
+        cmake_runner = {
+          name = 'toggleterm',
+          default_opts = {
+            toggleterm = {
+              direction = "horizontal",
+              close_on_exit = true,
+              auto_scroll = true,
+            },
+          }
+        }
+      })
     end
   },
   { "mfussenegger/nvim-jdtls" },
@@ -608,14 +625,19 @@ local on_attach = function(client, bufnr)
       vim.lsp.buf.format({ timeout_ms = 5000 })
     end, "Format buffer", bufnr)
 
-    if vim.bo.filetype == "typescript" or vim.bo.filetype == "javascript" or vim.bo.filetype == "lua" or vim.bo.filetype == "zig" then
-      vim.api.nvim_clear_autocmds({ buffer = bufnr })
-      vim.api.nvim_create_autocmd("BufWritePre", {
-        buffer = bufnr,
-        callback = function()
-          vim.lsp.buf.format({ bufnr = bufnr, timeout_ms = 2000 })
-        end,
-      })
+    local autoformat_langs = { "typescript", "javascript", "typescriptreact", "javascriptreact", "lua", "zig" }
+
+    -- read languages from a list called autoformat_langs
+    for _, lang in ipairs(autoformat_langs) do
+      if vim.bo.filetype == lang then
+        vim.api.nvim_clear_autocmds({ buffer = bufnr })
+        vim.api.nvim_create_autocmd("BufWritePre", {
+          buffer = bufnr,
+          callback = function()
+            vim.lsp.buf.format({ bufnr = bufnr, timeout_ms = 2000 })
+          end,
+        })
+      end
     end
   end
 
@@ -656,6 +678,7 @@ local enabled_servers = {
   "zls",
   "clangd",
   "jdtls",
+  "tailwindcss",
   "cssls",
   "dockerls",
   "rust_analyzer",
@@ -712,6 +735,7 @@ vim.lsp.config("clangd", {
   on_attach = function(client, buf)
     map_key("n", "<leader>A", ":ClangdSwitchSourceHeader<CR>")
     map_key("n", "<leader>AV", ":vsp<CR>:ClangdSwitchSourceHeader<CR>")
+    map_key("n", "<leader>cr", ":CMakeRun<CR>")
     on_attach(client, buf)
   end,
   capabilities = capabilities,
@@ -894,7 +918,7 @@ null_ls.setup({
 -------- KEYS --------
 local bufopts = { noremap = true, silent = true }
 -- Leader maps
-vim.keymap.set("n", "<leader>l", ":set list!<cr> \\| :IndentLinesToggle<cr>")
+vim.keymap.set("n", "<leader>'", ":set list!<cr>")
 vim.keymap.set("n", "<leader><space>", ":nohl<cr>")
 vim.keymap.set("n", "<leader>lw", ":%s/^\\s\\+<cr>:nohl<cr>")
 vim.keymap.set("n", "<leader>bl", ":g/^$/d<cr>:nohl<cr>", { desc = "Collapse all empty lines" })
@@ -989,9 +1013,10 @@ local scratch = require("scratch")
 scratch.setup()
 vim.keymap.set("n", "<leader>S", scratch.open_scratch_float, bufopts)
 
+local llm = require("llm")
 vim.keymap.set({ "n", "v" }, "<leader>i", function()
-  require("llm").invoke_llm_and_stream_into_editor({ replace = true, provider = "anthropic" })
-end, { desc = "LLM Assitant OpenAI" })
+  llm.invoke_llm_and_stream_into_editor({ replace = true, provider = "ollama" })
+end, { desc = "LLM Completion" })
 
 -- C-d to S-Tab (inverse tab)
 vim.keymap.set("i", "<S-Tab>", "<C-d>", bufopts)

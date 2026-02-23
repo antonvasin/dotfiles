@@ -5,9 +5,12 @@ cursor-color = #4169E1
 cursor-text = #ffffff
 copy-on-select = clipboard
 mouse-hide-while-typing = true
-window-save-state=always
+window-save-state = always
 minimum-contrast = 2
+macos-option-as-alt = false
 
 keybind = cmd+r=clear_screen
 keybind = global:ctrl+shift+cmd+opt+grave_accent=toggle_quick_terminal
 keybind = shift+enter=text:\n
+
+auto-update-channel = tip

@@ -1,4 +1,7 @@
-local M = {}
+local M = {
+	debug = false
+}
+
 local Job = require("plenary.job")
 
 local default_system_prompt =
@@ -23,6 +26,21 @@ M.providers = {
 		model = "gpt-4o",
 		-- model = "o1-preview",
 		api_key_name = "NVIM_OPENAI_API_KEY",
+		handle_spec_data = function(data_stream)
+			if data_stream:match('"delta":') then
+				local json = vim.json.decode(data_stream)
+				if json.choices and json.choices[1] and json.choices[1].delta then
+					local content = json.choices[1].delta.content
+					if content then
+						M.write_string_at_cursor(content)
+					end
+				end
+			end
+		end,
+	},
+	ollama = {
+		url = "http://localhost:11434/v1/chat/completions",
+		model = "devstral-small-2:24b",
 		handle_spec_data = function(data_stream)
 			if data_stream:match('"delta":') then
 				local json = vim.json.decode(data_stream)
@@ -83,6 +101,18 @@ function M.providers.openai.get_args(opts, prompt, system_prompt)
 		print("No OPENAI_API_KEY found")
 	end
 	table.insert(args, M.providers.openai.url)
+	return args
+end
+
+function M.providers.ollama.get_args(opts, prompt, system_prompt)
+	local data = {
+		messages = { { role = "system", content = system_prompt }, { role = "user", content = prompt } },
+		model = opts.model or M.providers.ollama.model,
+		temperature = opts.temperature or 0.7,
+		stream = true,
+	}
+	local args = { "-N", "-X", "POST", "-H", "Content-Type: application/json", "-d", vim.json.encode(data) }
+	table.insert(args, M.providers.ollama.url)
 	return args
 end
 
@@ -217,7 +247,10 @@ function M.invoke_llm_and_stream_into_editor(opts)
 		end,
 	})
 
-	-- M.debug_curl(args)
+	if M.debug then
+		M.debug_curl(args)
+	end
+
 	active_job:start()
 
 	vim.api.nvim_create_autocmd("User", {
