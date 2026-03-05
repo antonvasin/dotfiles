@@ -1,0 +1,6 @@
+{
+  "defaultModel": "qwen3.5:27b",
+  "defaultProvider": "ollama",
+  "lastChangelogVersion": "0.56.0",
+  "defaultThinkingLevel": "off"
+}

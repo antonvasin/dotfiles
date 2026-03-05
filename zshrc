@@ -157,21 +157,16 @@ unalias rm 2>/dev/null
 unalias gh
 
 # cat -> bat
-if [[ -f /opt/homebrew/bin/bat ]]; then
-  export BAT_THEME_LIGHT="Coldark-Cold"
-  export BAT_THEME_DARK="Coldark-Dark"
-  alias cat="bat"
-fi
+# if [[ -f /opt/homebrew/bin/bat ]]; then
+#   export BAT_THEME_LIGHT="Coldark-Cold"
+#   export BAT_THEME_DARK="Coldark-Dark"
+#   alias cat="bat"
+# fi
 
 # find -> fd
-if [[ -f /opt/homebrew/bin/fd ]]; then
-  alias find='fd'
-fi
-
-# llm aliases
-if [[ -f /opt/homebrew/bin/llm ]]; then
-  alias llmC="llm -m claude-3.7-sonnet -o thinking 1"
-fi
+# if [[ -f /opt/homebrew/bin/fd ]]; then
+#   alias find='fd'
+# fi
 
 #### fzf
 eval "$(fzf --zsh)"
@@ -209,6 +204,6 @@ export PATH="/usr/local/opt/openjdk/bin:$PATH"
 alias python=python3
 
 # Created by `pipx` on 2025-03-01 21:16:25
-export PATH="$PATH:/Users/avsn/.local/bin"
+# export PATH="$PATH:/Users/avsn/.local/bin"
 
 # broken Claude shell

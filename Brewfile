@@ -42,10 +42,13 @@ brew "jo"
 brew "jq"
 brew "libass"
 brew "llm"
+brew "llmfit"
 brew "lua-language-server"
 brew "mas"
 brew "minimal-racket"
 brew "mkcert"
+brew "mlx"
+brew "mlx-lm", restart_service: :changed
 brew "ncdu"
 brew "neovim", args: ["HEAD"]
 brew "ninja"
@@ -133,3 +136,6 @@ mas "TextSniper", id: 1528890965
 mas "uBlock Origin Lite", id: 6745342698
 mas "Vimari", id: 1480933944
 mas "Vinegar", id: 1591303229
+uv "huggingface-hub"
+uv "python-lsp-server"
+uv "ruff"
