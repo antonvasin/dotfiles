@@ -38,15 +38,15 @@ M.providers = {
 			end
 		end,
 	},
-	ollama = {
-		url = "http://localhost:11434/v1/chat/completions",
-		model = "devstral-small-2:24b",
+	llamacpp = {
+		url = "http://localhost:2276/v1/chat/completions",
+		model = "qwen-3.5-medium-35b-a3b-q4",
 		handle_spec_data = function(data_stream)
 			if data_stream:match('"delta":') then
 				local json = vim.json.decode(data_stream)
 				if json.choices and json.choices[1] and json.choices[1].delta then
 					local content = json.choices[1].delta.content
-					if content then
+					if content and type(content) == "string" then
 						M.write_string_at_cursor(content)
 					end
 				end
@@ -104,15 +104,15 @@ function M.providers.openai.get_args(opts, prompt, system_prompt)
 	return args
 end
 
-function M.providers.ollama.get_args(opts, prompt, system_prompt)
+function M.providers.llamacpp.get_args(opts, prompt, system_prompt)
 	local data = {
 		messages = { { role = "system", content = system_prompt }, { role = "user", content = prompt } },
-		model = opts.model or M.providers.ollama.model,
+		model = opts.model or M.providers.llamacpp.model,
 		temperature = opts.temperature or 0.7,
 		stream = true,
 	}
 	local args = { "-N", "-X", "POST", "-H", "Content-Type: application/json", "-d", vim.json.encode(data) }
-	table.insert(args, M.providers.ollama.url)
+	table.insert(args, M.providers.llamacpp.url)
 	return args
 end
 

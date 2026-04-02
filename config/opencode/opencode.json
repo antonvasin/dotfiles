@@ -1,0 +1,68 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "provider": {
+    "mlx": {
+      "models": {
+        "mlx-community/qwen3.5-27b-4bit": {
+          "name": "Qwen3.5 27B 4-Bit"
+        }
+      },
+      "name": "MLX (local)",
+      "npm": "@ai-sdk/openai-compatible",
+      "options": {
+        "baseURL": "http://127.0.0.1:8080/v1"
+      }
+    },
+    "llama.cpp": {
+      "npm": "@ai-sdk/openai-compatible",
+      "name": "llama-server",
+      "options": {
+        "baseURL": "http://127.0.0.1:8080/v1"
+      },
+      "models": {
+        "Qwen3.5-27B-Q4_K_M": {
+          "name": "Qwen3.5 27B 4bit",
+          "limit": {
+            "context": 32768,
+            "output": 16384
+          }
+        },
+        "Qwen3.5-35B-A3B": {
+          "name": "Qwen3.5 35B A3B",
+          "limit": {
+            "context": 262144,
+            "output": 16384
+          }
+        }
+      }
+    },
+    "LlamaBarn": {
+      "npm": "@ai-sdk/openai-compatible",
+      "options": {
+        "baseURL": "http://localhost:2276/v1"
+      },
+      "models": {
+        "unsloth/Qwen3-30B-A3B-Thinking-2507-GGUF:Q3_K_XL": {
+          "name": "Qwen3 30B A3B Thinking (Q3_K_XL) - LlamaBarn"
+        }
+      }
+    }
+  },
+  "plugin": ["opencode-claude-auth"],
+  "permission": {
+    "bash": {
+      "*": "ask",
+      "git status*": "allow",
+      "git diff*": "allow",
+      "git log*": "allow",
+      "git add*": "allow",
+      "git commit*": "ask",
+      "git stash*": "ask",
+      "git checkout*": "ask",
+      "git restore*": "ask",
+      "git reset*": "ask",
+      "git clean*": "deny",
+      "git worktree*": "ask"
+    }
+  }
+}

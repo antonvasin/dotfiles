@@ -1,6 +1,21 @@
 {
-  "defaultModel": "qwen3.5:27b",
-  "defaultProvider": "ollama",
-  "lastChangelogVersion": "0.56.0",
-  "defaultThinkingLevel": "off"
+  "defaultModel": "claude-opus-4-6",
+  "defaultProvider": "anthropic",
+  "lastChangelogVersion": "0.62.0",
+  "defaultThinkingLevel": "xhigh",
+  "enabledModels": [
+    "anthropic/claude-opus-4-6",
+    "anthropic/claude-sonnet-4-6",
+    "llama-cpp/unsloth/Qwen3.5-35B-A3B-GGUF:UD-Q4_K_XL",
+    "openrouter/moonshotai/kimi-k2.5"
+  ],
+  "skills": [
+    "-skills/pi-skills/gccli/SKILL.md",
+    "-skills/pi-skills/gdcli/SKILL.md",
+    "-skills/pi-skills/gmcli/SKILL.md",
+    "-skills/pi-skills/transcribe/SKILL.md",
+    "-skills/pi-skills/vscode/SKILL.md",
+    "-skills/pi-skills/youtube-transcript/SKILL.md"
+  ],
+  "hideThinkingBlock": false
 }

@@ -21,14 +21,26 @@
     ]
   },
   "model": "opus",
+  "hooks": {
+    "SessionStart": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash -c 'f=\"${CLAUDE_PROJECT_DIR}/AGENTS.md\"; [ -f \"$f\" ] || exit 0; grep -qs \"@AGENTS.md\" \"${CLAUDE_PROJECT_DIR}/CLAUDE.md\" && exit 0; echo \"=== Project AGENTS.md ===\"; cat \"$f\"'"
+          }
+        ]
+      }
+    ]
+  },
   "enabledPlugins": {
     "typescript-lsp@claude-plugins-official": true,
     "clangd-lsp@claude-plugins-official": false,
     "frontend-design@claude-plugins-official": true,
-    "playwright@claude-plugins-official": true,
+    "playwright@claude-plugins-official": false,
     "cloudflare@cloudflare": false,
-    "ralph-loop@claude-plugins-official": true,
     "security-guidance@claude-plugins-official": false,
-    "figma@claude-plugins-official": true
+    "figma@claude-plugins-official": false
   }
 }

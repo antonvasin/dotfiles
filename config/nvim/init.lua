@@ -129,9 +129,39 @@ require("lazy").setup({
 
       dap.adapters.lldb = {
         type = "executable",
-        command = "/usr/bin/lldb",
+        -- command = "/usr/bin/lldb",
+        command = "/Library/Developer/CommandLineTools/usr/bin/lldb-dap",
         name = "lldb",
       }
+
+      dap.configurations.cpp = {
+        {
+          name = 'Launch',
+          type = 'lldb',
+          request = 'launch',
+          program = function()
+            return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
+          end,
+          cwd = '${workspaceFolder}',
+          stopOnEntry = false,
+          args = {},
+
+          -- 💀
+          -- if you change `runInTerminal` to true, you might need to change the yama/ptrace_scope setting:
+          --
+          --    echo 0 | sudo tee /proc/sys/kernel/yama/ptrace_scope
+          --
+          -- Otherwise you might get the following error:
+          --
+          --    Error on launch: Failed to attach to the target process
+          --
+          -- But you should be aware of the implications:
+          -- https://www.kernel.org/doc/html/latest/admin-guide/LSM/Yama.html
+          -- runInTerminal = false,
+        },
+      }
+
+      dap.configurations.c = dap.configurations.cpp
 
       dap.configurations.zig = {
         {
@@ -353,6 +383,7 @@ vim.opt.autoread = true
 vim.opt.wildmenu = true
 vim.opt.ruler = true
 vim.opt.smarttab = true
+vim.opt.modeline = false
 
 -- Do smart case matching
 vim.opt.smartcase = true
@@ -733,8 +764,9 @@ vim.g.zig_fmt_autosave = 0
 vim.lsp.config("clangd", {
   cmake_build_options = { "-j12" },
   on_attach = function(client, buf)
-    map_key("n", "<leader>A", ":ClangdSwitchSourceHeader<CR>")
-    map_key("n", "<leader>AV", ":vsp<CR>:ClangdSwitchSourceHeader<CR>")
+    map_key("n", "<leader>aa", ":ClangdSwitchSourceHeader<CR>")
+    map_key("n", "<leader>av", ":vsp<CR>:ClangdSwitchSourceHeader<CR>")
+    map_key("n", "<leader>ax", ":sp<CR>:ClangdSwitchSourceHeader<CR>")
     map_key("n", "<leader>cr", ":CMakeRun<CR>")
     on_attach(client, buf)
   end,
@@ -1015,7 +1047,7 @@ vim.keymap.set("n", "<leader>S", scratch.open_scratch_float, bufopts)
 
 local llm = require("llm")
 vim.keymap.set({ "n", "v" }, "<leader>i", function()
-  llm.invoke_llm_and_stream_into_editor({ replace = true, provider = "ollama" })
+  llm.invoke_llm_and_stream_into_editor({ replace = true, provider = "llamacpp" })
 end, { desc = "LLM Completion" })
 
 -- C-d to S-Tab (inverse tab)

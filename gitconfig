@@ -80,6 +80,10 @@
 
 [diff]
   tool = difftastic
+	algorithm = histogram
+	interHunkContext = 10
+	colorMoved = zebra
+	colorMovedWS = ignore-all-space
 [difftool]
   prompt = false
 [difftool "difftastic"]

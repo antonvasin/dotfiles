@@ -41,14 +41,16 @@ brew "jdtls"
 brew "jo"
 brew "jq"
 brew "libass"
+brew "llama.cpp"
 brew "llm"
 brew "llmfit"
 brew "lua-language-server"
+brew "mactop"
 brew "mas"
 brew "minimal-racket"
 brew "mkcert"
 brew "mlx"
-brew "mlx-lm", restart_service: :changed
+brew "mlx-lm"
 brew "ncdu"
 brew "neovim", args: ["HEAD"]
 brew "ninja"
@@ -89,6 +91,7 @@ cask "clion"
 cask "dash"
 cask "discord"
 cask "firefox"
+cask "font-aporetic"
 cask "font-iosevka"
 cask "ghostty"
 cask "google-chrome"
@@ -96,6 +99,7 @@ cask "iina"
 cask "imhex"
 cask "karabiner-elements"
 cask "keyboardcleantool"
+cask "llamabarn"
 cask "mullvad-vpn"
 cask "musescore"
 cask "obs"
@@ -106,9 +110,11 @@ cask "qflipper"
 cask "qmk-toolbox"
 cask "reaper"
 cask "rectangle"
+cask "stats"
 cask "steam"
 cask "steermouse"
 cask "transmission"
+cask "trex"
 cask "tuxguitar"
 cask "utm"
 cask "vlc"
@@ -124,7 +130,7 @@ mas "GarageBand", id: 682658836
 mas "iMovie", id: 408981434
 mas "JSON Peep", id: 1458969831
 mas "Keynote", id: 409183694
-mas "Numbers", id: 409203825
+mas "Numbers", id: 361304891
 mas "Obsidian Web Clipper", id: 6720708363
 mas "Pages", id: 409201541
 mas "Parcel Classic", id: 639968404
@@ -139,3 +145,5 @@ mas "Vinegar", id: 1591303229
 uv "huggingface-hub"
 uv "python-lsp-server"
 uv "ruff"
+npm "@anthropic-ai/claude-code"
+npm "corepack"
