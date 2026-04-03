@@ -2,7 +2,6 @@
 
 # Run mac OS configuration
 echo "Configuring mac OS…"
-./macos.sh
 
 # Check and install homebrew if needed
 if ! which -s brew > /dev/null; then
@@ -21,6 +20,12 @@ curl -fsSL https://raw.githubusercontent.com/zimfw/install/master/install.zsh | 
 
 echo "Installing dotfiles…"
 rcup
+
+echo "Bootstrapping backup launch agent…"
+# mkdir -p ~/Library/LaunchAgents
+# ln -sf "$HOME/dotfiles/Library/LaunchAgents/DotfilesBackup.plist" ~/Library/LaunchAgents/DotfilesBackup.plist
+launchctl bootout gui/$(id -u)/DotfilesBackup 2>/dev/null || true
+launchctl bootstrap gui/$(id -u) ~/Library/LaunchAgents/DotfilesBackup.plist
 
 # echo "Restarting gpg-agent…"
 # killall gpg-agent && gpg-agent --daemon
