@@ -19,7 +19,12 @@ require("lazy").setup({
 
   -- Editing & Navigation
   { "windwp/nvim-autopairs",     config = true },
-  { "numToStr/Comment.nvim",     config = true },
+  {
+    "numToStr/Comment.nvim",
+    dependencies = {
+      "JoosepAlviste/nvim-ts-context-commentstring",
+    }
+  },
   "mbbill/undotree",
   { "kylechui/nvim-surround",                   event = "VeryLazy", config = true, },
   { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
@@ -189,13 +194,17 @@ require("lazy").setup({
 
 
   -- Syntax
-  { "nvim-treesitter/nvim-treesitter", build = ":TSUpdate", },
+  {
+    "nvim-treesitter/nvim-treesitter",
+    build = ":TSUpdate",
+    branch = "main",
+    lazy = false,
+  },
   "nvim-treesitter/nvim-treesitter-context",
   "nvim-treesitter/nvim-treesitter-textobjects",
-  "JoosepAlviste/nvim-ts-context-commentstring",
-  { "tpope/vim-jdaddy",                ft = "json" },
-  { "neoclide/jsonc.vim",              ft = "json" },
-  { "ziglang/zig.vim",                 ft = "zig" },
+  { "tpope/vim-jdaddy",   ft = "json" },
+  { "neoclide/jsonc.vim", ft = "json" },
+  { "ziglang/zig.vim",    ft = "zig" },
   {
     "chrisgrieser/nvim-spider",
     keys = {
@@ -412,7 +421,8 @@ vim.opt.cmdheight = 1
 -- folding
 vim.opt.foldenable = true
 vim.opt.foldmethod = "manual"
-vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
+vim.wo[0][0].foldexpr = 'v:lua.vim.treesitter.foldexpr()'
+vim.wo[0][0].foldmethod = 'expr'
 vim.opt.foldlevelstart = 99
 
 -- do not highlight lines longer than 800 char
@@ -826,99 +836,122 @@ vim.lsp.config("zls", {
   }
 })
 
-require("nvim-treesitter.configs").setup({
-  ensure_installed = {
-    "javascript",
-    "typescript",
-    "css",
-    "html",
-    "bash",
-    "sql",
-    "vim",
-    "vimdoc",
-    "lua",
-    "c",
-    "python",
-    "zig",
-    "c",
-    "cpp",
-    "comment"
-  },
-  highlight = { enable = true },
-  auto_install = true,
-  textobjects = {
-    select = {
-      enable = true,
-      lookahead = true,
-      keymaps = {
-        -- You can use the capture groups defined in textobjects.scm
-        ["af"] = "@function.outer",
-        ["if"] = "@function.inner",
-        ["ac"] = "@class.outer",
-        -- You can optionally set descriptions to the mappings (used in the desc parameter of
-        -- nvim_buf_set_keymap) which plugins like which-key display
-        ["ic"] = { query = "@class.inner", desc = "Select inner part of a class region" },
-        -- You can also use captures from other query groups like `locals.scm`
-        ["as"] = { query = "@scope", query_group = "locals", desc = "Select language scope" },
-      },
-    },
-    swap = {
-      enable = true,
-      -- swap_next = {
-      --   ["<leader>a"] = "@parameter.inner",
-      -- },
-      -- swap_previous = {
-      --   ["<leader>A"] = "@parameter.inner",
-      -- },
-    },
-    move = {
-      enable = true,
-      set_jumps = true, -- whether to set jumps in the jumplist
-      goto_next_start = {
-        ["]m"] = "@function.outer",
-        ["]]"] = { query = "@class.outer", desc = "Next class start" },
-        --
-        -- You can use regex matching (i.e. lua pattern) and/or pass a list in a "query" key to group multiple queires.
-        ["]o"] = "@loop.*",
-        -- ["]o"] = { query = { "@loop.inner", "@loop.outer" } }
-        --
-        -- You can pass a query group to use query from `queries/<lang>/<query_group>.scm file in your runtime path.
-        -- Below example nvim-treesitter's `locals.scm` and `folds.scm`. They also provide highlights.scm and indent.scm.
-        ["]s"] = { query = "@scope", query_group = "locals", desc = "Next scope" },
-        ["]z"] = { query = "@fold", query_group = "folds", desc = "Next fold" },
-      },
-      goto_next_end = {
-        ["]M"] = "@function.outer",
-        ["]["] = "@class.outer",
-      },
-      goto_previous_start = {
-        ["[m"] = "@function.outer",
-        ["[["] = "@class.outer",
-      },
-      goto_previous_end = {
-        ["[M"] = "@function.outer",
-        ["[]"] = "@class.outer",
-      },
-      -- Below will go to either the start or the end, whichever is closer.
-      -- Use if you want more granular movements
-      -- Make it even more gradual by adding multiple queries and regex.
-      goto_next = {
-        ["]d"] = "@conditional.outer",
-      },
-      goto_previous = {
-        ["[d"] = "@conditional.outer",
-      },
-    },
-  },
+require('nvim-treesitter').install({
+  "javascript",
+  "typescript",
+  "tsx",
+  "css",
+  "html",
+  "bash",
+  "sql",
+  "vim",
+  "vimdoc",
+  "lua",
+  "c",
+  "python",
+  "zig",
+  "c",
+  "cpp",
+  "comment"
 })
+
+-- require("nvim-treesitter.configs").setup({
+--   ensure_installed = {
+--     "javascript",
+--     "typescript",
+--     "css",
+--     "html",
+--     "bash",
+--     "sql",
+--     "vim",
+--     "vimdoc",
+--     "lua",
+--     "c",
+--     "python",
+--     "zig",
+--     "c",
+--     "cpp",
+--     "comment"
+--   },
+--   highlight = { enable = true },
+--   auto_install = true,
+--   textobjects = {
+--     select = {
+--       enable = true,
+--       lookahead = true,
+--       keymaps = {
+--         -- You can use the capture groups defined in textobjects.scm
+--         ["af"] = "@function.outer",
+--         ["if"] = "@function.inner",
+--         ["ac"] = "@class.outer",
+--         -- You can optionally set descriptions to the mappings (used in the desc parameter of
+--         -- nvim_buf_set_keymap) which plugins like which-key display
+--         ["ic"] = { query = "@class.inner", desc = "Select inner part of a class region" },
+--         -- You can also use captures from other query groups like `locals.scm`
+--         ["as"] = { query = "@scope", query_group = "locals", desc = "Select language scope" },
+--       },
+--     },
+--     swap = {
+--       enable = true,
+--       -- swap_next = {
+--       --   ["<leader>a"] = "@parameter.inner",
+--       -- },
+--       -- swap_previous = {
+--       --   ["<leader>A"] = "@parameter.inner",
+--       -- },
+--     },
+--     move = {
+--       enable = true,
+--       set_jumps = true, -- whether to set jumps in the jumplist
+--       goto_next_start = {
+--         ["]m"] = "@function.outer",
+--         ["]]"] = { query = "@class.outer", desc = "Next class start" },
+--         --
+--         -- You can use regex matching (i.e. lua pattern) and/or pass a list in a "query" key to group multiple queires.
+--         ["]o"] = "@loop.*",
+--         -- ["]o"] = { query = { "@loop.inner", "@loop.outer" } }
+--         --
+--         -- You can pass a query group to use query from `queries/<lang>/<query_group>.scm file in your runtime path.
+--         -- Below example nvim-treesitter's `locals.scm` and `folds.scm`. They also provide highlights.scm and indent.scm.
+--         ["]s"] = { query = "@scope", query_group = "locals", desc = "Next scope" },
+--         ["]z"] = { query = "@fold", query_group = "folds", desc = "Next fold" },
+--       },
+--       goto_next_end = {
+--         ["]M"] = "@function.outer",
+--         ["]["] = "@class.outer",
+--       },
+--       goto_previous_start = {
+--         ["[m"] = "@function.outer",
+--         ["[["] = "@class.outer",
+--       },
+--       goto_previous_end = {
+--         ["[M"] = "@function.outer",
+--         ["[]"] = "@class.outer",
+--       },
+--       -- Below will go to either the start or the end, whichever is closer.
+--       -- Use if you want more granular movements
+--       -- Make it even more gradual by adding multiple queries and regex.
+--       goto_next = {
+--         ["]d"] = "@conditional.outer",
+--       },
+--       goto_previous = {
+--         ["[d"] = "@conditional.outer",
+--       },
+--     },
+--   },
+-- })
 
 require("treesitter-context").setup({
   enable = true,
   max_lines = 1,
 })
 
-require("ts_context_commentstring").setup({})
--- vim.g.skip_ts_context_commentstring_module = true
+require('ts_context_commentstring').setup {
+  enable_autocmd = false,
+}
+require('Comment').setup {
+  pre_hook = require('ts_context_commentstring.integrations.comment_nvim').create_pre_hook(),
+}
 
 null_ls.setup({
   sources = {
