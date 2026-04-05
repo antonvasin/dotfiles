@@ -43,5 +43,5 @@
     "security-guidance@claude-plugins-official": false,
     "figma@claude-plugins-official": false
   },
-  "effortLevel": "high"
+  "effortLevel": "medium"
 }
