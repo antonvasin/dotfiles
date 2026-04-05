@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git -C /Users/avsn/dotfiles log --oneline -5)",
+      "Read(//Users/avsn/dotfiles/**)"
+    ]
+  }
+}
