@@ -746,7 +746,6 @@ vim.lsp.config("jsonls", {
   on_attach = on_attach,
 })
 
-
 vim.lsp.config("clangd", {
   cmake_build_options = { "-j12" },
   on_attach = function(client, buf)
