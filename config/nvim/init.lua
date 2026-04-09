@@ -811,6 +811,12 @@ vim.lsp.config("zls", {
   }
 })
 
+vim.lsp.config("marksman", {
+  enabled = true,
+  on_attach = on_attach,
+  capabilities = capabilities,
+})
+
 require('nvim-treesitter').install({
   "javascript",
   "typescript",
