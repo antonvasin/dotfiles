@@ -776,7 +776,10 @@ local on_attach = function(client, bufnr)
 
   map_key("n", "<leader>fs", function()
     require("telescope.builtin").lsp_document_symbols({ show_line = true, symbol_width = 50 })
-  end, "Telescope LSP symbols ", bufnr)
+  end, "LSP document symbols ", bufnr)
+  map_key("n", "<leader>fS", function()
+    require("telescope.builtin").lsp_dynamic_workspace_symbols({ show_line = true, symbol_width = 50 })
+  end, "LSP workspace symbols ", bufnr)
 
   map_key("n", "<leader>fS", require("telescope.builtin").lsp_workspace_symbols, "Telescope workspace LSP symbols", bufnr)
 
