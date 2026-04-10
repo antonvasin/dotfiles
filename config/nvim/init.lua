@@ -53,6 +53,7 @@ vim.pack.add({
   -- Look
   'https://github.com/nvim-lualine/lualine.nvim',
   'https://github.com/lewis6991/gitsigns.nvim',
+  'https://github.com/f-person/auto-dark-mode.nvim',
 
   -- Editing & Navigation
   'https://github.com/windwp/nvim-autopairs',
@@ -64,6 +65,7 @@ vim.pack.add({
   'https://github.com/nvim-lua/plenary.nvim',
   'https://github.com/nvim-telescope/telescope-ui-select.nvim',
   'https://github.com/nvim-telescope/telescope.nvim',
+  "https://github.com/nvimdev/indentmini.nvim",
 
   -- Integrations
   'https://github.com/tpope/vim-fugitive',
@@ -107,7 +109,244 @@ vim.pack.add({
   'https://github.com/mfussenegger/nvim-jdtls',
 })
 
--- Plugin setup calls
+-------- SETTINGS --------
+-- Enable mouse usage (all modes)
+vim.opt.mouse = "a"
+
+vim.opt.mousescroll = "ver:3,hor:0"
+
+vim.opt.tabstop = 2
+vim.opt.shiftwidth = 2
+vim.opt.softtabstop = 2
+vim.opt.expandtab = true
+vim.opt.scrolloff = 8
+vim.opt.showmode = false
+vim.opt.autoindent = true
+vim.opt.autoread = true
+vim.opt.wildmenu = true
+vim.opt.ruler = true
+vim.opt.smarttab = true
+vim.opt.modeline = false
+
+-- Do smart case matching
+vim.opt.smartcase = true
+-- Do case insensitive matching
+vim.opt.ignorecase = true
+-- Incremental search
+vim.opt.hlsearch = true
+vim.opt.wildmode = { "list", "longest", "full" }
+vim.opt.backspace = { "indent", "eol", "start" }
+-- Hide buffers when they are abandoned
+vim.opt.hidden = true
+vim.opt.splitbelow = true
+vim.opt.splitright = true
+vim.opt.laststatus = 2
+vim.opt.textwidth = 79
+-- Show (partial) command in status line.
+-- vim.opt.showcmd
+vim.opt.linespace = 0
+-- Show matching brackets.
+vim.opt.showmatch = true
+vim.opt.wrap = true
+vim.opt.completeopt = { "menu", "menuone", "preview", "noselect", "noinsert" }
+vim.opt.shortmess = "atIc"
+vim.opt.cmdheight = 1
+
+-- folding
+vim.opt.foldenable = true
+vim.opt.foldmethod = "manual"
+vim.wo[0][0].foldexpr = 'v:lua.vim.treesitter.foldexpr()'
+vim.wo[0][0].foldmethod = 'expr'
+vim.opt.foldlevelstart = 99
+
+-- do not highlight lines longer than 800 char
+vim.opt.synmaxcol = 800
+
+vim.opt.relativenumber = true
+vim.opt.number = true
+
+vim.opt.breakindent = true
+vim.opt.breakindentopt = "sbr"
+vim.opt.showbreak = "└  "
+vim.opt.inccommand = "nosplit"
+vim.opt.diffopt:append({ "vertical" })
+vim.opt.viewoptions = { "folds", "cursor" }
+
+-- Leader
+vim.api.nvim_set_keymap("", "<Space>", "<Nop>", { silent = true, noremap = true })
+vim.g.mapleader = " "
+vim.g.maplocalleader = " "
+
+--don't wait too long for next keystroke
+vim.opt.timeoutlen = 500
+vim.opt.updatetime = 50
+
+vim.opt.iminsert = 0
+vim.opt.imsearch = 0
+
+vim.opt.formatoptions = "qrn1j"
+vim.opt.wildignorecase = true
+vim.opt.history = 500
+vim.opt.complete = { ".", "b", "u", "]", "kspell" }
+vim.opt.wildignore:append({ "**/node_modules" })
+vim.opt.clipboard:append({ "unnamedplus" })
+
+-- Backups
+vim.opt.undofile = true
+vim.opt.backup = false
+vim.opt.swapfile = false
+
+vim.g.netrw_localrmdir = "rm -r"
+vim.g.netrw_winsize = 30
+
+-- rg
+-- let g:ack_autoclose = 1
+vim.g.ack_use_cword_for_empty_search = 1
+
+vim.g.markdown_fenced_languages = { "ts=typescript" }
+
+-- Make sure Vim returns to the same line when you reopen a file.
+vim.cmd([[
+augroup line_return
+  au!
+  au BufReadPost *
+        \ if line("'\"") > 0 && line("'\"") <= line("$") |
+        \     execute 'normal! g`"zvzz' |
+        \ endif
+augroup END
+]])
+
+-- Persist folds
+vim.cmd([[
+augroup PersistFolds
+  autocmd!
+  autocmd BufWinLeave,BufLeave,BufWritePost ?* nested silent! mkview!
+  autocmd BufWinEnter ?* silent! loadview
+augroup END
+]])
+
+-- Spelling
+-- Don’t display urls as spelling errors
+-- Don't count acronyms / abbreviations as spelling errors
+-- (all upper-case letters, at least three characters)
+-- Also will not count acronym with 's' at the end a spelling error
+-- Also will not count numbers that are part of this
+-- Recognizes the following as correct:
+vim.opt.spelllang = { "en_gb" }
+vim.cmd([[
+autocmd FileType markdown,text,html setlocal spell
+hi SpellBad cterm=underdotted
+" hi clear SpellBad
+" hi lCursor guifg=NONE guibg=Cyan
+syn match AcronymNoSpell '\<\(\u\|\d\)\{3,}s\?\>' contains=@NoSpell
+]])
+vim.cmd("syn match UrlNoSpell 'w+://[^[:space:]]+' contains=@NoSpell")
+
+vim.cmd([[
+au TermOpen * setlocal nonumber norelativenumber
+
+autocmd BufWritePre * :%s/\s\+$//e
+
+" autocmd BufWritePost $MYVIMRC nested source $MYVIMRC
+
+" filetypes
+autocmd BufRead,BufNewFile tsconfig*.json set filetype=jsonc
+autocmd BufRead,BufNewFile *.plist set filetype=xml
+
+xnoremap @ :<C-u>call ExecuteMacroOverVisualRange()<CR>
+
+function! ExecuteMacroOverVisualRange()
+  echo "@".getcmdline()
+  execute ":'<,'>normal @".nr2char(getchar())
+endfunction
+
+autocmd filetype qf wincmd J
+]])
+
+-------- SETTINGS --------
+
+-------- UI --------
+-- 24-bit colors
+vim.opt.termguicolors = true
+vim.opt.visualbell = true
+vim.opt.cursorline = true
+vim.opt.guicursor:append({ "n-v-c:blinkon0" })
+
+local function override_default_theme()
+  -- Use default theme with overrides
+  -- https://github.com/neovim/neovim/blob/master/src/nvim/highlight_group.c#L144
+  -- https://github.com/nshern/neovim-default-colorscheme-extras?tab=readme-ov-file
+
+  -- vim.api.nvim_set_hl(0, "Function", {})
+  -- mute import/export, etc
+  vim.api.nvim_set_hl(0, "Cursor", { bg = "NvimLightBlue", fg = "White" })
+  -- vim.api.nvim_set_hl(0, "Special", { bold = true })
+  -- vim.api.nvim_set_hl(0, "PreProc", { link = "Special" })
+  if vim.o.background == "dark" then
+    vim.api.nvim_set_hl(0, "Todo", { bg = "NvimLightYellow", fg = "NvimDarkGray1" })
+    vim.api.nvim_set_hl(0, "Type", { bold = true })
+    vim.api.nvim_set_hl(0, "IndentLine", { fg = "NvimDarkGray4" })
+  else
+    vim.api.nvim_set_hl(0, "Todo", { bg = "NvimLightYellow", fg = "NvimLightGray4" })
+    vim.api.nvim_set_hl(0, "IndentLine", { fg = "NvimLightGray4" })
+  end
+end
+
+override_default_theme()
+
+-- Tab symbols, etc
+vim.opt.listchars = "tab:▸ ,eol:¬,extends:❯,precedes:❮,nbsp:␣"
+vim.opt.fillchars = "vert:│"
+
+-- Display only current cursorline
+vim.cmd([[
+  augroup CursorLine
+    au!
+    au VimEnter * setlocal cursorline
+    au WinEnter * setlocal cursorline
+    au BufWinEnter * setlocal cursorline
+    au WinLeave * setlocal nocursorline
+  augroup END
+]])
+
+vim.cmd("autocmd VimResized * wincmd =")
+
+-- XXX: chars bleed into float windows
+-- vim.opt.winblend = 25
+-- vim.opt.pumblend = 25
+
+vim.opt.signcolumn = "yes"
+
+vim.opt.wildmode = "longest,list,full"
+vim.opt.wildmenu = true
+
+vim.diagnostic.config({
+  virtual_text = false,
+  -- virtual_text = {
+  --   severety = vim.diagnostic.severity.ERROR,
+  --   source = "if_many",
+  -- },
+  float = {
+    source = "if_many",
+    focusable = false,
+  },
+  update_in_insert = true,
+  severity_sort = true,
+})
+-------- UI --------
+
+-------- PLUGINS --------
+require('auto-dark-mode').setup({
+  set_dark_mode = function()
+    vim.api.nvim_set_option_value("background", "dark", {})
+    override_default_theme()
+  end,
+  set_light_mode = function()
+    vim.api.nvim_set_option_value("background", "light", {})
+    override_default_theme()
+  end,
+})
+
 local cmake = require("cmake-tools")
 require('lualine').setup({
   options = {
@@ -261,6 +500,14 @@ require('nvim-surround').setup()
 require('clangd_extensions').setup()
 require('nvim-dap-virtual-text').setup({ enabled = true })
 require('lazydev').setup()
+require("indentmini").setup({
+  only_current = false,
+  enabled = false,
+  char = '▏',
+  minlevel = 2,
+  exclude = { 'markdown', 'help', 'text', 'rst' },
+  exclude_nodetype = { 'string', 'comment' }
+})
 
 -- ack.vim
 vim.g.ackprg = "rg --sort path --vimgrep --smart-case --no-heading"
@@ -500,231 +747,9 @@ cmp.setup({
 })
 -------- PLUGINS --------
 
--------- SETTINGS --------
--- Enable mouse usage (all modes)
-vim.opt.mouse = "a"
-
-vim.opt.mousescroll = "ver:3,hor:0"
-
-vim.opt.tabstop = 2
-vim.opt.shiftwidth = 2
-vim.opt.softtabstop = 2
-vim.opt.expandtab = true
-vim.opt.scrolloff = 8
-vim.opt.showmode = false
-vim.opt.autoindent = true
-vim.opt.autoread = true
-vim.opt.wildmenu = true
-vim.opt.ruler = true
-vim.opt.smarttab = true
-vim.opt.modeline = false
-
--- Do smart case matching
-vim.opt.smartcase = true
--- Do case insensitive matching
-vim.opt.ignorecase = true
--- Incremental search
-vim.opt.hlsearch = true
-vim.opt.wildmode = { "list", "longest", "full" }
-vim.opt.backspace = { "indent", "eol", "start" }
--- Hide buffers when they are abandoned
-vim.opt.hidden = true
-vim.opt.splitbelow = true
-vim.opt.splitright = true
-vim.opt.laststatus = 2
-vim.opt.textwidth = 79
--- Show (partial) command in status line.
--- vim.opt.showcmd
-vim.opt.linespace = 0
--- Show matching brackets.
-vim.opt.showmatch = true
-vim.opt.wrap = true
-vim.opt.completeopt = { "menu", "menuone", "preview", "noselect", "noinsert" }
-vim.opt.shortmess = "atIc"
-vim.opt.cmdheight = 1
-
--- folding
-vim.opt.foldenable = true
-vim.opt.foldmethod = "manual"
-vim.wo[0][0].foldexpr = 'v:lua.vim.treesitter.foldexpr()'
-vim.wo[0][0].foldmethod = 'expr'
-vim.opt.foldlevelstart = 99
-
--- do not highlight lines longer than 800 char
-vim.opt.synmaxcol = 800
-
-vim.opt.relativenumber = true
-vim.opt.number = true
-
-vim.opt.breakindent = true
-vim.opt.breakindentopt = "sbr"
-vim.opt.showbreak = "└  "
-vim.opt.inccommand = "nosplit"
-vim.opt.diffopt:append({ "vertical" })
-vim.opt.viewoptions = { "folds", "cursor" }
-
--- Leader
-vim.api.nvim_set_keymap("", "<Space>", "<Nop>", { silent = true, noremap = true })
-vim.g.mapleader = " "
-vim.g.maplocalleader = " "
-
---don't wait too long for next keystroke
-vim.opt.timeoutlen = 500
-vim.opt.updatetime = 50
-
-vim.opt.iminsert = 0
-vim.opt.imsearch = 0
-
-vim.opt.formatoptions = "qrn1j"
-vim.opt.wildignorecase = true
-vim.opt.history = 500
-vim.opt.complete = { ".", "b", "u", "]", "kspell" }
-vim.opt.wildignore:append({ "**/node_modules" })
-vim.opt.clipboard:append({ "unnamedplus" })
-
--- Backups
-vim.opt.undofile = true
-vim.opt.backup = false
-vim.opt.swapfile = false
-
-vim.g.netrw_localrmdir = "rm -r"
-vim.g.netrw_winsize = 30
-
--- rg
--- let g:ack_autoclose = 1
-vim.g.ack_use_cword_for_empty_search = 1
-
-vim.g.markdown_fenced_languages = { "ts=typescript" }
-
--- Make sure Vim returns to the same line when you reopen a file.
-vim.cmd([[
-augroup line_return
-  au!
-  au BufReadPost *
-        \ if line("'\"") > 0 && line("'\"") <= line("$") |
-        \     execute 'normal! g`"zvzz' |
-        \ endif
-augroup END
-]])
-
--- Persist folds
-vim.cmd([[
-augroup PersistFolds
-  autocmd!
-  autocmd BufWinLeave,BufLeave,BufWritePost ?* nested silent! mkview!
-  autocmd BufWinEnter ?* silent! loadview
-augroup END
-]])
-
--- Spelling
--- Don’t display urls as spelling errors
--- Don't count acronyms / abbreviations as spelling errors
--- (all upper-case letters, at least three characters)
--- Also will not count acronym with 's' at the end a spelling error
--- Also will not count numbers that are part of this
--- Recognizes the following as correct:
-vim.opt.spelllang = { "en_gb" }
-vim.cmd([[
-autocmd FileType markdown,text,html setlocal spell
-hi SpellBad cterm=underdotted
-" hi clear SpellBad
-" hi lCursor guifg=NONE guibg=Cyan
-syn match AcronymNoSpell '\<\(\u\|\d\)\{3,}s\?\>' contains=@NoSpell
-]])
-vim.cmd("syn match UrlNoSpell 'w+://[^[:space:]]+' contains=@NoSpell")
-
-vim.cmd([[
-au TermOpen * setlocal nonumber norelativenumber
-
-autocmd BufWritePre * :%s/\s\+$//e
-
-" autocmd BufWritePost $MYVIMRC nested source $MYVIMRC
-
-" filetypes
-autocmd BufRead,BufNewFile tsconfig*.json set filetype=jsonc
-autocmd BufRead,BufNewFile *.plist set filetype=xml
-
-xnoremap @ :<C-u>call ExecuteMacroOverVisualRange()<CR>
-
-function! ExecuteMacroOverVisualRange()
-  echo "@".getcmdline()
-  execute ":'<,'>normal @".nr2char(getchar())
-endfunction
-
-autocmd filetype qf wincmd J
-]])
-
--------- SETTINGS --------
-
--------- UI --------
--- 24-bit colors
-vim.opt.termguicolors = true
-vim.opt.visualbell = true
-vim.opt.cursorline = true
-vim.opt.guicursor:append({ "n-v-c:blinkon0" })
-
--- Use default theme with overrides
--- https://github.com/neovim/neovim/blob/master/src/nvim/highlight_group.c#L144
--- https://github.com/nshern/neovim-default-colorscheme-extras?tab=readme-ov-file
--- vim.api.nvim_set_hl(0, "Function", {})
--- mute import/export, etc
-vim.api.nvim_set_hl(0, "Cursor", { bg = "NvimLightBlue", fg = "White" })
--- vim.api.nvim_set_hl(0, "Special", { bold = true })
--- vim.api.nvim_set_hl(0, "PreProc", { link = "Special" })
-if vim.o.background == "dark" then
-  vim.api.nvim_set_hl(0, "Todo", { bg = "NvimLightYellow", fg = "NvimDarkGray1" })
-  vim.api.nvim_set_hl(0, "Type", { bold = true })
-else
-  vim.api.nvim_set_hl(0, "Todo", { bg = "NvimLightYellow", fg = "NvimLightGray4" })
-end
-
-
-
--- Tab symbols, etc
-vim.opt.listchars = "tab:▸ ,eol:¬,extends:❯,precedes:❮,nbsp:␣"
-vim.opt.fillchars = "vert:│"
-
--- Display only current cursorline
-vim.cmd([[
-  augroup CursorLine
-    au!
-    au VimEnter * setlocal cursorline
-    au WinEnter * setlocal cursorline
-    au BufWinEnter * setlocal cursorline
-    au WinLeave * setlocal nocursorline
-  augroup END
-]])
-
-vim.cmd("autocmd VimResized * wincmd =")
-
--- XXX: chars bleed into float windows
--- vim.opt.winblend = 25
--- vim.opt.pumblend = 25
-
-vim.opt.signcolumn = "yes"
-
-vim.opt.wildmode = "longest,list,full"
-vim.opt.wildmenu = true
-
-vim.diagnostic.config({
-  virtual_text = false,
-  -- virtual_text = {
-  --   severety = vim.diagnostic.severity.ERROR,
-  --   source = "if_many",
-  -- },
-  float = {
-    source = "if_many",
-    focusable = false,
-  },
-  update_in_insert = true,
-  severity_sort = true,
-})
--------- UI --------
-
 -------- LSP --------
 local root_pattern = require("lspconfig.util").root_pattern
 local null_ls = require("null-ls")
-
 
 require("mason").setup()
 require("mason-lspconfig").setup({
@@ -835,9 +860,9 @@ local on_attach = function(client, bufnr)
   -- client.server_capabilities.semanticTokensProvider = false
 
   if client.server_capabilities.inlayHintProvider then
-    if client.name == "clangd" then
-      vim.lsp.inlay_hint.enable()
-    end
+    map_key("n", "<leader>th", function()
+      vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
+    end, "[T]oggle inlay [h]ints", bufnr)
   end
 end
 
@@ -1035,7 +1060,10 @@ vim.g.zig_fmt_autosave = 0
 -------- KEYS --------
 local bufopts = { noremap = true, silent = true }
 -- Leader maps
-vim.keymap.set("n", "<leader>'", ":set list!<cr>")
+vim.keymap.set("n", "<leader>tl", function()
+  require('indentmini').toggle()
+  vim.opt.list = not vim.o.list
+end, { desc = '[T]oggle hidden characters and indent [l]ines' })
 vim.keymap.set("n", "<leader><space>", ":nohl<cr>")
 vim.keymap.set("n", "<leader>lw", ":%s/^\\s\\+<cr>:nohl<cr>")
 vim.keymap.set("n", "<leader>bl", ":g/^$/d<cr>:nohl<cr>", { desc = "Collapse all empty lines" })
