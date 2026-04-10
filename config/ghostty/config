@@ -3,6 +3,7 @@ font-family = Ioskeley Mono
 font-style = Semi-Condensed
 # font-family = Aporetic Sans Mono
 font-size = 14
+adjust-cell-height = 20%
 theme = dark:Nvim Dark,light:Nvim Light
 cursor-color = #4169E1
 cursor-text = #ffffff

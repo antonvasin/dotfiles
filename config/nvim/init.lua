@@ -833,6 +833,12 @@ local on_attach = function(client, bufnr)
 
   -- attempt to fix highlight conflicts with treesitter
   -- client.server_capabilities.semanticTokensProvider = false
+
+  if client.server_capabilities.inlayHintProvider then
+    if client.name == "clangd" then
+      vim.lsp.inlay_hint.enable()
+    end
+  end
 end
 
 local capabilities = require("cmp_nvim_lsp").default_capabilities()
@@ -906,7 +912,7 @@ vim.lsp.config("clangd", {
   end,
   capabilities = capabilities,
   init_options = {
-    fallbackFlags = { '--std=c23' }
+    fallbackFlags = { '--std=c23' },
   }
 })
 
