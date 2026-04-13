@@ -1013,7 +1013,8 @@ require('nvim-treesitter').install({
   "zig",
   "c",
   "cpp",
-  "comment"
+  "comment",
+  "cmake"
 })
 
 
