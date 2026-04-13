@@ -938,7 +938,8 @@ vim.lsp.config("clangd", {
   capabilities = capabilities,
   init_options = {
     fallbackFlags = { '--std=c23' },
-  }
+  },
+  cmd = { "clangd", "--header-insertion=never" }
 })
 
 vim.lsp.config("lua_ls", {
