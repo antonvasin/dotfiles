@@ -41,7 +41,7 @@
     "playwright@claude-plugins-official": true,
     "cloudflare@cloudflare": false,
     "security-guidance@claude-plugins-official": false,
-    "figma@claude-plugins-official": false
+    "figma@claude-plugins-official": true
   },
-  "effortLevel": "medium"
+  "effortLevel": "high"
 }
