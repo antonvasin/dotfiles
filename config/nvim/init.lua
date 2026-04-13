@@ -650,6 +650,16 @@ require('cmake-tools').setup({
         auto_scroll = true,
       },
     }
+  },
+  cmake_executor = {
+    name = "toggleterm",
+    default_opts = {
+      toggleterm = {
+        direction = "horizontal",
+        -- close_on_exit = true,
+        auto_scroll = true,
+      },
+    }
   }
 })
 
