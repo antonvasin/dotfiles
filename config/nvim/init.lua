@@ -816,7 +816,7 @@ local on_attach = function(client, bufnr)
     require("telescope.builtin").lsp_dynamic_workspace_symbols({ show_line = true, symbol_width = 50 })
   end, "LSP workspace symbols ", bufnr)
 
-  map_key("n", "<leader>fS", require("telescope.builtin").lsp_workspace_symbols, "Telescope workspace LSP symbols", bufnr)
+  -- map_key("n", "<leader>fS", require("telescope.builtin").lsp_workspace_symbols, "Telescope workspace LSP symbols", bufnr)
 
   -- if vim.fn.exists("&makeprg") == 1 then
   --   -- Bind <leader>m to :make<CR>
