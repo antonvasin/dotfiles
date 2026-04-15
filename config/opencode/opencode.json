@@ -49,6 +49,22 @@
     }
   },
   "plugin": ["opencode-claude-auth"],
+  "mcp": {
+    "playwright": {
+      "type": "local",
+      "command": ["npx", "@playwright/mcp@latest"],
+      "enabled": true
+    },
+    "figma": {
+      "enabled": true,
+      "type": "remote",
+      "url": "https://mcp.figma.com/mcp",
+      "oauth": {
+        "clientId": "YqE7gbzDwiF4eU1LizTABm",
+        "clientSecret": "Z4jmVT08zOGFlN7PZHheCLFmwzLusw"
+      }
+    }
+  },
   "permission": {
     "bash": {
       "*": "ask",
@@ -62,7 +78,10 @@
       "git restore*": "ask",
       "git reset*": "ask",
       "git clean*": "deny",
-      "git worktree*": "ask"
+      "git worktree*": "ask",
+      "npm run types": "allow",
+      "npm run test": "allow",
+      "npm run build": "allow"
     }
   }
 }
