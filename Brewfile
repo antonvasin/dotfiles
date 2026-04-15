@@ -143,6 +143,7 @@ mas "TextSniper", id: 1528890965
 mas "uBlock Origin Lite", id: 6745342698
 mas "Vimari", id: 1480933944
 mas "Vinegar", id: 1591303229
+mas "Xcode", id: 497799835
 uv "huggingface-hub"
 uv "python-lsp-server"
 uv "ruff"
