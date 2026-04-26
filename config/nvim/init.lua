@@ -155,8 +155,16 @@ vim.opt.cmdheight = 1
 -- folding
 vim.opt.foldenable = true
 vim.opt.foldmethod = "manual"
-vim.wo[0][0].foldexpr = 'v:lua.vim.treesitter.foldexpr()'
-vim.wo[0][0].foldmethod = 'expr'
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = { 'c', 'c++', 'zig', 'rust', 'python', 'typescript', 'javascript', 'lua' },
+  callback = function()
+    vim.treesitter.start()                                            -- highlighting
+    vim.wo.foldexpr = 'v:lua.vim.treesitter.foldexpr()'               -- folds
+    vim.wo.foldmethod = 'expr'
+    vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()" -- indentation
+  end,
+})
+
 vim.opt.foldlevelstart = 99
 
 -- do not highlight lines longer than 800 char
