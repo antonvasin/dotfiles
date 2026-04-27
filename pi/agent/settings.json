@@ -1,8 +1,8 @@
 {
-  "defaultModel": "claude-opus-4-6",
-  "defaultProvider": "anthropic",
-  "lastChangelogVersion": "0.62.0",
-  "defaultThinkingLevel": "xhigh",
+  "defaultModel": "qwen/qwen3.6-plus",
+  "defaultProvider": "openrouter",
+  "lastChangelogVersion": "0.70.2",
+  "defaultThinkingLevel": "high",
   "enabledModels": [
     "anthropic/claude-opus-4-6",
     "anthropic/claude-sonnet-4-6",
