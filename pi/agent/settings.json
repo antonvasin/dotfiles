@@ -9,5 +9,8 @@
     "anthropic/claude-sonnet-4-6",
     "llama-cpp/unsloth/Qwen3.5-35B-A3B-GGUF:UD-Q4_K_XL"
   ],
-  "hideThinkingBlock": false
+  "hideThinkingBlock": false,
+  "packages": [
+    "npm:pi-sandbox"
+  ]
 }
