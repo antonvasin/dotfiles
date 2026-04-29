@@ -1,5 +1,5 @@
 {
-  "defaultModel": "qwen/qwen3.6-plus",
+  "defaultModel": "moonshotai/kimi-k2.6",
   "defaultProvider": "openrouter",
   "lastChangelogVersion": "0.70.2",
   "defaultThinkingLevel": "high",
