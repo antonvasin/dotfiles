@@ -17,8 +17,11 @@ ghR() {
 gWA() {
   git branch $2
   git worktree add $1 $2
-  if [ -e CLAUDE.md ] cp CLAUDE.md $1/
-  if [ -e .env ] cp .env $1/
-  if [ -e .claude ] cp -r .claude $1/
+  if [[ -f CLAUDE.md ]] cp CLAUDE.md $1/
+  if [[ -e .env ]] cp .env $1/
+  if [[ -d .claude ]] cp -r .claude $1/
+  if [[ -d node_modules ]] cp -r node_modules $1/
+  if [[ -n *.pem ]] cp *.pem $1/
+  if [[ -n *.key ]] cp *.key $1/
   cd $1
 }
