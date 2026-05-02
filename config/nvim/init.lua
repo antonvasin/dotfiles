@@ -562,6 +562,13 @@ telescope.load_extension("ui-select")
 
 -- toggleterm
 require('toggleterm').setup({
+  size = function(term)
+    if term.direction == "horizontal" then
+      return vim.o.lines * 0.25
+    elseif term.direciton == "vertical" then
+      return vim.o.columns * 0.33
+    end
+  end,
   open_mapping = '`',
   shade_terminals = false
 })
