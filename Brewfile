@@ -136,6 +136,7 @@ mas "Numbers", id: 361304891
 mas "Obsidian Web Clipper", id: 6720708363
 mas "Pages", id: 409201541
 mas "Parcel Classic", id: 639968404
+mas "PrettyJSON for Safari", id: 1445328303
 mas "Reeder", id: 1529448980
 mas "Tampermonkey Classic", id: 1482490089
 mas "TEFViewAS", id: 542912513

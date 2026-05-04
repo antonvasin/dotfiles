@@ -1,6 +1,6 @@
 {
-  "defaultModel": "moonshotai/kimi-k2.6",
-  "defaultProvider": "openrouter",
+  "defaultModel": "unsloth/Qwen3.6-27B-GGUF:Q8_0",
+  "defaultProvider": "llama-cpp",
   "lastChangelogVersion": "0.70.2",
   "defaultThinkingLevel": "high",
   "enabledModels": [

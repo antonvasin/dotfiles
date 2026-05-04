@@ -6,7 +6,7 @@
       "apiKey": "none",
       "models": [
         {
-          "id": "unsloth/Qwen3.5-35B-A3B-GGUF:UD-Q4_K_XL"
+          "id": "unsloth/Qwen3.6-27B-GGUF:Q8_0"
         }
       ]
     }
