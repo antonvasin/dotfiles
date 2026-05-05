@@ -1,5 +1,5 @@
 {
-  "defaultModel": "unsloth/Qwen3.6-27B-GGUF:Q8_0",
+  "defaultModel": "qwen-3.6-27b",
   "defaultProvider": "llama-cpp",
   "lastChangelogVersion": "0.70.2",
   "defaultThinkingLevel": "high",
