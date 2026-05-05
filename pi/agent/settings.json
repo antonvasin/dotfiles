@@ -5,9 +5,8 @@
   "defaultThinkingLevel": "high",
   "enabledModels": [
     "openrouter/qwen/qwen3.6-plus",
-    "anthropic/claude-opus-4-6",
-    "anthropic/claude-sonnet-4-6",
-    "llama-cpp/unsloth/Qwen3.5-35B-A3B-GGUF:UD-Q4_K_XL"
+    "openrouter/moonshotai/kimi-k2.6",
+    "llama-cpp/qwen-3.6-27b"
   ],
   "hideThinkingBlock": false,
   "packages": [
