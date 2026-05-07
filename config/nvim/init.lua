@@ -1230,4 +1230,16 @@ vim.keymap.set("n", "Q", close_window_or_kill_buffer, { silent = true })
 -- Plugins
 vim.keymap.set("n", "<leader>lu", function() vim.pack.update() end, { desc = "Update plugins" })
 
+
+local Terminal = require('toggleterm.terminal').Terminal
+local llm_term = Terminal:new({
+  cmd = "pi",
+  hidden = true,
+  direction = "float",
+  display_name = "LLM",
+  auto_scroll = true,
+})
+
+vim.keymap.set({ 'n', 't' }, "<leader>ll", function() llm_term:toggle() end, { noremap = true, silent = true })
+
 -------- KEYS --------
