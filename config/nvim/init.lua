@@ -303,7 +303,7 @@ end
 override_default_theme()
 
 -- Tab symbols, etc
-vim.opt.listchars = "tab:▸ ,eol:¬,extends:❯,precedes:❮,nbsp:␣"
+vim.opt.listchars = "space:·,leadmultispace:···•,trail:◦,tab:▸▹,eol:¬,extends:❯,precedes:❮,nbsp:␣"
 vim.opt.fillchars = "vert:│"
 
 -- Display only current cursorline
@@ -1090,6 +1090,7 @@ local bufopts = { noremap = true, silent = true }
 vim.keymap.set("n", "<leader>tl", function()
   require('indentmini').toggle()
   vim.opt.list = not vim.o.list
+  vim.opt.colorcolumn = vim.o.colorcolumn == "" and "100" or ""
 end, { desc = '[T]oggle hidden characters and indent [l]ines' })
 vim.keymap.set("n", "<leader><space>", ":nohl<cr>")
 vim.keymap.set("n", "<leader>lw", ":%s/^\\s\\+<cr>:nohl<cr>")
