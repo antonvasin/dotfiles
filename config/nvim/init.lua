@@ -920,6 +920,17 @@ vim.lsp.config("*", {
 
 require("lspconfig")
 
+vim.lsp.config('ts_ls', {
+  capabilities = capabilities,
+  on_attach = on_attach,
+  filetypes = {
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact",
+  },
+})
+
 vim.lsp.config("denols", {
   root_dir = root_pattern("deno.json", "deno.jsonc", "mod.ts", "import_map.json", "lock.json"),
   capabilities = capabilities,
