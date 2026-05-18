@@ -79,7 +79,8 @@ vim.pack.add({
   'https://github.com/akinsho/toggleterm.nvim',
 
   -- Syntax
-  { src = 'https://github.com/nvim-treesitter/nvim-treesitter', version = 'main' },
+  { src = 'https://github.com/neovim-treesitter/nvim-treesitter', version = 'main' },
+  'https://github.com/neovim-treesitter/treesitter-parser-registry',
   'https://github.com/nvim-treesitter/nvim-treesitter-context',
   'https://github.com/nvim-treesitter/nvim-treesitter-textobjects',
   'https://github.com/tpope/vim-jdaddy',
@@ -156,7 +157,7 @@ vim.opt.cmdheight = 1
 vim.opt.foldenable = true
 vim.opt.foldmethod = "manual"
 vim.api.nvim_create_autocmd('FileType', {
-  pattern = { 'c', 'c++', 'zig', 'rust', 'python', 'typescript', 'javascript', 'lua' },
+  pattern = { 'c', 'c++', 'zig', 'rust', 'python', 'tsx', 'jsx', 'typescript', 'javascript', 'typescriptreact', 'javascriptreact', 'lua' },
   callback = function()
     vim.treesitter.start()                              -- highlighting
     vim.wo.foldexpr = 'v:lua.vim.treesitter.foldexpr()' -- folds
@@ -284,7 +285,7 @@ local function override_default_theme()
   -- Use default theme with overrides
   -- https://github.com/neovim/neovim/blob/master/src/nvim/highlight_group.c#L144
   -- https://github.com/nshern/neovim-default-colorscheme-extras?tab=readme-ov-file
-
+  vim.cmd('hi Statement gui=bold cterm=bold')
   -- vim.api.nvim_set_hl(0, "Function", {})
   -- mute import/export, etc
   vim.api.nvim_set_hl(0, "Cursor", { bg = "NvimLightBlue", fg = "White" })
@@ -894,6 +895,8 @@ end
 local capabilities = require("cmp_nvim_lsp").default_capabilities()
 capabilities.textDocument.completion.completionItem.snippetSupport = true
 
+require("lspconfig")
+
 local enabled_servers = {
   "ts_ls",
   "lua_ls",
@@ -917,8 +920,6 @@ vim.lsp.config("*", {
   on_attach = on_attach,
   capabilities = capabilities,
 })
-
-require("lspconfig")
 
 vim.lsp.config('ts_ls', {
   capabilities = capabilities,
@@ -1069,21 +1070,21 @@ require('Comment').setup {
 
 null_ls.setup({
   sources = {
-    null_ls.builtins.formatting.prettier.with({
-      prefer_local = "node_modules/.bin",
-      filetypes = {
-        "javascript",
-        "javascriptreact",
-        "typescript",
-        "typescriptreact",
-        "css",
-        "scss",
-        "html",
-        "json",
-        "yaml",
-        "graphql",
-      },
-    }),
+    -- null_ls.builtins.formatting.prettier.with({
+    --   prefer_local = "node_modules/.bin",
+    --   filetypes = {
+    --     "javascript",
+    --     "javascriptreact",
+    --     "typescript",
+    --     "typescriptreact",
+    --     "css",
+    --     "scss",
+    --     "html",
+    --     "json",
+    --     "yaml",
+    --     "graphql",
+    --   },
+    -- }),
     -- null_ls.builtins.diagnostics.actionlint,
     -- null_ls.builtins.diagnostics.eslint,
     -- null_ls.builtins.code_actions.eslint,
