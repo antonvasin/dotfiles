@@ -40,7 +40,7 @@ M.providers = {
 	},
 	llamacpp = {
 		url = "http://localhost:2276/v1/chat/completions",
-		model = "qwen-3.5-medium-35b-a3b-q4",
+		model = "qwen-3.6-27b",
 		handle_spec_data = function(data_stream)
 			if data_stream:match('"delta":') then
 				local json = vim.json.decode(data_stream)

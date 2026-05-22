@@ -1200,7 +1200,7 @@ scratch.setup()
 vim.keymap.set("n", "<leader>S", scratch.open_scratch_float, bufopts)
 
 local llm = require("llm")
-vim.keymap.set({ "n", "v" }, "<leader>i", function()
+vim.keymap.set({ "n", "v" }, "<leader>lm", function()
   llm.invoke_llm_and_stream_into_editor({ replace = true, provider = "llamacpp" })
 end, { desc = "LLM Completion" })
 
