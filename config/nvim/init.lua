@@ -796,14 +796,6 @@ end
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
 local on_attach = function(client, bufnr)
-  if root_pattern("deno.json", "deno.jsonc")(vim.fn.getcwd()) then
-    null_ls.disable("prettier")
-    if client.name == "ts_ls" then
-      client.stop()
-      return
-    end
-  end
-
   -- Mappings.
   -- See `:help vim.lsp.*` for documentation on any of the below functions
   map_key("n", "gd", vim.lsp.buf.definition, "LSP Go to definition", bufnr)
@@ -921,7 +913,21 @@ vim.lsp.config("*", {
   capabilities = capabilities,
 })
 
+local function is_deno()
+  local deno_files = { 'deno.json', 'deno.jsonc', 'deno.lock' }
+
+  for _, filepath in ipairs(deno_files) do
+    filepath = table.concat({ vim.fn.getcwd(), filepath }, '/')
+
+    if vim.uv.fs_stat(filepath) ~= nil then return true end
+  end
+
+  return false
+end
+
 vim.lsp.config('ts_ls', {
+  -- root_dir = root_pattern("tsconfig.json"),
+  enabled = not is_deno(),
   capabilities = capabilities,
   on_attach = on_attach,
   filetypes = {
@@ -933,17 +939,18 @@ vim.lsp.config('ts_ls', {
 })
 
 vim.lsp.config("denols", {
-  root_dir = root_pattern("deno.json", "deno.jsonc", "mod.ts", "import_map.json", "lock.json"),
+  -- root_dir = root_pattern("deno.json", "deno.jsonc", "mod.ts", "import_map.json", "lock.json"),
   capabilities = capabilities,
+  enabled = is_deno(),
   on_attach = on_attach,
-  -- filetypes = {
-  --   "javascript",
-  --   "javascriptreact",
-  --   "javascript.jsx",
-  --   "typescript",
-  --   "typescriptreact",
-  --   "typescript.tsx",
-  -- },
+  filetypes = {
+    "javascript",
+    "javascriptreact",
+    "javascript.jsx",
+    "typescript",
+    "typescriptreact",
+    "typescript.tsx",
+  },
 })
 
 vim.lsp.config("jsonls", {
