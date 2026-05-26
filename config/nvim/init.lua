@@ -1107,11 +1107,16 @@ vim.g.zig_fmt_autosave = 0
 -------- KEYS --------
 local bufopts = { noremap = true, silent = true }
 -- Leader maps
-vim.keymap.set("n", "<leader>tl", function()
-  require('indentmini').toggle()
+local function toggle_symbols()
   vim.opt.list = not vim.o.list
   vim.opt.colorcolumn = vim.o.colorcolumn == "" and "100" or ""
-end, { desc = '[T]oggle hidden characters and indent [l]ines' })
+end
+vim.keymap.set("n", "<leader>tl", toggle_symbols, { desc = '[t]oggle hidden characters' })
+vim.keymap.set("n", "<leader>tL", function()
+  require('indentmini').toggle()
+  toggle_symbols()
+end, { desc = '[t]oggle hidden characters and indent [L]ines' })
+
 vim.keymap.set("n", "<leader><space>", ":nohl<cr>")
 vim.keymap.set("n", "<leader>lw", ":%s/^\\s\\+<cr>:nohl<cr>")
 vim.keymap.set("n", "<leader>bl", ":g/^$/d<cr>:nohl<cr>", { desc = "Collapse all empty lines" })
