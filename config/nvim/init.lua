@@ -1091,6 +1091,7 @@ null_ls.setup({
         "json",
         "yaml",
         "graphql",
+        "markdown",
       },
     }),
     -- null_ls.builtins.diagnostics.actionlint,
