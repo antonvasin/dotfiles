@@ -68,3 +68,5 @@ docker-compose.override.yml
 Session.vim
 .ccls-cache
 .env
+
+**/.claude/settings.local.json
