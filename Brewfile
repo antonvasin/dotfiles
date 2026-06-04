@@ -13,7 +13,7 @@ brew "colima"
 brew "coreutils"
 brew "cuetools"
 brew "deno"
-brew "docker"
+brew "docker", link: false
 brew "docker-compose"
 brew "dos2unix"
 brew "harfbuzz"
