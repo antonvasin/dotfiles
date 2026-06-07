@@ -85,7 +85,7 @@ vim.pack.add({
   'https://github.com/nvim-treesitter/nvim-treesitter-textobjects',
   'https://github.com/tpope/vim-jdaddy',
   'https://github.com/neoclide/jsonc.vim',
-  'https://github.com/ziglang/zig.vim',
+  'https://codeberg.org/ziglang/zig.vim',
   'https://github.com/chrisgrieser/nvim-spider',
   'https://github.com/tpope/vim-sleuth',
 
@@ -1030,8 +1030,9 @@ vim.lsp.config("zls", {
   capabilities = capabilities,
   settings = {
     zls = {
-      enable_build_on_save = true,
+      -- enable_build_on_save = true,
       semantic_tokens = "partial",
+      build_on_save_args = { "-fincremental" }
     }
   }
 })
@@ -1060,7 +1061,6 @@ require('nvim-treesitter').install({
   "cpp",
   "comment",
   "cmake",
-  "zig"
 })
 
 
@@ -1101,7 +1101,7 @@ null_ls.setup({
   on_attach = on_attach,
 })
 
-vim.g.zig_fmt_autosave = 0
+-- vim.g.zig_fmt_autosave = 0
 
 -------- LSP --------
 
@@ -1255,7 +1255,7 @@ end
 vim.keymap.set("n", "Q", close_window_or_kill_buffer, { silent = true })
 
 -- Plugins
-vim.keymap.set("n", "<leader>lu", function() vim.pack.update() end, { desc = "Update plugins" })
+vim.keymap.set("n", "<leader>pu", function() vim.pack.update() end, { desc = "Update plugins" })
 
 
 local Terminal = require('toggleterm.terminal').Terminal
