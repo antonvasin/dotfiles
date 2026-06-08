@@ -809,7 +809,7 @@ local on_attach = function(client, bufnr)
   map_key("n", "gr", vim.lsp.buf.references, "LSP Go to references", bufnr)
 
   map_key("n", "ge", vim.diagnostic.open_float, "LSP Diagnostics", bufnr)
-  map_key("n", "gE", vim.diagnostic.setloclist, "LSP Diagnostics quickfix", bufnr)
+  map_key("n", "gE", vim.diagnostic.setloclist, "LSP Diagnostics populate quickfix", bufnr)
   map_key("n", "]d", function()
     vim.diagnostic.jump({ count = 1, float = true })
   end, "LSP Go to next error", bufnr)
