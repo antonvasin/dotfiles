@@ -1,0 +1,18 @@
+{
+  "defaultModel": "moonshotai/kimi-k2.6",
+  "defaultProvider": "openrouter",
+  "lastChangelogVersion": "0.70.2",
+  "defaultThinkingLevel": "high",
+  "enabledModels": [
+    "openrouter/moonshotai/kimi-k2.6",
+    "llama-cpp/qwen-3.6-27b",
+    "llama-cpp/qwen-3.6-35b-a3b-q4",
+    "llama-cpp/gemma-4-e4b",
+    "openrouter/z-ai/glm-5.1",
+    "openrouter/deepseek/deepseek-v4-flash"
+  ],
+  "hideThinkingBlock": false,
+  "packages": [
+    "npm:pi-sandbox"
+  ]
+}

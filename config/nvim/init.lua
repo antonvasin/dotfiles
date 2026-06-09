@@ -1267,6 +1267,7 @@ local llm_term = Terminal:new({
   auto_scroll = true,
 })
 
-vim.keymap.set({ 'n', 't' }, "<leader>ll", function() llm_term:toggle() end, { noremap = true, silent = true })
+vim.keymap.set({ 'n', 't' }, "<leader>ll", function() llm_term:toggle() end,
+  { noremap = true, silent = true, desc = "Open terminal with coding agent" })
 
 -------- KEYS --------

@@ -63,3 +63,4 @@ if [[ -f ~/.private.zshenv ]]; then
   source ~/.private.zshenv
 fi
 
+export PI_CODING_AGENT_DIR="$HOME/.config/pi/agent"

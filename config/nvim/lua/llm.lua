@@ -5,12 +5,12 @@ local M = {
 local Job = require("plenary.job")
 
 local default_system_prompt =
-"You're a programming assistant. You're being send the code with comments containing description of the task. Replace the code that you've received, only following the comments. Do not talk at all. Only output valid code. Think step by step. Never provide any backticks that surround the code. Any comment that is asking you for something should be removed after you satisfy them. Other comments should be left alone."
+"You're a programming assistant. You're being send the code with comments containing description of the task. Replace the code that you've received, only following the comments. Do not talk at all. Only output valid code. Never provide any backticks that surround the code. Any comment that is asking you for something should be removed after you satisfy them. Other comments should be left alone."
 
 M.providers = {
 	anthropic = {
 		url = "https://api.anthropic.com/v1/messages",
-		model = "claude-opus-4-5",
+		model = "claude-opus-4-8",
 		api_key_name = "NVIM_ANTHROPIC_API_KEY",
 		handle_spec_data = function(data_stream, event_state)
 			if event_state == "content_block_delta" then
@@ -23,7 +23,7 @@ M.providers = {
 	},
 	openai = {
 		url = "https://api.openai.com/v1/chat/completions",
-		model = "gpt-4o",
+		model = "gpt-5.5",
 		-- model = "o1-preview",
 		api_key_name = "NVIM_OPENAI_API_KEY",
 		handle_spec_data = function(data_stream)
@@ -40,7 +40,7 @@ M.providers = {
 	},
 	llamacpp = {
 		url = "http://localhost:2276/v1/chat/completions",
-		model = "qwen-3.6-27b",
+		model = "gemma-4-e4b",
 		handle_spec_data = function(data_stream)
 			if data_stream:match('"delta":') then
 				local json = vim.json.decode(data_stream)
