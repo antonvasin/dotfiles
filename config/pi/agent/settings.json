@@ -1,18 +1,19 @@
 {
-  "defaultModel": "moonshotai/kimi-k2.6",
+  "defaultModel": "z-ai/glm-5.1",
   "defaultProvider": "openrouter",
-  "lastChangelogVersion": "0.70.2",
+  "lastChangelogVersion": "0.79.10",
   "defaultThinkingLevel": "high",
   "enabledModels": [
-    "openrouter/moonshotai/kimi-k2.6",
     "llama-cpp/qwen-3.6-27b",
     "llama-cpp/qwen-3.6-35b-a3b-q4",
     "llama-cpp/gemma-4-e4b",
-    "openrouter/z-ai/glm-5.1",
-    "openrouter/deepseek/deepseek-v4-flash"
+    "openrouter/deepseek/deepseek-v4-flash",
+    "openrouter/z-ai/glm-5.2",
+    "openrouter/moonshotai/kimi-k2.7-code"
   ],
   "hideThinkingBlock": false,
   "packages": [
     "npm:pi-sandbox"
-  ]
+  ],
+  "theme": "light"
 }
