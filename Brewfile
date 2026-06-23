@@ -1,10 +1,10 @@
 tap "anomalyco/tap"
 tap "codecrafters-io/tap"
 tap "gcenx/wine"
-tap "kegworks-app/kegworks"
 tap "osx-cross/arm"
 tap "osx-cross/avr"
 tap "qmk/qmk"
+tap "sikarugir-app/sikarugir", "https://github.com/Sikarugir-App/homebrew-sikarugir.git"
 # Clone of cat(1) with syntax highlighting and Git integration
 brew "bat"
 # Command-line interface for SQLite
@@ -203,8 +203,6 @@ cask "musescore"
 cask "obs"
 # Knowledge base that works on top of a local folder of plain text Markdown files
 cask "obsidian"
-# Get up and running with large language models locally
-cask "ollama-app"
 # Extreme time stretching plugin for audio files
 cask "paulxstretch"
 # Companion app for Flipper Zero devices
