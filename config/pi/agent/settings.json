@@ -14,7 +14,8 @@
   "hideThinkingBlock": false,
   "packages": [
     "npm:pi-sandbox",
-    "git:github.com/huggingface/pi-llama"
+    "git:github.com/huggingface/pi-llama",
+    "npm:@ogulcancelik/pi-web-browse"
   ],
   "theme": "light"
 }
