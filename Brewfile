@@ -91,6 +91,8 @@ brew "llmfit"
 brew "lua-language-server"
 # Apple Silicon Monitor Top written in Go Lang
 brew "mactop"
+# Utility for directing compilation
+brew "make"
 # Mac App Store command-line interface
 brew "mas"
 # Modern programming language in the Lisp/Scheme family
@@ -252,6 +254,7 @@ mas "Tampermonkey Classic", id: 1482490089
 mas "TEFViewAS", id: 542912513
 mas "Telegram", id: 747648890
 mas "TextSniper", id: 1528890965
+mas "Tomito", id: 1526042938
 mas "uBlock Origin Lite", id: 6745342698
 mas "Vimari", id: 1480933944
 mas "Xcode", id: 497799835

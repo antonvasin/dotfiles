@@ -198,6 +198,8 @@ export GPG_TTY=$(tty)
 # Put homebrew java first
 export PATH="/usr/local/opt/openjdk/bin:$PATH"
 
+# GNU make
+export PATH="/opt/homebrew/opt/make/libexec/gnubin:$PATH"
 # bun completions
 [ -s "/Users/antonvasin/.bun/_bun" ] && source "/Users/antonvasin/.bun/_bun"
 # eval "$(register-python-argcomplete pipx)"
