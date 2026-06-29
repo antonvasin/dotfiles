@@ -1,5 +1,5 @@
 {
-  "defaultModel": "z-ai/glm-5.1",
+  "defaultModel": "z-ai/glm-5.2",
   "defaultProvider": "openrouter",
   "lastChangelogVersion": "0.79.10",
   "defaultThinkingLevel": "high",

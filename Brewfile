@@ -151,6 +151,8 @@ brew "wget"
 brew "yt-dlp"
 # UNIX shell (command interpreter)
 brew "zsh"
+# The AI coding agent built for the terminal.
+brew "anomalyco/tap/opencode", trusted: true
 # Command-line interface for 1Password
 cask "1password-cli"
 # Android SDK component
