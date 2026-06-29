@@ -1,8 +1,8 @@
 {
-  "defaultModel": "z-ai/glm-5.2",
-  "defaultProvider": "openrouter",
+  "defaultModel": "unsloth/Qwen3.6-35B-A3B-GGUF:UD-Q4_K_M",
+  "defaultProvider": "llama-cpp",
   "lastChangelogVersion": "0.79.10",
-  "defaultThinkingLevel": "high",
+  "defaultThinkingLevel": "medium",
   "enabledModels": [
     "openrouter/deepseek/deepseek-v4-flash",
     "openrouter/z-ai/glm-5.2",
