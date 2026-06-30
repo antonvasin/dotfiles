@@ -259,6 +259,7 @@ mas "TextSniper", id: 1528890965
 mas "Tomito", id: 1526042938
 mas "uBlock Origin Lite", id: 6745342698
 mas "Vimari", id: 1480933944
+mas "WireGuard", id: 1451685025
 mas "Xcode", id: 497799835
 uv "huggingface-hub"
 uv "python-lsp-server"
