@@ -240,10 +240,9 @@ augroup END
 -- (all upper-case letters, at least three characters)
 -- Also will not count acronym with 's' at the end a spelling error
 -- Also will not count numbers that are part of this
--- Recognizes the following as correct:
 vim.opt.spelllang = { "en_gb" }
 vim.cmd([[
-autocmd FileType markdown,text,html setlocal spell
+autocmd FileType markdown,text,html,tex setlocal spell
 hi SpellBad cterm=underdotted
 " hi clear SpellBad
 " hi lCursor guifg=NONE guibg=Cyan
