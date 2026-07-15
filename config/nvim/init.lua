@@ -1111,8 +1111,8 @@ local function toggle_symbols()
   vim.opt.list = not vim.o.list
   vim.opt.colorcolumn = vim.o.colorcolumn == "" and "100" or ""
 end
-vim.keymap.set("n", "<leader>tl", toggle_symbols, { desc = '[t]oggle hidden characters' })
-vim.keymap.set("n", "<leader>tL", function()
+vim.keymap.set("n", "<leader>l", toggle_symbols, { desc = '[t]oggle hidden characters' })
+vim.keymap.set("n", "<leader>L", function()
   require('indentmini').toggle()
   toggle_symbols()
 end, { desc = '[t]oggle hidden characters and indent [L]ines' })
