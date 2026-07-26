@@ -661,7 +661,7 @@ require('cmake-tools').setup({
     default_opts = {
       toggleterm = {
         direction = "horizontal",
-        close_on_exit = true,
+        -- close_on_exit = true,
         auto_scroll = true,
       },
     }
@@ -975,7 +975,8 @@ vim.lsp.config("clangd", {
     map_key("n", "<leader>aa", ":ClangdSwitchSourceHeader<CR>")
     map_key("n", "<leader>av", ":vsp<CR>:ClangdSwitchSourceHeader<CR>")
     map_key("n", "<leader>ax", ":sp<CR>:ClangdSwitchSourceHeader<CR>")
-    map_key("n", "<leader>cr", ":CMakeRun<CR>")
+    map_key("n", "<leader>rr", ":CMakeRun<CR>")
+    map_key("n", "<leader>rt", ":CMakeRunTest<CR>")
     on_attach(client, buf)
   end,
   capabilities = capabilities,
