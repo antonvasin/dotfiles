@@ -264,6 +264,4 @@ mas "Xcode", id: 497799835
 uv "huggingface-hub"
 uv "python-lsp-server"
 uv "ruff"
-npm "@anthropic-ai/claude-code"
 npm "corepack"
-npm "pi-sandbox"
