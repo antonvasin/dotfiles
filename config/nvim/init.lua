@@ -732,12 +732,12 @@ cmp.setup({
     { name = "lazydev" },
     { name = "emoji" },
   },
-  completion = {
-    winhighlight = "Normal:Pmenu,FloatBorder:Pmenu,Search:None",
-    col_offset = -3,
-    side_padding = 0,
-    autocomplete = false,
-  },
+  -- completion = {
+  --   winhighlight = "Normal:Pmenu,FloatBorder:Pmenu,Search:None",
+  --   col_offset = -3,
+  --   side_padding = 0,
+  --   autocomplete = false,
+  -- },
   window = {
     completion = cmp.config.window.bordered({}),
     documentation = cmp.config.window.bordered({}),
