@@ -147,6 +147,8 @@ brew "volta"
 brew "watch"
 # Internet file retriever
 brew "wget"
+# HTTP benchmarking tool
+brew "wrk"
 # Feature-rich command-line audio/video downloader
 brew "yt-dlp"
 # UNIX shell (command interpreter)
