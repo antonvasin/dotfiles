@@ -798,14 +798,17 @@ local on_attach = function(client, bufnr)
   -- Mappings.
   -- See `:help vim.lsp.*` for documentation on any of the below functions
   map_key("n", "gd", vim.lsp.buf.definition, "LSP Go to definition", bufnr)
+  map_key("n", "<leader>gd", vim.lsp.buf.definition, "LSP Go to definition", bufnr)
   map_key("n", "gD", vim.lsp.buf.type_definition, "LSP Go to type declaration", bufnr)
+  map_key("n", "<leader>gD", vim.lsp.buf.type_definition, "LSP Go to type declaration", bufnr)
   map_key("n", "K", function() vim.lsp.buf.hover { border = 'single', max_height = 25, max_width = 80 } end, "LSP Hover",
     bufnr)
-  map_key("n", "gi", vim.lsp.buf.implementation, "LSP Implementation", bufnr)
+  map_key("n", "<leader>gi", vim.lsp.buf.implementation, "LSP Implementation", bufnr)
   map_key("n", "<leader>r", vim.lsp.buf.rename, "LSP Rename", bufnr)
   map_key("n", "<leader>.", vim.lsp.buf.code_action, "LSP Code Action", bufnr)
   map_key("v", "<leader>.", vim.lsp.buf.code_action, "LSP Code Action", bufnr)
   map_key("n", "gr", vim.lsp.buf.references, "LSP Go to references", bufnr)
+  map_key("n", "<leader>gr", vim.lsp.buf.references, "LSP Go to references", bufnr)
 
   map_key("n", "ge", vim.diagnostic.open_float, "LSP Diagnostics", bufnr)
   map_key("n", "gE", vim.diagnostic.setloclist, "LSP Diagnostics populate quickfix", bufnr)
