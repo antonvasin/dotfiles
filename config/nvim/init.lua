@@ -733,8 +733,8 @@ cmp.setup({
     { name = "emoji" },
   },
   completion = {
-    -- winhighlight = "Normal:Pmenu,FloatBorder:Pmenu,Search:None",
-    -- col_offset = -3,
+    winhighlight = "Normal:Pmenu,FloatBorder:Pmenu,Search:None",
+    col_offset = -3,
     side_padding = 1,
     autocomplete = false,
   },
