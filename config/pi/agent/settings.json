@@ -1,11 +1,11 @@
 {
-  "defaultModel": "unsloth/Qwen3.8-27B-GGUF:Q4_K_M",
+  "defaultModel": "unsloth/Qwen3.8-27B-GGUF:Q8_0",
   "defaultProvider": "llama.cpp",
   "lastChangelogVersion": "0.84.2",
   "defaultThinkingLevel": "high",
   "enabledModels": [
     "openrouter/deepseek/deepseek-v4-flash",
-    "llama.cpp/unsloth/Qwen3.8-27B-GGUF:Q4_K_M"
+    "llama.cpp/unsloth/Qwen3.8-27B-GGUF:Q8_0"
   ],
   "hideThinkingBlock": false,
   "packages": [
