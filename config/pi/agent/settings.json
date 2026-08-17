@@ -11,7 +11,7 @@
   "packages": [
     "npm:pi-sandbox",
     "git:github.com/huggingface/pi-llama",
-    "npm:@ogulcancelik/pi-web-browse"
+    "npm:pi-web-access"
   ],
   "theme": "light"
 }
