@@ -73,6 +73,8 @@ brew "gnuplot"
 brew "go"
 # Graph visualization software from AT&T and Bell Labs
 brew "graphviz"
+# Improved top (interactive process viewer)
+brew "htop"
 # Java language specific implementation of the Language Server Protocol
 brew "jdtls"
 # JSON output from a shell
