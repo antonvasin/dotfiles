@@ -239,6 +239,32 @@ cask "utm"
 cask "vlc"
 # Video communication and virtual meeting platform
 cask "zoom"
+mas "1Blocker", id: 1365531024
+mas "1Password for Safari", id: 1569813296
+mas "Amphetamine", id: 937984704
+mas "Are.na for Safari", id: 1497800947
+mas "Capo", id: 696977615
+mas "DeathStranding", id: 6449748961
+mas "Developer", id: 640199958
+mas "GarageBand", id: 682658836
+mas "iMovie", id: 408981434
+mas "JSON Peep", id: 1458969831
+mas "Keynote", id: 409183694
+mas "Numbers", id: 361304891
+mas "Obsidian Web Clipper", id: 6720708363
+mas "Pages", id: 409201541
+mas "Parcel Classic", id: 639968404
+mas "PrettyJSON for Safari", id: 1445328303
+mas "Reeder", id: 1529448980
+mas "Tampermonkey Classic", id: 1482490089
+mas "TEFViewAS", id: 542912513
+mas "Telegram", id: 747648890
+mas "TextSniper", id: 1528890965
+mas "Tomito", id: 1526042938
+mas "uBlock Origin Lite", id: 6745342698
+mas "Vimari", id: 1480933944
+mas "WireGuard", id: 1451685025
+mas "Xcode", id: 497799835
 uv "huggingface-hub"
 uv "python-lsp-server"
 uv "ruff"
