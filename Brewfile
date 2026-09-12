@@ -159,8 +159,6 @@ brew "zsh"
 brew "anomalyco/tap/opencode", trusted: true
 # Command-line interface for 1Password
 cask "1password-cli"
-# Android SDK component
-cask "android-platform-tools"
 # Memory training application
 cask "anki"
 # Multi-track audio editor and recorder
@@ -171,14 +169,10 @@ cask "basictex"
 cask "blackhole-16ch"
 # Virtual Audio Driver
 cask "blackhole-2ch"
-# Web browser focusing on privacy
-cask "brave-browser"
 # E-books management software
 cask "calibre"
 # Open links in any browser
 cask "choosy"
-# Anthropic's official Claude AI desktop app
-cask "claude"
 # C and C++ IDE
 cask "clion"
 # API documentation browser and code snippet manager
@@ -189,6 +183,7 @@ cask "discord"
 cask "firefox"
 cask "font-aporetic"
 cask "font-iosevka"
+cask "font-ioskeley-mono"
 # Terminal emulator that uses platform-native UI and GPU acceleration
 cask "ghostty"
 # Web browser
@@ -217,8 +212,6 @@ cask "paulxstretch"
 cask "qflipper"
 # Toolbox companion for QMK Firmware
 cask "qmk-toolbox"
-# Digital audio production application
-cask "reaper"
 # Move and resize windows using keyboard shortcuts or snap areas
 cask "rectangle"
 # System monitor for the menu bar
@@ -237,8 +230,6 @@ cask "tuxguitar"
 cask "utm"
 # Multimedia player
 cask "vlc"
-# Video communication and virtual meeting platform
-cask "zoom"
 mas "1Blocker", id: 1365531024
 mas "1Password for Safari", id: 1569813296
 mas "Amphetamine", id: 937984704
