@@ -83,6 +83,8 @@ brew "wrk"
 brew "yt-dlp"
 # The AI coding agent built for the terminal.
 brew "anomalyco/tap/opencode", trusted: true
+# Mac App Store command-line interface
+brew "mas"
 # Command-line interface for 1Password
 cask "1password-cli"
 # Memory training application
@@ -129,6 +131,10 @@ cask "transmission"
 cask "tuxguitar"
 # Multimedia player
 cask "vlc"
+# Blocks all Keyboard and TouchBar input
+cask "keyboardcleantool"
+# System monitor for the menu bar
+cask "stats"
 mas "1Blocker", id: 1365531024
 mas "1Password for Safari", id: 1569813296
 mas "Amphetamine", id: 937984704
