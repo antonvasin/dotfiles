@@ -7,6 +7,8 @@ echo "Configuring mac OS…"
 if ! which -s brew > /dev/null; then
   echo "Installing Homebrew…"
   ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+else
+  echo "Homebrew already installed"
 fi
 
 echo 'Installing homebrew software…'
@@ -17,6 +19,8 @@ chsh -s $(which zsh)
 
 echo "Installing zim…"
 curl -fsSL https://raw.githubusercontent.com/zimfw/install/master/install.zsh | zsh
+zimfw install
+zimfw build
 
 echo "Installing dotfiles…"
 rcup
