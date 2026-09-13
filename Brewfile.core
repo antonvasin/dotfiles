@@ -60,10 +60,6 @@ cask "font-iosevka"
 cask "font-ioskeley-mono"
 # Terminal emulator that uses platform-native UI and GPU acceleration
 cask "ghostty"
-# Web browser
-cask "google-chrome"
-# Web browser
-cask "firefox"
 # Keyboard customiser
 cask "karabiner-elements"
 # Blocks all Keyboard and TouchBar input

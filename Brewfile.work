@@ -1,0 +1,7 @@
+cask "figma"
+cask "notion"
+cask "slack"
+# Web browser
+cask "firefox"
+# Web browser
+cask "google-chrome"
