@@ -4,7 +4,7 @@
   user = antonvasin
 [core]
   excludesfile = ~/dotfiles/gitignore
-	autocrlf = input
+  autocrlf = input
 [color]
   pager = true
   ui = auto
@@ -80,10 +80,10 @@
 
 [diff]
   tool = difftastic
-	algorithm = histogram
-	interHunkContext = 10
-	colorMoved = zebra
-	colorMovedWS = ignore-all-space
+  algorithm = histogram
+  interHunkContext = 10
+  colorMoved = zebra
+  colorMovedWS = ignore-all-space
 [difftool]
   prompt = false
 [difftool "difftastic"]
@@ -111,4 +111,4 @@
 [commit]
   gpgsign = true
 [init]
-	defaultBranch = main
+  defaultBranch = main
