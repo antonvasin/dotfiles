@@ -33,3 +33,5 @@ launchctl bootstrap gui/$(id -u) ~/Library/LaunchAgents/DotfilesBackup.plist
 
 # echo "Restarting gpg-agent…"
 # killall gpg-agent && gpg-agent --daemon
+
+echo "Run brew bundle --file Brewfile.XXX to setup additional packages"
