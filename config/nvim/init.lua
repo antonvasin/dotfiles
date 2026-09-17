@@ -156,10 +156,18 @@ vim.opt.cmdheight = 1
 -- folding
 vim.opt.foldenable = true
 vim.opt.foldmethod = "manual"
+-- Enable treesitter for any filetype whose parser is actually installed
 vim.api.nvim_create_autocmd('FileType', {
-  pattern = { 'c', 'c++', 'zig', 'rust', 'python', 'tsx', 'jsx', 'typescript', 'javascript', 'typescriptreact', 'javascriptreact', 'lua' },
-  callback = function()
-    vim.treesitter.start()                              -- highlighting
+  callback = function(ev)
+    local lang = vim.treesitter.language.get_lang(ev.match)
+    -- language.add() returns false (it does not throw) when no parser is found
+    if not lang or not vim.treesitter.language.add(lang) then return end
+
+    -- Parsing a very large buffer on every edit is slow enough to be felt
+    local ok, stats = pcall(vim.uv.fs_stat, vim.api.nvim_buf_get_name(ev.buf))
+    if ok and stats and stats.size > 1024 * 1024 then return end
+
+    if not pcall(vim.treesitter.start, ev.buf, lang) then return end
     vim.wo.foldexpr = 'v:lua.vim.treesitter.foldexpr()' -- folds
     vim.wo.foldmethod = 'expr'
     -- vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()" -- indentation
@@ -838,7 +846,7 @@ local on_attach = function(client, bufnr)
       vim.lsp.buf.format({ timeout_ms = 5000 })
     end, "Format buffer", bufnr)
 
-    local autoformat_langs = { "typescript", "javascript", "typescriptreact", "javascriptreact", "lua", "zig" }
+    local autoformat_langs = { "typescript", "javascript", "typescriptreact", "javascriptreact", "lua", "zig", "go" }
 
     -- read languages from a list called autoformat_langs
     for _, lang in ipairs(autoformat_langs) do
@@ -906,6 +914,7 @@ local enabled_servers = {
   "pylsp",
   "html",
   "ruff",
+  "go"
 }
 
 vim.lsp.enable(enabled_servers)
@@ -1047,6 +1056,9 @@ vim.lsp.config("marksman", {
 })
 
 require('nvim-treesitter').install({
+  "ecma",      -- required by javascript, typescript, tsx
+  "jsx",       -- required by javascript, tsx
+  "html_tags", -- required by html
   "javascript",
   "typescript",
   "tsx",
@@ -1064,6 +1076,7 @@ require('nvim-treesitter').install({
   "cpp",
   "comment",
   "cmake",
+  "go"
 })
 
 
