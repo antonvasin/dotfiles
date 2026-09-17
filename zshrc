@@ -1,3 +1,10 @@
+export NVM_LAZY_LOAD=true
+export NVM_AUTO_USE=true
+# Lazy-load `nvm` itself, but not node/npm/npx/tsc/...: .zshenv already puts the
+# default node on PATH, and NVM_NO_USE stops zsh-nvm-x shadowing those real
+# binaries with stubs that would source all of nvm.sh on first use.
+export NVM_NO_USE=true
+
 # Start configuration added by Zim install {{{
 #
 # User configuration sourced by interactive shells
@@ -139,6 +146,8 @@ export KEYTIMEOUT=1
 # use carets as normal symbols
 unsetopt nomatch
 
+export LESS=-R
+
 #### Alias
 alias vim='nvim'
 alias vi='nvim'
@@ -181,14 +190,13 @@ find-alias() {
 zle -N find-alias
 alias za=find-alias
 
-eval "$(op completion zsh)"; compdef _op op
-eval "$(npm completion)"; compdef _op op
+(( $+commands[op] )) && eval "$(op completion zsh)"
+# `command npm` bypasses zsh-nvm-x's lazy-load stub, which would otherwise
+# source all of nvm.sh just to print a completion script.
+eval "$(command npm completion 2>/dev/null)"
 
 # Go
-export GOPATH=$HOME/golang
-export GOROOT=/usr/local/opt/go/libexec
-export PATH=$PATH:$GOPATH/bin
-export PATH=$PATH:$GOROOT/bin
+export GOROOT="$(brew --prefix golang)/libexec"
 
 # GPG
 export GPG_TTY=$(tty)
@@ -206,4 +214,26 @@ alias python=python3
 # Created by `pipx` on 2025-03-01 21:16:25
 # export PATH="$PATH:/Users/avsn/.local/bin"
 
-# broken Claude shell
+# nvm is loaded lazily by zsh-nvm-x (NVM_LAZY_LOAD above); NVM_DIR and the
+# default node on PATH are set in .zshenv. The one thing lazy loading breaks is
+# NVM_AUTO_USE: the plugin's chpwd hook bails out unless nvm is already loaded,
+# so .nvmrc switching would silently never happen. Load nvm for real the first
+# time we are inside a project that has an .nvmrc; after that the plugin's own
+# hook takes over.
+autoload -U add-zsh-hook
+_nvm_load_for_nvmrc() {
+  (( $+functions[nvm_find_nvmrc] )) && return  # nvm already loaded
+  local dir=$PWD
+  while [[ -n $dir ]]; do
+    if [[ -r $dir/.nvmrc ]]; then
+      _zsh_nvm_x_load
+      _zsh_nvm_x_auto_use
+      return
+    fi
+    dir=${dir%/*}
+  done
+}
+add-zsh-hook chpwd _nvm_load_for_nvmrc
+_nvm_load_for_nvmrc
+
+export PATH=/opt/homebrew/share/google-cloud-sdk/bin:"$PATH"

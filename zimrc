@@ -59,4 +59,4 @@ zmodule minimal
 zmodule prompt-pwd
 zmodule fasd
 zmodule homebrew
-
+zmodule seebeen/zsh-nvm-x

@@ -59,6 +59,24 @@ export JAVA_HOME="/usr/local/opt/openjdk/libexec/openjdk.jdk/Contents/Home"
 export PATH="/Users/avsn/.volta/bin:$PATH"
 export HOMEBREW_BUNDLE_FILE_GLOBAL="/Users/avsn/dotfiles/Brewfile"
 
+# nvm. NVM_DIR must be set here (not in .zshrc) so it is already correct when
+# zim loads zsh-nvm-x, which otherwise defaults to ~/.nvm and clones a second,
+# empty copy of nvm there.
+export NVM_DIR="$XDG_CONFIG_HOME/nvm"
+
+# Put the default node version on PATH in every shell without sourcing nvm.sh
+# (~250ms). This has to be a real PATH entry, not a lazy-load shell function:
+# `#!/usr/bin/env node` shims - neovim/mason's typescript-language-server, for
+# one - are exec'd directly and never see shell functions. `nvm use` and .nvmrc
+# still take precedence, since nvm prepends and replaces its own entry.
+if [[ -r $NVM_DIR/alias/default ]]; then
+  () {
+    local default_version=$(<$NVM_DIR/alias/default)
+    local -a bin=($NVM_DIR/versions/node/v${default_version}*/bin(Nn/))
+    (( $#bin )) && path=($bin[-1] $path)
+  }
+fi
+
 # Setup private env
 if [[ -f ~/.private.zshenv ]]; then
   source ~/.private.zshenv
