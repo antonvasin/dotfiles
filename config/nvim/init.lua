@@ -105,6 +105,7 @@ vim.pack.add({
   'https://github.com/hrsh7th/nvim-cmp',
   'https://github.com/folke/lazydev.nvim',
   'https://github.com/nvimtools/none-ls.nvim',
+  'https://github.com/nvimtools/none-ls-extras.nvim',
   'https://github.com/ranjithshegde/ccls.nvim',
   'https://github.com/Civitasv/cmake-tools.nvim',
   'https://github.com/mfussenegger/nvim-jdtls',
@@ -1095,7 +1096,7 @@ require('Comment').setup {
 null_ls.setup({
   sources = {
     null_ls.builtins.formatting.prettier.with({
-      prefer_local = "node_modules/.bin",
+      prefer_local = "node_modules/.bin/prettier",
       filetypes = {
         "javascript",
         "javascriptreact",
@@ -1110,6 +1111,8 @@ null_ls.setup({
         "markdown",
       },
     }),
+    require('none-ls.diagnostics.eslint_d'),
+    require('none-ls.code_actions.eslint_d'),
     -- null_ls.builtins.diagnostics.actionlint,
     -- null_ls.builtins.diagnostics.eslint,
     -- null_ls.builtins.code_actions.eslint,
