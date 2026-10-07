@@ -543,7 +543,8 @@ telescope.setup({
   defaults = {
     layout_strategy = "vertical",
     layout_config = { height = 0.9, width = 0.9 },
-    path_display = { shorten = 2 },
+    -- path_display = { shorten = 2 },
+    -- path_display = "smart",
     mappings = {
       i = {
         ["<esc>"] = actions.close,
@@ -788,6 +789,15 @@ local null_ls = require("null-ls")
 require("mason").setup()
 require("mason-lspconfig").setup({
   automatic_installation = true,
+  ensure_installed = {
+    "ts_ls",
+    "jsonls",
+    "cssls",
+    "tailwindcss",
+    -- "prettier",
+    -- "eslint_d",
+    "gopls",
+  }
 })
 
 local function map_key(mode, map, fn, desc, buffer)
@@ -1096,7 +1106,7 @@ require('Comment').setup {
 null_ls.setup({
   sources = {
     null_ls.builtins.formatting.prettier.with({
-      prefer_local = "node_modules/.bin/prettier",
+      prefer_local = "node_modules/.bin",
       filetypes = {
         "javascript",
         "javascriptreact",
@@ -1289,4 +1299,7 @@ local llm_term = Terminal:new({
 vim.keymap.set({ 'n', 't' }, "<leader>ll", function() llm_term:toggle() end,
   { noremap = true, silent = true, desc = "Open terminal with coding agent" })
 
+
+vim.keymap.set({ 'n', 'v' }, "<leader>cp", ':let @+ = expand("%"")',
+  { silent = true, noremap = true, desc = "Copy current file path" })
 -------- KEYS --------
