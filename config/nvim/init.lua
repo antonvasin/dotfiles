@@ -1157,4 +1157,7 @@ vim.keymap.set({ 'n', 't' }, "<leader>ll", function() llm_term:toggle() end,
 
 vim.keymap.set({ 'n', 'v' }, "<leader>cp", ':let @+ = expand("%"")',
   { silent = true, noremap = true, desc = "Copy current file path" })
+
+vim.keymap.set({ "n", "x" }, "<leader>gl", function() require("gitlink").copy() end,
+  { desc = "Copy GitHub link to current line or selection" })
 -------- KEYS --------
