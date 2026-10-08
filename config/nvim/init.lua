@@ -1155,7 +1155,7 @@ vim.keymap.set({ 'n', 't' }, "<leader>ll", function() llm_term:toggle() end,
   { noremap = true, silent = true, desc = "Open terminal with coding agent" })
 
 
-vim.keymap.set({ 'n', 'v' }, "<leader>cp", ':let @+ = expand("%"")',
+vim.keymap.set({ 'n', 'v' }, "<leader>cp", function() vim.fn.setreg("+", vim.fn.expand("%")) end,
   { silent = true, noremap = true, desc = "Copy current file path" })
 
 vim.keymap.set({ "n", "x" }, "<leader>gl", function() require("gitlink").copy() end,
